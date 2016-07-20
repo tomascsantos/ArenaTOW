@@ -2,8 +2,8 @@ package io.github.TcFoxy.ArenaTOW.playerModifiers.ArenaClass.Powers;
 
 import io.github.TcFoxy.ArenaTOW.ArenaTOW;
 import io.github.TcFoxy.ArenaTOW.Utils;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.interfaces.NMSUtils;
 import io.github.TcFoxy.ArenaTOW.playerModifiers.ArenaClass.ArenaClassController;
 
 import java.util.ArrayList;

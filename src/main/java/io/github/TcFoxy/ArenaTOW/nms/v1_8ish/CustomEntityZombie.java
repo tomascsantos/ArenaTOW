@@ -1,6 +1,7 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_8ish;
 
 import java.lang.reflect.Field;
+import java.util.LinkedHashSet;
 
 import net.minecraft.server.v1_10_R1.EntityHuman;
 import net.minecraft.server.v1_10_R1.EntityZombie;
@@ -13,7 +14,6 @@ import net.minecraft.server.v1_10_R1.World;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_10_R1.util.UnsafeList;
 	 
 	public class CustomEntityZombie extends EntityZombie {
 	 
@@ -36,10 +36,10 @@ import org.bukkit.craftbukkit.v1_10_R1.util.UnsafeList;
 			bField.setAccessible(true);
 			Field cField = PathfinderGoalSelector.class.getDeclaredField("c");
 			cField.setAccessible(true);
-			bField.set(goalSelector, new UnsafeList<PathfinderGoalSelector>());
-			bField.set(targetSelector, new UnsafeList<PathfinderGoalSelector>());
-			cField.set(goalSelector, new UnsafeList<PathfinderGoalSelector>());
-			cField.set(targetSelector, new UnsafeList<PathfinderGoalSelector>());
+			bField.set(goalSelector, new LinkedHashSet<PathfinderGoalSelector>());
+			bField.set(targetSelector, new LinkedHashSet<PathfinderGoalSelector>());
+			cField.set(goalSelector, new LinkedHashSet<PathfinderGoalSelector>());
+			cField.set(targetSelector, new LinkedHashSet<PathfinderGoalSelector>());
 		} catch (Exception exc) {
 			exc.printStackTrace();
 			Bukkit.broadcastMessage("catchstatement broke i thinkl");

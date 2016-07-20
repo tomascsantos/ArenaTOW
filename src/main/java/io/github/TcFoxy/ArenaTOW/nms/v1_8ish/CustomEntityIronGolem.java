@@ -1,6 +1,7 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_8ish;
 
 import java.lang.reflect.Field;
+import java.util.LinkedHashSet;
 
 import net.minecraft.server.v1_10_R1.EntityHuman;
 import net.minecraft.server.v1_10_R1.EntityIronGolem;
@@ -15,11 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_10_R1.util.UnsafeList;
 
 public class CustomEntityIronGolem extends EntityIronGolem{
-	private int b;
-	  Village a;
-	  private int c;
-	  private int bk;
-
+	Village a;
 	  public CustomEntityIronGolem(World world){
 		  
 	    super(world);
@@ -29,10 +26,10 @@ public class CustomEntityIronGolem extends EntityIronGolem{
 	    	bField.setAccessible(true);
 	    	Field cField = PathfinderGoalSelector.class.getDeclaredField("c");
 	    	cField.setAccessible(true);
-	    	bField.set(goalSelector, new UnsafeList<PathfinderGoalSelector>());
-	    	bField.set(targetSelector, new UnsafeList<PathfinderGoalSelector>());
-	    	cField.set(goalSelector, new UnsafeList<PathfinderGoalSelector>());
-	    	cField.set(targetSelector, new UnsafeList<PathfinderGoalSelector>());
+	    	bField.set(goalSelector, new LinkedHashSet<PathfinderGoalSelector>());
+	    	bField.set(targetSelector, new LinkedHashSet<PathfinderGoalSelector>());
+	    	cField.set(goalSelector, new LinkedHashSet<PathfinderGoalSelector>());
+	    	cField.set(targetSelector, new LinkedHashSet<PathfinderGoalSelector>());
 	    	} catch (Exception exc) {
 	    	exc.printStackTrace();
 	    	Bukkit.broadcastMessage("catchstatement customirongolem goals/targets");

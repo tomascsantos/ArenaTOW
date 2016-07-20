@@ -79,7 +79,7 @@ public class ArenaClassController implements Listener {
 		int cooldown = (int) (System.currentTimeMillis() - cooldowns.get(p.getName()));
 		return cooltime-(cooldown/1000);
 	}
-	public int cooldownId;
+	public Integer cooldownId;
 	public void xpCooldown(){
 		cooldownId = Bukkit.getScheduler().scheduleSyncRepeatingTask(ArenaTOW.getSelf(), new Runnable(){
 			@Override

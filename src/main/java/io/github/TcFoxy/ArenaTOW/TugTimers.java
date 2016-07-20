@@ -1,8 +1,8 @@
 package io.github.TcFoxy.ArenaTOW;
 
 import io.github.TcFoxy.ArenaTOW.MinionStuff.Minion;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.interfaces.NMSUtils;
 
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -50,7 +50,15 @@ public class TugTimers {
         if(tug.deathtimer != null){
         	Bukkit.getScheduler().cancelTask(tug.deathtimer);
         }  
-        Bukkit.getScheduler().cancelTask(tug.ACexecutor.ACC.cooldownId);
+        if (tug.ACexecutor == null){
+        	Bukkit.getLogger().warning("ACexecutor is null");
+        }else if(tug.ACexecutor.ACC == null){
+        	Bukkit.getLogger().warning("tug.ACexecutor.ACC is null");
+        }else if (tug.ACexecutor.ACC.cooldownId == null){
+        	Bukkit.getLogger().warning("tug.ACexecutor.ACC.cooldownId is null");
+        }else{
+            Bukkit.getScheduler().cancelTask(tug.ACexecutor.ACC.cooldownId);
+        }
     }
 	
 	/*

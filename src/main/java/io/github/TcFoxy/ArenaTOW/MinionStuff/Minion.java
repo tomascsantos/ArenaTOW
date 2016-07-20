@@ -1,6 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.MinionStuff;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityZombie;
 
 import java.util.Iterator;
 import java.util.LinkedList;

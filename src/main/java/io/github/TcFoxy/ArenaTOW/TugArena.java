@@ -2,11 +2,11 @@ package io.github.TcFoxy.ArenaTOW;
 
 import io.github.TcFoxy.ArenaTOW.Listeners.TugListener;
 import io.github.TcFoxy.ArenaTOW.MinionStuff.MinionFactory;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomBlueGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomBlueGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomRedGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomRedGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.interfaces.NMSUtils;
 import io.github.TcFoxy.ArenaTOW.playerModifiers.TeamLevel;
 import io.github.TcFoxy.ArenaTOW.playerModifiers.ArenaClass.ArenaClassExecutor;
 import io.github.TcFoxy.ArenaTOW.playerModifiers.ArenaClass.Powers.Necromancer;

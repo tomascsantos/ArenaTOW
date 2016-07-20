@@ -1,14 +1,14 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces;
+package io.github.TcFoxy.ArenaTOW.nms.v1_8ish.interfaces;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityIronGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.EntityBlueZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.EntityRedZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomBlueGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomBlueGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityIronGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomRedGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomRedGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.EntityBlueZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.EntityRedZombie;
 
 import java.lang.reflect.Field;
 

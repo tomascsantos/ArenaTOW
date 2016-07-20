@@ -153,8 +153,15 @@ public class ArenaClassExecutor {
 	
 	public void setClassStandards(ArenaPlayer ap){
 		Player p = ap.getPlayer();
-		String curclass = ap.getCurrentClass().toString();
-				
+		
+		//bandit is not a default class in battle arena, I need to include a class document for people
+		String curclass;
+		if(ap.getCurrentClass().toString() == null){
+			curclass = Bandit;
+		}else{
+			curclass = ap.getCurrentClass().toString();
+		}
+		
 		ItemStack boots;
 		ItemStack legs;
 		ItemStack chest;

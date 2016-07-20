@@ -1,4 +1,4 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_8ish;
 
 import net.minecraft.server.v1_10_R1.BlockPosition;
 import net.minecraft.server.v1_10_R1.EntityLiving;

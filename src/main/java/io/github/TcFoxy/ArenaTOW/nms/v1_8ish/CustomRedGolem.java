@@ -1,4 +1,4 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_8ish;
 
 import mc.alk.arena.BattleArena;
 import mc.alk.arena.objects.ArenaPlayer;
