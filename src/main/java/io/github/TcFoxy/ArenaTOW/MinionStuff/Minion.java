@@ -1,6 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.MinionStuff;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityZombie;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -16,7 +16,7 @@ public class Minion {
 	private String team;
 	private Location start;
 	//private CustomEntityZombie entity;
-	private CustomEntityZombie entity;
+	private MyEntityZombie entity;
 	//private HashMap<Integer, Location> pointLoc;
 	private LinkedList<Location> paths = new LinkedList<Location>();
 
@@ -97,11 +97,11 @@ public class Minion {
 		return paths.size();
 	}
 	
-	public void setMinionEntity(CustomEntityZombie minion) {
+	public void setMinionEntity(MyEntityZombie minion) {
 		entity = minion;
 	}
 	
-	public CustomEntityZombie getMinion(){
+	public MyEntityZombie getMinion(){
 		return entity;
 	}
 	

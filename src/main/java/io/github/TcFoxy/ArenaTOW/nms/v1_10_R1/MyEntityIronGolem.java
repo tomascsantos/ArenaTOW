@@ -10,9 +10,9 @@ import net.minecraft.server.v1_10_R1.PathfinderGoalRandomLookaround;
 import net.minecraft.server.v1_10_R1.Village;
 import net.minecraft.server.v1_10_R1.World;
 
-public class CustomEntityIronGolem extends EntityIronGolem{
+public class MyEntityIronGolem extends EntityIronGolem{
 	Village a;
-	public CustomEntityIronGolem(World world){
+	public MyEntityIronGolem(World world){
 		super(world);
 
 		this.fireProof = true;

@@ -2,15 +2,14 @@ package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
 
 import net.minecraft.server.v1_10_R1.BlockPosition;
 import net.minecraft.server.v1_10_R1.EntityLiving;
-import net.minecraft.server.v1_10_R1.EntitySmallFireball;
 import net.minecraft.server.v1_10_R1.PathfinderGoal;
 
 class PathfinderGoalGolemFireball extends PathfinderGoal
 {
-	private CustomEntityIronGolem a;
+	private MyEntityIronGolem a;
 	private int c;
 
-	public PathfinderGoalGolemFireball(CustomEntityIronGolem paramEntityGolem)
+	public PathfinderGoalGolemFireball(MyEntityIronGolem paramEntityGolem)
 	{
 		this.a = paramEntityGolem;
 
@@ -34,10 +33,10 @@ class PathfinderGoalGolemFireball extends PathfinderGoal
 	public void e()
 	{
 		EntityLiving localEntityLiving = this.a.getGoalTarget();
-		if((this.a.getClass().getName() == "io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGolem" &&
-				localEntityLiving.getClass().getName() == "io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.EntityBlueZombie") ||
-				(this.a.getClass().getName() == "io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGolem" &&
-				localEntityLiving.getClass().getName() == "io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.EntityRedZombie")){
+		if((this.a.getClass().getName() == NMSConstants.MyBlueGolem &&
+				localEntityLiving.getClass().getName() == NMSConstants.MyBlueZombie) ||
+				(this.a.getClass().getName() == NMSConstants.MyRedGolem &&
+				localEntityLiving.getClass().getName() == NMSConstants.MyRedZombie)){
 			return;
 		}
 		this.c -= 1;
@@ -54,17 +53,18 @@ class PathfinderGoalGolemFireball extends PathfinderGoal
 
 		if (this.c <= 0) {
 
-			this.c = 10;
+			this.c = 10; //10 tick cooldown
 
 			this.a.world.a(null, 1009, new BlockPosition((int)this.a.locX, (int)this.a.locY, (int)this.a.locZ), 0);
-			for (int i = 0; i < 3; i++) {
-				EntitySmallFireball localEntitySmallFireball = new EntitySmallFireball(this.a.world, this.a, d2, d3, d4);
+			//for (int i = 0; i < 3; i++) {
+				MyFireball localEntitySmallFireball = new MyFireball(this.a.world, this.a, d2, d3, d4);
 				localEntitySmallFireball.motX = localEntitySmallFireball.dirX * 15;
 				localEntitySmallFireball.motY = localEntitySmallFireball.dirY * 15;
 				localEntitySmallFireball.motZ = localEntitySmallFireball.dirZ * 15;
 				localEntitySmallFireball.locY = (this.a.locY + this.a.length / 2.0F + 0.5D);
 				this.a.world.addEntity(localEntitySmallFireball);
-			}
+				
+			//}
 		}
 		this.a.getControllerLook().a(localEntityLiving, 10.0F, 10.0F);
 

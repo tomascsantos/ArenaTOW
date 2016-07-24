@@ -8,10 +8,10 @@ import net.minecraft.server.v1_10_R1.World;
 
 import org.bukkit.entity.Player;
 
-public class CustomBlueGolem extends CustomEntityIronGolem{
-	public CustomBlueGolem(World world) {
+public class MyRedGolem extends MyEntityIronGolem{
+	public MyRedGolem(World world) {
 		super(world);
-	    this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<CustomRedZombie>(this, CustomRedZombie.class, true));
+	    this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<MyBlueZombie>(this, MyBlueZombie.class, true));
 	}
 	
 	public boolean damageEntity(DamageSource damagesource, float f){
@@ -20,7 +20,7 @@ public class CustomBlueGolem extends CustomEntityIronGolem{
 				Player p = (Player) damagesource.getEntity().getBukkitEntity();
 				ArenaPlayer ap = BattleArena.toArenaPlayer(p);
 				String arenateam = ap.getTeam().getDisplayName();
-				if(arenateam == "Blue"){
+				if(arenateam == "Red"){
 					return false;
 				}else{
 					super.damageEntity(damagesource, f);
@@ -31,5 +31,5 @@ public class CustomBlueGolem extends CustomEntityIronGolem{
 		}
 		super.damageEntity(damagesource, f);
 		return true;
-	}
+		}
 }

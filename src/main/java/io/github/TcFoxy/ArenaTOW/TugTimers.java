@@ -1,7 +1,7 @@
 package io.github.TcFoxy.ArenaTOW;
 
 import io.github.TcFoxy.ArenaTOW.MinionStuff.Minion;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityZombie;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
 
 import java.util.Map.Entry;
@@ -100,7 +100,7 @@ public class TugTimers {
 		for(Entry<String,String> entry: tug.minionFactorySpawners.entrySet()){
 			Minion m = tug.minionFactory.createMinion(entry.getKey());
 			Location startloc = m.getStartLoc();
-			CustomEntityZombie zombie = null;
+			MyEntityZombie zombie = null;
 			if(m.getTeam().equalsIgnoreCase("Red")){
 				zombie = NMSUtils.spawnRedZombie(startloc.getWorld(), startloc.getX(), startloc.getY(), startloc.getZ());
 				LivingEntity en = (LivingEntity) zombie.getBukkitEntity();
@@ -148,7 +148,7 @@ public class TugTimers {
 							&& entityloc.getY() <= cLoc.getY()+3 && entityloc.getY() >= cLoc.getY()-3
 							&& entityloc.getZ() <= cLoc.getZ()+3 && entityloc.getZ() >= cLoc.getZ()-3)) {
 						m.nextPathLoc();
-						((CustomEntityZombie)m.getMinion()).whereTo(m.peekPathLoc());
+						((MyEntityZombie)m.getMinion()).whereTo(m.peekPathLoc());
 					}
 				}	
 			}

@@ -8,7 +8,7 @@ ArenaTow:  ### This should be exactly the same as the name you registered
     enabled: true
     database: ArenaTow # needs BattleTracker
     rated: false # if database is enabled
-    prefix: "&6[&1League &7Of &4Crafters&6]&e"
+    prefix: “&2Tug Of War”
     cmd: tow
     nLives: infinite
     nTeams: 2
@@ -24,14 +24,13 @@ ArenaTow:  ### This should be exactly the same as the name you registered
     onLeave:
         options: [restoreAll]
     onJoin:  ## when they join the match
-        options: [teleportWaitRoom, hunger=20, pvpOff]
+        options: [teleportWaitRoom, pvpOff]
     onPreStart: ## x seconds before onStart
         options: []
     onStart: ## Starting
         options: [giveItems, hunger=20, health=20, teleportIn, pvpOn]
-        items: 
-            - gold_ingot: 1
-            - emerald: 1
+#        items: 
+#            - gold_ingot: 1
     onSpawn: ## what happens when a player spawns
         options: [hunger=20, health=20]
         giveClass: 
@@ -39,7 +38,7 @@ ArenaTow:  ### This should be exactly the same as the name you registered
     onDeath: ## what happens when a player dies
         options: [keepInventory, respawn]
     onComplete: ## what happens when things end
-        options: [teleportOut, restoreInventory, restoreAll]
+        options: [teleportOut, restoreAll]
     winner: ## what to give the winner
         options: [health=20, hunger=20 money=250]
     losers: ## what to give the losers

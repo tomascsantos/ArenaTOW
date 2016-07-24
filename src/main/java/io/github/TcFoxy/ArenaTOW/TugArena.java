@@ -2,10 +2,10 @@ package io.github.TcFoxy.ArenaTOW;
 
 import io.github.TcFoxy.ArenaTOW.Listeners.TugListener;
 import io.github.TcFoxy.ArenaTOW.MinionStuff.MinionFactory;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyBlueGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyBlueGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyRedGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyRedGuardian;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
 
 import java.util.HashMap;
@@ -209,23 +209,23 @@ public class TugArena extends Arena {
 		for(Tower tow: towerteams.values()){
 			if (tow.getTeam().toString().equals("Red")){
 				if(tow.getType().equals("Tower")){
-					CustomRedGolem golem = NMSUtils.spawnRedGolem(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
+					MyRedGolem golem = NMSUtils.spawnRedGolem(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
 					tow.setMob(golem);
 					LivingEntity en = (LivingEntity) golem.getBukkitEntity();
 					en.getEquipment().setHelmet(Utils.makeMobHelm(Color.RED));
 				}else if(tow.getType().equals("Nexus")){
-					CustomRedGuardian guardian = NMSUtils.spawnRedGuardian(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
+					MyRedGuardian guardian = NMSUtils.spawnRedGuardian(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
 					tow.setMob(guardian);
 				}
 
 			}else if (tow.getTeam().toString().equals("Blue")){
 				if(tow.getType().equals("Tower")){
-					CustomBlueGolem golem = NMSUtils.spawnBlueGolem(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
+					MyBlueGolem golem = NMSUtils.spawnBlueGolem(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
 					tow.setMob(golem);
 					LivingEntity en = (LivingEntity) golem.getBukkitEntity();
 					en.getEquipment().setHelmet(Utils.makeMobHelm(Color.BLUE));
 				}else if(tow.getType().equals("Nexus")){
-					CustomBlueGuardian guardian = NMSUtils.spawnBlueGuardian(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
+					MyBlueGuardian guardian = NMSUtils.spawnBlueGuardian(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
 					tow.setMob(guardian);
 				}
 			}

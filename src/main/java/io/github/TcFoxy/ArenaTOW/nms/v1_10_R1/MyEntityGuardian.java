@@ -15,10 +15,10 @@ import net.minecraft.server.v1_10_R1.PathfinderGoalRandomLookaround;
 import net.minecraft.server.v1_10_R1.PathfinderGoalRandomStroll;
 import net.minecraft.server.v1_10_R1.World;
 
-public class CustomEntityGuardian extends EntityGuardian{
+public class MyEntityGuardian extends EntityGuardian{
 
 
-	public CustomEntityGuardian(World world) {
+	public MyEntityGuardian(World world) {
 		super(world);
 		setElder(true);
 
@@ -47,7 +47,10 @@ public class CustomEntityGuardian extends EntityGuardian{
 	@Override
 	public void move(double d0, double d1, double d2){
 	}
-
+	
+	 @Override
+	    protected void M() {//no effects. Eventually make team-specific effects?
+	    }
 
 	@SuppressWarnings("unchecked")
 	public DataWatcherObject<Byte> getFieldA() throws Exception{
@@ -91,16 +94,16 @@ public class CustomEntityGuardian extends EntityGuardian{
 
 	static class PathfinderGoalGuardianAttack extends PathfinderGoal
 	{
-		private final CustomEntityGuardian a;
+		private final MyEntityGuardian a;
 		private int b;
 		private float damage;
 
-		public PathfinderGoalGuardianAttack(final CustomEntityGuardian a, float damage) {
+		public PathfinderGoalGuardianAttack(final MyEntityGuardian a, float damage) {
 			this.a = a;
 			this.a(3);
 			this.damage = damage;
 		}
-
+		
 		@Override
 		public boolean a() {
 			final EntityLiving goalTarget = this.a.getGoalTarget();

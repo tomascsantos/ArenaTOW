@@ -10,29 +10,29 @@ import net.minecraft.server.v1_10_R1.World;
 
 import org.bukkit.Location;
 
-public class CustomEntityZombie extends EntityZombie {
+public class MyEntityZombie extends EntityZombie {
 
-	public CustomEntityZombie(World world) {
+	public MyEntityZombie(World world) {
 		super(world);
 
-		getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(50.0D);//foloow range
+		getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(10.0D);//foloow range
 	}
 
 	@Override
 	protected void r(){
-		//		this.goalSelector.a(2, new PathfinderGoalMeleeAttack(this, 1.3D, false));
-		//		this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<EntityHuman>(this, EntityHuman.class, true));
-		//		this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this, false, new Class[0]));
+		this.goalSelector.a(1, new MyPathfinderGoalMelee(this, 1.2D));
+		//this.targetSelector.a(5, new PathfinderGoalNearestAttackableTarget<EntityHuman>(this, EntityHuman.class, true));
+		this.targetSelector.a(1, new MyPathfinderGoalHurtByTarget(this, false, new Class[0]));
 	}
 
 	public void whereTo(Location directions){
-		clearGoals();
+		clearWalk();
 		r();
-		this.goalSelector.a(3, new CustomPathfindingGoalWalk(this, 1, directions));
+		this.goalSelector.a(6, new MyPathfindingGoalWalk(this, 1.2D, directions));
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void clearGoals(){
+	public void clearWalk(){
 		LinkedHashSet goalB = (LinkedHashSet)getPrivateField("b", PathfinderGoalSelector.class, goalSelector); goalB.clear();
 		LinkedHashSet goalC = (LinkedHashSet)getPrivateField("c", PathfinderGoalSelector.class, goalSelector); goalC.clear();
 		LinkedHashSet targetB = (LinkedHashSet)getPrivateField("b", PathfinderGoalSelector.class, targetSelector); targetB.clear();

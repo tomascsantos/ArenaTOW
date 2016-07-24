@@ -2,6 +2,8 @@ package io.github.TcFoxy.ArenaTOW.Listeners;
 
 import io.github.TcFoxy.ArenaTOW.Tower;
 import io.github.TcFoxy.ArenaTOW.TugArena;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityIronGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyFireball;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.NMSConstants;
 
 import java.util.Collection;
@@ -10,10 +12,12 @@ import java.util.HashMap;
 import mc.alk.arena.BattleArena;
 import mc.alk.arena.objects.ArenaPlayer;
 import mc.alk.arena.objects.teams.ArenaTeam;
+import net.minecraft.server.v1_10_R1.EntityFireball;
 import net.minecraft.server.v1_10_R1.EntityLiving;
 
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_10_R1.entity.CraftFireball;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
@@ -23,6 +27,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
@@ -51,9 +56,9 @@ public class TugListener implements Listener{
 	private void sameTeamTarget(EntityTargetEvent event){
 		if (event.getTarget() == null) return;
 		
-		if(event.getEntity().getClass().getName() == NMSConstants.entityZombie ||
-				event.getEntity().getClass().getName() == NMSConstants.entityGolem ||
-				event.getEntity().getClass().getName() == NMSConstants.entityGuardian ){
+		if(event.getEntity().getClass().getName() == NMSConstants.spigotZombie ||
+				event.getEntity().getClass().getName() == NMSConstants.spigotGolem ||
+				event.getEntity().getClass().getName() == NMSConstants.spigotGuardian ){
 			if(event.getTarget() instanceof Player){
 				Player p = (Player) event.getTarget();
 				ArenaPlayer ap = BattleArena.toArenaPlayer(p);
@@ -64,22 +69,22 @@ public class TugListener implements Listener{
 				String teamname = team.getDisplayName();
 				String entityclass = el.getClass().getName();
 				switch(entityclass){
-				case NMSConstants.customRedZombie:
+				case NMSConstants.MyRedZombie:
 					if(teamname == "Red") event.setCancelled(true);
 					break;
-				case NMSConstants.customRedGolem:
+				case NMSConstants.MyRedGolem:
 					if(teamname == "Red") event.setCancelled(true);
 					break;
-				case NMSConstants.customRedGuardian:
+				case NMSConstants.MyRedGuardian:
 					if(teamname == "Red") event.setCancelled(true);
 					break;
-				case NMSConstants.customBlueZombie:
+				case NMSConstants.MyBlueZombie:
 					if(teamname == "Blue") event.setCancelled(true);
 					break;
-				case NMSConstants.customBlueGolem:
+				case NMSConstants.MyBlueGolem:
 					if(teamname == "Blue") event.setCancelled(true);
 					break;
-				case NMSConstants.customBlueGuardian:
+				case NMSConstants.MyBlueGuardian:
 					if(teamname == "Blue") event.setCancelled(true);
 					break;
 				default:
@@ -146,6 +151,26 @@ public class TugListener implements Listener{
 //		}
 //				
 //	}
+	
+	/*
+	 * golem's fireballs shouldnt hurt same team
+	 */
+	
+	@EventHandler
+	private void noFireBallDmg(EntityDamageByEntityEvent event){
+		if (event.getDamager().getClass().getName().toString() == NMSConstants.spigotFireball){
+			CraftFireball frball = (CraftFireball) event.getDamager();
+			EntityFireball nmsFireball = (EntityFireball) frball.getHandle();
+			if(nmsFireball instanceof MyFireball){
+				MyEntityIronGolem golem = ((MyFireball) nmsFireball).getGolem();
+				if(NMSConstants.isSameTeam(golem, ((CraftEntity) event.getEntity()).getHandle())){
+					event.setCancelled(true);
+					event.getEntity().setFireTicks(0);
+					//Eventually make the Fireball go through!
+				}
+			}
+		}
+	}
 
 	
 	/*
@@ -188,9 +213,9 @@ public class TugListener implements Listener{
 			if(tow.getMob() != null){
 				if(tow.getMob().getBukkitEntity().toString() == "CraftGuardian" && tow.getMob().getHealth() == 0){
 					EntityLiving el = (EntityLiving) ((CraftEntity) event.getEntity()).getHandle();
-					if(el.getClass().getName() == NMSConstants.customBlueGuardian){
+					if(el.getClass().getName() == NMSConstants.MyBlueGuardian){
 						tug.arena.getMatch().setVictor(tug.redTeam);
-					}else if(el.getClass().getName() == NMSConstants.customRedGuardian){					
+					}else if(el.getClass().getName() == NMSConstants.MyRedGuardian){					
 						tug.arena.getMatch().setVictor(tug.blueTeam);
 					}
 				}

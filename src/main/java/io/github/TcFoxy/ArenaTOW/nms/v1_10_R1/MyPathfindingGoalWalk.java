@@ -8,7 +8,7 @@ import net.minecraft.server.v1_10_R1.Vec3D;
 
 import org.bukkit.Location;
 
-public class CustomPathfindingGoalWalk extends PathfinderGoal
+public class MyPathfindingGoalWalk extends PathfinderGoal
 {
 	private final EntityCreature a;
 	private double b;
@@ -17,7 +17,7 @@ public class CustomPathfindingGoalWalk extends PathfinderGoal
 	private final double e;
 	private Location loc;
 
-	public CustomPathfindingGoalWalk(final EntityCreature a, final double speed, Location loc) {
+	public MyPathfindingGoalWalk(final EntityCreature a, final double speed, Location loc) {
 		this.a = a;
 		this.e = speed;
 		this.loc = loc;
@@ -56,10 +56,13 @@ public class CustomPathfindingGoalWalk extends PathfinderGoal
 	}
 
 	/*
-	 * get the location?
+	 * get the location
 	 */
 	@Nullable
 	private Vec3D f() {
+		if(loc == null){
+			return null;
+		}
 		return new Vec3D(loc.getX(), loc.getY(), loc.getZ());
 	}
 }

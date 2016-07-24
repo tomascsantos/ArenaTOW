@@ -1,14 +1,14 @@
 package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityIronGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyBlueGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyBlueGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyBlueZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityIronGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyRedGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyRedGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyRedZombie;
 
 import java.lang.reflect.Field;
 
@@ -17,84 +17,84 @@ import net.minecraft.server.v1_10_R1.WorldServer;
 import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 /**
-* author @BigTeddy98
-* Used for tutorial purposes
-* https://forums.bukkit.org/threads/tutorial-register-your-custom-entities-nms-reflection.258542/
-*/
+ * author @BigTeddy98
+ * Used for tutorial purposes
+ * https://forums.bukkit.org/threads/tutorial-register-your-custom-entities-nms-reflection.258542/
+ */
 
 public class NMSUtils {
-	
-	public static CustomEntityIronGolem spawnIronGolem(org.bukkit.World world, double x, double y, double z) {
+
+	public static MyEntityIronGolem spawnIronGolem(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		CustomEntityIronGolem g = new CustomEntityIronGolem(nms);
+		MyEntityIronGolem g = new MyEntityIronGolem(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
-		}
-	public static CustomEntityZombie spawnZombie(org.bukkit.World world, double x, double y, double z) {
+	}
+	public static MyEntityZombie spawnZombie(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		CustomEntityZombie g = new CustomEntityZombie(nms);
+		MyEntityZombie g = new MyEntityZombie(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
-		}
-	public static CustomBlueZombie spawnBlueZombie(org.bukkit.World world, double x, double y, double z) {
+	}
+	public static MyBlueZombie spawnBlueZombie(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		CustomBlueZombie g = new CustomBlueZombie(nms);
+		MyBlueZombie g = new MyBlueZombie(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
-		}
-	public static CustomRedZombie spawnRedZombie(org.bukkit.World world, double x, double y, double z) {
+	}
+	public static MyRedZombie spawnRedZombie(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		CustomRedZombie g = new CustomRedZombie(nms);
+		MyRedZombie g = new MyRedZombie(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
-		}
-	public static CustomRedGolem spawnRedGolem(org.bukkit.World world, double x, double y, double z) {
+	}
+	public static MyRedGolem spawnRedGolem(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		CustomRedGolem g = new CustomRedGolem(nms);
+		MyRedGolem g = new MyRedGolem(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
-		}
-	public static CustomBlueGolem spawnBlueGolem(org.bukkit.World world, double x, double y, double z) {
+	}
+	public static MyBlueGolem spawnBlueGolem(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		CustomBlueGolem g = new CustomBlueGolem(nms);
+		MyBlueGolem g = new MyBlueGolem(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
-		}
-	public static CustomEntityGuardian spawnGuardian(org.bukkit.World world, double x, double y, double z) {
+	}
+	public static MyEntityGuardian spawnGuardian(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		CustomEntityGuardian g = new CustomEntityGuardian(nms);
+		MyEntityGuardian g = new MyEntityGuardian(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
-		}
-	
-	public static CustomBlueGuardian spawnBlueGuardian(org.bukkit.World world, double x, double y, double z) {
+	}
+
+	public static MyBlueGuardian spawnBlueGuardian(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		CustomBlueGuardian g = new CustomBlueGuardian(nms);
+		MyBlueGuardian g = new MyBlueGuardian(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
-		}
-	
-	public static CustomRedGuardian spawnRedGuardian(org.bukkit.World world, double x, double y, double z) {
+	}
+
+	public static MyRedGuardian spawnRedGuardian(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		CustomRedGuardian g = new CustomRedGuardian(nms);
+		MyRedGuardian g = new MyRedGuardian(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
-		}
+	}
 
 
 	public static Object getPrivateField(String fieldname, @SuppressWarnings("rawtypes") Class clazz, Object object){
 		Field field;
 		Object o = null;
-		
+
 		try{
 			field = clazz.getDeclaredField(fieldname);
 			field.setAccessible(true);
@@ -107,6 +107,6 @@ public class NMSUtils {
 			e.printStackTrace();
 		}
 		return o;
-		
+
 	}
 }
