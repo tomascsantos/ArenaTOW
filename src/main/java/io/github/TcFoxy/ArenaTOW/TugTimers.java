@@ -1,16 +1,16 @@
 package io.github.TcFoxy.ArenaTOW;
 
 import io.github.TcFoxy.ArenaTOW.MinionStuff.Minion;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.interfaces.NMSUtils;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
 
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
-import net.minecraft.server.v1_10_R1.EnumItemSlot;
-
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
 
 public class TugTimers {
 
@@ -50,15 +50,15 @@ public class TugTimers {
         if(tug.deathtimer != null){
         	Bukkit.getScheduler().cancelTask(tug.deathtimer);
         }  
-        if (tug.ACexecutor == null){
-        	Bukkit.getLogger().warning("ACexecutor is null");
-        }else if(tug.ACexecutor.ACC == null){
-        	Bukkit.getLogger().warning("tug.ACexecutor.ACC is null");
-        }else if (tug.ACexecutor.ACC.cooldownId == null){
-        	Bukkit.getLogger().warning("tug.ACexecutor.ACC.cooldownId is null");
-        }else{
-            Bukkit.getScheduler().cancelTask(tug.ACexecutor.ACC.cooldownId);
-        }
+//        if (tug.ACexecutor == null){
+//        	Bukkit.getLogger().warning("ACexecutor is null");
+//        }else if(tug.ACexecutor.ACC == null){
+//        	Bukkit.getLogger().warning("tug.ACexecutor.ACC is null");
+//        }else if (tug.ACexecutor.ACC.cooldownId == null){
+//        	Bukkit.getLogger().warning("tug.ACexecutor.ACC.cooldownId is null");
+//        }else{
+//            Bukkit.getScheduler().cancelTask(tug.ACexecutor.ACC.cooldownId);
+//        }
     }
 	
 	/*
@@ -103,14 +103,13 @@ public class TugTimers {
 			CustomEntityZombie zombie = null;
 			if(m.getTeam().equalsIgnoreCase("Red")){
 				zombie = NMSUtils.spawnRedZombie(startloc.getWorld(), startloc.getX(), startloc.getY(), startloc.getZ());
-				zombie.setEquipment(EnumItemSlot.HEAD, Utils.makeMobHelm("Red"));
-				zombie.setCustomName("RedTeam Minion");
-				zombie.setCustomNameVisible(true);
+				LivingEntity en = (LivingEntity) zombie.getBukkitEntity();
+				en.getEquipment().setHelmet(Utils.makeMobHelm(Color.RED));
 			}else{
 				zombie= NMSUtils.spawnBlueZombie(startloc.getWorld(), startloc.getX(), startloc.getY(), startloc.getZ());
-				zombie.setEquipment(EnumItemSlot.HEAD, Utils.makeMobHelm("Blue"));
-				zombie.setCustomName("BlueTeam Minion");
-				zombie.setCustomNameVisible(true);
+				LivingEntity en = (LivingEntity) zombie.getBukkitEntity();
+				en.getEquipment().setHelmet(Utils.makeMobHelm(Color.BLUE));
+
 			}
 			m.setMinionEntity(zombie);
 			zombie.whereTo(m.peekPathLoc());
@@ -141,7 +140,7 @@ public class TugTimers {
 			for(Entry<String, Minion> entry : livingMinions.entrySet()){
 				Minion m = entry.getValue();
 				if(!m.getMinion().isAlive()){
-					//do nothing
+					//do nothing cause it's dead
 				}else if(m.peekPathLoc() != null) {
 					Location cLoc = m.peekPathLoc();
 					Location entityloc = m.getcurrentLocation();

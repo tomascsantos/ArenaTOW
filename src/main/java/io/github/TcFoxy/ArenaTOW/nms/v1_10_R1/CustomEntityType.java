@@ -1,4 +1,4 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_8ish;
+package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -22,8 +22,8 @@ public enum CustomEntityType {
 	CUSTOMGUARDIAN("Guardian", 68, EntityType.GUARDIAN, EntityGuardian.class, CustomEntityGuardian.class),
 	CUSTOMBLUEGUARDIAN("Guardian", 68, EntityType.GUARDIAN, EntityGuardian.class, CustomBlueGuardian.class),
 	CUSTOMREDGUARDIAN("Guardian", 68, EntityType.GUARDIAN, EntityGuardian.class, CustomRedGuardian.class),
-	BLUEMINION("Zombie", 54, EntityType.ZOMBIE, EntityZombie.class, EntityBlueZombie.class),
-	REDMINION("Zombie", 54, EntityType.ZOMBIE, EntityZombie.class, EntityRedZombie.class),
+	BLUEMINION("Zombie", 54, EntityType.ZOMBIE, EntityZombie.class, CustomBlueZombie.class),
+	REDMINION("Zombie", 54, EntityType.ZOMBIE, EntityZombie.class, CustomRedZombie.class),
 	CUSTOMZOMBIE("Zombie", 54, EntityType.ZOMBIE, EntityZombie.class, CustomEntityZombie.class);
 	
 	private String name;

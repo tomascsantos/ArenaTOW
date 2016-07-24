@@ -1,4 +1,4 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_8ish;
+package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
 
 import mc.alk.arena.BattleArena;
 import mc.alk.arena.objects.ArenaPlayer;
@@ -11,12 +11,12 @@ import org.bukkit.entity.Player;
 public class CustomBlueGolem extends CustomEntityIronGolem{
 	public CustomBlueGolem(World world) {
 		super(world);
-	    this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityRedZombie.class, true));
+	    this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<CustomRedZombie>(this, CustomRedZombie.class, true));
 	}
 	
 	public boolean damageEntity(DamageSource damagesource, float f){
 		if(damagesource.getEntity() != null){
-			if(damagesource.getEntity().getClass().getName() == "net.minecraft.server.v1_10_R1.EntityPlayer"){
+			if(damagesource.getEntity().getClass().getName() == NMSConstants.entityPlayer){
 				Player p = (Player) damagesource.getEntity().getBukkitEntity();
 				ArenaPlayer ap = BattleArena.toArenaPlayer(p);
 				String arenateam = ap.getTeam().getDisplayName();

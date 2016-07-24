@@ -1,7 +1,7 @@
 package io.github.TcFoxy.ArenaTOW;
 
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityType;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityType;
 import mc.alk.arena.BattleArena;
 
 import org.bukkit.plugin.Plugin;

@@ -2,17 +2,11 @@ package io.github.TcFoxy.ArenaTOW;
 
 import io.github.TcFoxy.ArenaTOW.Listeners.TugListener;
 import io.github.TcFoxy.ArenaTOW.MinionStuff.MinionFactory;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomBlueGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomBlueGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomRedGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomRedGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.interfaces.NMSUtils;
-import io.github.TcFoxy.ArenaTOW.playerModifiers.TeamLevel;
-import io.github.TcFoxy.ArenaTOW.playerModifiers.ArenaClass.ArenaClassExecutor;
-import io.github.TcFoxy.ArenaTOW.playerModifiers.ArenaClass.Powers.Necromancer;
-import io.github.TcFoxy.ArenaTOW.playerModifiers.shop.ArenaEcon;
-import io.github.TcFoxy.ArenaTOW.playerModifiers.shop.PlayerEnhancements;
-import io.github.TcFoxy.ArenaTOW.playerModifiers.shop.UpgradeGUI;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,15 +24,13 @@ import mc.alk.arena.serializers.Persist;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -49,8 +41,8 @@ import org.bukkit.util.Vector;
 
 public class TugArena extends Arena {
 
-	
-	
+
+
 	/*
 	 * basic variables used throughout the class:
 	 */
@@ -60,7 +52,7 @@ public class TugArena extends Arena {
 	public ArenaTeam redTeam, blueTeam;
 	Integer deathtimer;
 
-	
+
 
 	/*
 	 * setup persisted data that is stored via BattleArena's API
@@ -73,8 +65,8 @@ public class TugArena extends Arena {
 	HashMap<String, String> minionFactorySpawners;
 	@Persist 
 	public HashMap<String, String> towerSave;
-	
-	
+
+
 	/*
 	 * setup hashmaps used throughout the class.
 	 * most of these values are not actually used
@@ -83,24 +75,24 @@ public class TugArena extends Arena {
 	HashMap<String, Integer> tasks = new HashMap<String, Integer>();
 	HashMap<Integer, Location> pathpointsSave = new HashMap<Integer, Location>();
 	public HashMap<String, Tower> towerteams = new HashMap<String, Tower>();
-	
-	
+
+
 	/*
 	 * setup refrences to objects used throughout the class
 	 * Is this the best way to do it?
 	 */
-	
-	public UpgradeGUI uGUI;
-	ArenaClassExecutor ACexecutor;
+
+	//public UpgradeGUI uGUI;
+	//ArenaClassExecutor ACexecutor;
 	public ScoreHelper sh;
 	TugTimers timers;
 	TugListener tuglistener;
-	
+
 	MinionFactory minionFactory = new MinionFactory(minionFactorySpawners);
-	PlayerEnhancements PlayerE = new PlayerEnhancements(arena);
-	public TeamLevel teamLevel = new TeamLevel();
-	
-	
+	//PlayerEnhancements PlayerE = new PlayerEnhancements(arena);
+	//public TeamLevel teamLevel = new TeamLevel();
+
+
 	/*
 	 * These are the 4 stages of battle arena that are called every time a game is started:
 	 * 
@@ -115,8 +107,8 @@ public class TugArena extends Arena {
 		 * No Idea what's happening here...
 		 */
 	}
-	
-	
+
+
 	/*
 	 * Classes should be initialized in this method because
 	 * it is the first thing that occurs everytime an arena
@@ -124,36 +116,36 @@ public class TugArena extends Arena {
 	 */
 	@Override
 	public void onOpen() {
-		teamLevel.resetTeams();
-		
+		//teamLevel.resetTeams();
+
 		/*
 		 * cancel the game if there are no deathrooms.
 		 */
-		
+
 		if(deathrooms == null){
 			this.getMatch().cancelMatch();
 			Bukkit.broadcastMessage("You must add deathrooms to start this arena!");
 		}
-		
+
 		// Must create new objects of all classes in onOpen method.
 		minionFactory = new MinionFactory(minionFactorySpawners);
-		PlayerE.resetdefaultStats();
+		//PlayerE.resetdefaultStats();
 		timers = new TugTimers(this);
-		PlayerE = new PlayerEnhancements(arena);
+		//PlayerE = new PlayerEnhancements(arena);
 		tuglistener = new TugListener(tug, towerSave);
 		this.sh = new ScoreHelper(tug);
-		
-		
+
+
 	}
-	
+
 	private void enableListeners() {
 		/*
 		 * All listeners have to be enabled here because
 		 * if they are enabled in the main class they cant 
 		 * be passed in an instance of this arena.
 		 */
-		Bukkit.getServer().getPluginManager().registerEvents(PlayerE, plugin);
-		Bukkit.getServer().getPluginManager().registerEvents(uGUI, plugin);
+		//Bukkit.getServer().getPluginManager().registerEvents(PlayerE, plugin);
+		//Bukkit.getServer().getPluginManager().registerEvents(uGUI, plugin);
 		Bukkit.getServer().getPluginManager().registerEvents(tuglistener, plugin);
 	}
 
@@ -163,29 +155,29 @@ public class TugArena extends Arena {
 		/*
 		 * Dont create new objects in this method!
 		 */
-		
+
 		/*
 		 * load the towers from
 		 * the persist annotation 
 		 * above.
 		 */
-		
+
 		towerteams = Tower.loadTowers(towerSave);
-		
+
 		/*
 		 * start the bukkit
 		 * scheduled tasks
 		 */
-		
+
 		timers.gameTime();
 		timers.startEntitySpawn();
 		timers.startEntityChecker();
-		
+
 		/*
 		 * set the teams so they can be 
 		 * referenced in the future
 		 */
-		
+
 		List<ArenaTeam> t = getTeams();
 		for (int i = 0; i < t.size(); i++) {
 			if (i == 0) {
@@ -196,14 +188,14 @@ public class TugArena extends Arena {
 				blueTeam.setName("Blue");
 			}
 		}
-		
+
 		/*
 		 * set the team level
 		 */
-		
-		teamLevel.setTeamLev(blueTeam);
-		teamLevel.setTeamLev(redTeam);
-		
+
+		//teamLevel.setTeamLev(blueTeam);
+		//teamLevel.setTeamLev(redTeam);
+
 		/*
 		 * spawn the towers and the golems.
 		 * 
@@ -213,68 +205,68 @@ public class TugArena extends Arena {
 		 * if its a red team Golem
 		 * --> soawn an entity Red Golem, ect.
 		 */
-		
+
 		for(Tower tow: towerteams.values()){
 			if (tow.getTeam().toString().equals("Red")){
 				if(tow.getType().equals("Tower")){
 					CustomRedGolem golem = NMSUtils.spawnRedGolem(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
 					tow.setMob(golem);
+					LivingEntity en = (LivingEntity) golem.getBukkitEntity();
+					en.getEquipment().setHelmet(Utils.makeMobHelm(Color.RED));
 				}else if(tow.getType().equals("Nexus")){
 					CustomRedGuardian guardian = NMSUtils.spawnRedGuardian(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
 					tow.setMob(guardian);
-					LivingEntity mob = (LivingEntity) guardian.getBukkitEntity();
-					mob.setMaxHealth(700);
 				}
+
 			}else if (tow.getTeam().toString().equals("Blue")){
 				if(tow.getType().equals("Tower")){
 					CustomBlueGolem golem = NMSUtils.spawnBlueGolem(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
 					tow.setMob(golem);
+					LivingEntity en = (LivingEntity) golem.getBukkitEntity();
+					en.getEquipment().setHelmet(Utils.makeMobHelm(Color.BLUE));
 				}else if(tow.getType().equals("Nexus")){
 					CustomBlueGuardian guardian = NMSUtils.spawnBlueGuardian(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
 					tow.setMob(guardian);
-					LivingEntity mob = (LivingEntity) guardian.getBukkitEntity();
-					mob.setMaxHealth(700);
 				}
 			}
 		}
-		
+
 		/*
 		 * set up the arena economy
 		 */
-		
-		ArenaEcon.onStart(arena);
-		
+
+		//ArenaEcon.onStart(arena);
+
 		/*
 		 * initialize some classes
 		 */
-		
+
 		//this initializes the "ArenaClass powers ex: lightning"
-		ACexecutor = new ArenaClassExecutor(this, plugin, match); 
-		
+		//ACexecutor = new ArenaClassExecutor(this, plugin, match); 
+
 		//this initializes the shop
-		uGUI = new UpgradeGUI(match); 
-		
+		//uGUI = new UpgradeGUI(match); 
+
 		//setup the scoreboard for everyone
 		this.sh.onStart();
 
-		
 		/*
 		 * turn on the listeners
 		 */
 		enableListeners();
-		
-		
+
+
 	}
-	
+
 	@Override
 	public void onFinish(){
 		resetTowers();
 		timers.cancelTimers();
 		timers.killminions();
-		Necromancer.instakillnecros(Necromancer.necro);
-		PlayerE.resetdefaultStats();
+		//Necromancer.instakillnecros(Necromancer.necro);
+		//PlayerE.resetdefaultStats();
 	}
-	
+
 	public void onComplete(){
 		Set<ArenaTeam> winners = this.getMatch().getVictors();
 		for(ArenaTeam team : winners){
@@ -307,35 +299,35 @@ public class TugArena extends Arena {
 	}
 
 
-	
-	
-	
+
+
+
 	private void resetTowers() {
 		for(Tower tow: towerteams.values()){
 			tow.getMob().setHealth(0);
 		}
 	}
 
-	
-	
+
+
 	@ArenaEventHandler
 	public void endGame(PlayerQuitEvent e){
 		if(this.getMatch().getAlivePlayers() == null){
 			this.endGame(e);
 		}
 	}
-	
+
 	@ArenaEventHandler
 	public void nohunger(FoodLevelChangeEvent e){
 		e.setCancelled(true);
 	}
-	
+
 	@ArenaEventHandler
 	public void noPlayerDrop(PlayerDeathEvent event){
 		event.setDroppedExp(0);
 		event.getDrops().clear();
 	}
-	
+
 	@ArenaEventHandler
 	public void waterDamage(PlayerMoveEvent event){
 		if(event.getTo().getBlock() != event.getFrom().getBlock()){
@@ -344,52 +336,52 @@ public class TugArena extends Arena {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20*5, 1));
 			}
 		}
-		
-	}
-	
-	@ArenaEventHandler
-	public void extradamage(EntityDamageByEntityEvent event){
-		if(event.getDamager().getClass().getName() == "org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer"){
-			Player p = (Player) event.getDamager();
-			ArenaTeam team = getTeam((Player) event.getDamager());
-			Double multiplier = 1.0;
-			if(PlayerEnhancements.damageMulti.containsKey(p.getUniqueId())){
-				multiplier = PlayerEnhancements.damageMulti.get(p.getUniqueId());
-			}
-			Double damage = event.getDamage()*multiplier;
-			damage += teamLevel.getTeamLev(team.getDisplayName());
-			event.setDamage(damage);
-		}
-	}
-	
-	@ArenaEventHandler
-	public void coolEffects(PlayerInteractEvent event){
-		if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK){
-			if(event.getItem() == null){
-				return; //no item in hand
-			}
-			if(event.getItem().getType() == Material.DIAMOND_AXE ||
-					event.getItem().getType() == Material.GOLD_AXE ||
-					event.getItem().getType() == Material.IRON_AXE ||
-					event.getItem().getType() == Material.STONE_AXE ||
-					event.getItem().getType() == Material.WOOD_AXE ||
-					event.getItem().getType() == Material.NETHER_STAR){
-				ACexecutor.determineEffect(event);
-			}
-			
-		}else{
-			return;
-		}
-		
+
 	}
 
-	
+//	@ArenaEventHandler
+//	public void extradamage(EntityDamageByEntityEvent event){
+//		if(event.getDamager().getClass().getName() == NMSConstants.entityPlayer){
+//			Player p = (Player) event.getDamager();
+//			ArenaTeam team = getTeam((Player) event.getDamager());
+//			Double multiplier = 1.0;
+//			if(PlayerEnhancements.damageMulti.containsKey(p.getUniqueId())){
+//				multiplier = PlayerEnhancements.damageMulti.get(p.getUniqueId());
+//			}
+//			Double damage = event.getDamage()*multiplier;
+//			damage += teamLevel.getTeamLev(team.getDisplayName());
+//			//event.setDamage((Double)damage);
+//		}
+//	}
+
+//	@ArenaEventHandler
+//	public void coolEffects(PlayerInteractEvent event){
+//		if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK){
+//			if(event.getItem() == null){
+//				return; //no item in hand
+//			}
+//			if(event.getItem().getType() == Material.DIAMOND_AXE ||
+//					event.getItem().getType() == Material.GOLD_AXE ||
+//					event.getItem().getType() == Material.IRON_AXE ||
+//					event.getItem().getType() == Material.STONE_AXE ||
+//					event.getItem().getType() == Material.WOOD_AXE ||
+//					event.getItem().getType() == Material.NETHER_STAR){
+//				ACexecutor.determineEffect(event);
+//			}
+//
+//		}else{
+//			return;
+//		}
+//
+//	}
+
+
 
 	public void keepInventory(final Player player){
 		if(player.getInventory().contains(Material.NETHER_STAR)){
 			player.getInventory().remove(Material.NETHER_STAR);
 		}
-		
+
 		final ItemStack[] armor = player.getInventory().getArmorContents();
 		Bukkit.getScheduler().scheduleSyncDelayedTask(ArenaTOW.getSelf(), new Runnable(){
 			@Override
@@ -410,7 +402,7 @@ public class TugArena extends Arena {
 
 	@ArenaEventHandler
 	public void playerDeathEvent(PlayerDeathEvent event){
-		
+
 		/*
 		 * get the player and reset anything that
 		 * might be wrong since he died:
@@ -434,58 +426,58 @@ public class TugArena extends Arena {
 		p.setMaxHealth(maxhealth);
 		p.setHealth(p.getMaxHealth());
 		keepInventory(p);
-		
+
 		/*
 		 * give out money for the death of the player
 		 */
 		final ArenaPlayer  ap = BattleArena.toArenaPlayer(p);
-		
-		if(ap.getTeam()==blueTeam){
-			for(Player player:redTeam.getBukkitPlayers()){
-				ArenaEcon.addCash(player, 25);
-			}
-		}else{
-			for(Player player:blueTeam.getBukkitPlayers()){
-				ArenaEcon.addCash(player, 25);
-			}
-		}
-		
+
+//		if(ap.getTeam()==blueTeam){
+//			for(Player player:redTeam.getBukkitPlayers()){
+//				ArenaEcon.addCash(player, 25);
+//			}
+//		}else{
+//			for(Player player:blueTeam.getBukkitPlayers()){
+//				ArenaEcon.addCash(player, 25);
+//			}
+//		}
+
 		/*
-		 * teleport to the corrent deathroom
+		 * teleport to the correct deathroom
 		 */
-		
+
 		String team = ap.getTeam().getDisplayName();
 		p.teleport(deathrooms.get(team));
-		
+
 		/*
 		 * calculate the respawn time
 		 */
-		
+
 		Long longrespawntime = (long) (5+(timers.gameTime/21.8));
 		if(longrespawntime >= 60){
 			longrespawntime = 60L;
 		}
-		
+
 		final Integer respawntime = longrespawntime.intValue();
-		
+
 		/*
 		 * display countdown to players
 		 */
-		
+
 		deathtimer = Bukkit.getScheduler().scheduleSyncRepeatingTask(ArenaTOW.getSelf(), new Runnable() {
-			 Integer time = 0;
+			Integer time = 0;
 			@Override
 			public void run() {
-				
+
 				Utils.sendTitle(p, 8, 20, 8, "&5You Have FALLEN!", (respawntime-time) + " seconds left!");
 				time++;
 			}		
 		}, 0*Utils.TPS, 1*Utils.TPS);
-		
+
 		/*
 		 * at the end of the countdown, teleport to the home spawn. 
 		 */
-		
+
 		Bukkit.getScheduler().runTaskLater(ArenaTOW.getSelf(), new Runnable() {
 			@Override
 			public void run() {
@@ -524,7 +516,7 @@ public class TugArena extends Arena {
 	 * 
 	 * 
 	 */
-	
+
 	public void addDeathroom(Player sender, Location location, String string) {
 		if(deathrooms == null){
 			deathrooms = new HashMap<String, Location>();
@@ -532,13 +524,13 @@ public class TugArena extends Arena {
 		deathrooms.put(string, location);
 		sender.sendMessage("deathroom created successfully");
 	}
-	
+
 	public void addTower(Integer i, Location location, Player sender, String color, TugArena arena, ArenaTOW instance, String type) {
 		Location l = location.clone();
-		
+
 		/* Location spot is mostly for testing custom mob spawning right now, but also will come in handy when
 		 * we change towers from invisible boundaries to a custom mob with tons of health
-		*/
+		 */
 		Location spot = l;
 		spot.setX(spot.getX());
 		spot.setZ(spot.getZ());
@@ -566,17 +558,17 @@ public class TugArena extends Arena {
 		}
 		if(towerteams.containsKey(key)){
 			sender.sendMessage(ChatColor.DARK_RED+"You have already created "+
-		ChatColor.YELLOW+towername+ChatColor.DARK_RED+", its position is being updated");
+					ChatColor.YELLOW+towername+ChatColor.DARK_RED+", its position is being updated");
 		}
 		else{
 			sender.sendMessage(message+ChatColor.DARK_GREEN+" tower number " + ChatColor.YELLOW + i+ ChatColor.DARK_GREEN+" added!");
 		}
-		
+
 		Tower t = new Tower(towername, sender.getWorld(), team, spot, type);
 		towerteams.put(key, t);	
 		towerSave = t.createSaveableTowers(towerteams);		
 	}
-	
+
 	public void addSpawner(Player sender, Location location, String color, TugArena arena, Integer index) {
 		String name = color + "lane" + index;
 		if(minionFactorySpawners != null){
@@ -591,7 +583,7 @@ public class TugArena extends Arena {
 		sender.sendMessage(ChatColor.DARK_GREEN + color +" Team Spawner "+ ChatColor.YELLOW + "#" +index + 
 				ChatColor.DARK_GREEN + " added! \n " + ChatColor.DARK_RED + "You must now add the pathfinding points!");
 	}
-	
+
 	public void addPathPoints(Player sender, Location location, String color, Integer index){
 		String name = color + "lane" + index;
 		if(minionFactorySpawners != null){
@@ -601,9 +593,9 @@ public class TugArena extends Arena {
 		String blab = minionFactory.addMinionPathPoint(name, location);
 		if(blab == ""){
 			sender.sendMessage(ChatColor.DARK_RED + "There is no spawner with corrosponding data! Create a tower with Color: "
-		+ChatColor.DARK_GREEN +color+ ChatColor.DARK_RED +"and idNumber: " + ChatColor.DARK_GREEN +index+ ChatColor.DARK_RED + 
-		" before you create this pathpoint");
-		return;
+					+ChatColor.DARK_GREEN +color+ ChatColor.DARK_RED +"and idNumber: " + ChatColor.DARK_GREEN +index+ ChatColor.DARK_RED + 
+					" before you create this pathpoint");
+			return;
 		}
 		if(blab.equals("same location")){
 			sender.sendMessage(ChatColor.DARK_RED+"WARNING: You have already create a PathPoint in this location!");
@@ -612,17 +604,17 @@ public class TugArena extends Arena {
 		sender.sendMessage(ChatColor.DARK_GREEN + "Pathpoint " + ChatColor.AQUA + "#" + blab+ ChatColor.DARK_GREEN 
 				+ " for Spawner " + ChatColor.YELLOW + "#" +index+ ChatColor.DARK_GREEN + " of color" + color + ".");
 	}
-	
+
 	public Boolean removeTower(String towername) {
 		if (! towerteams.containsKey(towername))
-				return false;
+			return false;
 		towerteams = Tower.loadTowers(towerSave);
 		Tower t = towerteams.get(towername);
 		towerteams.remove(towername);
 		towerSave = t.createSaveableTowers(towerteams);
 		return true;
 	}
-	
+
 	public Boolean removeSpawner(String spawnername) {
 		minionFactory.removeMinionSpawner(spawnername);
 		return true;
@@ -642,30 +634,30 @@ public class TugArena extends Arena {
 
 
 	}
-	
+
 	public void clearSpawners() {
 		minionFactory.clearSpawners();
 	}
-	
+
 	public String getTowerList() {
 		String buf = "";
 		towerteams = Tower.loadTowers(towerSave);
 		for (Entry <String, Tower> e: towerteams.entrySet()) {
 			buf += ChatColor.DARK_PURPLE + ""+ChatColor.BOLD +"Tower Name: " +ChatColor.YELLOW + e.getKey() +"\n"  
-	    +ChatColor.DARK_GREEN+"Tower Region Name: "+ChatColor.YELLOW+e.getValue().getName() +"\n"
-		+ChatColor.DARK_GREEN+"Tower Team: "+ChatColor.YELLOW+e.getValue().getTeam()+"\n"
-		+ChatColor.DARK_GREEN+"Tower World: "+ChatColor.YELLOW+e.getValue().getWorld()+"\n"
-		+ChatColor.DARK_GREEN + "Tower Location: " + ChatColor.YELLOW+ "X-cord: " +e.getValue().getLoc().getBlockX() + ", " +
-		 															   "Y-cord: " +e.getValue().getLoc().getBlockY() + ", " +
-		 															   "Z-cord: " +e.getValue().getLoc().getBlockZ() +"\n\n";
+					+ChatColor.DARK_GREEN+"Tower Region Name: "+ChatColor.YELLOW+e.getValue().getName() +"\n"
+					+ChatColor.DARK_GREEN+"Tower Team: "+ChatColor.YELLOW+e.getValue().getTeam()+"\n"
+					+ChatColor.DARK_GREEN+"Tower World: "+ChatColor.YELLOW+e.getValue().getWorld()+"\n"
+					+ChatColor.DARK_GREEN + "Tower Location: " + ChatColor.YELLOW+ "X-cord: " +e.getValue().getLoc().getBlockX() + ", " +
+					"Y-cord: " +e.getValue().getLoc().getBlockY() + ", " +
+					"Z-cord: " +e.getValue().getLoc().getBlockZ() +"\n\n";
 		}
 		if (buf == ""){
 			return ChatColor.DARK_PURPLE+""+ ChatColor.BOLD+ "You have not created any Towers";
 		}else{
-		return buf;
+			return buf;
 		}
 	}
-	
+
 
 	public static ArenaTOW getSelf() {
 		return plugin;
@@ -676,10 +668,10 @@ public class TugArena extends Arena {
 	}
 
 
-	
-	
 
-	
 
-	
+
+
+
+
 }

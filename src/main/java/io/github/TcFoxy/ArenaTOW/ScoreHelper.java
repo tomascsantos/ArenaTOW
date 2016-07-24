@@ -1,14 +1,10 @@
 package io.github.TcFoxy.ArenaTOW;
 
-import io.github.TcFoxy.ArenaTOW.playerModifiers.shop.ArenaEcon;
-
 import java.util.HashMap;
 import java.util.UUID;
 
-import mc.alk.arena.BattleArena;
 import mc.alk.arena.objects.ArenaPlayer;
 import mc.alk.arena.objects.scoreboard.ArenaScoreboard;
-import mc.alk.arena.objects.teams.ArenaTeam;
 import mc.alk.scoreboardapi.api.SEntry;
 import mc.alk.scoreboardapi.api.SObjective;
 import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
@@ -22,13 +18,13 @@ public class ScoreHelper {
 	
 	static TugArena tug;
 	private static HashMap<UUID, ArenaScoreboard> boards;
-	private HashMap<UUID, Integer> cash;
+//	private HashMap<UUID, Integer> cash;
 
 	ScoreHelper(TugArena Tug){
-		this.tug = Tug;
+		ScoreHelper.tug = Tug;
 
 		boards = new HashMap<UUID, ArenaScoreboard>();
-		cash = new HashMap<UUID, Integer>();
+//		cash = new HashMap<UUID, Integer>();
 	}
 	
 	public void onStart() {
@@ -69,12 +65,12 @@ public class ScoreHelper {
 
 	private static void makeSidebar(SObjective obj, Player p) {
 		
-		obj.addEntry(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Cash", ArenaEcon.getCash(p));
+		//obj.addEntry(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Cash", ArenaEcon.getCash(p));
 
 		addTowerHealths(obj, p);
 		
-		ArenaTeam team = BattleArena.toArenaPlayer(p).getTeam();
-		obj.addEntry(ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "TeamLevel", tug.teamLevel.getTeamLev(team.getDisplayName()));
+//		ArenaTeam team = BattleArena.toArenaPlayer(p).getTeam();
+//		obj.addEntry(ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "TeamLevel", tug.teamLevel.getTeamLev(team.getDisplayName()));
 	}
 	
 	private static void addTowerHealths(SObjective obj, Player p){

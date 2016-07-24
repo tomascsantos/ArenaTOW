@@ -28,19 +28,12 @@ public class Utils {
 	public static final int TPS = 20;
 	
 	
-	public static net.minecraft.server.v1_10_R1.ItemStack makeMobHelm(String color){
+	public static ItemStack makeMobHelm(Color color){
 		ItemStack helm = new ItemStack(Material.LEATHER_HELMET);
 		LeatherArmorMeta meta = (LeatherArmorMeta) helm.getItemMeta();
-		if(color.equals("Blue")){
-			meta.setColor(Color.BLUE);
-		}else if (color.equals("Red")){
-			meta.setColor(Color.RED);
-		}else if (color.equals("Black")){
-			meta.setColor(Color.BLACK);
-		}
+		meta.setColor(color);
 		helm.setItemMeta(meta);
-		net.minecraft.server.v1_10_R1.ItemStack nms = org.bukkit.craftbukkit.v1_10_R1.inventory.CraftItemStack.asNMSCopy(helm);
-		return nms;
+		return helm;
 	}
 	
 	

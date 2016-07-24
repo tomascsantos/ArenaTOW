@@ -1,15 +1,13 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_8ish;
+package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
 
 import net.minecraft.server.v1_10_R1.BlockPosition;
 import net.minecraft.server.v1_10_R1.EntityLiving;
 import net.minecraft.server.v1_10_R1.EntitySmallFireball;
-import net.minecraft.server.v1_10_R1.MathHelper;
 import net.minecraft.server.v1_10_R1.PathfinderGoal;
 
 class PathfinderGoalGolemFireball extends PathfinderGoal
 {
 	private CustomEntityIronGolem a;
-	private int b;
 	private int c;
 
 	public PathfinderGoalGolemFireball(CustomEntityIronGolem paramEntityGolem)
@@ -28,11 +26,6 @@ class PathfinderGoalGolemFireball extends PathfinderGoal
 		return true;
 	}
 
-	public void c()
-	{
-		this.b = 0;
-	}
-
 	public void d()
 	{
 		this.a.a(false);
@@ -44,51 +37,36 @@ class PathfinderGoalGolemFireball extends PathfinderGoal
 		if((this.a.getClass().getName() == "io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGolem" &&
 				localEntityLiving.getClass().getName() == "io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.EntityBlueZombie") ||
 				(this.a.getClass().getName() == "io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGolem" &&
-						localEntityLiving.getClass().getName() == "io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.EntityRedZombie")){
+				localEntityLiving.getClass().getName() == "io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.EntityRedZombie")){
 			return;
 		}
 		this.c -= 1;
-		
-		double d1 = this.a.h(localEntityLiving);
 
 		// Check for line of sight
-	    if (!this.a.hasLineOfSight(localEntityLiving)) {
-	        this.a.setGoalTarget(null);
-	        return;
-	      }
-
-		if (d1 < 4.0D)
-		{
-			if (this.c <= 0) {
-				this.c = 10;
-				this.a.r(localEntityLiving);
-			}
-			this.a.getControllerMove().a(localEntityLiving.locX, localEntityLiving.locY, localEntityLiving.locZ, 1.0D);
-		} else if (d1 < 256.0D) {
-			double d2 = localEntityLiving.locX - this.a.locX;
-			double d3 = localEntityLiving.getBoundingBox().b + localEntityLiving.length / 2.0F - (this.a.locY + this.a.length / 2.0F);
-			double d4 = localEntityLiving.locZ - this.a.locZ;
-
-			if (this.c <= 0) {
-
-				this.c = 10;
-				float f = MathHelper.c(MathHelper.sqrt(d1)) * 0.5F;
-
-				this.a.world.a(null, 1009, new BlockPosition((int)this.a.locX, (int)this.a.locY, (int)this.a.locZ), 0);
-				for (int i = 0; i < 3; i++) {
-					EntitySmallFireball localEntitySmallFireball = new EntitySmallFireball(this.a.world, this.a, d2, d3, d4);
-					localEntitySmallFireball.motX = localEntitySmallFireball.dirX * 15;
-					localEntitySmallFireball.motY = localEntitySmallFireball.dirY * 15;
-					localEntitySmallFireball.motZ = localEntitySmallFireball.dirZ * 15;
-					localEntitySmallFireball.locY = (this.a.locY + this.a.length / 2.0F + 0.5D);
-					this.a.world.addEntity(localEntitySmallFireball);
-				}
-			}
-			this.a.getControllerLook().a(localEntityLiving, 10.0F, 10.0F);
-		} else {
-			this.a.getNavigation().n();
-			this.a.getControllerMove().a(localEntityLiving.locX, localEntityLiving.locY, localEntityLiving.locZ, 1.0D);
+		if (!this.a.hasLineOfSight(localEntityLiving)) {
+			this.a.setGoalTarget(null);
+			return;
 		}
+
+		double d2 = localEntityLiving.locX - this.a.locX;
+		double d3 = localEntityLiving.getBoundingBox().b + localEntityLiving.length / 2.0F - (this.a.locY + this.a.length / 2.0F);
+		double d4 = localEntityLiving.locZ - this.a.locZ;
+
+		if (this.c <= 0) {
+
+			this.c = 10;
+
+			this.a.world.a(null, 1009, new BlockPosition((int)this.a.locX, (int)this.a.locY, (int)this.a.locZ), 0);
+			for (int i = 0; i < 3; i++) {
+				EntitySmallFireball localEntitySmallFireball = new EntitySmallFireball(this.a.world, this.a, d2, d3, d4);
+				localEntitySmallFireball.motX = localEntitySmallFireball.dirX * 15;
+				localEntitySmallFireball.motY = localEntitySmallFireball.dirY * 15;
+				localEntitySmallFireball.motZ = localEntitySmallFireball.dirZ * 15;
+				localEntitySmallFireball.locY = (this.a.locY + this.a.length / 2.0F + 0.5D);
+				this.a.world.addEntity(localEntitySmallFireball);
+			}
+		}
+		this.a.getControllerLook().a(localEntityLiving, 10.0F, 10.0F);
 
 		super.e();
 	}
@@ -145,7 +123,7 @@ class PathfinderGoalBlazeFireball extends PathfinderGoal
 
     public void e()
     {
-       
+
         // Decrease the cooldown
         this.c -= 1;
 
@@ -222,4 +200,4 @@ class PathfinderGoalBlazeFireball extends PathfinderGoal
         super.e();
     }
 }
-*/
+ */

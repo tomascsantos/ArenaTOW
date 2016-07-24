@@ -1,14 +1,14 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_8ish.interfaces;
+package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomBlueGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomBlueGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityIronGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomEntityZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomRedGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.CustomRedGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.EntityBlueZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_8ish.EntityRedZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomBlueZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityIronGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomEntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.CustomRedZombie;
 
 import java.lang.reflect.Field;
 
@@ -38,16 +38,16 @@ public class NMSUtils {
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
 		}
-	public static EntityBlueZombie spawnBlueZombie(org.bukkit.World world, double x, double y, double z) {
+	public static CustomBlueZombie spawnBlueZombie(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		EntityBlueZombie g = new EntityBlueZombie(nms);
+		CustomBlueZombie g = new CustomBlueZombie(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
 		}
-	public static EntityRedZombie spawnRedZombie(org.bukkit.World world, double x, double y, double z) {
+	public static CustomRedZombie spawnRedZombie(org.bukkit.World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		EntityRedZombie g = new EntityRedZombie(nms);
+		CustomRedZombie g = new CustomRedZombie(nms);
 		g.setPosition(x, y, z);
 		nms.addEntity(g, SpawnReason.CUSTOM);
 		return g;
@@ -91,7 +91,7 @@ public class NMSUtils {
 		}
 
 
-	public static Object getPrivateField(String fieldname, Class clazz, Object object){
+	public static Object getPrivateField(String fieldname, @SuppressWarnings("rawtypes") Class clazz, Object object){
 		Field field;
 		Object o = null;
 		

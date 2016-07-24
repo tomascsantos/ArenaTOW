@@ -67,6 +67,8 @@ public class Tower {
 		return Math.round(getMob().getMaxHealth());
 	}
 	
+	
+	
 
 	public HashMap<String, String> createSaveableTowers(HashMap<String, Tower> towerteams) {
 		HashMap<String, String> towers = new HashMap<String, String>();
