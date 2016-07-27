@@ -61,7 +61,7 @@ public class TugArena extends Arena {
 	@Persist 
 	HashMap<String, String> minionFactorySpawners;
 	@Persist 
-	public HashMap<String, String> serializedSave;
+	public HashMap<String, String> baseSave;
 
 
 	/*
@@ -106,8 +106,8 @@ public class TugArena extends Arena {
 		 * No Idea what's happening here...
 		 */
 		
-//		if(serializedSave == null){
-//			serializedSave = new HashMap<String, String>();
+//		if(baseSave == null){
+//			baseSave = new HashMap<String, String>();
 //		}
 	}
 
@@ -135,7 +135,7 @@ public class TugArena extends Arena {
 		//PlayerE.resetdefaultStats();
 		timers = new TugTimers(this);
 		//PlayerE = new PlayerEnhancements(arena);
-		tuglistener = new TugListener(tug, serializedSave);
+		tuglistener = new TugListener(tug, baseSave);
 		this.sh = new ScoreHelper(tug);
 
 
@@ -165,8 +165,7 @@ public class TugArena extends Arena {
 		 * above.
 		 */
 
-		//towerteams = Tower.loadTowers(towerSave);
-		activeBases = SerializableBase.getObject(serializedSave);
+		//activeBases = SerializableBase.getObject(baseSave);
 
 		/*
 		 * start the bukkit
@@ -523,8 +522,8 @@ public class TugArena extends Arena {
 	}
 	
 	private void saveBase(String key, Location loc, Player sender, Color color, TugArena arena){
-		if(serializedSave != null){
-			activeBases = SerializableBase.getObject(serializedSave);
+		if(baseSave != null){
+			activeBases = SerializableBase.getObject(baseSave);
 			Bukkit.broadcastMessage("get object called");
 		}
 		if(activeBases.containsKey(key)){
@@ -545,7 +544,7 @@ public class TugArena extends Arena {
 			Bukkit.broadcastMessage("value from HashMap is null");
 		}
 		
-		serializedSave = SerializableBase.saveObject(activeBases);
+		baseSave = SerializableBase.saveObject(activeBases);
 	}
 	
 	public void addNexus(Location loc, Player sender, Color color, TugArena arena){
@@ -616,9 +615,9 @@ public class TugArena extends Arena {
 	public Boolean removeTower(String baseKey) {
 		if (! activeBases.containsKey(baseKey))
 			return false;
-		activeBases = SerializableBase.getObject(serializedSave);
+		activeBases = SerializableBase.getObject(baseSave);
 		activeBases.remove(baseKey);
-		serializedSave = SerializableBase.saveObject(activeBases);
+		baseSave = SerializableBase.saveObject(activeBases);
 		return true;
 		
 		/*
@@ -641,9 +640,9 @@ public class TugArena extends Arena {
 
 	public void clearTowers() {
 		
-		activeBases = SerializableBase.getObject(serializedSave);
+		activeBases = SerializableBase.getObject(baseSave);
 		activeBases.clear();
-		serializedSave.clear();
+		baseSave.clear();
 		
 		//Tower tower = new Tower();
 //		towerteams = Tower.loadTowers(towerSave);
