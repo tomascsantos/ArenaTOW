@@ -5,6 +5,7 @@ import mc.alk.arena.executors.CustomCommandExecutor;
 import mc.alk.arena.executors.MCCommand;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -19,10 +20,10 @@ public class TugExecutor extends CustomCommandExecutor{
 		atInstance = instance;
 	}
 
-	@MCCommand(cmds={"listTowers"}, admin=true)
-	public static boolean listTowers(CommandSender sender, TugArena arena) {
-		return sendMessage(sender, arena.getTowerList());
-	}
+//	@MCCommand(cmds={"listTowers"}, admin=true)
+//	public static boolean listTowers(CommandSender sender, TugArena arena) {
+//		return sendMessage(sender, arena.getTowerList());
+//	}
 
 	@MCCommand(cmds={"removeTower"}, admin=true)
 	public static boolean removeTowers(CommandSender sender, TugArena arena, String towername){
@@ -67,12 +68,12 @@ public class TugExecutor extends CustomCommandExecutor{
 		if (index < 1 || index > 100){
 			return sendMessage(sender,"&2index must be between [1-100]!");}
 		if (color.equalsIgnoreCase("Red")){
-			arena.addTower(index, sender.getLocation(), sender, "Red", arena, atInstance, "Tower");
+			arena.addTower(index, sender.getLocation(), sender, Color.RED, arena);
 			BattleArena.saveArenas(ArenaTOW.getSelf());
 			return true; 
 
 		}else if(color.equalsIgnoreCase("Blue")){
-			arena.addTower(index, sender.getLocation(), sender, "Blue", arena, atInstance, "Tower");
+			arena.addTower(index, sender.getLocation(), sender, Color.BLUE, arena);
 			BattleArena.saveArenas(ArenaTOW.getSelf());
 			return true; 
 
@@ -82,17 +83,16 @@ public class TugExecutor extends CustomCommandExecutor{
 		}
 	}
 	
-	@MCCommand(cmds={"add"}, subCmds ={"nexus"}, admin=true, usage = "add nexus <[Blue] or [Red]> <Tower#> <Arena_Name>")
-	public static boolean addNexus(Player sender, String color, Integer index, TugArena arena){
-		if (index < 1 || index > 100){
-			return sendMessage(sender,"&2index must be between [1-100]!");}
+	@MCCommand(cmds={"add"}, subCmds ={"nexus"}, admin=true, usage = "add nexus <[Blue] or [Red]> <Arena_Name>")
+	public static boolean addNexus(Player sender, String color, TugArena arena){
+
 		if (color.equalsIgnoreCase("Red")){
-			arena.addTower(index, sender.getLocation(), sender, "Red", arena, atInstance, "Nexus");
+			arena.addNexus(sender.getLocation(), sender, Color.RED, arena);
 			BattleArena.saveArenas(ArenaTOW.getSelf());
 			return true; 
 
 		}else if(color.equalsIgnoreCase("Blue")){
-			arena.addTower(index, sender.getLocation(), sender, "Blue", arena, atInstance, "Nexus");
+			arena.addNexus(sender.getLocation(), sender, Color.BLUE, arena);
 			BattleArena.saveArenas(ArenaTOW.getSelf());
 			return true; 
 

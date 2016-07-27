@@ -1,5 +1,7 @@
 package io.github.TcFoxy.ArenaTOW;
 
+import io.github.TcFoxy.ArenaTOW.Serializable.Tower;
+
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -67,29 +69,29 @@ public class ScoreHelper {
 		
 		//obj.addEntry(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Cash", ArenaEcon.getCash(p));
 
-		addTowerHealths(obj, p);
+		//addTowerHealths(obj, p);
 		
 //		ArenaTeam team = BattleArena.toArenaPlayer(p).getTeam();
 //		obj.addEntry(ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "TeamLevel", tug.teamLevel.getTeamLev(team.getDisplayName()));
 	}
 	
-	private static void addTowerHealths(SObjective obj, Player p){
-		for(Tower tow: tug.towerteams.values()){
-			if (tow.getTeam().toString().equals("Red")){
-				if(tow.getType().equals("Tower")){
-					obj.addEntry(ChatColor.DARK_RED.toString() + ChatColor.BOLD + "Red Tower", getTowHealth(tow));
-				}else if(tow.getType().equals("Nexus")){
-					obj.addEntry(ChatColor.DARK_RED.toString() + ChatColor.BOLD + "Red Nexus", getTowHealth(tow));
-				}
-			}else if (tow.getTeam().toString().equals("Blue")){
-				if(tow.getType().equals("Tower")){
-					obj.addEntry(ChatColor.BLUE.toString() + ChatColor.BOLD + "Blue Tower", getTowHealth(tow));
-				}else if(tow.getType().equals("Nexus")){
-					obj.addEntry(ChatColor.BLUE.toString() + ChatColor.BOLD + "Blue Nexus", getTowHealth(tow));
-				}
-			}
-		}
-	}
+//	private static void addTowerHealths(SObjective obj, Player p){
+//		for(Tower tow: tug.towerteams.values()){
+//			if (tow.getTeamColor() == Color.RED){
+//				if(tow.getType().equals("Tower")){
+//					obj.addEntry(ChatColor.DARK_RED.toString() + ChatColor.BOLD + "Red Tower", getTowHealth(tow));
+//				}else if(tow.getType().equals("Nexus")){
+//					obj.addEntry(ChatColor.DARK_RED.toString() + ChatColor.BOLD + "Red Nexus", getTowHealth(tow));
+//				}
+//			}else if (tow.getTeamColor() == Color.BLUE){
+//				if(tow.getType().equals("Tower")){
+//					obj.addEntry(ChatColor.BLUE.toString() + ChatColor.BOLD + "Blue Tower", getTowHealth(tow));
+//				}else if(tow.getType().equals("Nexus")){
+//					obj.addEntry(ChatColor.BLUE.toString() + ChatColor.BOLD + "Blue Nexus", getTowHealth(tow));
+//				}
+//			}
+//		}
+//	}
 	
 	public void refreshScore(Player p){
 		ArenaScoreboard sb = boards.get(p.getUniqueId());

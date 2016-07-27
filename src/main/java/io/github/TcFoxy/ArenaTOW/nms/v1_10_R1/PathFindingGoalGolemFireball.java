@@ -6,10 +6,10 @@ import net.minecraft.server.v1_10_R1.PathfinderGoal;
 
 class PathfinderGoalGolemFireball extends PathfinderGoal
 {
-	private MyEntityIronGolem a;
+	private MyEntityGolem a;
 	private int c;
 
-	public PathfinderGoalGolemFireball(MyEntityIronGolem paramEntityGolem)
+	public PathfinderGoalGolemFireball(MyEntityGolem paramEntityGolem)
 	{
 		this.a = paramEntityGolem;
 

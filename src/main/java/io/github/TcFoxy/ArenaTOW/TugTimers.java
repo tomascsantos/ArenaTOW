@@ -1,6 +1,6 @@
 package io.github.TcFoxy.ArenaTOW;
 
-import io.github.TcFoxy.ArenaTOW.MinionStuff.Minion;
+import io.github.TcFoxy.ArenaTOW.Serializable.Minion;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityZombie;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
 
@@ -102,11 +102,11 @@ public class TugTimers {
 			Location startloc = m.getStartLoc();
 			MyEntityZombie zombie = null;
 			if(m.getTeam().equalsIgnoreCase("Red")){
-				zombie = NMSUtils.spawnRedZombie(startloc.getWorld(), startloc.getX(), startloc.getY(), startloc.getZ());
+				zombie = NMSUtils.spawnTeamZombie(startloc.getWorld(), startloc.getX(), startloc.getY(), startloc.getZ(), Color.RED);
 				LivingEntity en = (LivingEntity) zombie.getBukkitEntity();
 				en.getEquipment().setHelmet(Utils.makeMobHelm(Color.RED));
 			}else{
-				zombie= NMSUtils.spawnBlueZombie(startloc.getWorld(), startloc.getX(), startloc.getY(), startloc.getZ());
+				zombie= NMSUtils.spawnTeamZombie(startloc.getWorld(), startloc.getX(), startloc.getY(), startloc.getZ(), Color.BLUE);
 				LivingEntity en = (LivingEntity) zombie.getBukkitEntity();
 				en.getEquipment().setHelmet(Utils.makeMobHelm(Color.BLUE));
 

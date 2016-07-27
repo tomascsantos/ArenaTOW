@@ -1,12 +1,9 @@
 package io.github.TcFoxy.ArenaTOW;
 
 import io.github.TcFoxy.ArenaTOW.Listeners.TugListener;
-import io.github.TcFoxy.ArenaTOW.MinionStuff.MinionFactory;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyBlueGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyBlueGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyRedGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyRedGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
+import io.github.TcFoxy.ArenaTOW.Serializable.MinionFactory;
+import io.github.TcFoxy.ArenaTOW.Serializable.SerializableBase;
+import io.github.TcFoxy.ArenaTOW.Serializable.SerializableBase.BaseType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,13 +18,13 @@ import mc.alk.arena.objects.events.ArenaEventHandler;
 import mc.alk.arena.objects.spawns.SpawnLocation;
 import mc.alk.arena.objects.teams.ArenaTeam;
 import mc.alk.arena.serializers.Persist;
+import net.minecraft.server.v1_10_R1.EntityLiving;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -64,7 +61,7 @@ public class TugArena extends Arena {
 	@Persist 
 	HashMap<String, String> minionFactorySpawners;
 	@Persist 
-	public HashMap<String, String> towerSave;
+	public HashMap<String, String> serializedSave;
 
 
 	/*
@@ -74,7 +71,9 @@ public class TugArena extends Arena {
 	 */
 	HashMap<String, Integer> tasks = new HashMap<String, Integer>();
 	HashMap<Integer, Location> pathpointsSave = new HashMap<Integer, Location>();
-	public HashMap<String, Tower> towerteams = new HashMap<String, Tower>();
+	
+	//public HashMap<String, Tower> towerteams = new HashMap<String, Tower>();
+	public HashMap<String, SerializableBase> activeBases = new HashMap<String, SerializableBase>();
 
 
 	/*
@@ -106,6 +105,10 @@ public class TugArena extends Arena {
 		/*
 		 * No Idea what's happening here...
 		 */
+		
+//		if(serializedSave == null){
+//			serializedSave = new HashMap<String, String>();
+//		}
 	}
 
 
@@ -132,7 +135,7 @@ public class TugArena extends Arena {
 		//PlayerE.resetdefaultStats();
 		timers = new TugTimers(this);
 		//PlayerE = new PlayerEnhancements(arena);
-		tuglistener = new TugListener(tug, towerSave);
+		tuglistener = new TugListener(tug, serializedSave);
 		this.sh = new ScoreHelper(tug);
 
 
@@ -162,7 +165,8 @@ public class TugArena extends Arena {
 		 * above.
 		 */
 
-		towerteams = Tower.loadTowers(towerSave);
+		//towerteams = Tower.loadTowers(towerSave);
+		activeBases = SerializableBase.getObject(serializedSave);
 
 		/*
 		 * start the bukkit
@@ -205,31 +209,20 @@ public class TugArena extends Arena {
 		 * if its a red team Golem
 		 * --> soawn an entity Red Golem, ect.
 		 */
-
-		for(Tower tow: towerteams.values()){
-			if (tow.getTeam().toString().equals("Red")){
-				if(tow.getType().equals("Tower")){
-					MyRedGolem golem = NMSUtils.spawnRedGolem(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
-					tow.setMob(golem);
-					LivingEntity en = (LivingEntity) golem.getBukkitEntity();
-					en.getEquipment().setHelmet(Utils.makeMobHelm(Color.RED));
-				}else if(tow.getType().equals("Nexus")){
-					MyRedGuardian guardian = NMSUtils.spawnRedGuardian(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
-					tow.setMob(guardian);
-				}
-
-			}else if (tow.getTeam().toString().equals("Blue")){
-				if(tow.getType().equals("Tower")){
-					MyBlueGolem golem = NMSUtils.spawnBlueGolem(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
-					tow.setMob(golem);
-					LivingEntity en = (LivingEntity) golem.getBukkitEntity();
-					en.getEquipment().setHelmet(Utils.makeMobHelm(Color.BLUE));
-				}else if(tow.getType().equals("Nexus")){
-					MyBlueGuardian guardian = NMSUtils.spawnBlueGuardian(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ());
-					tow.setMob(guardian);
-				}
-			}
+		
+		for(SerializableBase base : activeBases.values()){
+			base.spawnMob();
 		}
+
+//		for(Tower tow: towerteams.values()){
+//			if(tow.getType() == TowerType.TOWER){
+//				MyEntityGolem golem = NMSUtils.spawnTeamGolem(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ(), tow.getTeamColor());
+//				tow.setMob(golem);
+//			}else if(tow.getType() == TowerType.NEXUS){
+//				MyEntityGuardian guardian = NMSUtils.spawnTeamGuardian(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ(), tow.getTeamColor());
+//				tow.setMob(guardian);
+//			}
+//		}
 
 		/*
 		 * set up the arena economy
@@ -303,9 +296,13 @@ public class TugArena extends Arena {
 
 
 	private void resetTowers() {
-		for(Tower tow: towerteams.values()){
-			tow.getMob().setHealth(0);
+		for(SerializableBase base: activeBases.values()){
+			((EntityLiving) base.getMob()).setHealth(0);
 		}
+		
+//		for(Tower tow: towerteams.values()){
+//			tow.getMob().setHealth(0);
+//		}
 	}
 
 
@@ -524,49 +521,60 @@ public class TugArena extends Arena {
 		deathrooms.put(string, location);
 		sender.sendMessage("deathroom created successfully");
 	}
-
-	public void addTower(Integer i, Location location, Player sender, String color, TugArena arena, ArenaTOW instance, String type) {
-		Location l = location.clone();
-
-		/* Location spot is mostly for testing custom mob spawning right now, but also will come in handy when
-		 * we change towers from invisible boundaries to a custom mob with tons of health
-		 */
-		Location spot = l;
-		spot.setX(spot.getX());
-		spot.setZ(spot.getZ());
-		spot.setY(spot.getY()+1);
-
-		String towername, team, key, num, message;
-
-		if (color == "Blue") {
-			team = "Blue";
-			towername = "ba_"+this.name + "_blue_" + i;
-			num = Integer.toString(i);
-			key = "blue" + num;
-			message = ChatColor.DARK_BLUE+"BlueTeam";
-		} else {
-			team = "Red";
-			towername = "ba_"+this.name + "_red_" + i;
-			num = Integer.toString(i);
-			key = "red" + num;
-			message = ChatColor.DARK_RED+"RedTeam";
+	
+	private void saveBase(String key, Location loc, Player sender, Color color, TugArena arena){
+		if(serializedSave != null){
+			activeBases = SerializableBase.getObject(serializedSave);
+			Bukkit.broadcastMessage("get object called");
 		}
-
-
-		if(towerSave != null){
-			towerteams = Tower.loadTowers(towerSave);
-		}
-		if(towerteams.containsKey(key)){
+		if(activeBases.containsKey(key)){
 			sender.sendMessage(ChatColor.DARK_RED+"You have already created "+
-					ChatColor.YELLOW+towername+ChatColor.DARK_RED+", its position is being updated");
-		}
-		else{
-			sender.sendMessage(message+ChatColor.DARK_GREEN+" tower number " + ChatColor.YELLOW + i+ ChatColor.DARK_GREEN+" added!");
+					ChatColor.YELLOW+key+ChatColor.DARK_RED+", its position is being updated");
+		}else{
+			sender.sendMessage(key + " added!");
 		}
 
-		Tower t = new Tower(towername, sender.getWorld(), team, spot, type);
-		towerteams.put(key, t);	
-		towerSave = t.createSaveableTowers(towerteams);		
+		SerializableBase base = new SerializableBase(key, color, loc);
+		if(base == null){
+			Bukkit.broadcastMessage("base is null before HashMap");
+		}
+		
+		activeBases.put(key, base);
+		
+		if(activeBases.get(key) == null){
+			Bukkit.broadcastMessage("value from HashMap is null");
+		}
+		
+		serializedSave = SerializableBase.saveObject(activeBases);
+	}
+	
+	public void addNexus(Location loc, Player sender, Color color, TugArena arena){
+		//important key order, [2] must be BaseType
+		String key = "ba_" + arena.name + "_" + BaseType.NEXUS + "_" + String.valueOf(color.asRGB());
+		
+		saveBase(key, loc, sender, color, arena);
+	}
+	
+	public void addTower(Integer i, Location loc, Player sender, Color color, TugArena arena) {
+		//important key order, [2] must be BaseType
+		String key = "ba_" + arena.name + "_" + BaseType.TOWER + "_" + String.valueOf(color.asRGB()) + "_" + i;
+		saveBase(key, loc, sender, color, arena);
+		
+		
+//		if(towerSave != null){
+//			towerteams = Tower.loadTowers(towerSave);
+//		}
+//		if(towerteams.containsKey(key)){
+//			sender.sendMessage(ChatColor.DARK_RED+"You have already created "+
+//					ChatColor.YELLOW+key+ChatColor.DARK_RED+", its position is being updated");
+//		}
+//		else{
+//			sender.sendMessage(key + " added!");
+//		}
+//
+//		Tower t = new Tower(key, sender.getWorld(), team, loc, type);
+//		towerteams.put(key, t);	
+//		towerSave = t.createSaveableTowers(towerteams);		
 	}
 
 	public void addSpawner(Player sender, Location location, String color, TugArena arena, Integer index) {
@@ -605,14 +613,25 @@ public class TugArena extends Arena {
 				+ " for Spawner " + ChatColor.YELLOW + "#" +index+ ChatColor.DARK_GREEN + " of color" + color + ".");
 	}
 
-	public Boolean removeTower(String towername) {
-		if (! towerteams.containsKey(towername))
+	public Boolean removeTower(String baseKey) {
+		if (! activeBases.containsKey(baseKey))
 			return false;
-		towerteams = Tower.loadTowers(towerSave);
-		Tower t = towerteams.get(towername);
-		towerteams.remove(towername);
-		towerSave = t.createSaveableTowers(towerteams);
+		activeBases = SerializableBase.getObject(serializedSave);
+		activeBases.remove(baseKey);
+		serializedSave = SerializableBase.saveObject(activeBases);
 		return true;
+		
+		/*
+		 * 
+		 * 
+		 */
+//		if (! towerteams.containsKey(towername))
+//			return false;
+//		towerteams = Tower.loadTowers(towerSave);
+//		Tower t = towerteams.get(towername);
+//		towerteams.remove(towername);
+//		towerSave = t.createSaveableTowers(towerteams);
+//		return true;
 	}
 
 	public Boolean removeSpawner(String spawnername) {
@@ -621,16 +640,21 @@ public class TugArena extends Arena {
 	}
 
 	public void clearTowers() {
+		
+		activeBases = SerializableBase.getObject(serializedSave);
+		activeBases.clear();
+		serializedSave.clear();
+		
 		//Tower tower = new Tower();
-		towerteams = Tower.loadTowers(towerSave);
-		for (Tower t : towerteams.values()) {
-			org.bukkit.World world = t.getWorld();
-			if(world == null){
-				Bukkit.broadcastMessage(ChatColor.DARK_RED+"That world is = Null");
-			}
-		}
-		towerteams.clear();
-		towerSave.clear();
+//		towerteams = Tower.loadTowers(towerSave);
+//		for (Tower t : towerteams.values()) {
+//			org.bukkit.World world = t.getWorld();
+//			if(world == null){
+//				Bukkit.broadcastMessage(ChatColor.DARK_RED+"That world is = Null");
+//			}
+//		}
+//		towerteams.clear();
+//		towerSave.clear();
 
 
 	}
@@ -639,33 +663,29 @@ public class TugArena extends Arena {
 		minionFactory.clearSpawners();
 	}
 
-	public String getTowerList() {
-		String buf = "";
-		towerteams = Tower.loadTowers(towerSave);
-		for (Entry <String, Tower> e: towerteams.entrySet()) {
-			buf += ChatColor.DARK_PURPLE + ""+ChatColor.BOLD +"Tower Name: " +ChatColor.YELLOW + e.getKey() +"\n"  
-					+ChatColor.DARK_GREEN+"Tower Region Name: "+ChatColor.YELLOW+e.getValue().getName() +"\n"
-					+ChatColor.DARK_GREEN+"Tower Team: "+ChatColor.YELLOW+e.getValue().getTeam()+"\n"
-					+ChatColor.DARK_GREEN+"Tower World: "+ChatColor.YELLOW+e.getValue().getWorld()+"\n"
-					+ChatColor.DARK_GREEN + "Tower Location: " + ChatColor.YELLOW+ "X-cord: " +e.getValue().getLoc().getBlockX() + ", " +
-					"Y-cord: " +e.getValue().getLoc().getBlockY() + ", " +
-					"Z-cord: " +e.getValue().getLoc().getBlockZ() +"\n\n";
-		}
-		if (buf == ""){
-			return ChatColor.DARK_PURPLE+""+ ChatColor.BOLD+ "You have not created any Towers";
-		}else{
-			return buf;
-		}
-	}
+//	public String getTowerList() {
+//		String buf = "";
+//		towerteams = Tower.loadTowers(towerSave);
+//		for (Entry <String, Tower> e: towerteams.entrySet()) {
+//			buf += ChatColor.DARK_PURPLE + ""+ChatColor.BOLD +"Tower Name: " +ChatColor.YELLOW + e.getKey() +"\n"  
+//					+ChatColor.DARK_GREEN+"Tower Region Name: "+ChatColor.YELLOW+e.getValue().getKey() +"\n"
+//					+ChatColor.DARK_GREEN+"Tower Team: "+ChatColor.YELLOW+e.getValue().getTeamColor()+"\n"
+//					+ChatColor.DARK_GREEN+"Tower World: "+ChatColor.YELLOW+e.getValue().getWorld()+"\n"
+//					+ChatColor.DARK_GREEN + "Tower Location: " + ChatColor.YELLOW+ "X-cord: " +e.getValue().getLoc().getBlockX() + ", " +
+//					"Y-cord: " +e.getValue().getLoc().getBlockY() + ", " +
+//					"Z-cord: " +e.getValue().getLoc().getBlockZ() +"\n\n";
+//		}
+//		if (buf == ""){
+//			return ChatColor.DARK_PURPLE+""+ ChatColor.BOLD+ "You have not created any Towers";
+//		}else{
+//			return buf;
+//		}
+//	}
 
 
-	public static ArenaTOW getSelf() {
-		return plugin;
-	}
-
-	public static void setMain(ArenaTOW tow){
-		plugin = tow;
-	}
+//	public static void setMain(ArenaTOW tow){
+//		plugin = tow;
+//	}
 
 
 

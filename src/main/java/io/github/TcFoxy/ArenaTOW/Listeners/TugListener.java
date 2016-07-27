@@ -1,8 +1,8 @@
 package io.github.TcFoxy.ArenaTOW.Listeners;
 
-import io.github.TcFoxy.ArenaTOW.Tower;
 import io.github.TcFoxy.ArenaTOW.TugArena;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityIronGolem;
+import io.github.TcFoxy.ArenaTOW.Serializable.SerializableBase;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGolem;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyFireball;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.NMSConstants;
 
@@ -162,7 +162,7 @@ public class TugListener implements Listener{
 			CraftFireball frball = (CraftFireball) event.getDamager();
 			EntityFireball nmsFireball = (EntityFireball) frball.getHandle();
 			if(nmsFireball instanceof MyFireball){
-				MyEntityIronGolem golem = ((MyFireball) nmsFireball).getGolem();
+				MyEntityGolem golem = ((MyFireball) nmsFireball).getGolem();
 				if(NMSConstants.isSameTeam(golem, ((CraftEntity) event.getEntity()).getHandle())){
 					event.setCancelled(true);
 					event.getEntity().setFireTicks(0);
@@ -209,15 +209,15 @@ public class TugListener implements Listener{
 	 */
 	@EventHandler
 	private void nexusDeath(EntityDeathEvent event){
-		for(Tower tow : tug.towerteams.values()){
-			if(tow.getMob() != null){
-				if(tow.getMob().getBukkitEntity().toString() == "CraftGuardian" && tow.getMob().getHealth() == 0){
-					EntityLiving el = (EntityLiving) ((CraftEntity) event.getEntity()).getHandle();
-					if(el.getClass().getName() == NMSConstants.MyBlueGuardian){
-						tug.arena.getMatch().setVictor(tug.redTeam);
-					}else if(el.getClass().getName() == NMSConstants.MyRedGuardian){					
-						tug.arena.getMatch().setVictor(tug.blueTeam);
-					}
+		
+		for(SerializableBase b : tug.activeBases.values()){
+			if(b.getMob() != null &&
+					((EntityLiving) b.getMob()).getHealth() == 0){
+				
+				if(b.getMob().getClass().getName() == NMSConstants.MyBlueGuardian){
+					tug.arena.getMatch().setVictor(tug.redTeam);
+				}else if (b.getMob().getClass().getName() == NMSConstants.MyRedGuardian){
+					tug.arena.getMatch().setVictor(tug.blueTeam);
 				}
 			}
 		}

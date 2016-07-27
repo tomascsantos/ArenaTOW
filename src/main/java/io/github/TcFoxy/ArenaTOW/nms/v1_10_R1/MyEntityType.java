@@ -16,7 +16,7 @@ import org.bukkit.entity.EntityType;
 
 public enum MyEntityType {
 	
-	IRON_GOLEM("VillagerGolem", 99, EntityType.IRON_GOLEM, EntityIronGolem.class,MyEntityIronGolem.class),
+	IRON_GOLEM("VillagerGolem", 99, EntityType.IRON_GOLEM, EntityIronGolem.class,MyEntityGolem.class),
 	REDIRON_GOLEM("VillagerGolem", 99, EntityType.IRON_GOLEM, EntityIronGolem.class,MyRedGolem.class),
 	BLUEIRON_GOLEM("VillagerGolem", 99, EntityType.IRON_GOLEM, EntityIronGolem.class,MyBlueGolem.class),
 	CUSTOMGUARDIAN("Guardian", 68, EntityType.GUARDIAN, EntityGuardian.class, MyEntityGuardian.class),

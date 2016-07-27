@@ -1,4 +1,4 @@
-package io.github.TcFoxy.ArenaTOW.MinionStuff;
+package io.github.TcFoxy.ArenaTOW.Serializable;
 
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityZombie;
 
@@ -12,7 +12,7 @@ import org.bukkit.World;
 
 public class Minion {
 
-	private String name;
+	private String key;
 	private String team;
 	private Location start;
 	//private CustomEntityZombie entity;
@@ -22,13 +22,13 @@ public class Minion {
 
 	public Minion(String name, String team, Location start) {
 		// Eventually just add our entity here
-		this.name = name;		
+		this.key = name;		
 		this.team = team;
 		this.start = start;
 	}
 	
 	public Minion(Minion m) {
-		name = m.name;
+		key = m.key;
 		team = m.team;
 		start = m.start;
 		entity = m.entity;
@@ -39,9 +39,9 @@ public class Minion {
 	}
 	
 	
-	public Minion(String name, String data) {
+	public Minion(String key, String data) {
 		// Creates a minion based on serialized data
-		this.name = name;
+		this.key = key;
 		String []locStrs = data.split(";");
 		// This is bad if the minion does not have a start loc
 		team = locStrs[0];
@@ -64,7 +64,7 @@ public class Minion {
 	}
 	
 	public String getName() {
-		return name;
+		return key;
 	}
 
 	public String getTeam() {
@@ -114,7 +114,7 @@ public class Minion {
 		for (Location l: paths) {
 			buf += l.toString() + "\n";
 		}
-		Bukkit.broadcastMessage("Path locations of minion " + name + ":\n" + buf);
+		Bukkit.broadcastMessage("Path locations of minion " + key + ":\n" + buf);
 	}
 	
 	public Boolean findPathLocation(Location loc) {

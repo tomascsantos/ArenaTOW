@@ -2,6 +2,9 @@ package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
 
 import net.minecraft.server.v1_10_R1.Entity;
 
+import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
+
 public class NMSConstants {
 
 
@@ -65,6 +68,30 @@ public class NMSConstants {
 			return true;
 		default:
 			return false;
+		}
+	}
+	
+	public static Entity getMobFromString(String str, org.bukkit.World wol){
+		
+		CraftWorld cwol = (CraftWorld) Bukkit.getWorld(wol.getName());
+		net.minecraft.server.v1_10_R1.World nms = cwol.getHandle();
+		switch(str){
+		case MyRedZombie:
+			return new MyRedZombie(nms);
+		case MyBlueZombie:
+			return new MyBlueZombie(nms);
+		case MyRedGolem:
+			return new MyRedGolem(nms);
+		case MyBlueGolem:
+			return new MyBlueGolem(nms);
+		case MyRedGuardian:
+			return new MyRedGuardian(nms);
+		case MyBlueGuardian:
+			return new MyBlueGuardian(nms);
+		default:
+			Bukkit.getLogger().severe("invalid mobString NMSConstants getMobFromString()");
+			return null;
+
 		}
 	}
 }

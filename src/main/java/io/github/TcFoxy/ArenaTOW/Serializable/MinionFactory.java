@@ -1,4 +1,4 @@
-package io.github.TcFoxy.ArenaTOW.MinionStuff;
+package io.github.TcFoxy.ArenaTOW.Serializable;
 
 import java.util.HashMap;
 import java.util.Map.Entry;

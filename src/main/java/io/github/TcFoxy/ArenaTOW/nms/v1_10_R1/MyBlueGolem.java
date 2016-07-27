@@ -8,7 +8,7 @@ import net.minecraft.server.v1_10_R1.World;
 
 import org.bukkit.entity.Player;
 
-public class MyBlueGolem extends MyEntityIronGolem{
+public class MyBlueGolem extends MyEntityGolem{
 	public MyBlueGolem(World world) {
 		super(world);
 	    this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<MyRedZombie>(this, MyRedZombie.class, true));

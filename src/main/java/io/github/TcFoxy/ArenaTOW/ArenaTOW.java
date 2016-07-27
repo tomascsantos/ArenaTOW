@@ -22,9 +22,9 @@ public class ArenaTOW extends JavaPlugin{
 	@Override
 	public void onEnable(){
 		pluginArenaTOW = this;
+		//Messages msgConfig = new Messages();
 		//register with battlearena
 		BattleArena.registerCompetition(this, "ArenaTow", "tow", TugArena.class, new TugExecutor());    
-		TugArena.setMain(this);
 		MyEntityType.registerEntities();
 	}
 	
