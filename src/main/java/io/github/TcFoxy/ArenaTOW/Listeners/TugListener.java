@@ -1,13 +1,12 @@
 package io.github.TcFoxy.ArenaTOW.Listeners;
 
 import io.github.TcFoxy.ArenaTOW.TugArena;
-import io.github.TcFoxy.ArenaTOW.Serializable.SerializableBase;
+import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGolem;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyFireball;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.NMSConstants;
 
 import java.util.Collection;
-import java.util.HashMap;
 
 import mc.alk.arena.BattleArena;
 import mc.alk.arena.objects.ArenaPlayer;
@@ -41,7 +40,7 @@ public class TugListener implements Listener{
 	TugArena tug;
 	
 	
-	public TugListener(TugArena tug, HashMap<String, String> towerSave){
+	public TugListener(TugArena tug){
 		this.tug = tug;
 	}
 	
@@ -210,7 +209,7 @@ public class TugListener implements Listener{
 	@EventHandler
 	private void nexusDeath(EntityDeathEvent event){
 		
-		for(SerializableBase b : tug.activeBases.values()){
+		for(PersistInfo b : tug.activeInfo.values()){
 			if(b.getMob() != null &&
 					((EntityLiving) b.getMob()).getHealth() == 0){
 				

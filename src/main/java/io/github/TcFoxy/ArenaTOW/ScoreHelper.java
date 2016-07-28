@@ -1,7 +1,5 @@
 package io.github.TcFoxy.ArenaTOW;
 
-import io.github.TcFoxy.ArenaTOW.Serializable.Tower;
-
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -10,7 +8,6 @@ import mc.alk.arena.objects.scoreboard.ArenaScoreboard;
 import mc.alk.scoreboardapi.api.SEntry;
 import mc.alk.scoreboardapi.api.SObjective;
 import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
-import net.minecraft.server.v1_10_R1.EntityCreature;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -53,14 +50,14 @@ public class ScoreHelper {
 		boards.put(p.getUniqueId(), newsb);
 	}
 	
-	public static Integer getTowHealth(Tower t){
-		EntityCreature creature = t.getMob();
-		float health = Math.round(creature.getHealth());
-		float maxHealth = creature.getMaxHealth();
-		float percentHealth = (health/maxHealth);
-		percentHealth *= 100.0;
-		return  (int) Math.round(percentHealth); 
-	}
+//	public static Integer getTowHealth(Tower t){
+//		EntityCreature creature = t.getMob();
+//		float health = Math.round(creature.getHealth());
+//		float maxHealth = creature.getMaxHealth();
+//		float percentHealth = (health/maxHealth);
+//		percentHealth *= 100.0;
+//		return  (int) Math.round(percentHealth); 
+//	}
 
 	
 	SEntry redhealth, bluehealth, playermoney;

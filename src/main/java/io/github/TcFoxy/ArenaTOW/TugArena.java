@@ -1,13 +1,13 @@
 package io.github.TcFoxy.ArenaTOW;
 
 import io.github.TcFoxy.ArenaTOW.Listeners.TugListener;
-import io.github.TcFoxy.ArenaTOW.Serializable.MinionFactory;
-import io.github.TcFoxy.ArenaTOW.Serializable.SerializableBase;
-import io.github.TcFoxy.ArenaTOW.Serializable.SerializableBase.BaseType;
+import io.github.TcFoxy.ArenaTOW.Serializable.Nexus;
+import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
+import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo.BaseType;
+import io.github.TcFoxy.ArenaTOW.Serializable.Spawner;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import mc.alk.arena.BattleArena;
@@ -61,7 +61,7 @@ public class TugArena extends Arena {
 	@Persist 
 	HashMap<String, String> minionFactorySpawners;
 	@Persist 
-	public HashMap<String, String> baseSave;
+	public HashMap<String, String> savedInfo;
 
 
 	/*
@@ -73,7 +73,7 @@ public class TugArena extends Arena {
 	HashMap<Integer, Location> pathpointsSave = new HashMap<Integer, Location>();
 	
 	//public HashMap<String, Tower> towerteams = new HashMap<String, Tower>();
-	public HashMap<String, SerializableBase> activeBases = new HashMap<String, SerializableBase>();
+	public HashMap<String, PersistInfo> activeInfo = new HashMap<String, PersistInfo>();
 
 
 	/*
@@ -87,7 +87,7 @@ public class TugArena extends Arena {
 	TugTimers timers;
 	TugListener tuglistener;
 
-	MinionFactory minionFactory = new MinionFactory(minionFactorySpawners);
+	//MinionFactory minionFactory = new MinionFactory(minionFactorySpawners);
 	//PlayerEnhancements PlayerE = new PlayerEnhancements(arena);
 	//public TeamLevel teamLevel = new TeamLevel();
 
@@ -106,8 +106,8 @@ public class TugArena extends Arena {
 		 * No Idea what's happening here...
 		 */
 		
-//		if(baseSave == null){
-//			baseSave = new HashMap<String, String>();
+//		if(savedInfo == null){
+//			savedInfo = new HashMap<String, String>();
 //		}
 	}
 
@@ -131,11 +131,11 @@ public class TugArena extends Arena {
 		}
 
 		// Must create new objects of all classes in onOpen method.
-		minionFactory = new MinionFactory(minionFactorySpawners);
+		//minionFactory = new MinionFactory(minionFactorySpawners);
 		//PlayerE.resetdefaultStats();
 		timers = new TugTimers(this);
 		//PlayerE = new PlayerEnhancements(arena);
-		tuglistener = new TugListener(tug, baseSave);
+		tuglistener = new TugListener(tug);
 		this.sh = new ScoreHelper(tug);
 
 
@@ -165,7 +165,7 @@ public class TugArena extends Arena {
 		 * above.
 		 */
 
-		//activeBases = SerializableBase.getObject(baseSave);
+		activeInfo = PersistInfo.getObject(savedInfo);
 
 		/*
 		 * start the bukkit
@@ -185,10 +185,10 @@ public class TugArena extends Arena {
 		for (int i = 0; i < t.size(); i++) {
 			if (i == 0) {
 				redTeam = t.get(i);
-				redTeam.setName("Red");
+				redTeam.setName(Color.RED.toString());
 			} else if (i == 1) {
 				blueTeam = t.get(i);
-				blueTeam.setName("Blue");
+				blueTeam.setName(Color.BLUE.toString());
 			}
 		}
 
@@ -202,26 +202,12 @@ public class TugArena extends Arena {
 		/*
 		 * spawn the towers and the golems.
 		 * 
-		 * if its a blue team golem
-		 * --> spawn Entity Blue Golem
-		 * 
-		 * if its a red team Golem
-		 * --> soawn an entity Red Golem, ect.
 		 */
 		
-		for(SerializableBase base : activeBases.values()){
+		for(PersistInfo base : activeInfo.values()){
 			base.spawnMob();
+			Bukkit.broadcastMessage("spawnMob is called in tugArena");
 		}
-
-//		for(Tower tow: towerteams.values()){
-//			if(tow.getType() == TowerType.TOWER){
-//				MyEntityGolem golem = NMSUtils.spawnTeamGolem(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ(), tow.getTeamColor());
-//				tow.setMob(golem);
-//			}else if(tow.getType() == TowerType.NEXUS){
-//				MyEntityGuardian guardian = NMSUtils.spawnTeamGuardian(tow.getWorld(), tow.getLoc().getX(), tow.getLoc().getY(), tow.getLoc().getZ(), tow.getTeamColor());
-//				tow.setMob(guardian);
-//			}
-//		}
 
 		/*
 		 * set up the arena economy
@@ -289,19 +275,15 @@ public class TugArena extends Arena {
 			}	
 		}
 	}
-
-
-
-
+	
+	/*
+	 * kill all the towers when game ends
+	 */
 
 	private void resetTowers() {
-		for(SerializableBase base: activeBases.values()){
+		for(PersistInfo base: activeInfo.values()){
 			((EntityLiving) base.getMob()).setHealth(0);
 		}
-		
-//		for(Tower tow: towerteams.values()){
-//			tow.getMob().setHealth(0);
-//		}
 	}
 
 
@@ -512,182 +494,210 @@ public class TugArena extends Arena {
 	 * 
 	 * 
 	 */
-
-	public void addDeathroom(Player sender, Location location, String string) {
-		if(deathrooms == null){
-			deathrooms = new HashMap<String, Location>();
-		}
-		deathrooms.put(string, location);
-		sender.sendMessage("deathroom created successfully");
-	}
 	
-	private void saveBase(String key, Location loc, Player sender, Color color, TugArena arena){
-		if(baseSave != null){
-			activeBases = SerializableBase.getObject(baseSave);
-			Bukkit.broadcastMessage("get object called");
+	private void saveBase(String key, Location loc, String info, Player sender, Color color, TugArena arena){
+		if(savedInfo != null){
+			activeInfo = PersistInfo.getObject(savedInfo);
 		}
-		if(activeBases.containsKey(key)){
+		if(activeInfo.containsKey(key)){
 			sender.sendMessage(ChatColor.DARK_RED+"You have already created "+
 					ChatColor.YELLOW+key+ChatColor.DARK_RED+", its position is being updated");
 		}else{
 			sender.sendMessage(key + " added!");
 		}
-
-		SerializableBase base = new SerializableBase(key, color, loc);
-		if(base == null){
-			Bukkit.broadcastMessage("base is null before HashMap");
-		}
 		
-		activeBases.put(key, base);
-		
-		if(activeBases.get(key) == null){
-			Bukkit.broadcastMessage("value from HashMap is null");
-		}
-		
-		baseSave = SerializableBase.saveObject(activeBases);
+		activeInfo.put(key, new PersistInfo(key, color, loc, info));
+		savedInfo = PersistInfo.saveObject(activeInfo);
 	}
 	
-	public void addNexus(Location loc, Player sender, Color color, TugArena arena){
+	public void addNexus(Location loc, Player sender, Color color){
 		//important key order, [2] must be BaseType
-		String key = "ba_" + arena.name + "_" + BaseType.NEXUS + "_" + String.valueOf(color.asRGB());
-		
-		saveBase(key, loc, sender, color, arena);
+		String key = "ba_" + this.name + "_" + BaseType.NEXUS.toString() + "_" + String.valueOf(color.asRGB());
+		//Only minions have extra info
+		String info = "null";
+		saveBase(key, loc, info, sender, color, this);
 	}
 	
-	public void addTower(Integer i, Location loc, Player sender, Color color, TugArena arena) {
+	public void addTower(Integer i, Location loc, Player sender, Color color) {
 		//important key order, [2] must be BaseType
-		String key = "ba_" + arena.name + "_" + BaseType.TOWER + "_" + String.valueOf(color.asRGB()) + "_" + i;
-		saveBase(key, loc, sender, color, arena);
+		String key = "ba_" + this.name + "_" + BaseType.TOWER.toString() + "_" + String.valueOf(color.asRGB()) + "_" + i;
+		//Only minions have extra info
+		String info = "null";
+		saveBase(key, loc, info, sender, color, this);	
+	}
+	
+	public void addSpawner(Integer i, Location location, Player sender, Color color) {
 		
-		
-//		if(towerSave != null){
-//			towerteams = Tower.loadTowers(towerSave);
-//		}
-//		if(towerteams.containsKey(key)){
-//			sender.sendMessage(ChatColor.DARK_RED+"You have already created "+
-//					ChatColor.YELLOW+key+ChatColor.DARK_RED+", its position is being updated");
-//		}
-//		else{
-//			sender.sendMessage(key + " added!");
-//		}
-//
-//		Tower t = new Tower(key, sender.getWorld(), team, loc, type);
-//		towerteams.put(key, t);	
-//		towerSave = t.createSaveableTowers(towerteams);		
+		String key = "ba_" + this.name + "_" + BaseType.MINION.toString() + "_" + String.valueOf(color.asRGB()) + "_" + i;
+		String info = "placeholder";
+		saveBase(key, location, info, sender, color, this);
+		sender.sendMessage("Don't forget to create pathpoints with /tow add pp");
+	}
+	
+	public void addDeathroom(Player sender, Location location, Color col) {
+		if(deathrooms == null){
+			deathrooms = new HashMap<String, Location>();
+		}
+		deathrooms.put(col.toString(), location);
+		sender.sendMessage("deathroom created successfully");
 	}
 
-	public void addSpawner(Player sender, Location location, String color, TugArena arena, Integer index) {
-		String name = color + "lane" + index;
-		if(minionFactorySpawners != null){
-			minionFactory.loadPersistence(minionFactorySpawners);
-		}
-		minionFactorySpawners = minionFactory.generatePersistence();
-		if(minionFactorySpawners.containsKey(name)){
-			sender.sendMessage(ChatColor.DARK_RED + "This spawner has already been created, it's location is being updated");
-		}
-		minionFactory.addMinionSpawner(name, color, location);
-		minionFactorySpawners = minionFactory.generatePersistence();
-		sender.sendMessage(ChatColor.DARK_GREEN + color +" Team Spawner "+ ChatColor.YELLOW + "#" +index + 
-				ChatColor.DARK_GREEN + " added! \n " + ChatColor.DARK_RED + "You must now add the pathfinding points!");
-	}
+	
 
-	public void addPathPoints(Player sender, Location location, String color, Integer index){
-		String name = color + "lane" + index;
-		if(minionFactorySpawners != null){
-			minionFactory.loadPersistence(minionFactorySpawners);
-		}
-		minionFactorySpawners = minionFactory.generatePersistence();
-		String blab = minionFactory.addMinionPathPoint(name, location);
-		if(blab == ""){
-			sender.sendMessage(ChatColor.DARK_RED + "There is no spawner with corrosponding data! Create a tower with Color: "
-					+ChatColor.DARK_GREEN +color+ ChatColor.DARK_RED +"and idNumber: " + ChatColor.DARK_GREEN +index+ ChatColor.DARK_RED + 
-					" before you create this pathpoint");
+	public void addPathPoints(Player sender, Location loc, Color col, Integer i){
+		
+		String key = "ba_" + this.name + "_" + BaseType.MINION.toString() + "_" + String.valueOf(col.asRGB()) + "_" + i;
+
+		if(!activeInfo.containsKey(key)){
+			sender.sendMessage("There is no spawner with corrosponding data! Make a spawner whos key matches: " + key);
 			return;
 		}
-		if(blab.equals("same location")){
-			sender.sendMessage(ChatColor.DARK_RED+"WARNING: You have already create a PathPoint in this location!");
-		}
-		minionFactorySpawners = minionFactory.generatePersistence();
-		sender.sendMessage(ChatColor.DARK_GREEN + "Pathpoint " + ChatColor.AQUA + "#" + blab+ ChatColor.DARK_GREEN 
-				+ " for Spawner " + ChatColor.YELLOW + "#" +index+ ChatColor.DARK_GREEN + " of color" + color + ".");
-	}
-
-	public Boolean removeTower(String baseKey) {
-		if (! activeBases.containsKey(baseKey))
-			return false;
-		activeBases = SerializableBase.getObject(baseSave);
-		activeBases.remove(baseKey);
-		baseSave = SerializableBase.saveObject(activeBases);
-		return true;
+		Spawner spawnr = (Spawner) activeInfo.get(key);
 		
-		/*
-		 * 
-		 * 
-		 */
-//		if (! towerteams.containsKey(towername))
-//			return false;
-//		towerteams = Tower.loadTowers(towerSave);
-//		Tower t = towerteams.get(towername);
-//		towerteams.remove(towername);
-//		towerSave = t.createSaveableTowers(towerteams);
-//		return true;
+		if(spawnr.containsPp(loc)){
+			sender.sendMessage("There was already a pp from this spawner in this location. No duplicate was created");
+			return;
+		}
+		spawnr.addPp(loc);		
 	}
-
-	public Boolean removeSpawner(String spawnername) {
-		minionFactory.removeMinionSpawner(spawnername);
-		return true;
+	
+	
+	public boolean removePersistInfo(String key, Player sender){
+		if(!activeInfo.containsKey(key)){
+			sender.sendMessage("There is no spawner with corrosponding data! Make a spawner whos key matches: " + key);
+			return;
+		}else{
+			activeInfo.remove(key);
+			savedInfo = PersistInfo.saveObject(activeInfo);
+		}
+	}
+	
+	public boolean removeTower(Player sender, Location loc, Color col, Integer i){
+		String key = "ba_" + this.name + "_" + BaseType.TOWER.toString() + "_" + String.valueOf(col.asRGB()) + "_" + i;
+		return removePersistInfo(key, sender);
+	}
+	
+	public boolean removeSpawner(Player sender, Location loc, Color col, Integer i){
+		String key = "ba_" + this.name + "_" + BaseType.SPAWNER.toString() + "_" + String.valueOf(col.asRGB()) + "_" + i;
+		return removePersistInfo(key, sender);
+	}
+	
+	public boolean removeNexus(Player sender, Location loc, Color col){
+		String key = "ba_" + this.name + "_" + BaseType.TOWER.toString() + "_" + String.valueOf(col.asRGB());
+		return removePersistInfo(key, sender);
 	}
 
 	public void clearTowers() {
 		
-		activeBases = SerializableBase.getObject(baseSave);
-		activeBases.clear();
-		baseSave.clear();
-		
-		//Tower tower = new Tower();
-//		towerteams = Tower.loadTowers(towerSave);
-//		for (Tower t : towerteams.values()) {
-//			org.bukkit.World world = t.getWorld();
-//			if(world == null){
-//				Bukkit.broadcastMessage(ChatColor.DARK_RED+"That world is = Null");
-//			}
-//		}
-//		towerteams.clear();
-//		towerSave.clear();
-
-
+		activeInfo = PersistInfo.getObject(savedInfo);
+		activeInfo.clear();
+		savedInfo.clear();
 	}
 
 	public void clearSpawners() {
 		minionFactory.clearSpawners();
 	}
 
-//	public String getTowerList() {
-//		String buf = "";
-//		towerteams = Tower.loadTowers(towerSave);
-//		for (Entry <String, Tower> e: towerteams.entrySet()) {
-//			buf += ChatColor.DARK_PURPLE + ""+ChatColor.BOLD +"Tower Name: " +ChatColor.YELLOW + e.getKey() +"\n"  
-//					+ChatColor.DARK_GREEN+"Tower Region Name: "+ChatColor.YELLOW+e.getValue().getKey() +"\n"
-//					+ChatColor.DARK_GREEN+"Tower Team: "+ChatColor.YELLOW+e.getValue().getTeamColor()+"\n"
-//					+ChatColor.DARK_GREEN+"Tower World: "+ChatColor.YELLOW+e.getValue().getWorld()+"\n"
-//					+ChatColor.DARK_GREEN + "Tower Location: " + ChatColor.YELLOW+ "X-cord: " +e.getValue().getLoc().getBlockX() + ", " +
-//					"Y-cord: " +e.getValue().getLoc().getBlockY() + ", " +
-//					"Z-cord: " +e.getValue().getLoc().getBlockZ() +"\n\n";
-//		}
-//		if (buf == ""){
-//			return ChatColor.DARK_PURPLE+""+ ChatColor.BOLD+ "You have not created any Towers";
-//		}else{
-//			return buf;
-//		}
-//	}
 
+	
+	
+	public boolean verify(Player sender){
+		/*
+		 * Necessary Stuff:
+		 * Tower, Spawner, DeathRoom, Waitroom, Pathpoints, Nexus
+		 */
+		aValid towers = new aValid();
+		aValid nexuses = new aValid();
+		aValid drooms = new aValid();
+		aValid waitrooms = new aValid();
+		aValid spawners = new aValid();
+		aValid pps = new aValid();
 
-//	public static void setMain(ArenaTOW tow){
-//		plugin = tow;
-//	}
+		
+		
+		String check = ChatColor.DARK_GREEN + "Ready",
+				missing = ChatColor.DARK_RED + "Missing"; 
+		
+		activeInfo = PersistInfo.getObject(savedInfo);
+		
+		/*
+		 * Nexi/Towers Check
+		 */
+		
+		for(PersistInfo base : activeInfo.values()){
+			if(base instanceof Nexus){
+				nexuses.setColor(base.getTeamColor(), true);
+			}else{
+				towers.setColor(base.getTeamColor(), true);
+			}
+		}
+		
+		/*
+		 * deathroom check
+		 */
+		
+		if(deathrooms.get(Color.RED.toString()) != null){
+			drooms.setColor(Color.RED, true);
+		}
+		if(deathrooms.get(Color.BLUE.toString()) != null){
+			drooms.setColor(Color.BLUE, true);
+		}
+		
+		/*
+		 * waitrooms check
+		 * 
+		 * 0=red
+		 * 1=blue
+		 */
+		if(this.getWaitRoomSpawnLoc(0) != null){
+			waitrooms.setColor(Color.RED, true);
+		}
+		if(this.getWaitRoomSpawnLoc(1) != null){
+			waitrooms.setColor(Color.BLUE, true);
+		}
+		
+		/*
+		 * spawners check
+		 */
+		
+		
+		
+		
+		return false;
+		
+	}
 
-
-
+	private static class aValid{
+		
+		boolean red, blue;
+		
+		public aValid(){
+			this.red = false;
+			this.blue = false;
+		}
+		
+		public void setColor(Color col, boolean bool){
+			if(col == Color.BLUE){
+				this.blue = bool;
+			}else if(col == Color.RED){
+				this.red = bool;
+			}else{
+				Bukkit.broadcastMessage("invalid color class aType");
+			}
+		}
+		
+		public boolean getColor(Color col){
+			if(col == Color.BLUE){
+				return blue;
+			}else if(col == Color.RED){
+				return this.red;
+			}else{
+				Bukkit.broadcastMessage("invalid color class aType getColor()");
+				return false;
+			}
+		}
+		
+	}
 
 
 

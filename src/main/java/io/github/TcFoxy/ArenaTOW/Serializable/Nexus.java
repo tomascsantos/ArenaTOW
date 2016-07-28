@@ -7,16 +7,16 @@ import net.minecraft.server.v1_10_R1.EntityLiving;
 import org.bukkit.Color;
 import org.bukkit.Location;
 
-public class Nexus extends SerializableBase{
+public class Nexus extends PersistInfo{
 		
-	public Nexus(String key, Color teamColor, Location loc) {
-		super(key, teamColor, loc);
+	public Nexus(String key, Color teamColor, Location loc, String info) {
+		super(key, teamColor, loc, info);
 	}
 	
 	
 	@Override
 	public Entity spawnMob(){
-		setMob(NMSUtils.spawnTeamGuardian(getLoc().getWorld(), getLoc().getX(), getLoc().getY(), getLoc().getZ(), getTeamColor()));
+		setMob(NMSUtils.spawnTeamGuardian(getSpawnLoc().getWorld(), getSpawnLoc().getX(), getSpawnLoc().getY(), getSpawnLoc().getZ(), getTeamColor()));
 		return getMob();
 	}
 	

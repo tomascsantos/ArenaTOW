@@ -13,26 +13,36 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-public class SerializableBase {
+public class PersistInfo {
 
 	private String key;
 	private Color teamColor;
 	private Location loc;
 	private Entity mob;
+	private String info;
 	
 	public static enum BaseType{
-		TOWER, NEXUS;
+		TOWER, NEXUS, SPAWNER;
 	}
 
 
-	public SerializableBase(String key, Color teamColor, Location loc) {
+	public PersistInfo(String key, Color teamColor, Location loc, String info) {
 		this.key = key;
 		this.teamColor = teamColor;
 		this.loc = loc;
+		this.info = info;
 	}		
 
 	public String getKey() {
 		return key;
+	}
+	
+	public String getInfo(){
+		return this.info;
+	}
+	
+	public void setInfo(String str){
+		this.info = str;
 	}
 
 	public Color getTeamColor() {
@@ -48,17 +58,35 @@ public class SerializableBase {
 		return Color.fromRGB(num);
 	}
 
-	public Location getLoc(){
+	public Location getSpawnLoc(){
 		return loc;	
 	}
+	
+	public static Integer getObjectId(PersistInfo info){
+		if(!(info instanceof Nexus)){
+			String[] rawparts = info.getKey().split("_");
+			return Integer.parseInt(rawparts[4]);
+		}else{
+			return null;
+		}
+	}
 
-	public String locationToString(){
-		this.getLoc();
+	public static String locationToString(Location loc){
 		double xloc = loc.getX();
 		double yloc = loc.getY();
 		double zloc = loc.getZ();
 		String wrld = loc.getWorld().getUID().toString();
-		return (wrld + ":" +xloc + ":" + yloc + ":" + zloc);
+		return (wrld + "*" +xloc + "*" + yloc + "*" + zloc);
+	}
+	
+	public static Location stringToLocation(String str){
+		String[] rawparts = str.split("*");
+		World wol = Bukkit.getWorld(UUID.fromString(rawparts[0]));
+		Location loc = new Location(wol,
+				Double.parseDouble(rawparts[1]),
+				Double.parseDouble(rawparts[2]),
+				Double.parseDouble(rawparts[3]));
+		return loc;
 	}
 	
 	public Entity getMob(){
@@ -80,69 +108,59 @@ public class SerializableBase {
 	}
 	
 	public Entity spawnMob(){
+		Bukkit.broadcastMessage("spawnmob is called in SerializableBase");
 		return null;
 	}
 	
-	public static String turnToString(SerializableBase base){
+	public static String turnToString(PersistInfo base){
 		if(base == null){
 			Bukkit.broadcastMessage("base is null");
 		}
-		return (base.getKey() + ":" + base.getTeamColorString() + ":" + base.locationToString());
+		return (base.getKey() + ":" + base.getTeamColorString() + ":" + locationToString(base.getSpawnLoc()) + ":" + base.getInfo());
 	}
 	
-	public static SerializableBase getBaseType(SerializableBase b){
+	public static PersistInfo getBaseType(PersistInfo b){
 		String[] rawparts = b.key.split("_");
 		String  type = rawparts[2];
-		if(type == BaseType.NEXUS.toString()){
-			return new Nexus(b.key, b.teamColor, b.loc);
-		}else if(type == BaseType.TOWER.toString()){
-			return new Tower2(b.key, b.teamColor, b.loc);
+		if(type.equals(BaseType.NEXUS.toString())){
+			return new Nexus(b.key, b.teamColor, b.loc, b.info);
+		}else if(type.equals(BaseType.TOWER.toString())){
+			return new Tower(b.key, b.teamColor, b.loc, b.info);
+		}else if(type.equals(BaseType.SPAWNER.toString())){
+			return new Spawner(b.key, b.teamColor, b.loc, b.info);
 		}else{
 			return null;
 		}
 	}
 
-	public static SerializableBase getFromString(String str){
+	public static PersistInfo getFromString(String str){
 		String[] rawparts = str.split(":");
 		String key = rawparts[0];
 		Color col = getColorFromString(rawparts[1]);
-		
-		World wol = Bukkit.getWorld(UUID.fromString(rawparts[2]));
-		Location loc = new Location(wol,
-				Double.parseDouble(rawparts[3]),
-				Double.parseDouble(rawparts[4]),
-				Double.parseDouble(rawparts[5])); 
-		
-		//Entity mob = NMSConstants.getMobFromString(rawparts[6], wol);
-		
-		
-		return new SerializableBase(key, col, loc);
+		Location loc = stringToLocation(rawparts[2]);
+		String info = rawparts[3];
+		return new PersistInfo(key, col, loc, info);
 	}
 	
-	public static HashMap<String, String> saveObject(HashMap<String, SerializableBase> dictionary){
+	public static HashMap<String, String> saveObject(HashMap<String, PersistInfo> dictionary){
 		if(dictionary == null){
 			return null;
 		}
-		
 		HashMap<String, String> newDic = new HashMap<String, String>();
-		for(Entry<String, SerializableBase> entry : dictionary.entrySet()){
-			if(entry.getValue() == null){
-				Bukkit.broadcastMessage("entry value is null SerializableBase");
-			}
-			SerializableBase base = entry.getValue();
+		for(Entry<String, PersistInfo> entry : dictionary.entrySet()){
+			PersistInfo base = entry.getValue();
 			String strValue = turnToString(base);
 			newDic.put(entry.getKey(), strValue);
 		}
 		return newDic;
 	}
 	
-	public static HashMap<String, SerializableBase> getObject(HashMap<String, String> dictionary){
+	public static HashMap<String, PersistInfo> getObject(HashMap<String, String> dictionary){
 		if(dictionary == null) return null;
-		
-		HashMap<String, SerializableBase> newDic = new HashMap<String, SerializableBase>();
+		HashMap<String, PersistInfo> newDic = new HashMap<String, PersistInfo>();
 		for(Entry<String, String> entry : dictionary.entrySet()){
-			SerializableBase value = getFromString(entry.getValue());
-			SerializableBase baseWithType = getBaseType(value);
+			PersistInfo value = getFromString(entry.getValue());
+			PersistInfo baseWithType = getBaseType(value);
 			newDic.put(entry.getKey(), baseWithType);
 		}
 		return newDic;

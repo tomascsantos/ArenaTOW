@@ -61,12 +61,25 @@ public class TugExecutor extends CustomCommandExecutor{
 		return sendMessage(sender,"&2Towers cleared for &6"+arena.getName());
 
 	}
+	
+	@MCCommand(cmds={"add"}, admin=true, usage = "show available add commands")
+	public static boolean add(Player sender){
+		sendMessage(sender, "add Tower <Blue/Red> <Tower#> <Arena_Name>");
+		sendMessage(sender, "add spawner <Blue/Red> <Spawner#> <Arena_Name>");
+		sendMessage(sender, "add pathpoint <Blue/Red> <Spawner#> <Arena_Name>");
+		sendMessage(sender, "add deathroom <Blue/Red> <Arena_Name>");
+		sendMessage(sender, "add Nexus <Blue/Red> <Arena_Name>");
 
 
-	@MCCommand(cmds={"add"}, subCmds ={"tower"}, admin=true, usage = "add tower <[Blue] or [Red]> <Tower#> <Arena_Name>")
+
+		return true;
+	}
+
+
+	@MCCommand(cmds={"add"}, subCmds ={"tower"}, admin=true, usage = "add tower <Blue/Red> <Tower#> <Arena_Name>")
 	public static boolean addTower(Player sender, String color, Integer index, TugArena arena){
-		if (index < 1 || index > 100){
-			return sendMessage(sender,"&2index must be between [1-100]!");}
+		if (index < 1 || index > 10){
+			return sendMessage(sender,"&2index must be between [1-10]!");}
 		if (color.equalsIgnoreCase("Red")){
 			arena.addTower(index, sender.getLocation(), sender, Color.RED, arena);
 			BattleArena.saveArenas(ArenaTOW.getSelf());
@@ -83,7 +96,7 @@ public class TugExecutor extends CustomCommandExecutor{
 		}
 	}
 	
-	@MCCommand(cmds={"add"}, subCmds ={"nexus"}, admin=true, usage = "add nexus <[Blue] or [Red]> <Arena_Name>")
+	@MCCommand(cmds={"add"}, subCmds ={"nexus"}, admin=true, usage = "add nexus <Blue/Red> <Arena_Name>")
 	public static boolean addNexus(Player sender, String color, TugArena arena){
 
 		if (color.equalsIgnoreCase("Red")){
@@ -102,7 +115,7 @@ public class TugExecutor extends CustomCommandExecutor{
 		}
 	}
 	
-	@MCCommand(cmds={"add"}, subCmds={"spawner"}, admin=true, usage = "add spawner <[Blue] or [Red]> <Spawner#> <Arena_Name>")
+	@MCCommand(cmds={"add"}, subCmds={"spawner"}, admin=true, usage = "add spawner <Blue/Red> <Spawner#> <Arena_Name>")
 	public static boolean addSpawner(Player sender,  String color, Integer index, TugArena arena){
 		if (index < 1 || index > 100){
 			return sendMessage(sender,"&2index must be between [1-100]!");}
@@ -120,10 +133,7 @@ public class TugExecutor extends CustomCommandExecutor{
 		}
 	}
 	
-	@MCCommand(cmds={"add"}, subCmds={"pathpoint", "pp"}, admin=true, usage = "add pathpoint "
-																	   + "<[Blue] or [Red]>\n &4(What color spawner they come from)\n "
-																	   + "&6<Spawner#> \n &4(what number spawner they spawn at)\n"
-																	   + "&6<Arena_Name>")
+	@MCCommand(cmds={"add"}, subCmds={"pathpoint", "pp"}, admin=true, usage = "add pathpoint <Blue/Red> <Spawner#> <Arena_Name>")
 	public static boolean addPathPoints(Player sender, String color, Integer index, TugArena arena) {
 		if (color.equalsIgnoreCase("Red")){
 			arena.addPathPoints(sender, sender.getLocation(), "Red", index);
@@ -140,14 +150,14 @@ public class TugExecutor extends CustomCommandExecutor{
 	}
 
 
-	@MCCommand(cmds={"add"}, subCmds={"deathroom"}, admin=true, usage = "add deathroom " + "<[Blue] or [Red]> (team) " + "&6<Arena_Name>")
+	@MCCommand(cmds={"add"}, subCmds={"deathroom"}, admin=true, usage = "add deathroom <Blue/Red> <Arena_Name>")
 	public static boolean deathroom(Player sender, String color, TugArena arena) {
 		if (color.equalsIgnoreCase("Red")){
-			arena.addDeathroom(sender, sender.getLocation(), "Red");
+			arena.addDeathroom(sender, sender.getLocation(), Color.RED);
 			BattleArena.saveArenas(ArenaTOW.getSelf());
 			return true; 
 		}else if(color.equalsIgnoreCase("Blue")){
-			arena.addDeathroom(sender, sender.getLocation(), "Blue");
+			arena.addDeathroom(sender, sender.getLocation(), Color.BLUE);
 			BattleArena.saveArenas(ArenaTOW.getSelf());
 			return true; 
 		}else{
@@ -157,6 +167,11 @@ public class TugExecutor extends CustomCommandExecutor{
 	}
 	
 
+	@MCCommand(cmds="check", admin=true, usage = "check <Arena_Name>")
+	public static boolean verifyArena(Player sender, TugArena arena){
+		arena.verify(sender);
+		return true;
+	}
 }
 
 

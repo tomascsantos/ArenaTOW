@@ -35,12 +35,12 @@ public class NMSUtils {
 	}
 	public static MyEntityZombie spawnTeamZombie(org.bukkit.World world, double x, double y, double z, Color col) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		if(col == Color.RED){
+		if(col.equals(Color.RED)){
 			MyRedZombie g = new MyRedZombie(nms);
 			g.setPosition(x, y, z);
 			nms.addEntity(g, SpawnReason.CUSTOM);
 			return g;
-		}else if (col == Color.BLUE){
+		}else if (col.equals(Color.BLUE)){
 			MyBlueZombie g = new MyBlueZombie(nms);
 			g.setPosition(x, y, z);
 			nms.addEntity(g, SpawnReason.CUSTOM);
@@ -61,12 +61,12 @@ public class NMSUtils {
 	
 	public static MyEntityGolem spawnTeamGolem(org.bukkit.World world, double x, double y, double z, Color col) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		if(col == Color.RED){
+		if(col.equals(Color.RED)){
 			MyBlueGolem g = new MyBlueGolem(nms);
 			g.setPosition(x, y, z);
 			nms.addEntity(g, SpawnReason.CUSTOM);
 			return g;
-		}else if(col == Color.BLUE){
+		}else if(col.equals(Color.BLUE)){
 			MyRedGolem g = new MyRedGolem(nms);
 			g.setPosition(x, y, z);
 			nms.addEntity(g, SpawnReason.CUSTOM);
@@ -87,12 +87,12 @@ public class NMSUtils {
 
 	public static MyEntityGuardian spawnTeamGuardian(org.bukkit.World world, double x, double y, double z, Color col) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		if(col == Color.RED){
+		if(col.equals(Color.RED)){
 			MyRedGuardian g = new MyRedGuardian(nms);
 			g.setPosition(x, y, z);
 			nms.addEntity(g, SpawnReason.CUSTOM);
 			return g;
-		}else if (col == Color.BLUE){
+		}else if (col.equals(Color.BLUE)){
 			MyBlueGuardian g = new MyBlueGuardian(nms);
 			g.setPosition(x, y, z);
 			nms.addEntity(g, SpawnReason.CUSTOM);
