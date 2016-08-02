@@ -1,30 +1,23 @@
 package io.github.TcFoxy.ArenaTOW;
 
-import io.github.TcFoxy.ArenaTOW.Serializable.Minion;
+import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
+import io.github.TcFoxy.ArenaTOW.Serializable.Spawner;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
 
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
+
+import net.minecraft.server.v1_10_R1.Entity;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.Location;
-import org.bukkit.entity.LivingEntity;
 
 public class TugTimers {
 
 	private TugArena tug;
     Integer spawnerId, checkerId, timerId, gametimeId, gameTime = 0;//timer ID's
-    
-    //stores all the minions so they can be killed @ and of game
-	private ConcurrentHashMap<String, Minion> livingMinions = new ConcurrentHashMap<String, Minion>();
-
-
 	
 	TugTimers(TugArena tug){
 		this.tug = tug;
-		livingMinions = new ConcurrentHashMap<String, Minion>();
 	}
 	
 	/*
@@ -97,34 +90,22 @@ public class TugTimers {
 	}
 	//spawnMobFromFactory() is used with above timer.
 	public void spawnMobFromFactory(){
-		for(Entry<String,String> entry: tug.minionFactorySpawners.entrySet()){
-			Minion m = tug.minionFactory.createMinion(entry.getKey());
-			Location startloc = m.getStartLoc();
-			MyEntityZombie zombie = null;
-			if(m.getTeam().equalsIgnoreCase("Red")){
-				zombie = NMSUtils.spawnTeamZombie(startloc.getWorld(), startloc.getX(), startloc.getY(), startloc.getZ(), Color.RED);
-				LivingEntity en = (LivingEntity) zombie.getBukkitEntity();
-				en.getEquipment().setHelmet(Utils.makeMobHelm(Color.RED));
-			}else{
-				zombie= NMSUtils.spawnTeamZombie(startloc.getWorld(), startloc.getX(), startloc.getY(), startloc.getZ(), Color.BLUE);
-				LivingEntity en = (LivingEntity) zombie.getBukkitEntity();
-				en.getEquipment().setHelmet(Utils.makeMobHelm(Color.BLUE));
-
+		for(PersistInfo info : tug.activeInfo.values()){
+			if(info instanceof Spawner){
+				Spawner spawn = (Spawner) info;
+				MyEntityZombie zombie = (MyEntityZombie) info.spawnMob();
+				spawn.addMob(zombie);
+				zombie.whereTo(spawn.getPathDest(zombie));
 			}
-			m.setMinionEntity(zombie);
-			zombie.whereTo(m.peekPathLoc());
-			
-			livingMinions.put(livingMinions.size()+entry.getKey(), m);
 		}
 	}
 	
 	public void killminions(){
-		for(Entry<String, Minion> entry: livingMinions.entrySet()){
-			if (entry.getValue().getMinion().isAlive()){
-				entry.getValue().getMinion().setHealth(0);
+		for(PersistInfo info : tug.activeInfo.values()){
+			if(info instanceof Spawner){
+				((Spawner) info).killMobs();
 			}
 		}
-		livingMinions.clear();
 	}
 
 	
@@ -137,22 +118,30 @@ public class TugTimers {
 		checkerId = Bukkit.getScheduler().scheduleSyncRepeatingTask(ArenaTOW.getSelf(), new Runnable() {
 			@Override
 			public void run() {
-			for(Entry<String, Minion> entry : livingMinions.entrySet()){
-				Minion m = entry.getValue();
-				if(!m.getMinion().isAlive()){
-					//do nothing cause it's dead
-				}else if(m.peekPathLoc() != null) {
-					Location cLoc = m.peekPathLoc();
-					Location entityloc = m.getcurrentLocation();
-					if((entityloc.getX() <= cLoc.getX()+3 && entityloc.getX() >= cLoc.getX()-3
-							&& entityloc.getY() <= cLoc.getY()+3 && entityloc.getY() >= cLoc.getY()-3
-							&& entityloc.getZ() <= cLoc.getZ()+3 && entityloc.getZ() >= cLoc.getZ()-3)) {
-						m.nextPathLoc();
-						((MyEntityZombie)m.getMinion()).whereTo(m.peekPathLoc());
+				for(PersistInfo info : tug.activeInfo.values()){
+					if(info instanceof Spawner){
+						Spawner spawn = (Spawner) info;
+						HashMap<Entity, Integer> zombies = spawn.getZombies();
+						for(Entity zombie : zombies.keySet()){
+							if(isWithinRange(spawn, zombie)){
+								((MyEntityZombie) zombie).whereTo(spawn.newPathDest(zombie));
+							}
+						}
 					}
 				}	
-			}
-			}		
+			}	
 		}, 5*Utils.TPS, 5*Utils.TPS);
+	}
+	
+	private boolean isWithinRange(Spawner s, Entity e){
+		if(s.getPathDest(e) != null) {
+			Location cLoc = s.getPathDest(e);
+			Location entityloc = s.getcurrentLocation(e);
+			if(entityloc==null){
+				return false;
+			}
+			return entityloc.distance(cLoc) < 3;
+		}
+		return false;
 	}
 }

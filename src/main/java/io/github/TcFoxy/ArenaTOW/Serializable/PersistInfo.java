@@ -2,6 +2,7 @@ package io.github.TcFoxy.ArenaTOW.Serializable;
 
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.NMSConstants;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import java.util.UUID;
 import net.minecraft.server.v1_10_R1.Entity;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -22,7 +24,7 @@ public class PersistInfo {
 	private String info;
 	
 	public static enum BaseType{
-		TOWER, NEXUS, SPAWNER;
+		TOWER, NEXUS, SPAWNER, DEATHROOM, PATHP;
 	}
 
 
@@ -35,6 +37,18 @@ public class PersistInfo {
 
 	public String getKey() {
 		return key;
+	}
+	
+	public static String getSimpleKey(String key){
+		String[] rawparts = key.split("_");
+		String newKey = ChatColor.GOLD + rawparts[0] + "_" + rawparts[1] 
+				+ "_" +  rawparts[2] + "_" + getTeamColorStringReadable(key);
+		if(rawparts[2].equals(BaseType.NEXUS.toString())){
+			return newKey;
+		}else{
+			newKey += ChatColor.GOLD + "_" + rawparts[4];
+		}
+		return newKey;
 	}
 	
 	public String getInfo(){
@@ -51,6 +65,15 @@ public class PersistInfo {
 
 	public String getTeamColorString(){
 		return String.valueOf(teamColor.asRGB());
+	}
+	
+	public static String getTeamColorStringReadable(String key){
+		String[] rawparts = key.split("_");
+		if(rawparts[3].equals(String.valueOf(Color.RED.asRGB()))){
+			return "Red";
+		}else{
+			return "Blue";
+		}
 	}
 
 	public static Color getColorFromString(String str){
@@ -70,6 +93,34 @@ public class PersistInfo {
 			return null;
 		}
 	}
+	
+	public static ArrayList<String> getTypeObject(BaseType type, HashMap<String, PersistInfo> dic){
+
+		ArrayList<String> towers = new ArrayList<String>();
+		ArrayList<String> nexus = new ArrayList<String>();
+		ArrayList<String> spawners = new ArrayList<String>();
+
+		for(Entry <String, PersistInfo> entry : dic.entrySet()){
+			if(entry.getValue() instanceof Nexus){
+				nexus.add(entry.getKey());
+			}else if(entry.getValue() instanceof Tower){
+				towers.add(entry.getKey());
+			}else if(entry.getValue() instanceof Spawner){
+				spawners.add(entry.getKey());
+			}
+		}
+		
+		switch(type){
+		case TOWER:
+			return towers;
+		case NEXUS:
+			return nexus;
+		case SPAWNER:
+			return spawners;
+		default:
+			return null;
+		}
+	}
 
 	public static String locationToString(Location loc){
 		double xloc = loc.getX();
@@ -80,7 +131,7 @@ public class PersistInfo {
 	}
 	
 	public static Location stringToLocation(String str){
-		String[] rawparts = str.split("*");
+		String[] rawparts = str.split("\\*");
 		World wol = Bukkit.getWorld(UUID.fromString(rawparts[0]));
 		Location loc = new Location(wol,
 				Double.parseDouble(rawparts[1]),
@@ -113,10 +164,8 @@ public class PersistInfo {
 	}
 	
 	public static String turnToString(PersistInfo base){
-		if(base == null){
-			Bukkit.broadcastMessage("base is null");
-		}
-		return (base.getKey() + ":" + base.getTeamColorString() + ":" + locationToString(base.getSpawnLoc()) + ":" + base.getInfo());
+		return (base.getKey() + ":" + base.getTeamColorString() + ":" + 
+				locationToString(base.getSpawnLoc()) + ":" + base.getInfo());
 	}
 	
 	public static PersistInfo getBaseType(PersistInfo b){
@@ -165,56 +214,5 @@ public class PersistInfo {
 		}
 		return newDic;
 	}
-	
-
-
-//	public HashMap<String, String> createSaveableTowers(HashMap<String, Tower> towerteams) {
-//		HashMap<String, String> towers = new HashMap<String, String>();
-//		if (towerteams != null) {
-//			for (Entry<String, Tower> entry : towerteams.entrySet()) {
-//				Tower t = entry.getValue();
-//				String key = entry.getKey();
-//				//String elname = t.getName();
-//				String teamColor = t.getTeamColor().toString();
-//				String towertype = t.getStringType();
-//				UUID worldUUID = t.getWorld().getUID();
-//				String uuidString = worldUUID.toString();
-//				Location loc = t.getLoc();
-//				double xloc = loc.getX();
-//				double yloc = loc.getY();
-//				double zloc = loc.getZ();
-//				String stringloc = xloc + ":" + yloc + ":" + zloc;
-//				towers.put(key, teamColor + ":" + uuidString + ":" + stringloc + ":" + towertype);
-//			}
-//
-//		}
-//		return towers;
-//	}
-//
-//	public static HashMap<String, Tower> loadTowers(HashMap<String, String> towerSave){
-//		HashMap<String, Tower> towerteams = new HashMap<String, Tower>();
-//		for(Entry<String, String> entry: towerSave.entrySet()){
-//			String key = entry.getKey();
-//			String rawvalue = entry.getValue();
-//			String[] rawparts = rawvalue.split(":");
-//
-//			Color teamColor = getTeamStringColor(rawparts[0]);
-//
-//			UUID uuid = UUID.fromString(rawparts[1]);
-//			World towWorld = Bukkit.getWorld(uuid);
-//
-//			Location loc = new Location(towWorld,
-//					Double.parseDouble(rawparts[2]),
-//					Double.parseDouble(rawparts[3]),
-//					Double.parseDouble(rawparts[4])); 
-//
-//			TowerType towertype = getTowerType(rawparts[5]);
-//
-//			Tower t = new Tower(key, towWorld, teamColor, loc, towertype);
-//			towerteams.put(key, t);
-//		}
-//		return towerteams;
-//
-//	}
 }
 

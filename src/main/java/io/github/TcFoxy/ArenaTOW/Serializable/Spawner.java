@@ -1,68 +1,131 @@
 package io.github.TcFoxy.ArenaTOW.Serializable;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
+import io.github.TcFoxy.ArenaTOW.Utils;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
+
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import net.minecraft.server.v1_10_R1.Entity;
+import net.minecraft.server.v1_10_R1.EntityLiving;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 
 public class Spawner extends PersistInfo{
 
-	private LinkedList<Location> paths = new LinkedList<Location>();
-	private ArrayList<Entity> zombies;
+	private HashMap<Integer, Location> paths = new HashMap<Integer, Location>();
+	private HashMap<Entity, Integer> zombies;
 
-	
+
 	public Spawner(String key, Color teamColor, Location loc, String info) {
 		super(key, teamColor, loc, info);
 		getSpawnerInfo();
-		zombies = new ArrayList<Entity>();
+		zombies  = new HashMap<Entity, Integer>();
 	}
 
-
-	public void addPp(Location loc) {
-		paths.add(loc);
+	@Override
+	public Entity spawnMob(){
+		setMob(NMSUtils.spawnTeamZombie(getSpawnLoc().getWorld(), getSpawnLoc().getX(), getSpawnLoc().getY(), getSpawnLoc().getZ(), getTeamColor()));
+		LivingEntity en = (LivingEntity) getMob().getBukkitEntity();
+		en.getEquipment().setHelmet(Utils.makeMobHelm(getTeamColor()));
+		return getMob();
 	}
-	
-	public boolean containsPp(Location loc){
-		if(paths.contains(loc)){
+
+	public void addPp(Location loc, Player p) {
+		if(paths.containsValue(loc)){
+			p.sendMessage(ChatColor.DARK_RED + "Already created a pathpoint in this position. No duplicate created");
+			return;
+		}
+		if(ppIsTooFar(loc)){
+			p.sendMessage(ChatColor.DARK_RED + "PathPoint is too far from previous point. Get closer and try again");
+			return;
+		}
+		paths.put(paths.size(), loc);
+		this.saveSpawnerInfo();
+		p.sendMessage("Pathpoint #" + paths.size() + " created for " +
+						PersistInfo.getTeamColorStringReadable(this.getKey()) +" Spawner #" +
+						PersistInfo.getObjectId(this));
+	}
+
+	private boolean ppIsTooFar(Location loc) {
+		Location origin;
+		if(paths.isEmpty()){
+			origin = this.getSpawnLoc();
+		}else{
+			origin = paths.get(paths.size()-1);
+		}
+		return origin.distance(loc) > 10;
+		}
+
+	public void listPp(){
+		for(int i=0; i<paths.size();i++){
+			Bukkit.broadcastMessage(paths.get(i) + "");
+		}
+	}
+
+	public boolean hasPps(){
+		if(paths.size() > 0){
 			return true;
 		}else{
 			return false;
 		}
 	}
-	
-	public Location nextPathLoc() {
-		return paths.remove();
-	}
-	
+
 	public void clearPath() {
 		paths.clear();
 	}
 	
-	public Location peekPathLoc() {
-		return paths.peek();
+	
+	public Location newPathDest(Entity ent){
+		if(zombies.containsKey(ent)){
+			Integer buf = zombies.get(ent);
+			zombies.put(ent, buf+1);
+			return paths.get(buf+1);
+		}
+		return null;
 	}
 	
-	public Integer getPathSize() {
-		return paths.size();
+	public Location getPathDest(Entity ent){
+		if(zombies.containsKey(ent)){
+			Integer buf = zombies.get(ent);
+			if(paths.containsKey(buf)){
+				return paths.get(buf);
+			}
+		}
+		return null;
 	}
 	
+	public boolean containsPps(Location loc){
+		return paths.containsValue(loc);
+	}
+
+
 	public void addMob(Entity ent){
-		zombies.add(ent);
+		zombies.put(ent, 0);
 	}
-	
+
+	public void killMobs(){
+		for(Entity zombie : zombies.keySet()){
+			if(zombie.isAlive()){
+				((EntityLiving) zombie).setHealth(0);
+
+			}
+		}
+	}
+
 	public void removeMob(Entity ent){
 		zombies.remove(ent);
 	}
-	
-	public ArrayList<Entity> getZombies(){
+
+	public HashMap<Entity, Integer> getZombies(){
 		return zombies;
 	}
-	
+
 	public Location getcurrentLocation(Entity e){
 		if(e.isAlive()){
 			return e.getBukkitEntity().getLocation();
@@ -70,30 +133,33 @@ public class Spawner extends PersistInfo{
 			return null;
 		}
 	}
-	
+
 	public void printLocations() {
 		String buf = "";
-		for (Location l: paths) {
+		for (Location l: paths.values()) {
 			buf += l.toString() + "\n";
 		}
 		Bukkit.broadcastMessage("Path locations of Spawner " + getKey() + ":\n" + buf);
 	}
-	
-	private void getSpawnerInfo() {
+
+	public void getSpawnerInfo() {
+		if(getInfo().equalsIgnoreCase("nopaths")){
+			return;
+		}
 		String[] rawparts = getInfo().split(";");
 		for (int i = 0; i < rawparts.length; i++) {
-			paths.add(stringToLocation(rawparts[i]));
+			paths.put(i, stringToLocation(rawparts[i]));
 		}
 	}
-	
+
 	public void saveSpawnerInfo(){
-		String buf = "";
+		String buf = "nopaths";
 		if(paths != null){
-			Iterator<Location> iloc = paths.iterator();
-			while (iloc.hasNext()) {
-				buf += locationToString(iloc.next());
-				if(iloc.hasNext()){
-					buf += ";";
+			buf="";
+			for(Entry<Integer, Location> entry : paths.entrySet()){
+				buf+= locationToString(entry.getValue());
+				if(paths.get(entry.getKey()+1) != null){
+					buf+= ";";
 				}
 			}
 		}

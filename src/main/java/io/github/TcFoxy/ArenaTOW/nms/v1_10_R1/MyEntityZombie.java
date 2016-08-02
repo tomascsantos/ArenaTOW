@@ -16,6 +16,7 @@ public class MyEntityZombie extends EntityZombie {
 		super(world);
 
 		getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(10.0D);//foloow range
+		fireProof = true;
 	}
 
 	@Override

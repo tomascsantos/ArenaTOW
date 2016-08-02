@@ -61,12 +61,12 @@ public class NMSUtils {
 	
 	public static MyEntityGolem spawnTeamGolem(org.bukkit.World world, double x, double y, double z, Color col) {
 		WorldServer nms = ((CraftWorld) world).getHandle();
-		if(col.equals(Color.RED)){
+		if(col.equals(Color.BLUE)){
 			MyBlueGolem g = new MyBlueGolem(nms);
 			g.setPosition(x, y, z);
 			nms.addEntity(g, SpawnReason.CUSTOM);
 			return g;
-		}else if(col.equals(Color.BLUE)){
+		}else if(col.equals(Color.RED)){
 			MyRedGolem g = new MyRedGolem(nms);
 			g.setPosition(x, y, z);
 			nms.addEntity(g, SpawnReason.CUSTOM);

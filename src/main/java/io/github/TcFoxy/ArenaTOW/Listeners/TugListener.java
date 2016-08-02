@@ -1,6 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.Listeners;
 
 import io.github.TcFoxy.ArenaTOW.TugArena;
+import io.github.TcFoxy.ArenaTOW.Utils;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGolem;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyFireball;
@@ -15,6 +16,7 @@ import net.minecraft.server.v1_10_R1.EntityFireball;
 import net.minecraft.server.v1_10_R1.EntityLiving;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftFireball;
 import org.bukkit.entity.Creeper;
@@ -53,7 +55,7 @@ public class TugListener implements Listener{
 	 */	
 	@EventHandler
 	private void sameTeamTarget(EntityTargetEvent event){
-		if (event.getTarget() == null) return;
+		if (event.getTarget() == null) return;		
 		
 		if(event.getEntity().getClass().getName() == NMSConstants.spigotZombie ||
 				event.getEntity().getClass().getName() == NMSConstants.spigotGolem ||
@@ -69,22 +71,22 @@ public class TugListener implements Listener{
 				String entityclass = el.getClass().getName();
 				switch(entityclass){
 				case NMSConstants.MyRedZombie:
-					if(teamname == "Red") event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColorString(Color.RED))) event.setCancelled(true);
 					break;
 				case NMSConstants.MyRedGolem:
-					if(teamname == "Red") event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColorString(Color.RED))) event.setCancelled(true);
 					break;
 				case NMSConstants.MyRedGuardian:
-					if(teamname == "Red") event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColorString(Color.RED))) event.setCancelled(true);
 					break;
 				case NMSConstants.MyBlueZombie:
-					if(teamname == "Blue") event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColorString(Color.BLUE))) event.setCancelled(true);
 					break;
 				case NMSConstants.MyBlueGolem:
-					if(teamname == "Blue") event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColorString(Color.BLUE))) event.setCancelled(true);
 					break;
 				case NMSConstants.MyBlueGuardian:
-					if(teamname == "Blue") event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColorString(Color.BLUE))) event.setCancelled(true);
 					break;
 				default:
 					return;

@@ -5,6 +5,7 @@ import mc.alk.arena.objects.ArenaPlayer;
 import net.minecraft.server.v1_10_R1.DamageSource;
 import net.minecraft.server.v1_10_R1.World;
 
+import org.bukkit.Color;
 import org.bukkit.entity.Player;
 
 public class MyRedGuardian extends MyEntityGuardian{
@@ -21,16 +22,11 @@ public class MyRedGuardian extends MyEntityGuardian{
 				Player p = (Player) damagesource.getEntity().getBukkitEntity();
 				ArenaPlayer ap = BattleArena.toArenaPlayer(p);
 				String arenateam = ap.getTeam().getDisplayName();
-				if(arenateam == "Red"){
+				if(arenateam.equals(Color.RED.toString())){
 					return false;
-				}else{
-					super.damageEntity(damagesource, f);
-				}
-			} else {
-				super.damageEntity(damagesource, f);
-			}
-		}
-		super.damageEntity(damagesource, f);
+				}else{ super.damageEntity(damagesource, f);}
+			} else {super.damageEntity(damagesource, f);}
+		}super.damageEntity(damagesource, f);
 		return true;
-		}
+	}
 }

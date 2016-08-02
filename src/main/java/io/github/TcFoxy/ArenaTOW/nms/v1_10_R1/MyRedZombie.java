@@ -6,6 +6,7 @@ import net.minecraft.server.v1_10_R1.DamageSource;
 import net.minecraft.server.v1_10_R1.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.server.v1_10_R1.World;
 
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -29,25 +30,20 @@ public class MyRedZombie extends MyEntityZombie {
 	public void whereTo(Location directions) {
 		super.whereTo(directions);
 	}
-
+	
 	public boolean damageEntity(DamageSource damagesource, float f){
 		if(damagesource.getEntity() != null){
 			if(damagesource.getEntity().getClass().getName() == NMSConstants.entityPlayer){
 				Player p = (Player) damagesource.getEntity().getBukkitEntity();
 				ArenaPlayer ap = BattleArena.toArenaPlayer(p);
 				String arenateam = ap.getTeam().getDisplayName();
-				if(arenateam == "Red"){
+				if(arenateam.equals(Color.RED.toString())){
 					return false;
-				}else{
-					super.damageEntity(damagesource, f);
-				}
-			} else {
-				super.damageEntity(damagesource, f);
-			}
-		}
-		super.damageEntity(damagesource, f);
+				}else{ super.damageEntity(damagesource, f);}
+			} else {super.damageEntity(damagesource, f);}
+		}super.damageEntity(damagesource, f);
 		return true;
-		}
+	}
 
 	public String getTeam(){
 		return zombieteam;

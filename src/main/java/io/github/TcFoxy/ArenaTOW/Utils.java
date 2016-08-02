@@ -11,6 +11,7 @@ import net.minecraft.server.v1_10_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_10_R1.PacketPlayOutTitle.EnumTitleAction;
 import net.minecraft.server.v1_10_R1.PlayerConnection;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -34,6 +35,17 @@ public class Utils {
 		meta.setColor(color);
 		helm.setItemMeta(meta);
 		return helm;
+	}
+	
+	public static String toSimpleColorString(Color col){
+		if(col == Color.BLUE){
+			return "Blue";
+		}else if(col == Color.RED){
+			return "Red";
+		}else{
+			Bukkit.getLogger().severe("Invalid color toSimpleColorString");
+			return null;
+		}
 	}
 	
 	

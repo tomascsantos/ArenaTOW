@@ -5,7 +5,9 @@ import io.github.TcFoxy.ArenaTOW.Serializable.Nexus;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo.BaseType;
 import io.github.TcFoxy.ArenaTOW.Serializable.Spawner;
+import io.github.TcFoxy.ArenaTOW.Serializable.Tower;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -43,7 +45,6 @@ public class TugArena extends Arena {
 	/*
 	 * basic variables used throughout the class:
 	 */
-	static ArenaTOW plugin;
 	public Arena arena = this;
 	public TugArena tug = this;
 	public ArenaTeam redTeam, blueTeam;
@@ -59,8 +60,6 @@ public class TugArena extends Arena {
 	@Persist 
 	public HashMap<String, Location> deathrooms;
 	@Persist 
-	HashMap<String, String> minionFactorySpawners;
-	@Persist 
 	public HashMap<String, String> savedInfo;
 
 
@@ -69,10 +68,6 @@ public class TugArena extends Arena {
 	 * most of these values are not actually used
 	 * in this class, should I move them?
 	 */
-	HashMap<String, Integer> tasks = new HashMap<String, Integer>();
-	HashMap<Integer, Location> pathpointsSave = new HashMap<Integer, Location>();
-	
-	//public HashMap<String, Tower> towerteams = new HashMap<String, Tower>();
 	public HashMap<String, PersistInfo> activeInfo = new HashMap<String, PersistInfo>();
 
 
@@ -83,7 +78,7 @@ public class TugArena extends Arena {
 
 	//public UpgradeGUI uGUI;
 	//ArenaClassExecutor ACexecutor;
-	public ScoreHelper sh;
+	//public ScoreHelper sh;
 	TugTimers timers;
 	TugListener tuglistener;
 
@@ -104,11 +99,9 @@ public class TugArena extends Arena {
 		super();
 		/*
 		 * No Idea what's happening here...
+		 * Nothing seems to work though
 		 */
-		
-//		if(savedInfo == null){
-//			savedInfo = new HashMap<String, String>();
-//		}
+
 	}
 
 
@@ -122,6 +115,14 @@ public class TugArena extends Arena {
 		//teamLevel.resetTeams();
 
 		/*
+		 * load the towers from
+		 * the persist annotation 
+		 * above.
+		 */
+		TugExecutor.initSaves(tug);
+
+		
+		/*
 		 * cancel the game if there are no deathrooms.
 		 */
 
@@ -133,10 +134,10 @@ public class TugArena extends Arena {
 		// Must create new objects of all classes in onOpen method.
 		//minionFactory = new MinionFactory(minionFactorySpawners);
 		//PlayerE.resetdefaultStats();
-		timers = new TugTimers(this);
+		timers = new TugTimers(tug);
 		//PlayerE = new PlayerEnhancements(arena);
 		tuglistener = new TugListener(tug);
-		this.sh = new ScoreHelper(tug);
+		//this.sh = new ScoreHelper(tug);
 
 
 	}
@@ -147,9 +148,9 @@ public class TugArena extends Arena {
 		 * if they are enabled in the main class they cant 
 		 * be passed in an instance of this arena.
 		 */
-		//Bukkit.getServer().getPluginManager().registerEvents(PlayerE, plugin);
-		//Bukkit.getServer().getPluginManager().registerEvents(uGUI, plugin);
-		Bukkit.getServer().getPluginManager().registerEvents(tuglistener, plugin);
+		//Bukkit.getServer().getPluginManager().registerEvents(PlayerE, ArenaTOW.getSelf());
+		//Bukkit.getServer().getPluginManager().registerEvents(uGUI, ArenaTOW.getSelf());
+		Bukkit.getServer().getPluginManager().registerEvents(tuglistener, ArenaTOW.getSelf());
 	}
 
 
@@ -158,15 +159,7 @@ public class TugArena extends Arena {
 		/*
 		 * Dont create new objects in this method!
 		 */
-
-		/*
-		 * load the towers from
-		 * the persist annotation 
-		 * above.
-		 */
-
-		activeInfo = PersistInfo.getObject(savedInfo);
-
+		
 		/*
 		 * start the bukkit
 		 * scheduled tasks
@@ -185,10 +178,10 @@ public class TugArena extends Arena {
 		for (int i = 0; i < t.size(); i++) {
 			if (i == 0) {
 				redTeam = t.get(i);
-				redTeam.setName(Color.RED.toString());
+				redTeam.setName(Utils.toSimpleColorString(Color.RED));
 			} else if (i == 1) {
 				blueTeam = t.get(i);
-				blueTeam.setName(Color.BLUE.toString());
+				blueTeam.setName(Utils.toSimpleColorString(Color.BLUE));
 			}
 		}
 
@@ -203,10 +196,11 @@ public class TugArena extends Arena {
 		 * spawn the towers and the golems.
 		 * 
 		 */
-		
+
 		for(PersistInfo base : activeInfo.values()){
-			base.spawnMob();
-			Bukkit.broadcastMessage("spawnMob is called in tugArena");
+			if(base instanceof Tower || base instanceof Nexus){
+				base.spawnMob();
+			}
 		}
 
 		/*
@@ -226,7 +220,7 @@ public class TugArena extends Arena {
 		//uGUI = new UpgradeGUI(match); 
 
 		//setup the scoreboard for everyone
-		this.sh.onStart();
+		//this.sh.onStart();
 
 		/*
 		 * turn on the listeners
@@ -250,12 +244,6 @@ public class TugArena extends Arena {
 		for(ArenaTeam team : winners){
 			Double money = 500.0;
 			for(Player p : team.getBukkitPlayers()){
-				for(int i=0;i<20;i++){
-					String perm = String.format("arenatow.rank.%s", i);
-					if(p.hasPermission(perm)){
-						money*=1.5;
-					}
-				}
 				MoneyController.add(p.getName(), money);
 				p.sendMessage(ChatColor.DARK_GREEN + "You have been awarded" + ChatColor.YELLOW +" $" + money);
 			}	
@@ -264,18 +252,12 @@ public class TugArena extends Arena {
 		for(ArenaTeam team : losers){
 			Double money = 100.0;
 			for(Player p : team.getBukkitPlayers()){
-				for(int i=0;i<20;i++){
-					String perm = String.format("arenatow.rank.%s", i);
-					if(p.hasPermission(perm)){
-						money*=1.5;
-					}
-				}
 				MoneyController.add(p.getName(), money);
 				p.sendMessage(ChatColor.DARK_GREEN + "You have been awarded" + ChatColor.YELLOW +" $" + money);
 			}	
 		}
 	}
-	
+
 	/*
 	 * kill all the towers when game ends
 	 */
@@ -317,41 +299,41 @@ public class TugArena extends Arena {
 
 	}
 
-//	@ArenaEventHandler
-//	public void extradamage(EntityDamageByEntityEvent event){
-//		if(event.getDamager().getClass().getName() == NMSConstants.entityPlayer){
-//			Player p = (Player) event.getDamager();
-//			ArenaTeam team = getTeam((Player) event.getDamager());
-//			Double multiplier = 1.0;
-//			if(PlayerEnhancements.damageMulti.containsKey(p.getUniqueId())){
-//				multiplier = PlayerEnhancements.damageMulti.get(p.getUniqueId());
-//			}
-//			Double damage = event.getDamage()*multiplier;
-//			damage += teamLevel.getTeamLev(team.getDisplayName());
-//			//event.setDamage((Double)damage);
-//		}
-//	}
+	//	@ArenaEventHandler
+	//	public void extradamage(EntityDamageByEntityEvent event){
+	//		if(event.getDamager().getClass().getName() == NMSConstants.entityPlayer){
+	//			Player p = (Player) event.getDamager();
+	//			ArenaTeam team = getTeam((Player) event.getDamager());
+	//			Double multiplier = 1.0;
+	//			if(PlayerEnhancements.damageMulti.containsKey(p.getUniqueId())){
+	//				multiplier = PlayerEnhancements.damageMulti.get(p.getUniqueId());
+	//			}
+	//			Double damage = event.getDamage()*multiplier;
+	//			damage += teamLevel.getTeamLev(team.getDisplayName());
+	//			//event.setDamage((Double)damage);
+	//		}
+	//	}
 
-//	@ArenaEventHandler
-//	public void coolEffects(PlayerInteractEvent event){
-//		if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK){
-//			if(event.getItem() == null){
-//				return; //no item in hand
-//			}
-//			if(event.getItem().getType() == Material.DIAMOND_AXE ||
-//					event.getItem().getType() == Material.GOLD_AXE ||
-//					event.getItem().getType() == Material.IRON_AXE ||
-//					event.getItem().getType() == Material.STONE_AXE ||
-//					event.getItem().getType() == Material.WOOD_AXE ||
-//					event.getItem().getType() == Material.NETHER_STAR){
-//				ACexecutor.determineEffect(event);
-//			}
-//
-//		}else{
-//			return;
-//		}
-//
-//	}
+	//	@ArenaEventHandler
+	//	public void coolEffects(PlayerInteractEvent event){
+	//		if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK){
+	//			if(event.getItem() == null){
+	//				return; //no item in hand
+	//			}
+	//			if(event.getItem().getType() == Material.DIAMOND_AXE ||
+	//					event.getItem().getType() == Material.GOLD_AXE ||
+	//					event.getItem().getType() == Material.IRON_AXE ||
+	//					event.getItem().getType() == Material.STONE_AXE ||
+	//					event.getItem().getType() == Material.WOOD_AXE ||
+	//					event.getItem().getType() == Material.NETHER_STAR){
+	//				ACexecutor.determineEffect(event);
+	//			}
+	//
+	//		}else{
+	//			return;
+	//		}
+	//
+	//	}
 
 
 
@@ -410,15 +392,15 @@ public class TugArena extends Arena {
 		 */
 		final ArenaPlayer  ap = BattleArena.toArenaPlayer(p);
 
-//		if(ap.getTeam()==blueTeam){
-//			for(Player player:redTeam.getBukkitPlayers()){
-//				ArenaEcon.addCash(player, 25);
-//			}
-//		}else{
-//			for(Player player:blueTeam.getBukkitPlayers()){
-//				ArenaEcon.addCash(player, 25);
-//			}
-//		}
+		//		if(ap.getTeam()==blueTeam){
+		//			for(Player player:redTeam.getBukkitPlayers()){
+		//				ArenaEcon.addCash(player, 25);
+		//			}
+		//		}else{
+		//			for(Player player:blueTeam.getBukkitPlayers()){
+		//				ArenaEcon.addCash(player, 25);
+		//			}
+		//		}
 
 		/*
 		 * teleport to the correct deathroom
@@ -494,209 +476,237 @@ public class TugArena extends Arena {
 	 * 
 	 * 
 	 */
-	
-	private void saveBase(String key, Location loc, String info, Player sender, Color color, TugArena arena){
-		if(savedInfo != null){
-			activeInfo = PersistInfo.getObject(savedInfo);
-		}
+
+	private boolean saveBase(String key, Location loc, String info, Player sender, Color color, TugArena arena){
 		if(activeInfo.containsKey(key)){
 			sender.sendMessage(ChatColor.DARK_RED+"You have already created "+
-					ChatColor.YELLOW+key+ChatColor.DARK_RED+", its position is being updated");
+					PersistInfo.getSimpleKey(key)+ChatColor.DARK_RED+", its position is being updated");
 		}else{
-			sender.sendMessage(key + " added!");
+			sender.sendMessage(PersistInfo.getSimpleKey(key) + " added!");
 		}
-		
+
 		activeInfo.put(key, new PersistInfo(key, color, loc, info));
 		savedInfo = PersistInfo.saveObject(activeInfo);
+		BattleArena.saveArenas();
+		return true;
 	}
-	
-	public void addNexus(Location loc, Player sender, Color color){
-		//important key order, [2] must be BaseType
+
+	public boolean addNexus(Location loc, Player sender, Color color){
 		String key = "ba_" + this.name + "_" + BaseType.NEXUS.toString() + "_" + String.valueOf(color.asRGB());
-		//Only minions have extra info
 		String info = "null";
-		saveBase(key, loc, info, sender, color, this);
+		return saveBase(key, loc, info, sender, color, this);
 	}
-	
-	public void addTower(Integer i, Location loc, Player sender, Color color) {
-		//important key order, [2] must be BaseType
+
+	public boolean addTower(Location loc, Player sender, Color color, Integer i) {
 		String key = "ba_" + this.name + "_" + BaseType.TOWER.toString() + "_" + String.valueOf(color.asRGB()) + "_" + i;
-		//Only minions have extra info
 		String info = "null";
-		saveBase(key, loc, info, sender, color, this);	
+		return saveBase(key, loc, info, sender, color, this);	
 	}
-	
-	public void addSpawner(Integer i, Location location, Player sender, Color color) {
-		
-		String key = "ba_" + this.name + "_" + BaseType.MINION.toString() + "_" + String.valueOf(color.asRGB()) + "_" + i;
-		String info = "placeholder";
-		saveBase(key, location, info, sender, color, this);
+
+	public boolean addSpawner(Location location, Player sender, Color color, Integer i) {
+		String key = "ba_" + this.name + "_" + BaseType.SPAWNER.toString() + "_" + String.valueOf(color.asRGB()) + "_" + i;
+		String info = "nopaths";
 		sender.sendMessage("Don't forget to create pathpoints with /tow add pp");
+		return saveBase(key, location, info, sender, color, this);
+	}
+
+	public boolean addPathPoints(Location loc, Player sender, Color col, Integer i){
+		String key = "ba_" + this.name + "_" + BaseType.SPAWNER.toString() + "_" + String.valueOf(col.asRGB()) + "_" + i;
+		if(!activeInfo.containsKey(key)){
+			sender.sendMessage("There is no spawner with corrosponding data! Make a spawner whos key matches: " + PersistInfo.getSimpleKey(key));
+			return true;
+		}
+		Spawner spawnr = (Spawner) activeInfo.get(key);
+		if(spawnr.containsPps(loc)){
+			sender.sendMessage("There was already a pp from this spawner in this location. No duplicate was created");
+			return true;
+		}
+		spawnr.addPp(loc, sender);	
+		savedInfo = PersistInfo.saveObject(activeInfo);
+		BattleArena.saveArenas();
+		return true;
 	}
 	
-	public void addDeathroom(Player sender, Location location, Color col) {
+	public boolean addDeathroom(Player sender, Location location, Color col) {
 		if(deathrooms == null){
 			deathrooms = new HashMap<String, Location>();
 		}
 		deathrooms.put(col.toString(), location);
 		sender.sendMessage("deathroom created successfully");
+		BattleArena.saveArenas();
+		return true;
 	}
 
-	
 
-	public void addPathPoints(Player sender, Location loc, Color col, Integer i){
-		
-		String key = "ba_" + this.name + "_" + BaseType.MINION.toString() + "_" + String.valueOf(col.asRGB()) + "_" + i;
-
-		if(!activeInfo.containsKey(key)){
-			sender.sendMessage("There is no spawner with corrosponding data! Make a spawner whos key matches: " + key);
-			return;
-		}
-		Spawner spawnr = (Spawner) activeInfo.get(key);
-		
-		if(spawnr.containsPp(loc)){
-			sender.sendMessage("There was already a pp from this spawner in this location. No duplicate was created");
-			return;
-		}
-		spawnr.addPp(loc);		
-	}
-	
-	
 	public boolean removePersistInfo(String key, Player sender){
 		if(!activeInfo.containsKey(key)){
-			sender.sendMessage("There is no spawner with corrosponding data! Make a spawner whos key matches: " + key);
-			return;
+			sender.sendMessage("There is no spawner with corrosponding data! Make a spawner whos key matches: "
+								+ PersistInfo.getSimpleKey(key));
+			return true;
 		}else{
 			activeInfo.remove(key);
 			savedInfo = PersistInfo.saveObject(activeInfo);
+			BattleArena.saveArenas();
+			sender.sendMessage(PersistInfo.getSimpleKey(key) + " has been removed");
+			return true;
 		}
 	}
-	
+
 	public boolean removeTower(Player sender, Location loc, Color col, Integer i){
 		String key = "ba_" + this.name + "_" + BaseType.TOWER.toString() + "_" + String.valueOf(col.asRGB()) + "_" + i;
 		return removePersistInfo(key, sender);
 	}
-	
+
 	public boolean removeSpawner(Player sender, Location loc, Color col, Integer i){
 		String key = "ba_" + this.name + "_" + BaseType.SPAWNER.toString() + "_" + String.valueOf(col.asRGB()) + "_" + i;
 		return removePersistInfo(key, sender);
 	}
-	
+
 	public boolean removeNexus(Player sender, Location loc, Color col){
 		String key = "ba_" + this.name + "_" + BaseType.TOWER.toString() + "_" + String.valueOf(col.asRGB());
 		return removePersistInfo(key, sender);
 	}
 
-	public void clearTowers() {
-		
-		activeInfo = PersistInfo.getObject(savedInfo);
+	public void clearInfo(Player sender) {
 		activeInfo.clear();
 		savedInfo.clear();
+		sender.sendMessage("Everything but player spawns has been cleared");
+		BattleArena.saveArenas();
+	}
+	
+	public boolean clearInfo(BaseType type, Player sender) {
+		ArrayList<String> keys = PersistInfo.getTypeObject(type, activeInfo);
+		for(int i=0; i<keys.size();i++){
+			activeInfo.remove(keys.get(i));
+		}
+		savedInfo = PersistInfo.saveObject(activeInfo);
+		sender.sendMessage("All <" + type + "> type have been cleared");
+		BattleArena.saveArenas();
+		return true;
 	}
 
-	public void clearSpawners() {
-		minionFactory.clearSpawners();
-	}
 
 
-	
-	
+
+
 	public boolean verify(Player sender){
 		/*
 		 * Necessary Stuff:
 		 * Tower, Spawner, DeathRoom, Waitroom, Pathpoints, Nexus
 		 */
-		aValid towers = new aValid();
-		aValid nexuses = new aValid();
-		aValid drooms = new aValid();
-		aValid waitrooms = new aValid();
-		aValid spawners = new aValid();
-		aValid pps = new aValid();
+		HashMap<String, aValid> list = new HashMap<String, aValid>();
+		
+		aValid towers = new aValid("Tower");
+		list.put(towers.deets, towers);
+		aValid nexuses = new aValid("Nexus");
+		list.put(nexuses.deets, nexuses);
+		aValid drooms = new aValid("Deathroom");
+		list.put(drooms.deets, drooms);
+		aValid waitrooms = new aValid("Waitroom");
+		list.put(waitrooms.deets, waitrooms);
+		aValid spawners = new aValid("Spawner");
+		list.put(spawners.deets, spawners);
+		aValid pps = new aValid("PathPoint");
+		list.put(pps.deets, pps);
+		
 
-		
-		
-		String check = ChatColor.DARK_GREEN + "Ready",
-				missing = ChatColor.DARK_RED + "Missing"; 
-		
-		activeInfo = PersistInfo.getObject(savedInfo);
-		
 		/*
-		 * Nexi/Towers Check
+		 * Nexi/Towers/Spawners/Pathpoints Check
 		 */
-		
+
 		for(PersistInfo base : activeInfo.values()){
 			if(base instanceof Nexus){
 				nexuses.setColor(base.getTeamColor(), true);
-			}else{
+			}else if( base instanceof Tower){
 				towers.setColor(base.getTeamColor(), true);
+			}else if(base instanceof Spawner){
+				spawners.setColor(base.getTeamColor(), true);
+				if(((Spawner) base).hasPps()){
+					pps.setColor(base.getTeamColor(), true);
+				}
+			}
+		}
+		if(deathrooms != null){
+			if(deathrooms.get(Color.RED.toString()) != null){
+				drooms.setColor(Color.RED, true);
+			}
+			if(deathrooms.get(Color.BLUE.toString()) != null){
+				drooms.setColor(Color.BLUE, true);
+			}
+		}
+		if(this.getWaitroom() != null){
+			if(this.getWaitRoomSpawnLoc(1) != null){
+				waitrooms.setColor(Color.RED, true);
+			}
+			if(this.getWaitRoomSpawnLoc(2) != null){
+				waitrooms.setColor(Color.BLUE, true);
 			}
 		}
 		
-		/*
-		 * deathroom check
-		 */
+
 		
-		if(deathrooms.get(Color.RED.toString()) != null){
-			drooms.setColor(Color.RED, true);
+		for(aValid valid : list.values()){
+			sender.sendMessage(valid.getDeets(Color.RED) + componentReady(valid.red));
+			sender.sendMessage(valid.getDeets(Color.BLUE) + componentReady(valid.blue));
 		}
-		if(deathrooms.get(Color.BLUE.toString()) != null){
-			drooms.setColor(Color.BLUE, true);
+		return true;
+
+	}
+	
+	private String componentReady(boolean bool){
+		if(bool){
+			return ChatColor.DARK_GREEN + "Ready";
+		}else{
+			return ChatColor.DARK_RED + "Missing"; 
 		}
-		
-		/*
-		 * waitrooms check
-		 * 
-		 * 0=red
-		 * 1=blue
-		 */
-		if(this.getWaitRoomSpawnLoc(0) != null){
-			waitrooms.setColor(Color.RED, true);
-		}
-		if(this.getWaitRoomSpawnLoc(1) != null){
-			waitrooms.setColor(Color.BLUE, true);
-		}
-		
-		/*
-		 * spawners check
-		 */
-		
-		
-		
-		
-		return false;
-		
 	}
 
 	private static class aValid{
-		
+
 		boolean red, blue;
-		
-		public aValid(){
+		String deets;
+
+		public aValid(String deets){
 			this.red = false;
 			this.blue = false;
+			this.deets = deets;
 		}
-		
+
 		public void setColor(Color col, boolean bool){
-			if(col == Color.BLUE){
+			if(col.equals(Color.BLUE)){
 				this.blue = bool;
-			}else if(col == Color.RED){
+			}else if(col.equals(Color.RED)){
 				this.red = bool;
 			}else{
 				Bukkit.broadcastMessage("invalid color class aType");
 			}
 		}
 		
-		public boolean getColor(Color col){
-			if(col == Color.BLUE){
-				return blue;
-			}else if(col == Color.RED){
-				return this.red;
+		private String colorToString(Color col){
+			if(col.equals(Color.BLUE)){
+				return ChatColor.BLUE + "Blue";
+			}else if(col.equals(Color.RED)){
+				return ChatColor.RED + "Red";
 			}else{
-				Bukkit.broadcastMessage("invalid color class aType getColor()");
-				return false;
+				return "Invalid color";
 			}
 		}
 		
+		public String getDeets(Color col){
+			return ChatColor.GOLD + this.deets + " " + colorToString(col) + " : ";
+		}
+
+//		public boolean getColor(Color col){
+//			if(col == Color.BLUE){
+//				return blue;
+//			}else if(col == Color.RED){
+//				return this.red;
+//			}else{
+//				Bukkit.broadcastMessage("invalid color class aType getColor()");
+//				return false;
+//			}
+//		}
+
 	}
 
 
