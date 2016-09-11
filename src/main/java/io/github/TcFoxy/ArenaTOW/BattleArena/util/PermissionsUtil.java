@@ -1,8 +1,8 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.MyBattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.MyDefaults;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MyArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import mc.alk.arena.Permissions;
 import mc.alk.arena.objects.MatchParams;
 import mc.alk.arena.util.plugins.VaultPermUtil;
@@ -19,21 +19,21 @@ public class PermissionsUtil {
 		hasVaultPerms = VaultPermUtil.setPermission(plugin);
 	}
 
-	public static void givePlayerInventoryPerms(MyArenaPlayer p){
+	public static void givePlayerInventoryPerms(ArenaPlayer p){
 		givePlayerInventoryPerms(p.getPlayer());
 	}
 
 	public static void givePlayerInventoryPerms(Player p){
 		if (MyBattleArena.getSelf().isEnabled()){
-			if (MyDefaults.DEBUG_TRACE) Log.info("Giving inventory perms=" + p.getName());
+			if (Defaults.DEBUG_TRACE) Log.info("Giving inventory perms=" + p.getName());
 
-			if (MyDefaults.PLUGIN_MULTI_INV){ /// Give the multiinv permission node to ignore this player
+			if (Defaults.PLUGIN_MULTI_INV){ /// Give the multiinv permission node to ignore this player
 				p.getPlayer().addAttachment(MyBattleArena.getSelf(), Permissions.MULTI_INV_IGNORE_NODE, true, ticks);}
-			if (MyDefaults.PLUGIN_MULITVERSE_CORE){ /// Give the multiverse-core permission node to ignore this player
+			if (Defaults.PLUGIN_MULITVERSE_CORE){ /// Give the multiverse-core permission node to ignore this player
 				p.getPlayer().addAttachment(MyBattleArena.getSelf(), Permissions.MULTIVERSE_CORE_IGNORE_NODE, true, ticks);}
-			if (MyDefaults.PLUGIN_MULITVERSE_INV){ /// Give the multiverse-inventories permission node to ignore this player
+			if (Defaults.PLUGIN_MULITVERSE_INV){ /// Give the multiverse-inventories permission node to ignore this player
 				p.getPlayer().addAttachment(MyBattleArena.getSelf(), Permissions.MULTIVERSE_INV_IGNORE_NODE, true, ticks);}
-			if (MyDefaults.DEBUG_TRACE) Log.info("End giving inventory perms=" + p.getName());
+			if (Defaults.DEBUG_TRACE) Log.info("End giving inventory perms=" + p.getName());
 		}
 	}
 

@@ -1,10 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MyBattleArenaController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MyPlayerController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.MyBAPlayerListener;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MyArenaPlayer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.MyArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BattleArenaController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -91,7 +91,7 @@ public class MyBattleArena extends JavaPlugin {
     static private String version;
     static private MyBattleArena plugin;
 
-    private static MyBattleArenaController arenaController;
+    private static BattleArenaController arenaController;
     static BAEventController eventController;
     private final static TeamController tc = TeamController.INSTANCE;
     private final static EventController ec = new EventController();
@@ -99,7 +99,7 @@ public class MyBattleArena extends JavaPlugin {
     //private final static DuelController dc = new DuelController();
     private static BAExecutor commandExecutor;
     private ArenaEditorExecutor arenaEditorExecutor;
-    private final MyBAPlayerListener playerListener = new MyBAPlayerListener(arenaController);
+    private final BAPlayerListener playerListener = new BAPlayerListener(arenaController);
     private final BAPluginListener pluginListener = new BAPluginListener();
     private final SignUpdateListener signUpdateListener = new SignUpdateListener();
     private final BASignListener signListener = new BASignListener(signUpdateListener);
@@ -128,7 +128,7 @@ public class MyBattleArena extends JavaPlugin {
         MessageUtil.sendMessage(sender, "&4[" + pluginname + "] &6v" + version + "&f enabling!");
 
         BukkitServer.setServer(Bukkit.getServer()); /// Set the server
-        arenaController = new MyBattleArenaController(signUpdateListener);
+        arenaController = new BattleArenaController(signUpdateListener);
 
         /// Create our plugin folder if its not there
         final File dir = getDataFolder();
@@ -410,7 +410,7 @@ public class MyBattleArena extends JavaPlugin {
      *
      * @return BattleArenaController
      */
-    public static MyBattleArenaController getBAController() {
+    public static BattleArenaController getBAController() {
         return arenaController;
     }
 
@@ -510,7 +510,7 @@ public class MyBattleArena extends JavaPlugin {
      * @param player: the player you want to check
      * @return true or false: whether they are in inside an arena
      */
-    public static boolean inArena(MyArenaPlayer player) {
+    public static boolean inArena(ArenaPlayer player) {
         return InArenaListener.inArena(player.getID());
     }
 
@@ -597,8 +597,8 @@ public class MyBattleArena extends JavaPlugin {
      * @param player: player to convert
      * @return ArenaPlayer: corresponding to the player
      */
-    public static MyArenaPlayer toArenaPlayer(Player player) {
-        return MyPlayerController.toArenaPlayer(player);
+    public static ArenaPlayer toArenaPlayer(Player player) {
+        return PlayerController.toArenaPlayer(player);
     }
 
     /**
@@ -607,8 +607,8 @@ public class MyBattleArena extends JavaPlugin {
      * @param players to convert into ArenaPlayers
      * @return Set of ArenaPlayer
      */
-    public static Set<MyArenaPlayer> toArenaPlayerSet(Collection<Player> players) {
-        return MyPlayerController.toArenaPlayerSet(players);
+    public static Set<ArenaPlayer> toArenaPlayerSet(Collection<Player> players) {
+        return PlayerController.toArenaPlayerSet(players);
     }
 
     /**
@@ -617,8 +617,8 @@ public class MyBattleArena extends JavaPlugin {
      * @param players to convert into ArenaPlayers
      * @return List of ArenaPlayer
      */
-    public static List<MyArenaPlayer> toArenaPlayerList(Collection<Player> players) {
-        return MyPlayerController.toArenaPlayerList(players);
+    public static List<ArenaPlayer> toArenaPlayerList(Collection<Player> players) {
+        return PlayerController.toArenaPlayerList(players);
     }
 
     /**
@@ -627,8 +627,8 @@ public class MyBattleArena extends JavaPlugin {
      * @param players to convert into bukkit Players
      * @return Set of Player
      */
-    public static Set<Player> toPlayerSet(Collection<MyArenaPlayer> players) {
-        return MyPlayerController.toPlayerSet(players);
+    public static Set<Player> toPlayerSet(Collection<ArenaPlayer> players) {
+        return PlayerController.toPlayerSet(players);
     }
 
     /**
@@ -637,8 +637,8 @@ public class MyBattleArena extends JavaPlugin {
      * @param players to convert into bukkit Players
      * @return List of Player
      */
-    public static List<Player> toPlayerList(Collection<MyArenaPlayer> players) {
-        return MyPlayerController.toPlayerList(players);
+    public static List<Player> toPlayerList(Collection<ArenaPlayer> players) {
+        return PlayerController.toPlayerList(players);
     }
 
     /**
@@ -647,20 +647,20 @@ public class MyBattleArena extends JavaPlugin {
      * @param arenaName name of the arenas
      * @return An arena, or null if player is not inside an arena
      */
-    public static MyArena getArena(String arenaName) {
+    public static Arena getArena(String arenaName) {
         return MyBattleArena.getBAController().getArena(arenaName);
     }
     
-    public static ArenaFactory createArenaFactory(final Class<? extends MyArena> arenaClass) {
+    public static ArenaFactory createArenaFactory(final Class<? extends Arena> arenaClass) {
         if (arenaClass == null) return null;
         return new ArenaFactory() {
 
             @Override
-            public MyArena newArena() {
+            public Arena newArena() {
                 Class<?>[] args = {};
                 try {
                     Constructor<?> constructor = arenaClass.getConstructor(args);
-                    MyArena arena = (MyArena) constructor.newInstance((Object[]) args);
+                    Arena arena = (Arena) constructor.newInstance((Object[]) args);
 
                     return arena;
                 } catch (NoSuchMethodException ex) {
@@ -695,7 +695,7 @@ public class MyBattleArena extends JavaPlugin {
      * @param cmd:        The cmd you would like to use (can be an alias)
      * @param arenaClass: The Arena Class for your competition
      */
-    public static void registerCompetition(JavaPlugin plugin, String name, String cmd, Class<? extends MyArena> arenaClass) {
+    public static void registerCompetition(JavaPlugin plugin, String name, String cmd, Class<? extends Arena> arenaClass) {
         ArenaFactory factory = createArenaFactory(arenaClass);
         registerCompetition(plugin, name, cmd, factory); 
     }
@@ -721,7 +721,7 @@ public class MyBattleArena extends JavaPlugin {
      * @param arenaClass: The Arena Class for your competition
      * @param executor:   The executor you would like to receive commands
      */
-    public static void registerCompetition(JavaPlugin plugin, String name, String cmd, Class<? extends MyArena> arenaClass, CustomCommandExecutor executor) {
+    public static void registerCompetition(JavaPlugin plugin, String name, String cmd, Class<? extends Arena> arenaClass, CustomCommandExecutor executor) {
         ArenaFactory factory = createArenaFactory(arenaClass);
         registerCompetition(plugin, name, cmd, factory, executor);
     }

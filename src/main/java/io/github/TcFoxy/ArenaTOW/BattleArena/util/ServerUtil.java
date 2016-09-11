@@ -1,6 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.MyDefaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 
 import java.io.File;
 import java.util.Collection;
