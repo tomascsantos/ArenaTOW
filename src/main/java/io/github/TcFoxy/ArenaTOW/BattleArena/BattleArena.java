@@ -85,11 +85,11 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MyBattleArena extends JavaPlugin {
+public class BattleArena extends JavaPlugin {
 
     static private String pluginname;
     static private String version;
-    static private MyBattleArena plugin;
+    static private BattleArena plugin;
 
     private static BattleArenaController arenaController;
     static BAEventController eventController;
@@ -118,10 +118,10 @@ public class MyBattleArena extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-        MyBattleArena.plugin = this;
+        BattleArena.plugin = this;
         PluginDescriptionFile pdfFile = this.getDescription();
-        MyBattleArena.pluginname = pdfFile.getName();
-        MyBattleArena.version = pdfFile.getVersion();
+        BattleArena.pluginname = pdfFile.getName();
+        BattleArena.version = pdfFile.getVersion();
         Log.setLogger(getLogger());
         Class<?> clazz = this.getClass();
         ConsoleCommandSender sender = Bukkit.getConsoleSender();
@@ -276,7 +276,7 @@ public class MyBattleArena extends JavaPlugin {
         bpapi = new BattlePluginsAPI();
 //        PluginUpdater.update(this, bukkitId, this.getFile(),
 //                MyDefaults.AUTO_UPDATE, MyDefaults.ANNOUNCE_UPDATE);
-        Log.info("&4[" + pluginname + "] &6v" + MyBattleArena.version + "&f enabled!");
+        Log.info("&4[" + pluginname + "] &6v" + BattleArena.version + "&f enabled!");
     }
 
     /**
@@ -401,7 +401,7 @@ public class MyBattleArena extends JavaPlugin {
      *
      * @return BattleArena
      */
-    public static MyBattleArena getSelf() {
+    public static BattleArena getSelf() {
         return plugin;
     }
 
@@ -481,7 +481,7 @@ public class MyBattleArena extends JavaPlugin {
      * @return true or false: whether they are in the system
      */
     public static boolean inSystem(Player player, boolean showReasons) {
-        return !getBAExecutor().canJoin(MyBattleArena.toArenaPlayer(player), showReasons);
+        return !getBAExecutor().canJoin(BattleArena.toArenaPlayer(player), showReasons);
     }
 
     /**
@@ -491,7 +491,7 @@ public class MyBattleArena extends JavaPlugin {
      * @return true or false: whether they are in a competition
      */
     public static boolean inCompetition(Player player) {
-        return MyBattleArena.toArenaPlayer(player).getCompetition() != null;
+        return BattleArena.toArenaPlayer(player).getCompetition() != null;
     }
 
     /**
@@ -547,7 +547,7 @@ public class MyBattleArena extends JavaPlugin {
      * @return [BattleArena_versionString]
      */
     public static String getNameAndVersion() {
-        return "[" + MyBattleArena.pluginname + "_v" + MyBattleArena.version + "]";
+        return "[" + BattleArena.pluginname + "_v" + BattleArena.version + "]";
     }
 
     /**
@@ -556,7 +556,7 @@ public class MyBattleArena extends JavaPlugin {
      * @return [BattleArena]
      */
     public static String getPluginName() {
-        return "[" + MyBattleArena.pluginname + "]";
+        return "[" + BattleArena.pluginname + "]";
     }
 
     /**
@@ -648,7 +648,7 @@ public class MyBattleArena extends JavaPlugin {
      * @return An arena, or null if player is not inside an arena
      */
     public static Arena getArena(String arenaName) {
-        return MyBattleArena.getBAController().getArena(arenaName);
+        return BattleArena.getBAController().getArena(arenaName);
     }
     
     public static ArenaFactory createArenaFactory(final Class<? extends Arena> arenaClass) {

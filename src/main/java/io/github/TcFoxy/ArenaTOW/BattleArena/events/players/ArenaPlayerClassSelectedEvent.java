@@ -1,4 +1,4 @@
-package mc.alk.arena.events.players;
+package io.github.TcFoxy.ArenaTOW.BattleArena.events.players;
 
 import java.util.List;
 

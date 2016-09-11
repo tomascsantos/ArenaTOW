@@ -1,10 +1,12 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining;
 
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.Matchup;
-import mc.alk.arena.objects.teams.ArenaTeam;
+
 
 import java.util.List;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import mc.alk.arena.objects.Matchup;
 
 public class MatchTeamQObject extends QueueObject{
 	final Matchup matchup;

@@ -1,7 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.matches;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-import mc.alk.arena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 
 public class MatchFinishedEvent extends MatchEvent {
 	final MatchState state;

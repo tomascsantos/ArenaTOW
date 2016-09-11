@@ -1,18 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.competition;
 
-import mc.alk.arena.listeners.PlayerHolder;
-import mc.alk.arena.listeners.custom.MethodController;
-import mc.alk.arena.objects.CompetitionState;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.MatchState;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.joining.JoinResponseHandler;
-import mc.alk.arena.objects.teams.TeamHandler;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.events.BAEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.events.CompetitionEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -21,6 +9,20 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.BAEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.CompetitionEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+
+import mc.alk.arena.listeners.custom.MethodController;
+import mc.alk.arena.objects.arenas.ArenaListener;
+import mc.alk.arena.objects.joining.JoinResponseHandler;
+import mc.alk.arena.objects.teams.TeamHandler;
 
 /**
  * Base class for Matches and Events

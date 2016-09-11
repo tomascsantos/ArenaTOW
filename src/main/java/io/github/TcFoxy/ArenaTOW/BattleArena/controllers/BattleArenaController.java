@@ -1,15 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.MyBattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchOpenEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.ArenaMatchQueue;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinOptions;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.TeamJoinObject;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.WaitingObject;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,41 +13,46 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import mc.alk.arena.Defaults;
-import mc.alk.arena.bukkit.BukkitInterface;
-import mc.alk.arena.controllers.RoomController;
-import mc.alk.arena.controllers.containers.GameManager;
-import mc.alk.arena.controllers.containers.RoomContainer;
-import mc.alk.arena.controllers.joining.AbstractJoinHandler;
-import mc.alk.arena.events.matches.MatchFinishedEvent;
-import mc.alk.arena.listeners.SignUpdateListener;
-import mc.alk.arena.listeners.custom.MethodController;
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.ContainerState;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.MatchState;
-import mc.alk.arena.objects.arenas.Arena;
-import mc.alk.arena.objects.arenas.ArenaControllerInterface;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.arenas.ArenaType;
-import mc.alk.arena.objects.events.ArenaEventHandler;
-import mc.alk.arena.objects.exceptions.MatchCreationException;
-import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
-import mc.alk.arena.objects.joining.MatchTeamQObject;
-import mc.alk.arena.objects.options.EventOpenOptions;
-import mc.alk.arena.objects.options.EventOpenOptions.EventOpenOption;
-import mc.alk.arena.objects.options.TransitionOption;
-import mc.alk.arena.objects.pairs.JoinResult;
-import mc.alk.arena.objects.pairs.JoinResult.JoinStatus;
-import mc.alk.arena.objects.teams.ArenaTeam;
-import mc.alk.arena.util.Log;
-import mc.alk.arena.util.PlayerUtil;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.GameManager;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.MethodController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchOpenEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.ArenaMatchQueue;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.MatchTeamQObject;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.TeamJoinObject;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.WaitingObject;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions.EventOpenOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import mc.alk.arena.listeners.SignUpdateListener;
+import mc.alk.arena.objects.ContainerState;
+import mc.alk.arena.objects.arenas.ArenaControllerInterface;
+import mc.alk.arena.objects.arenas.ArenaListener;
+import mc.alk.arena.objects.exceptions.MatchCreationException;
+import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
+import mc.alk.arena.objects.pairs.JoinResult;
+import mc.alk.arena.objects.pairs.JoinResult.JoinStatus;
 
 public class BattleArenaController implements ArenaListener, Listener{
 
@@ -85,7 +80,7 @@ public class BattleArenaController implements ArenaListener, Listener{
     public BattleArenaController(SignUpdateListener signUpdateListener){
         MethodController methodController = new MethodController("BAC");
         methodController.addAllEvents(this);
-        try{Bukkit.getPluginManager().registerEvents(this, MyBattleArena.getSelf());}catch(Exception e){/* keep on truckin'*/}
+        try{Bukkit.getPluginManager().registerEvents(this, BattleArena.getSelf());}catch(Exception e){/* keep on truckin'*/}
         this.signUpdateListener = signUpdateListener;
     }
 
@@ -177,7 +172,7 @@ public class BattleArenaController implements ArenaListener, Listener{
     public void startMatch(Match arenaMatch) {
         /// arenaMatch run calls.... broadcastMessage ( which unfortunately is not thread safe)
         /// So we have to schedule a sync task... again
-        Bukkit.getScheduler().scheduleSyncDelayedTask(MyBattleArena.getSelf(), arenaMatch);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(BattleArena.getSelf(), arenaMatch);
     }
 
 
@@ -199,12 +194,12 @@ public class BattleArenaController implements ArenaListener, Listener{
             List<ArenaPlayer> players = am.getNonLeftPlayers();
             String[] args = {};
             for (ArenaPlayer ap: players){
-                MyBattleArena.getBAExecutor().join(ap, mp, args);
+                BattleArena.getBAExecutor().join(ap, mp, args);
             }
         }
         /// isEnabled to check to see if we are shutting down
-        if (MyBattleArena.getSelf().isEnabled()){
-            Bukkit.getScheduler().scheduleSyncDelayedTask(MyBattleArena.getSelf(), new Runnable(){
+        if (BattleArena.getSelf().isEnabled()){
+            Bukkit.getScheduler().scheduleSyncDelayedTask(BattleArena.getSelf(), new Runnable(){
                 @Override
                 public void run() {
                     amq.add(arena); /// add it back into the queue
@@ -268,7 +263,7 @@ public class BattleArenaController implements ArenaListener, Listener{
             Arena a = tqo.getJoinOptions().getArena();
             if (!(a.getParams().hasOptionAt(MatchState.DEFAULTS, TransitionOption.ALWAYSOPEN) ||
                     a.getParams().hasOptionAt(MatchState.ONJOIN, TransitionOption.ALWAYSJOIN)) &&
-                    mp.hasOptionAt(MatchState.ONJOIN, TransitionOption.TELEPORTIN) && MyBattleArena.getBAController().getMatch(a) != null) {
+                    mp.hasOptionAt(MatchState.ONJOIN, TransitionOption.TELEPORTIN) && BattleArena.getBAController().getMatch(a) != null) {
                 throw new IllegalStateException("&cThe arena " + a.getDisplayName() + "&c is currently in use");
             }
         }

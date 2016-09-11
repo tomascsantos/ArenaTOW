@@ -1,6 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.MyBattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import mc.alk.arena.Permissions;
@@ -24,15 +24,15 @@ public class PermissionsUtil {
 	}
 
 	public static void givePlayerInventoryPerms(Player p){
-		if (MyBattleArena.getSelf().isEnabled()){
+		if (BattleArena.getSelf().isEnabled()){
 			if (Defaults.DEBUG_TRACE) Log.info("Giving inventory perms=" + p.getName());
 
 			if (Defaults.PLUGIN_MULTI_INV){ /// Give the multiinv permission node to ignore this player
-				p.getPlayer().addAttachment(MyBattleArena.getSelf(), Permissions.MULTI_INV_IGNORE_NODE, true, ticks);}
+				p.getPlayer().addAttachment(BattleArena.getSelf(), Permissions.MULTI_INV_IGNORE_NODE, true, ticks);}
 			if (Defaults.PLUGIN_MULITVERSE_CORE){ /// Give the multiverse-core permission node to ignore this player
-				p.getPlayer().addAttachment(MyBattleArena.getSelf(), Permissions.MULTIVERSE_CORE_IGNORE_NODE, true, ticks);}
+				p.getPlayer().addAttachment(BattleArena.getSelf(), Permissions.MULTIVERSE_CORE_IGNORE_NODE, true, ticks);}
 			if (Defaults.PLUGIN_MULITVERSE_INV){ /// Give the multiverse-inventories permission node to ignore this player
-				p.getPlayer().addAttachment(MyBattleArena.getSelf(), Permissions.MULTIVERSE_INV_IGNORE_NODE, true, ticks);}
+				p.getPlayer().addAttachment(BattleArena.getSelf(), Permissions.MULTIVERSE_INV_IGNORE_NODE, true, ticks);}
 			if (Defaults.DEBUG_TRACE) Log.info("End giving inventory perms=" + p.getName());
 		}
 	}

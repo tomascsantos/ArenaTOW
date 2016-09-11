@@ -1,10 +1,10 @@
-package mc.alk.arena.events.players;
+package io.github.TcFoxy.ArenaTOW.BattleArena.events.players;
 
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.TeamJoinObject;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import mc.alk.arena.objects.pairs.JoinResult;
-import mc.alk.arena.objects.joining.TeamJoinObject;
-import mc.alk.arena.objects.teams.ArenaTeam;
 
 public class ArenaPlayerEnterQueueEvent extends ArenaPlayerEvent{
 	final ArenaTeam team;

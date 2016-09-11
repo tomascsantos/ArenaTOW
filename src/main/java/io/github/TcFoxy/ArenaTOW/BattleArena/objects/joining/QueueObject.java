@@ -1,12 +1,13 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining;
 
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.teams.ArenaTeam;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 
 import java.util.List;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import mc.alk.arena.objects.arenas.ArenaListener;
 
 public abstract class QueueObject {
 

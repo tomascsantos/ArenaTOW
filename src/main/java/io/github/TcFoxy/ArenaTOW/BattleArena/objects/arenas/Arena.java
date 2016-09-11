@@ -1,37 +1,36 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.MyBattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinOptions;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import mc.alk.arena.competition.TransitionController;
-import mc.alk.arena.controllers.ArenaAlterController.ChangeType;
-import mc.alk.arena.controllers.RoomController;
-import mc.alk.arena.controllers.containers.AreaContainer;
-import mc.alk.arena.controllers.containers.RoomContainer;
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.CompetitionState;
-import mc.alk.arena.objects.CompetitionTransition;
-import mc.alk.arena.objects.ContainerState;
-import mc.alk.arena.objects.LocationType;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.MatchResult;
-import mc.alk.arena.objects.MatchState;
-import mc.alk.arena.objects.StateGraph;
-import mc.alk.arena.objects.arenas.ArenaType;
-import mc.alk.arena.objects.options.TransitionOption;
-import mc.alk.arena.objects.spawns.SpawnLocation;
-import mc.alk.arena.objects.teams.ArenaTeam;
-import mc.alk.arena.util.Log;
-import mc.alk.arena.util.Util;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.TransitionController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaAlterController.ChangeType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RoomController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.AreaContainer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionTransition;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ContainerState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
+
 
 public class Arena extends AreaContainer {
 
@@ -509,7 +508,7 @@ public class Arena extends AreaContainer {
      * @return list of alive bukkit players
      */
     public Set<Player> getAliveBukkitPlayers(){
-        return match == null ? null : MyBattleArena.toPlayerSet(match.getAlivePlayers());
+        return match == null ? null : BattleArena.toPlayerSet(match.getAlivePlayers());
     }
 
     /**
@@ -526,7 +525,7 @@ public class Arena extends AreaContainer {
      * @return the team or null if player isn't in match
      */
     public ArenaTeam getTeam(Player p){
-        return match == null ? null : match.getTeam(MyBattleArena.toArenaPlayer(p));
+        return match == null ? null : match.getTeam(BattleArena.toArenaPlayer(p));
     }
 
     /**

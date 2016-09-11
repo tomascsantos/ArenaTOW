@@ -1,15 +1,16 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.matches;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
 
-import mc.alk.arena.objects.MatchResult;
-import mc.alk.arena.objects.WinLossDraw;
-import mc.alk.arena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult.WinLossDraw;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+
+
 
 public class MatchFindCurrentLeaderEvent extends MatchEvent {
 	final List<ArenaTeam> teams;

@@ -1,22 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.competition.match;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.MyBattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
-import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCancelledEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCompletedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFindCurrentLeaderEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchOpenEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchPrestartEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchResultEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchStartEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchTimerIntervalEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaController;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,66 +14,83 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import mc.alk.arena.controllers.ArenaAlterController.ChangeType;
-import mc.alk.arena.controllers.ListenerAdder;
-import mc.alk.arena.controllers.ParamController;
-import mc.alk.arena.controllers.PlayerStoreController;
-import mc.alk.arena.controllers.RewardController;
-import mc.alk.arena.controllers.Scheduler;
-import mc.alk.arena.controllers.containers.GameManager;
-import mc.alk.arena.controllers.joining.AbstractJoinHandler;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaAlterController.ChangeType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ListenerAdder;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerStoreController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RewardController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.Scheduler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.GameManager;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerDeathEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerTeleportEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCancelledEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCompletedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFindCurrentLeaderEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchOpenEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchPrestartEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchResultEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchStartEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchTimerIntervalEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionResult;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionSize;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ContainerState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult.WinLossDraw;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import mc.alk.arena.controllers.messaging.MatchMessager;
-import mc.alk.arena.controllers.messaging.MessageHandler;
 import mc.alk.arena.controllers.plugins.HeroesController;
 import mc.alk.arena.controllers.plugins.TrackerController;
 import mc.alk.arena.events.EventManager;
-import mc.alk.arena.events.players.ArenaPlayerDeathEvent;
-import mc.alk.arena.events.players.ArenaPlayerLeaveEvent;
-import mc.alk.arena.events.players.ArenaPlayerTeleportEvent;
 import mc.alk.arena.events.prizes.ArenaDrawersPrizeEvent;
 import mc.alk.arena.events.prizes.ArenaLosersPrizeEvent;
 import mc.alk.arena.events.prizes.ArenaPrizeEvent;
 import mc.alk.arena.events.prizes.ArenaWinnersPrizeEvent;
 import mc.alk.arena.events.teams.TeamDeathEvent;
-import mc.alk.arena.objects.ArenaSize;
-import mc.alk.arena.objects.CompetitionResult;
-import mc.alk.arena.objects.CompetitionSize;
-import mc.alk.arena.objects.CompetitionState;
-import mc.alk.arena.objects.ContainerState;
-import mc.alk.arena.objects.LocationType;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.MatchResult;
-import mc.alk.arena.objects.MatchState;
-import mc.alk.arena.objects.StateGraph;
-import mc.alk.arena.objects.StateOption;
-import mc.alk.arena.objects.WinLossDraw;
 import mc.alk.arena.objects.arenas.ArenaControllerInterface;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.events.ArenaEventHandler;
 import mc.alk.arena.objects.messaging.Channels;
 import mc.alk.arena.objects.messaging.MatchMessageHandler;
 import mc.alk.arena.objects.modules.ArenaModule;
-import mc.alk.arena.objects.options.StateOptions;
-import mc.alk.arena.objects.options.TransitionOption;
 import mc.alk.arena.objects.scoreboard.ArenaObjective;
 import mc.alk.arena.objects.scoreboard.ArenaScoreboard;
-import mc.alk.arena.objects.spawns.SpawnLocation;
 import mc.alk.arena.objects.victoryconditions.TeamTimeLimit;
 import mc.alk.arena.objects.victoryconditions.VictoryCondition;
 import mc.alk.arena.util.Countdown;
 import mc.alk.arena.util.Countdown.CountdownCallback;
 import mc.alk.arena.util.InventoryUtil;
-import mc.alk.arena.util.Log;
 import mc.alk.arena.util.MessageUtil;
 import mc.alk.arena.util.TeamUtil;
 import mc.alk.scoreboardapi.api.SEntry;
 import mc.alk.scoreboardapi.api.SObjective;
 import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
 
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 
 public abstract class Match extends Competition implements Runnable, ArenaController {
 
@@ -230,7 +230,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         /// Register the events we are listening to
         ListenerAdder.addListeners(this, tops);
         methodController.addAllEvents(this);
-        EventManager.registerEvents(this, MyBattleArena.getSelf());
+        EventManager.registerEvents(this, BattleArena.getSelf());
         /// add a default objective
         defaultObjective = scoreboard.createObjective("default",
                 "Player Kills", "&6Still Alive", SAPIDisplaySlot.SIDEBAR, 100);
@@ -300,7 +300,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         }
         if (seconds > 0){
             mc.sendCountdownTillPrestart(seconds);
-            this.startCountdown = new Countdown(MyBattleArena.getSelf(), seconds, interval, new CountdownCallback(){
+            this.startCountdown = new Countdown(BattleArena.getSelf(), seconds, interval, new CountdownCallback(){
                 @Override
                 public boolean intervalTick(int remaining) {
                     if (state != MatchState.ONOPEN)
@@ -368,7 +368,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         preStartTeams(teams, true);
         arenaInterface.onPrestart();
 
-        new Countdown(MyBattleArena.getSelf(), params.getSecondsTillMatch(), 1,
+        new Countdown(BattleArena.getSelf(), params.getSecondsTillMatch(), 1,
                 new CountdownCallback(){
                     @Override
                     public boolean intervalTick(int remaining) {
@@ -1014,7 +1014,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         ArenaTeam team = getTeam(player);
         arenaInterface.onJoin(player,team);
         if (state == MatchState.ONOPEN && joinHandler != null && joinHandler.isFull()){
-            Scheduler.scheduleSynchronousTask(MyBattleArena.getSelf(), this);
+            Scheduler.scheduleSynchronousTask(BattleArena.getSelf(), this);
         }
         if (nLivesPerPlayer != 1 && nLivesPerPlayer != ArenaSize.MAX) {
             player.getMetaData().setLivesLeft(nLivesPerPlayer);

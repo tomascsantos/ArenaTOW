@@ -1,11 +1,12 @@
-package mc.alk.arena.events.players;
+package io.github.TcFoxy.ArenaTOW.BattleArena.events.players;
 
-import mc.alk.arena.objects.ArenaLocation;
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.LocationType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+
 import mc.alk.arena.objects.TeleportDirection;
 import mc.alk.arena.objects.arenas.ArenaType;
-import mc.alk.arena.objects.teams.ArenaTeam;
 
 public class ArenaPlayerTeleportEvent extends ArenaPlayerEvent{
 	final ArenaTeam team;

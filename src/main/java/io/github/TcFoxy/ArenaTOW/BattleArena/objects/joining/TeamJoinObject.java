@@ -3,9 +3,11 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining;
 import java.util.ArrayList;
 import java.util.List;
 
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+
+
 
 public class TeamJoinObject extends QueueObject{
 	final ArenaTeam team;

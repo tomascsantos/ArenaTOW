@@ -1,0 +1,13 @@
+package io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns;
+
+import mc.alk.arena.objects.YamlSerializable;
+import org.bukkit.Location;
+
+/**
+ * @author alkarin
+ */
+public interface SpawnLocation extends YamlSerializable {
+    public Location getLocation();
+    public Location getUpperCorner();
+    public Location getLowerCorner();
+}

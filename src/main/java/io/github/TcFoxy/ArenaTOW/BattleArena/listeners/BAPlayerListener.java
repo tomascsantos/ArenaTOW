@@ -21,7 +21,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.MyBattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BattleArenaController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 
@@ -69,7 +69,7 @@ public class BAPlayerListener implements Listener  {
 	public void onPlayerDeath(PlayerDeathEvent event){
 		if (!EssentialsController.enabled() || !PlayerController.hasArenaPlayer(event.getEntity()))
 			return;
-        ArenaPlayer ap = MyBattleArena.toArenaPlayer(event.getEntity());
+        ArenaPlayer ap = BattleArena.toArenaPlayer(event.getEntity());
         if (!restore.containsKey(ap.getID()))
                 return;
 

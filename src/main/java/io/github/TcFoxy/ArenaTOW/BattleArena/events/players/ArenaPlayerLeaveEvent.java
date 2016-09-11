@@ -1,10 +1,12 @@
-package mc.alk.arena.events.players;
+package io.github.TcFoxy.ArenaTOW.BattleArena.events.players;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+
+
 
 /**
  * Signifies that the player has typed the command to leave the competition

@@ -1,8 +1,9 @@
-package mc.alk.arena.events.players;
+package io.github.TcFoxy.ArenaTOW.BattleArena.events.players;
 
-import mc.alk.arena.objects.ArenaPlayer;
 
 import org.bukkit.event.Cancellable;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 
 /**
  * Signifies that the player has typed the command to Join the competition

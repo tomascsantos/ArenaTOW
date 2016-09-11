@@ -1,19 +1,20 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.listeners;
 
+import org.bukkit.event.Listener;
+
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.BAEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerTeleportEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.events.players.ArenaPlayerTeleportEvent;
-import mc.alk.arena.objects.CompetitionState;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.MatchState;
-import mc.alk.arena.objects.StateOption;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.options.StateOptions;
-import mc.alk.arena.objects.spawns.SpawnLocation;
 
-import org.bukkit.event.Listener;
 
 
 public interface PlayerHolder extends Listener, ArenaListener{

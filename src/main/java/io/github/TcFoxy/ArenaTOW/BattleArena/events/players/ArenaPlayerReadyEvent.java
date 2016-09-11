@@ -1,6 +1,6 @@
-package mc.alk.arena.events.players;
+package io.github.TcFoxy.ArenaTOW.BattleArena.events.players;
 
-import mc.alk.arena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 
 /**
  * Player has either typed command or clicked block to say they are ready

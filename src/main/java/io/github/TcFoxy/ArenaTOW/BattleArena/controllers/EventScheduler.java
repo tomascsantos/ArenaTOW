@@ -1,0 +1,185 @@
+package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import mc.alk.arena.competition.events.Event;
+import mc.alk.arena.events.events.EventFinishedEvent;
+import mc.alk.arena.executors.EventExecutor;
+import mc.alk.arena.executors.TournamentExecutor;
+import mc.alk.arena.objects.EventParams;
+import mc.alk.arena.objects.arenas.ArenaListener;
+import mc.alk.arena.objects.exceptions.InvalidEventException;
+import mc.alk.arena.objects.exceptions.InvalidOptionException;
+import mc.alk.arena.objects.pairs.EventPair;
+import mc.alk.arena.util.MessageUtil;
+import mc.alk.arena.util.TimeUtil;
+
+public class EventScheduler implements Runnable, ArenaListener{
+
+	int curEvent = 0;
+	boolean continuous= false;
+	boolean running = false;
+	boolean stop = false;
+	Integer currentTimer = null;
+
+	final CopyOnWriteArrayList<EventPair> events = new CopyOnWriteArrayList<EventPair>();
+
+	@Override
+	public void run() {
+		if (events.isEmpty() || stop)
+			return;
+		running = true;
+		int index = curEvent % events.size();
+		curEvent++;
+		currentTimer = Bukkit.getScheduler().scheduleSyncDelayedTask(BattleArena.getSelf(), new RunEvent(this, events.get(index)));
+	}
+
+	public class RunEvent implements Runnable{
+		final EventPair eventPair;
+		final EventScheduler scheduler;
+		public RunEvent(EventScheduler scheduler, EventPair eventPair) {
+			this.eventPair = eventPair;
+			this.scheduler = scheduler;
+		}
+		@Override
+		public void run() {
+			if (stop)
+				return;
+
+			CommandSender sender = Bukkit.getConsoleSender();
+			MatchParams params = eventPair.getEventParams();
+			String args[] = eventPair.getArgs();
+			boolean success = false;
+			try {
+				EventExecutor ee = EventController.getEventExecutor(eventPair.getEventParams().getName());
+				if (ee != null && ee instanceof TournamentExecutor){
+					TournamentExecutor exe = (TournamentExecutor) ee;
+					Event event = exe.openIt(sender, (EventParams)params, args);
+					if (event != null){
+						event.addArenaListener(scheduler);
+						success = true;
+					}
+					if (Defaults.DEBUG_SCHEDULER) Log.info("[BattleArena debugging] Running event ee=" + ee  +
+                            "  event" + event +"  args=" + Arrays.toString(args));
+				} else { /// normal match
+					EventOpenOptions eoo = EventOpenOptions.parseOptions(args, null, params);
+					Arena arena = eoo.getArena(params);
+                    if (arena != null){
+                        Match m = BattleArena.getBAController().createAndAutoMatch(arena, eoo);
+                        m.addArenaListener(scheduler);
+                        success = true;
+                    } else {
+                        Log.warn("[BattleArena] scheduled command args="+Arrays.toString(args) +
+                                " can't be started. Arena is not there or in use");
+                    }
+				}
+            } catch (InvalidOptionException e){
+                Log.warn(e.getMessage());
+            } catch (InvalidEventException e) {
+                Log.warn(e.getMessage());
+			} catch (Exception e){
+				Log.printStackTrace(e);
+			}
+
+			if (!success && BattleArena.getSelf().isEnabled()){ /// wait then start up the scheduler again in x seconds
+                Log.info("[BattleArena scheduler starting next command in " +
+                        Defaults.TIME_BETWEEN_SCHEDULED_EVENTS + " seconds");
+				currentTimer = Scheduler.scheduleAsynchronousTask(scheduler, 20L * Defaults.TIME_BETWEEN_SCHEDULED_EVENTS);
+			}
+		}
+	}
+
+	@ArenaEventHandler
+	public void onEventFinished(EventFinishedEvent event){
+		Event e = event.getEvent();
+		e.removeArenaListener(this);
+		if (continuous){
+			if (Defaults.DEBUG_SCHEDULER) Log.info("[BattleArena debugging] finished event "+ e+
+                    "  scheduling next event in "+ 20L*Defaults.TIME_BETWEEN_SCHEDULED_EVENTS + " ticks");
+
+			/// Wait x sec then start the next event
+            if (BattleArena.getSelf().isEnabled())
+			    Scheduler.scheduleAsynchronousTask(this, 20L*Defaults.TIME_BETWEEN_SCHEDULED_EVENTS);
+			if (Defaults.SCHEDULER_ANNOUNCE_TIMETILLNEXT){
+                MessageUtil.broadcastMessage(
+						MessageUtil.colorChat(
+								ChatColor.YELLOW+"Next event will start in "+
+										TimeUtil.convertSecondsToString(Defaults.TIME_BETWEEN_SCHEDULED_EVENTS)));}
+		} else {
+			running = false;
+		}
+	}
+
+	@ArenaEventHandler
+	public void onMatchFinished(MatchFinishedEvent event){
+		if (continuous){
+			if (Defaults.DEBUG_SCHEDULER) Log.info("[BattleArena debugging] finished event "+ event.getEventName()+"  scheduling next event in "+ 20L*Defaults.TIME_BETWEEN_SCHEDULED_EVENTS + " ticks");
+
+			/// Wait x sec then start the next event
+            if (BattleArena.getSelf().isEnabled())
+                Scheduler.scheduleAsynchronousTask(this, 20L*Defaults.TIME_BETWEEN_SCHEDULED_EVENTS);
+			if (Defaults.SCHEDULER_ANNOUNCE_TIMETILLNEXT){
+                MessageUtil.broadcastMessage(
+						MessageUtil.colorChat(
+								ChatColor.YELLOW+"Next event will start in "+
+										TimeUtil.convertSecondsToString(Defaults.TIME_BETWEEN_SCHEDULED_EVENTS)));}
+		} else {
+			running = false;
+		}
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void stop() {
+		stop = true;
+		running = false;
+		continuous = false;
+	}
+
+	public List<EventPair> getEvents() {
+		return events;
+	}
+
+	public void start() {
+		continuous = true;
+		stop = false;
+		new Thread(this).start();
+	}
+
+	public void startNext() {
+		continuous = false;
+		if (currentTimer != null)
+			Bukkit.getScheduler().cancelTask(currentTimer);
+		stop = false;
+		new Thread(this).start();
+	}
+
+
+	public boolean scheduleEvent(MatchParams eventParams, String[] args) {
+		events.add(new EventPair(eventParams,args));
+		return true;
+	}
+
+	public EventPair deleteEvent(int i) {
+		return events.remove(i);
+	}
+
+}

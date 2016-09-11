@@ -30,6 +30,10 @@
       </plugins>
    </build>
    <repositories>
+        <repository>
+            <id>vault-repo</id>
+            <url>http://nexus.hc.to/content/repositories/pub_releases</url>
+        </repository>
        	<repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
@@ -63,6 +67,12 @@
       		<scope>system</scope>
       		<systemPath>${project.basedir}/lib/BattleArena.jar</systemPath>
    		</dependency>
+   		<dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.6</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
         	<groupId>net.minecraft</groupId>
         	<artifactId>minecraft</artifactId>

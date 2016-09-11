@@ -1,17 +1,18 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining;
 
-import mc.alk.arena.controllers.joining.AbstractJoinHandler;
-import mc.alk.arena.controllers.joining.TeamJoinFactory;
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.MatchState;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
-import mc.alk.arena.objects.joining.MatchTeamQObject;
-import mc.alk.arena.objects.options.TransitionOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 
 import java.util.Collection;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+
+import mc.alk.arena.controllers.joining.AbstractJoinHandler;
+import mc.alk.arena.controllers.joining.TeamJoinFactory;
+import mc.alk.arena.objects.arenas.ArenaListener;
+import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
 
 public class WaitingObject {
     protected boolean joinable = true;

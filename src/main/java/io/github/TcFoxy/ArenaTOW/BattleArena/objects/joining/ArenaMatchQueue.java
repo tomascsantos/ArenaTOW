@@ -1,55 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining;
 
-import mc.alk.arena.Defaults;
-import mc.alk.arena.Permissions;
-import mc.alk.arena.competition.match.ArenaMatch;
-import mc.alk.arena.controllers.ParamController;
-import mc.alk.arena.controllers.PlayerStoreController;
-import mc.alk.arena.controllers.Scheduler;
-import mc.alk.arena.controllers.joining.AbstractJoinHandler;
-import mc.alk.arena.controllers.joining.TeamJoinFactory;
-import mc.alk.arena.controllers.messaging.MessageHandler;
-import mc.alk.arena.events.BAEvent;
-import mc.alk.arena.events.players.ArenaPlayerEnterQueueEvent;
-import mc.alk.arena.events.players.ArenaPlayerLeaveEvent;
-import mc.alk.arena.events.players.ArenaPlayerLeaveQueueEvent;
-import mc.alk.arena.executors.BAExecutor;
-import mc.alk.arena.listeners.custom.MethodController;
-import mc.alk.arena.objects.ArenaParams;
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.ArenaSize;
-import mc.alk.arena.objects.CompetitionSize;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.MatchState;
-import mc.alk.arena.objects.PlayerSave;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.arenas.ArenaType;
-import mc.alk.arena.objects.events.ArenaEventHandler;
-import mc.alk.arena.objects.exceptions.MatchCreationException;
-import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
-import mc.alk.arena.objects.options.EventOpenOptions;
-import mc.alk.arena.objects.pairs.JoinResult;
-import mc.alk.arena.objects.pairs.JoinResult.JoinStatus;
-import mc.alk.arena.objects.teams.ArenaTeam;
-import mc.alk.arena.util.CommandUtil;
-import mc.alk.arena.util.Countdown;
-import mc.alk.arena.util.Log;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.MinMax;
-import mc.alk.arena.util.PermissionsUtil;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
-
-import io.github.TcFoxy.ArenaTOW.BattleArena.MyBattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCreatedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -68,8 +20,57 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static java.util.Map.Entry;
-import static mc.alk.arena.controllers.joining.AbstractJoinHandler.TeamJoinResult;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerStoreController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.BAEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerEnterQueueEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveQueueEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCreatedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.PlayerSave;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
+
+import mc.alk.arena.Permissions;
+import mc.alk.arena.competition.match.ArenaMatch;
+import mc.alk.arena.controllers.Scheduler;
+import mc.alk.arena.controllers.joining.AbstractJoinHandler;
+import mc.alk.arena.controllers.joining.AbstractJoinHandler.TeamJoinResult;
+import mc.alk.arena.controllers.joining.TeamJoinFactory;
+import mc.alk.arena.executors.BAExecutor;
+import mc.alk.arena.listeners.custom.MethodController;
+import mc.alk.arena.objects.ArenaSize;
+import mc.alk.arena.objects.CompetitionSize;
+import mc.alk.arena.objects.arenas.ArenaListener;
+import mc.alk.arena.objects.events.ArenaEventHandler;
+import mc.alk.arena.objects.exceptions.MatchCreationException;
+import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
+import mc.alk.arena.objects.pairs.JoinResult;
+import mc.alk.arena.objects.pairs.JoinResult.JoinStatus;
+import mc.alk.arena.util.CommandUtil;
+import mc.alk.arena.util.Countdown;
+import mc.alk.arena.util.MessageUtil;
+import mc.alk.arena.util.MinMax;
 
 
 public class ArenaMatchQueue implements ArenaListener, Listener {
@@ -100,7 +101,7 @@ public class ArenaMatchQueue implements ArenaListener, Listener {
     public ArenaMatchQueue(){
         super();
         try{
-            Bukkit.getPluginManager().registerEvents(this, MyBattleArena.getSelf());} catch(Exception e){
+            Bukkit.getPluginManager().registerEvents(this, BattleArena.getSelf());} catch(Exception e){
             /* usually only from offline testing, don't need to report */
             //noinspection PointlessBooleanExpression,ConstantConditions
             if (!Defaults.TESTSERVER && !Defaults.TESTSERVER_DEBUG) Log.printStackTrace(e);
@@ -786,7 +787,7 @@ public class ArenaMatchQueue implements ArenaListener, Listener {
             return;
         if (event.getFrom().getWorld().getUID() != event.getTo().getWorld().getUID() &&
                 !event.getPlayer().hasPermission(Permissions.TELEPORT_BYPASS_PERM)){
-            ArenaPlayer ap = MyBattleArena.toArenaPlayer(event.getPlayer());
+            ArenaPlayer ap = BattleArena.toArenaPlayer(event.getPlayer());
             if (removeFromQueue(ap, true)!=null){
                 MessageUtil.sendMessage(ap, "&cYou have been removed from the queue for changing worlds");
             }
@@ -827,7 +828,7 @@ public class ArenaMatchQueue implements ArenaListener, Listener {
 
     class AnnounceInterval {
         AnnounceInterval(final ArenaMatchQueue amq, final WaitingObject wo, IdTime idt, final long timeMillis){
-            final Countdown c = new Countdown(MyBattleArena.getSelf(),
+            final Countdown c = new Countdown(BattleArena.getSelf(),
                     timeMillis/1000, 30L, new Countdown.CountdownCallback(){
                 @Override
                 public boolean intervalTick(int secondsRemaining) {

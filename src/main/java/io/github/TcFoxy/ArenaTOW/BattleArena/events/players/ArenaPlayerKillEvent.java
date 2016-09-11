@@ -1,9 +1,10 @@
-package mc.alk.arena.events.players;
+package io.github.TcFoxy.ArenaTOW.BattleArena.events.players;
 
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.teams.ArenaTeam;
 
 import org.bukkit.event.entity.PlayerDeathEvent;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 
 public class ArenaPlayerKillEvent extends ArenaPlayerEvent{
 	final ArenaPlayer target;

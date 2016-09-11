@@ -1,32 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
-import mc.alk.arena.Defaults;
-import mc.alk.arena.controllers.plugins.DisguiseInterface;
-import mc.alk.arena.controllers.plugins.HeroesController;
-import mc.alk.arena.events.players.ArenaPlayerClassSelectedEvent;
-import mc.alk.arena.listeners.PlayerHolder;
-import mc.alk.arena.objects.CompetitionState;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.MatchState;
-import mc.alk.arena.objects.options.TransitionOption;
-import mc.alk.arena.objects.spawns.SpawnInstance;
-import mc.alk.arena.util.EffectUtil;
-import mc.alk.arena.util.InventoryUtil;
-import mc.alk.arena.util.Log;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.PlayerUtil;
-import mc.alk.arena.util.TeamUtil;
-import mc.alk.arena.util.TimeUtil;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.MyBattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,6 +10,32 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerClassSelectedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import mc.alk.arena.controllers.plugins.DisguiseInterface;
+import mc.alk.arena.controllers.plugins.HeroesController;
+import mc.alk.arena.util.EffectUtil;
+import mc.alk.arena.util.InventoryUtil;
+import mc.alk.arena.util.MessageUtil;
+import mc.alk.arena.util.TeamUtil;
+import mc.alk.arena.util.TimeUtil;
 
 public class ArenaClassController {
     final static HashMap<String,ArenaClass> classes = new HashMap<String,ArenaClass>();
@@ -123,7 +124,7 @@ public class ArenaClassController {
             return false;
         }
 
-        final ArenaPlayer ap = MyBattleArena.toArenaPlayer(p);
+        final ArenaPlayer ap = BattleArena.toArenaPlayer(p);
         ArenaClass chosen = ap.getCurrentClass();
         if (chosen != null && chosen.getName().equals(ac.getName())){
             MessageUtil.sendSystemMessage(p, "class_you_are_already", ac.getDisplayName());
@@ -162,7 +163,7 @@ public class ArenaClassController {
         }
 
         if (am != null){
-            am.callEvent(new ArenaPlayerClassSelectedEvent(ac));
+            am.callEvent( );
         } else {
             new ArenaPlayerClassSelectedEvent(ac).callEvent();
         }

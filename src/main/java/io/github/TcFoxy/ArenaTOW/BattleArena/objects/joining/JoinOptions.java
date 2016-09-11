@@ -1,24 +1,26 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining;
 
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.exceptions.InvalidOptionException;
-import mc.alk.arena.objects.spawns.SpawnLocation;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.MinMax;
-import mc.alk.arena.util.PermissionsUtil;
-import mc.alk.arena.util.TeamUtil;
 
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.Location;
-
-import io.github.TcFoxy.ArenaTOW.BattleArena.MyBattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Location;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
+
+import mc.alk.arena.objects.exceptions.InvalidOptionException;
+import mc.alk.arena.util.MessageUtil;
+import mc.alk.arena.util.MinMax;
+import mc.alk.arena.util.TeamUtil;
 
 public class JoinOptions {
 
@@ -134,7 +136,7 @@ public class JoinOptions {
                 continue;
             Object obj = null;
             op = MessageUtil.decolorChat(op);
-            Arena a = MyBattleArena.getBAController().getArena(op);
+            Arena a = BattleArena.getBAController().getArena(op);
             if (a != null){
                 if (arena != null){
                     throw new InvalidOptionException("&cYou specified 2 arenas!");}
@@ -181,7 +183,7 @@ public class JoinOptions {
             String val = args[++i];
             switch(jo){
                 case ARENA:
-                    obj = MyBattleArena.getBAController().getArena(val);
+                    obj = BattleArena.getBAController().getArena(val);
                     if (obj==null){
                         throw new InvalidOptionException("&cCouldnt find the arena &6" +val);}
                     a = (Arena) obj;

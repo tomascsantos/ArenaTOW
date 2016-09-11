@@ -1,14 +1,17 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
-import mc.alk.arena.objects.spawns.EntitySpawn;
-import mc.alk.arena.objects.spawns.SpawnInstance;
-import mc.alk.arena.util.InventoryUtil;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.EntitySpawn;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
+import mc.alk.arena.objects.CommandLineString;
+import mc.alk.arena.util.InventoryUtil;
 
 public class ArenaClass {
 	public static final Integer DEFAULT = Integer.MAX_VALUE;
