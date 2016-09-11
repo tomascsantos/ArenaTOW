@@ -1,8 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
-import mc.alk.arena.objects.MessageListener;
-import org.bukkit.entity.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +7,10 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
+
+import org.bukkit.entity.Player;
+
+import mc.alk.arena.objects.MessageListener;
 
 public class NotifierUtil {
     public static Map<String,Set<UUID>> listeners = new ConcurrentHashMap<String,Set<UUID>>();

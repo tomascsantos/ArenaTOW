@@ -1,15 +1,15 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-import mc.alk.arena.Permissions;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.util.plugins.VaultPermUtil;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Permissions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins.VaultPermUtil;
 
 public class PermissionsUtil {
 	static final int ticks = 0;

@@ -1,21 +1,23 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
-import mc.alk.arena.Defaults;
-import mc.alk.arena.controllers.plugins.EssentialsController;
-import mc.alk.arena.controllers.plugins.HeroesController;
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.CommandLineString;
-import mc.alk.arena.util.compat.IPlayerHelper;
-import mc.alk.plugin.updater.Version;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.UUID;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import mc.alk.arena.controllers.plugins.EssentialsController;
+import mc.alk.arena.controllers.plugins.HeroesController;
+import mc.alk.arena.objects.CommandLineString;
+import mc.alk.arena.util.compat.IPlayerHelper;
+import mc.alk.arena.version.Version;
 
 public class PlayerUtil {
     static IPlayerHelper handler = null;

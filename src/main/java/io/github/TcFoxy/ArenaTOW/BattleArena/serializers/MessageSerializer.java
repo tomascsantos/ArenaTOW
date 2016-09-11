@@ -1,15 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.serializers;
 
-import mc.alk.arena.controllers.messaging.MessageFormatter;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.messaging.Channel;
-import mc.alk.arena.objects.messaging.Channels;
-import mc.alk.arena.objects.messaging.Message;
-import mc.alk.arena.objects.messaging.MessageOptions;
-import mc.alk.arena.objects.messaging.MessageOptions.MessageOption;
 
-import org.bukkit.ChatColor;
-import org.bukkit.configuration.MemorySection;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +8,19 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.MemorySection;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import mc.alk.arena.controllers.messaging.MessageFormatter;
+import mc.alk.arena.objects.messaging.Channel;
+import mc.alk.arena.objects.messaging.Channels;
+import mc.alk.arena.objects.messaging.Message;
+import mc.alk.arena.objects.messaging.MessageOptions;
+import mc.alk.arena.objects.messaging.MessageOptions.MessageOption;
 
 
 public class MessageSerializer extends BaseConfig {

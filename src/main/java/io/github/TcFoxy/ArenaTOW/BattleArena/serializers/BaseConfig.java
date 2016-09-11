@@ -1,13 +1,14 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.serializers;
 
-import mc.alk.arena.util.Log;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 
 public class BaseConfig implements FileConfig{
 	FileConfiguration config;

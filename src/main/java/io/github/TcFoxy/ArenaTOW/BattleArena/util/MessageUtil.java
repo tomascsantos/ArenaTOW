@@ -1,5 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -9,11 +10,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.controllers.messaging.MessageHandler;
 
-public class MyMessageUtil {
+public class MessageUtil {
 
 	public static String colorChat(String msg) {return msg.replace('&', (char) 167);}
 

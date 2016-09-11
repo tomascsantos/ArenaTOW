@@ -1,7 +1,9 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.ChatColor;
@@ -13,6 +15,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.competition.TransitionController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaAlterController.ChangeType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RoomController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.SpawnController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.AreaContainer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
@@ -27,9 +30,13 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.TimedSpawn;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
+import mc.alk.arena.objects.regions.PylamoRegion;
+import mc.alk.arena.objects.regions.WorldGuardRegion;
+import mc.alk.arena.serializers.Persist;
 
 
 public class Arena extends AreaContainer {
@@ -37,23 +44,23 @@ public class Arena extends AreaContainer {
     /// If this is not null, this is where distance will be based off of, otherwise it's an area around the spawns
     protected Location joinloc;
 
-    //protected Map<Long, TimedSpawn> timedSpawns; /// Item/mob/other spawn events
+    protected Map<Long, TimedSpawn> timedSpawns; /// Item/mob/other spawn events
 
-    //protected SpawnController spawnController;
+    protected SpawnController spawnController;
 
     protected Match match;
 
-    //protected RoomContainer spectate;
+    protected RoomContainer spectate;
 
     protected RoomContainer waitroom;
 
-    //protected RoomContainer visitorRoom;
+    protected RoomContainer visitorRoom;
 
-//    @Persist
-//    protected WorldGuardRegion wgRegion;
+    @Persist
+    protected WorldGuardRegion wgRegion;
 
-//    @Persist
-//    protected PylamoRegion pylamoRegion;
+    @Persist
+    protected PylamoRegion pylamoRegion;
 
     /**
      * Arena constructor
@@ -107,7 +114,7 @@ public class Arena extends AreaContainer {
      * private Arena onStart events, calls onStart for subclasses to be able to override
      */
     void privateOnStart(){
-        //startSpawns();
+        startSpawns();
         try{onStart();}catch(Exception e){Log.printStackTrace(e);}
     }
 
@@ -115,7 +122,7 @@ public class Arena extends AreaContainer {
      * private Arena onStart events, calls onStart for subclasses to be able to override
      */
     void privateOnVictory(MatchResult result){
-        //stopSpawns();
+        stopSpawns();
         try{onVictory(result);}catch(Exception e){Log.printStackTrace(e);}
     }
 
@@ -123,7 +130,7 @@ public class Arena extends AreaContainer {
      * private Arena onComplete events, calls onComplete for subclasses to be able to override
      */
     void privateOnComplete(){
-        //stopSpawns();
+        stopSpawns();
         try{onComplete();}catch(Exception e){Log.printStackTrace(e);}
     }
 
@@ -131,7 +138,7 @@ public class Arena extends AreaContainer {
      * private Arena onCancel events, calls onCancel for subclasses to be able to override
      */
     void privateOnCancel(){
-        //stopSpawns();
+        stopSpawns();
         try{onCancel();}catch(Exception e){Log.printStackTrace(e);}
     }
 
@@ -302,12 +309,12 @@ public class Arena extends AreaContainer {
         return waitroom.getSpawn(-1,true);
     }
 
-//    /**
-//     * Return the visitor location (if any)
-//     * @return location
-//     */
-//    public SpawnLocation getVisitorLoc(int teamIndex, boolean random) {
-//        return visitorRoom != null ? visitorRoom.getSpawn(teamIndex,random) : null;}
+    /**
+     * Return the visitor location (if any)
+     * @return location
+     */
+    public SpawnLocation getVisitorLoc(int teamIndex, boolean random) {
+        return visitorRoom != null ? visitorRoom.getSpawn(teamIndex,random) : null;}
 
     /**
      * Return the spot where players need to add close to
@@ -363,71 +370,71 @@ public class Arena extends AreaContainer {
     }
 
 
-//    /**
-//     * Set the worldguard region for this arena (only available with worldguard)
-//     * @param regionWorld World name
-//     * @param regionName region name
-//     */
-//    public void setWorldGuardRegion(String regionWorld, String regionName) {
-//        wgRegion = new WorldGuardRegion(regionWorld, regionName);
-//    }
-//
-//    /**
-//     * Set the worldguard region for this arena (only available with worldguard)
-//     * @param region WorldGuardRegion
-//     */
-//    public void setWorldGuardRegion(WorldGuardRegion region) {
-//        wgRegion = region;
-//    }
-//
-//    /**
-//     * does this arena have a worldguard wgRegionName attached
-//     * @return true or false if region is found and valid
-//     */
-//    public boolean hasRegion() {
-//        return wgRegion != null && wgRegion.valid();
-//    }
-//
-//    /**
-//     * Get the worldguard wgRegionName for this arena
-//     * @return region
-//     */
-//    public WorldGuardRegion getWorldGuardRegion() {
-//        return wgRegion;
-//    }
-//
-//    /**
-//     * Return the timed spawns for this arena
-//     * @return the timed spawns
-//     */
-//    public Map<Long, TimedSpawn> getTimedSpawns() {
-//        return timedSpawns;
-//    }
-//
-//    /**
-//     * add a timed spawn to this arena
-//     */
-//    public void putTimedSpawn(Long index, TimedSpawn s) {
-//        if (timedSpawns == null){
-//            timedSpawns = new HashMap<Long,TimedSpawn>();
-//        }
-//        timedSpawns.put(index, s);
-//    }
-//    
-//    public long addTimedSpawn(TimedSpawn s) {
-//        timedSpawns = (timedSpawns == null) ? new HashMap<Long,TimedSpawn>() : timedSpawns;
-//        long index = timedSpawns.size() + 1L;
-//        timedSpawns.put(index, s);
-//        return index;
-//    }
-//
-//    /**
-//     * add a timed spawn to this arena
-//     * @return TimedSpawn
-//     */
-//    public TimedSpawn deleteTimedSpawn(Long num) {
-//        return timedSpawns == null ? null : timedSpawns.remove(num);
-//    }
+    /**
+     * Set the worldguard region for this arena (only available with worldguard)
+     * @param regionWorld World name
+     * @param regionName region name
+     */
+    public void setWorldGuardRegion(String regionWorld, String regionName) {
+        wgRegion = new WorldGuardRegion(regionWorld, regionName);
+    }
+
+    /**
+     * Set the worldguard region for this arena (only available with worldguard)
+     * @param region WorldGuardRegion
+     */
+    public void setWorldGuardRegion(WorldGuardRegion region) {
+        wgRegion = region;
+    }
+
+    /**
+     * does this arena have a worldguard wgRegionName attached
+     * @return true or false if region is found and valid
+     */
+    public boolean hasRegion() {
+        return wgRegion != null && wgRegion.valid();
+    }
+
+    /**
+     * Get the worldguard wgRegionName for this arena
+     * @return region
+     */
+    public WorldGuardRegion getWorldGuardRegion() {
+        return wgRegion;
+    }
+
+    /**
+     * Return the timed spawns for this arena
+     * @return the timed spawns
+     */
+    public Map<Long, TimedSpawn> getTimedSpawns() {
+        return timedSpawns;
+    }
+
+    /**
+     * add a timed spawn to this arena
+     */
+    public void putTimedSpawn(Long index, TimedSpawn s) {
+        if (timedSpawns == null){
+            timedSpawns = new HashMap<Long,TimedSpawn>();
+        }
+        timedSpawns.put(index, s);
+    }
+    
+    public long addTimedSpawn(TimedSpawn s) {
+        timedSpawns = (timedSpawns == null) ? new HashMap<Long,TimedSpawn>() : timedSpawns;
+        long index = timedSpawns.size() + 1L;
+        timedSpawns.put(index, s);
+        return index;
+    }
+
+    /**
+     * add a timed spawn to this arena
+     * @return TimedSpawn
+     */
+    public TimedSpawn deleteTimedSpawn(Long num) {
+        return timedSpawns == null ? null : timedSpawns.remove(num);
+    }
 
     /**
      * Set which match this arena belongs to
@@ -536,22 +543,22 @@ public class Arena extends AreaContainer {
         return match == null ? null : match.getTeam(teamIndex);
     }
 
-//    /**
-//     * Start any spawns happening for this arena
-//     */
-//    public void startSpawns(){
-//        SpawnController sc = getSpawnController();
-//        if (sc != null)
-//            sc.start();
-//    }
+    /**
+     * Start any spawns happening for this arena
+     */
+    public void startSpawns(){
+        SpawnController sc = getSpawnController();
+        if (sc != null)
+            sc.start();
+    }
 
-//    /**
-//     * Stop any spawns occuring in this arena
-//     */
-//    public void stopSpawns(){
-//        if (spawnController != null){
-//            spawnController.stop();}
-//    }
+    /**
+     * Stop any spawns occuring in this arena
+     */
+    public void stopSpawns(){
+        if (spawnController != null){
+            spawnController.stop();}
+    }
 
     public boolean matches(final JoinOptions jos) {
         Arena a = jos.getArena();
@@ -598,8 +605,8 @@ public class Arena extends AreaContainer {
             return false;}
         if ((waitroom == null || !waitroom.hasSpawns()) && params.needsWaitroom())
             return false;
-//        if ((spectate == null || !spectate.hasSpawns()) && params.needsSpectate())
-//            return false;
+        if ((spectate == null || !spectate.hasSpawns()) && params.needsSpectate())
+            return false;
         return true;
     }
 
@@ -636,8 +643,8 @@ public class Arena extends AreaContainer {
         if (tops != null){
             if (matchParams.needsWaitroom() && (waitroom == null || !waitroom.hasSpawns()))
                 reasons.add("Needs a waitroom but none has been provided");
-//            if (matchParams.needsSpectate() && (spectate == null || !spectate.hasSpawns()))
-//                reasons.add("Needs a spectator room but none has been provided");
+            if (matchParams.needsSpectate() && (spectate == null || !spectate.hasSpawns()))
+                reasons.add("Needs a spectator room but none has been provided");
             if (matchParams.needsLobby() && (!RoomController.hasLobby(matchParams.getType())))
                 reasons.add("Needs a lobby but none has been provided");
         }
@@ -682,8 +689,8 @@ public class Arena extends AreaContainer {
         sb.append("&e, #spawns:&6" +spawns.size() +"\n");
         sb.append("&eteamSpawnLocs=&b"+getSpawnLocationString()+"\n");
         if (waitroom != null) sb.append("&ewrSpawnLocs=&b"+waitroom.getSpawnLocationString()+"\n");
-//        if (spectate != null) sb.append("&espectateSpawnLocs=&b"+spectate.getSpawnLocationString()+"\n");
-//        if (timedSpawns != null){sb.append("&e#item/mob spawns:&6" +timedSpawns.size() +"\n");}
+        if (spectate != null) sb.append("&espectateSpawnLocs=&b"+spectate.getSpawnLocationString()+"\n");
+        if (timedSpawns != null){sb.append("&e#item/mob spawns:&6" +timedSpawns.size() +"\n");}
         return sb.toString();
     }
 
@@ -700,7 +707,7 @@ public class Arena extends AreaContainer {
     public String toSummaryString(){
         StringBuilder sb = new StringBuilder("&4" + name);
         if (params != null){
-//            sb.append("&2 type=&f").append(params.getType());
+            sb.append("&2 type=&f").append(params.getType());
             sb.append(" &2TeamSizes:" + getColor(params.getThisTeamSize()) + params.getTeamSize() +
                     "&2, nTeams:"+getColor(params.getThisNTeams()) + params.getNTeams());
         }
@@ -710,49 +717,49 @@ public class Arena extends AreaContainer {
             SpawnLocation l = spawns.get(0).get(0);
             sb.append("["+ Util.getLocString(l)+"] ");
         }
-//        if (timedSpawns != null && !timedSpawns.isEmpty())
-//            sb.append("&2#item/mob Spawns:&f" +timedSpawns.size());
+        if (timedSpawns != null && !timedSpawns.isEmpty())
+            sb.append("&2#item/mob Spawns:&f" +timedSpawns.size());
         return sb.toString();
     }
 
-//    public SpawnController getSpawnController() {
-//        if (timedSpawns != null && !timedSpawns.isEmpty() && spawnController == null){
-//            spawnController = new SpawnController(timedSpawns);
-//        }
-//        return spawnController;
-//    }
-//
-//    public void setPylamoRegion(PylamoRegion region) {
-//        this.pylamoRegion = region;
-//    }
-//
-//    public PylamoRegion getPylamoRegion() {
-//        return pylamoRegion;
-//    }
+    public SpawnController getSpawnController() {
+        if (timedSpawns != null && !timedSpawns.isEmpty() && spawnController == null){
+            spawnController = new SpawnController(timedSpawns);
+        }
+        return spawnController;
+    }
+
+    public void setPylamoRegion(PylamoRegion region) {
+        this.pylamoRegion = region;
+    }
+
+    public PylamoRegion getPylamoRegion() {
+        return pylamoRegion;
+    }
 
     public void setWaitRoom(RoomContainer waitroom) {
         this.waitroom = waitroom;
     }
 
-//    public void setSpectatorRoom(RoomContainer spectate) {
-//        this.spectate = spectate;
-//    }
+    public void setSpectatorRoom(RoomContainer spectate) {
+        this.spectate = spectate;
+    }
 
     public RoomContainer getWaitroom() {
         return waitroom;
     }
 
 
-//    public RoomContainer getVisitorRoom() {
-//        return visitorRoom;
-//    }
+    public RoomContainer getVisitorRoom() {
+        return visitorRoom;
+    }
 
-//    public void setVisitorRoom(RoomContainer rc) {
-//        this.visitorRoom = rc;
-//    }
-//    public RoomContainer getSpectatorRoom() {
-//        return spectate;
-//    }
+    public void setVisitorRoom(RoomContainer rc) {
+        this.visitorRoom = rc;
+    }
+    public RoomContainer getSpectatorRoom() {
+        return spectate;
+    }
 
     public RoomContainer getLobby() {
         return RoomController.getLobby(getArenaType());
@@ -763,17 +770,17 @@ public class Arena extends AreaContainer {
         return LocationType.ARENA;
     }
 
-//    public List<List<SpawnLocation>> getVisitorLocs() {
-//        return visitorRoom!=null ? visitorRoom.getSpawns() : null;
-//    }
+    public List<List<SpawnLocation>> getVisitorLocs() {
+        return visitorRoom!=null ? visitorRoom.getSpawns() : null;
+    }
 
     public boolean isJoinable(MatchParams mp) {
         if (!isOpen())
             return false;
         else if ( mp.needsWaitroom() && (waitroom == null || !waitroom.isOpen() || waitroom.getSpawns().isEmpty()) )
             return false;
-//        else if ( mp.needsSpectate() && (spectate== null || !spectate.isOpen() || spectate.getSpawns().isEmpty()) )
-//            return false;
+        else if ( mp.needsSpectate() && (spectate== null || !spectate.isOpen() || spectate.getSpawns().isEmpty()) )
+            return false;
         else if ( mp.needsLobby()){
             RoomContainer lobby = RoomController.getLobby(getArenaType());
             if (lobby == null || !lobby.isOpen() || lobby.getSpawns().isEmpty())
@@ -793,10 +800,10 @@ public class Arena extends AreaContainer {
                     "&cWaitroom is not open!";
         else if ( mp.needsWaitroom() && waitroom.getSpawns().isEmpty() )
             return "&cYou need to set a spawn point for the waitroom!";
-//        else if ( mp.needsSpectate() && spectate == null )
-//            return "&cYou need to create a spectator area!";
-//        else if ( mp.needsSpectate() && spectate.getSpawns().isEmpty() )
-//            return "&cYou need to set a spawn point for the spectate area!";
+        else if ( mp.needsSpectate() && spectate == null )
+            return "&cYou need to create a spectator area!";
+        else if ( mp.needsSpectate() && spectate.getSpawns().isEmpty() )
+            return "&cYou need to set a spawn point for the spectate area!";
         else if ( mp.needsLobby() && getLobby()==null )
             return "&cYou need to create a lobby!";
         else if ( mp.needsLobby() ){
@@ -826,11 +833,11 @@ public class Arena extends AreaContainer {
                     throw new IllegalStateException("Arena " + getName() +" does not have a Lobby");
                 lobby.setContainerState(state);
                 break;
-//            case VLOC:
-//                if (visitorRoom == null)
-//                    throw new IllegalStateException("Arena " + getName() +" does not have a visitorRoom");
-//                visitorRoom.setContainerState(state);
-//                break;
+            case VLOC:
+                if (visitorRoom == null)
+                    throw new IllegalStateException("Arena " + getName() +" does not have a visitorRoom");
+                visitorRoom.setContainerState(state);
+                break;
             case WAITROOM:
                 if (waitroom == null)
                     throw new IllegalStateException("Arena " + getName() +" does not have a waitroom");
@@ -841,9 +848,9 @@ public class Arena extends AreaContainer {
         }
     }
 
-//    public int getQueueCount() {
-//        return BattleArena.getBAController().getArenaMatchQueue().getQueueCount(this);
-//    }
+    public int getQueueCount() {
+        return BattleArena.getBAController().getArenaMatchQueue().getQueueCount(this);
+    }
 
     /**
      * Perform a player transition while in a game

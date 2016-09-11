@@ -11,11 +11,12 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
 import mc.alk.arena.objects.EventParams;
-import mc.alk.arena.objects.StateGraph;
 import mc.alk.arena.util.CaseInsensitiveMap;
+
 
 
 
