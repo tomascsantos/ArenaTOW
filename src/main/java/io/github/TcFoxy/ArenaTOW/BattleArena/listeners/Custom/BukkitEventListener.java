@@ -1,13 +1,15 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom;
 
-import mc.alk.arena.Defaults;
-import mc.alk.arena.util.Log;
-import org.bukkit.event.Event;
 
 import java.lang.reflect.Method;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
+
+import org.bukkit.event.Event;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 
 
 /**

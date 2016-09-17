@@ -1,12 +1,12 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.listeners;
 
-import mc.alk.arena.Permissions;
-import mc.alk.arena.controllers.PlayerController;
-import mc.alk.arena.controllers.PlayerRestoreController;
-import mc.alk.arena.events.players.ArenaPlayerLeaveEvent;
-import mc.alk.arena.util.InventoryUtil.PInv;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.PlayerUtil;
+
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -22,14 +22,18 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Permissions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BattleArenaController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerRestoreController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil.PInv;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import mc.alk.arena.controllers.plugins.EssentialsController;
+import mc.alk.arena.controllers.plugins.WorldGuardController;
+import mc.alk.arena.objects.regions.WorldGuardRegion;
 
 
 /**
@@ -85,7 +89,7 @@ public class BAPlayerListener implements Listener  {
 		if (!PlayerController.hasArenaPlayer(event.getPlayer()))
 			return;
 		ArenaPlayer p = PlayerController.getArenaPlayer(event.getPlayer());
-		MyArenaPlayerLeaveEvent aple = new ArenaPlayerLeaveEvent(p, p.getTeam(),
+		ArenaPlayerLeaveEvent aple = new ArenaPlayerLeaveEvent(p, p.getTeam(),
 				ArenaPlayerLeaveEvent.QuitReason.QUITMC);
 		aple.callEvent();
 	}

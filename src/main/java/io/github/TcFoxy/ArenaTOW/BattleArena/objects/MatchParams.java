@@ -12,12 +12,11 @@ import org.bukkit.ChatColor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RoomController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.GameManager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
-import mc.alk.arena.objects.JoinType;
-import mc.alk.arena.objects.messaging.AnnouncementOptions;
-import mc.alk.arena.objects.modules.ArenaModule;
-import mc.alk.arena.objects.victoryconditions.VictoryType;
-import mc.alk.arena.util.MessageUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 
 
 

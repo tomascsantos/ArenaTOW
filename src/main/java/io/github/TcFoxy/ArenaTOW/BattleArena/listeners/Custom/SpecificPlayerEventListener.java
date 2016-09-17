@@ -17,10 +17,11 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.RListener.RListenerPriorityComparator;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.DmgDeathUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MapOfTreeSet;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
-import mc.alk.arena.util.DmgDeathUtil;
-import mc.alk.arena.util.MapOfTreeSet;
+
 
 
 /**

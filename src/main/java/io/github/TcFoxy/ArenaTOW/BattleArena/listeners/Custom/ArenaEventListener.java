@@ -9,8 +9,8 @@ import java.util.TreeMap;
 import org.bukkit.event.Event;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.objects.arenas.ArenaListener;
 
 
 /**

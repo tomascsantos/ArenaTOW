@@ -34,16 +34,17 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.events.BAEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.RListener.RListenerPriorityComparator;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventMethod;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.events.ArenaEventHandler;
-import mc.alk.arena.objects.events.ArenaEventMethod;
-import mc.alk.arena.util.MapOfTreeSet;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.TimingUtil;
-import mc.alk.arena.util.TimingUtil.TimingStat;
-import mc.alk.arena.util.Util;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MapOfTreeSet;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimingUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimingUtil.TimingStat;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
+
 
 
 public class MethodController {
@@ -309,7 +310,7 @@ public class MethodController {
             final String entityMethod;
             boolean supressCastWarnings;
             boolean suppressWarnings;
-            mc.alk.arena.objects.events.EventPriority priority;
+            io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority priority;
             org.bukkit.event.EventPriority bukkitPriority;
 
             ArenaEventHandler aeh = method.getAnnotation(ArenaEventHandler.class);
@@ -659,8 +660,8 @@ public class MethodController {
                 }
 
                 if (bel.getMatchListener()!=null){
-                    EnumMap<mc.alk.arena.objects.events.EventPriority, Map<RListener,Integer>> lists = bel.getMatchListener().getListeners();
-                    for (mc.alk.arena.objects.events.EventPriority ep: lists.keySet()){
+                    EnumMap<io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority, Map<RListener,Integer>> lists = bel.getMatchListener().getListeners();
+                    for (io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority ep: lists.keySet()){
                         for (Entry<RListener,Integer> entry : lists.get(ep).entrySet()){
                             MessageUtil.sendMessage(sender, "! " + ep + "  -  " + entry.getKey() + "  count=" + entry.getValue());
                         }

@@ -1,82 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BattleArenaController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-
-import mc.alk.arena.bukkit.BukkitInterface;
-import mc.alk.arena.controllers.APIRegistrationController;
-import mc.alk.arena.controllers.ArenaEditor;
-import mc.alk.arena.controllers.BAEventController;
-import mc.alk.arena.controllers.BattleArenaController;
-import mc.alk.arena.controllers.BukkitServer;
-import mc.alk.arena.controllers.CompetitionController;
-import mc.alk.arena.controllers.DuelController;
-import mc.alk.arena.controllers.EventController;
-import mc.alk.arena.controllers.EventScheduler;
-import mc.alk.arena.controllers.Modules;
-import mc.alk.arena.controllers.ParamController;
-import mc.alk.arena.controllers.RoomController;
-import mc.alk.arena.controllers.Scheduler;
-import mc.alk.arena.controllers.TeamController;
-import mc.alk.arena.controllers.TeleportController;
-import mc.alk.arena.controllers.WatchController;
-import mc.alk.arena.executors.ArenaEditorExecutor;
-import mc.alk.arena.executors.BAExecutor;
-import mc.alk.arena.executors.BASchedulerExecutor;
-import mc.alk.arena.executors.BattleArenaDebugExecutor;
-import mc.alk.arena.executors.BattleArenaExecutor;
-import mc.alk.arena.executors.CustomCommandExecutor;
-import mc.alk.arena.executors.ScoreboardExecutor;
-import mc.alk.arena.executors.TeamExecutor;
-import mc.alk.arena.listeners.BAPluginListener;
-import mc.alk.arena.listeners.BASignListener;
-import mc.alk.arena.listeners.SignUpdateListener;
-import mc.alk.arena.listeners.competition.InArenaListener;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.arenas.ArenaFactory;
-import mc.alk.arena.objects.modules.ArenaModule;
-import mc.alk.arena.objects.victoryconditions.AllKills;
-import mc.alk.arena.objects.victoryconditions.Custom;
-import mc.alk.arena.objects.victoryconditions.InfiniteLives;
-import mc.alk.arena.objects.victoryconditions.KillLimit;
-import mc.alk.arena.objects.victoryconditions.LastManStanding;
-import mc.alk.arena.objects.victoryconditions.MobKills;
-import mc.alk.arena.objects.victoryconditions.NLives;
-import mc.alk.arena.objects.victoryconditions.NoTeamsLeft;
-import mc.alk.arena.objects.victoryconditions.OneTeamLeft;
-import mc.alk.arena.objects.victoryconditions.PlayerKills;
-import mc.alk.arena.objects.victoryconditions.TimeLimit;
-import mc.alk.arena.objects.victoryconditions.VictoryType;
-import mc.alk.arena.serializers.ArenaControllerSerializer;
-import mc.alk.arena.serializers.ArenaSerializer;
-import mc.alk.arena.serializers.BAClassesSerializer;
-import mc.alk.arena.serializers.BAConfigSerializer;
-import mc.alk.arena.serializers.BaseConfig;
-import mc.alk.arena.serializers.EventScheduleSerializer;
-import mc.alk.arena.serializers.MessageSerializer;
-import mc.alk.arena.serializers.SignSerializer;
-import mc.alk.arena.serializers.SpawnSerializer;
-import mc.alk.arena.serializers.StateFlagSerializer;
-import mc.alk.arena.serializers.TeamHeadSerializer;
-import mc.alk.arena.serializers.YamlFileUpdater;
-import mc.alk.arena.util.FileLogger;
-import mc.alk.arena.util.FileUtil;
-import mc.alk.arena.util.Log;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.PlayerUtil;
-import mc.alk.mc.updater.FileUpdater;
-import mc.alk.mc.updater.PluginUpdater;
-import mc.battleplugins.api.BattlePluginsAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
@@ -84,6 +12,70 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.APIRegistrationController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaEditor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BAEventController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BattleArenaController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.CompetitionController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.DuelController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventScheduler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RoomController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.Scheduler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.TeamController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.TeleportController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.WatchController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.ArenaEditorExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BAExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BASchedulerExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BattleArenaDebugExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BattleArenaExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.TeamExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPluginListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BASignListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.SignUpdateListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.InArenaListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.AllKills;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.Custom;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.HighestKills;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.InfiniteLives;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.KillLimit;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.LastManStanding;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.MobKills;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.NLives;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.NoTeamsLeft;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.OneTeamLeft;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.PlayerKills;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.TimeLimit;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ArenaControllerSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ArenaSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.BAClassesSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.BAConfigSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.BaseConfig;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.EventScheduleSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.MessageSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.SignSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.SpawnSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.StateFlagSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.TeamHeadSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.YamlFileUpdater;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.FileLogger;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.FileUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import mc.alk.mc.updater.FileUpdater;
+import mc.alk.mc.updater.PluginUpdater;
+import mc.battleplugins.api.BattlePluginsAPI;
 
 public class BattleArena extends JavaPlugin {
 
@@ -96,7 +88,7 @@ public class BattleArena extends JavaPlugin {
     private final static TeamController tc = TeamController.INSTANCE;
     private final static EventController ec = new EventController();
     private final static ArenaEditor aac = new ArenaEditor();
-    //private final static DuelController dc = new DuelController();
+    private final static DuelController dc = new DuelController();
     private static BAExecutor commandExecutor;
     private ArenaEditorExecutor arenaEditorExecutor;
     private final BAPlayerListener playerListener = new BAPlayerListener(arenaController);
@@ -110,8 +102,8 @@ public class BattleArena extends JavaPlugin {
     private static final BAClassesSerializer classesSerializer = new BAClassesSerializer();
     private static final EventScheduleSerializer eventSchedulerSerializer = new EventScheduleSerializer();
     private static final SignSerializer signSerializer = new SignSerializer();
-    private static final int bukkitId = 85347; // https://api.curseforge.com/servermods/projects?search=battlearena
-    public BattlePluginsAPI bpapi;
+    private static final int bukkitId = 43134; /// project bukkitId
+    private BattlePluginsAPI bpapi;
 
     /**
      * enable the BattleArena plugin
@@ -127,41 +119,39 @@ public class BattleArena extends JavaPlugin {
         ConsoleCommandSender sender = Bukkit.getConsoleSender();
         MessageUtil.sendMessage(sender, "&4[" + pluginname + "] &6v" + version + "&f enabling!");
 
-        BukkitServer.setServer(Bukkit.getServer()); /// Set the server
+        //BukkitInterface.setServer(Bukkit.getServer()); /// Set the server
         arenaController = new BattleArenaController(signUpdateListener);
 
         /// Create our plugin folder if its not there
         final File dir = getDataFolder();
         FileUpdater.makeIfNotExists(dir);
-//        FileUpdater.makeIfNotExists(new File(dir + "/competitions"));
+        FileUpdater.makeIfNotExists(new File(dir + "/competitions"));
         FileUpdater.makeIfNotExists(new File(dir + "/messages"));
         FileUpdater.makeIfNotExists(new File(dir + "/saves"));
         FileUpdater.makeIfNotExists(new File(dir + "/modules"));
         FileUpdater.makeIfNotExists(new File(dir + "/otherPluginConfigs"));
-//        FileUpdater.makeIfNotExists(new File(dir + "/victoryConditions"));
+        FileUpdater.makeIfNotExists(new File(dir + "/victoryConditions"));
 
-//        for (String c : new String[]{"HeroesConfig", "McMMOConfig", "WorldGuardConfig"}){
-//            try{
-//                String source = "/default_files/otherPluginConfigs/"+c+".yml";
-//                String dest = dir.getPath() + "/otherPluginConfigs/"+c+".yml";
-//                File file = FileUtil.load(clazz, dest, source);
-//                new BaseConfig(file);
-//            } catch( Exception e ){
-//                Log.err("Couldn't load File " + dir.getPath() + "/otherPluginConfigs/"+c+".yml");
-//                Log.printStackTrace(e);
-//            }
-//        }
+        for (String c : new String[]{"HeroesConfig", "McMMOConfig", "WorldGuardConfig"}){
+            try{
+                new BaseConfig(FileUtil.load(clazz, dir.getPath() + "/otherPluginConfigs/"+c+".yml",
+                        "/default_files/otherPluginConfigs/"+c+".yml"));
+            } catch( Exception e ){
+                Log.err("Couldn't load File " + dir.getPath() + "/otherPluginConfigs/"+c+".yml");
+                Log.printStackTrace(e);
+            }
+        }
 
-//        for (String c : new String[]{"AllKills", "KillLimit", "MobKills","PlayerKills"}){
-//            try{
-//                new BaseConfig(FileUtil.load(clazz, dir.getPath() + "/victoryConditions/"+c+".yml",
-//                        "/default_files/victoryConditions/"+c+".yml"));
-//            } catch( Exception e ){
-//                Log.err("Couldn't load File " + dir.getPath() + "/otherPluginConfigs/"+c+".yml");
-//                Log.printStackTrace(e);
-//            }
-//        }
-        
+        for (String c : new String[]{"AllKills", "KillLimit", "MobKills","PlayerKills"}){
+            try{
+                new BaseConfig(FileUtil.load(clazz, dir.getPath() + "/victoryConditions/"+c+".yml",
+                        "/default_files/victoryConditions/"+c+".yml"));
+            } catch( Exception e ){
+                Log.err("Couldn't load File " + dir.getPath() + "/otherPluginConfigs/"+c+".yml");
+                Log.printStackTrace(e);
+            }
+        }
+
         /// For potential updates to default yml files
         YamlFileUpdater yfu = new YamlFileUpdater(this);
 
@@ -189,21 +179,23 @@ public class BattleArena extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(signUpdateListener, this);
 
 
-//        /// Register our different Victory Types
-//        VictoryType.register(LastManStanding.class, this);
-//        VictoryType.register(NLives.class, this);
-//        VictoryType.register(InfiniteLives.class, this);
-//        VictoryType.register(TimeLimit.class, this);
-//        VictoryType.register(OneTeamLeft.class, this);
-//        VictoryType.register(NoTeamsLeft.class, this);
-//        VictoryType.register(PlayerKills.class, this);
-//        VictoryType.register(MobKills.class, this);
-//        VictoryType.register(AllKills.class, this);
-//        VictoryType.register(KillLimit.class, this);
-//        VictoryType.register(Custom.class, this);
+        /// Register our different Victory Types
+        VictoryType.register(LastManStanding.class, this);
+        VictoryType.register(NLives.class, this);
+        VictoryType.register(InfiniteLives.class, this);
+        VictoryType.register(TimeLimit.class, this);
+        VictoryType.register(OneTeamLeft.class, this);
+        VictoryType.register(NoTeamsLeft.class, this);
+        VictoryType.register(PlayerKills.class, this);
+        VictoryType.register(MobKills.class, this);
+        VictoryType.register(AllKills.class, this);
+        VictoryType.register(KillLimit.class, this);
+        VictoryType.register(Custom.class, this);
+        //noinspection deprecation
+        VictoryType.register(HighestKills.class, this);
 
         /// Load our configs, then arenas
-        baConfigSerializer.setConfig(FileUtil.load(clazz, dir.getPath() + "/config.yml", "/config.yml"));
+        baConfigSerializer.setConfig(FileUtil.load(clazz, dir.getPath() + "/config.yml", "/default_files/config.yml"));
         try {
             YamlFileUpdater.updateBaseConfig(this, baConfigSerializer); /// Update our config if necessary
         } catch (Exception e) {
@@ -232,7 +224,6 @@ public class BattleArena extends JavaPlugin {
         getCommand("battleArenaDebug").setExecutor(new BattleArenaDebugExecutor());
         final EventScheduler es = new EventScheduler();
         getCommand("battleArenaScheduler").setExecutor(new BASchedulerExecutor(es));
-        //getCommand("arenaScoreboard").setExecutor(new ScoreboardExecutor(this, arenaController, Defaults.SB_MESSAGES));
 
         /// Reload our scheduled events
         eventSchedulerSerializer.setConfig(dir.getPath() + "/saves/scheduledEvents.yml");
@@ -274,8 +265,8 @@ public class BattleArena extends JavaPlugin {
             }
         });
         bpapi = new BattlePluginsAPI();
-//        PluginUpdater.update(this, bukkitId, this.getFile(),
-//                MyDefaults.AUTO_UPDATE, MyDefaults.ANNOUNCE_UPDATE);
+        //PluginUpdater.update(this, bukkitId, this.getFile(),
+        //        Defaults.AUTO_UPDATE, Defaults.ANNOUNCE_UPDATE);
         Log.info("&4[" + pluginname + "] &6v" + BattleArena.version + "&f enabled!");
     }
 
@@ -298,25 +289,25 @@ public class BattleArena extends JavaPlugin {
         FileLogger.saveAll();
     }
 
-//    /**
-//     * Check for updates for a given plugin.
-//     * If there are updates then it will announce the newer version to the console. It will download the newer
-//     * jar if the "update" variable is true.
-//     * This happens in an asynchronous manner to not lag the server while checking for the update
-//     * @param plugin BattleArena extension plugin
-//     * @param bukkitId the bukkit id of this plugin
-//     * @param file File from the bukkit plugin, use this.getFile()
-//     * @param updateOption whether we should update the plugin or simply announce that there is a newer version
-//     * @param announceOption whether we should update the plugin or simply announce that there is a newer version
-//     */
-//    public static void update(final Plugin plugin, final int bukkitId, final File file,
-//                              final UpdateOption updateOption, final AnnounceUpdateOption announceOption) {
-//        new APIRegistrationController().update(plugin, bukkitId, file, updateOption, announceOption);
-//    }
+    /**
+     * Check for updates for a given plugin.
+     * If there are updates then it will announce the newer version to the console. It will download the newer
+     * jar if the "update" variable is true.
+     * This happens in an asynchronous manner to not lag the server while checking for the update
+     * @param plugin BattleArena extension plugin
+     * @param bukkitId the bukkit id of this plugin
+     * @param file File from the bukkit plugin, use this.getFile()
+     * @param updateOption whether we should update the plugin or simply announce that there is a newer version
+     * @param announceOption whether we should update the plugin or simply announce that there is a newer version
+     */
+    public static void update(final Plugin plugin, final int bukkitId, final File file,
+                              final UpdateOption updateOption, final AnnounceUpdateOption announceOption) {
+        new APIRegistrationController().update(plugin, bukkitId, file, updateOption, announceOption);
+    }
 
     /**
-     * Return the BattlePluginsAPI that is used by BattleArena
-     *@return BattlePluginsAPI
+     * Return the BattlePluginsAPI used by BattleArena
+     * @return BattlePluginsAPI
      */
     public BattlePluginsAPI getBattlePluginsAPI() {
         return bpapi;
@@ -432,14 +423,14 @@ public class BattleArena extends JavaPlugin {
         return tc;
     }
 
-//    /**
-//     * Get the DuelController, deals with who is currently trying to duel other people/teams
-//     *
-//     * @return DuelController
-//     */
-//    public static DuelController getDuelController() {
-//        return dc;
-//    }
+    /**
+     * Get the DuelController, deals with who is currently trying to duel other people/teams
+     *
+     * @return DuelController
+     */
+    public static DuelController getDuelController() {
+        return dc;
+    }
 
     /**
      * Get the EventController, deals with what events can be run
@@ -650,42 +641,6 @@ public class BattleArena extends JavaPlugin {
     public static Arena getArena(String arenaName) {
         return BattleArena.getBAController().getArena(arenaName);
     }
-    
-    public static ArenaFactory createArenaFactory(final Class<? extends Arena> arenaClass) {
-        if (arenaClass == null) return null;
-        return new ArenaFactory() {
-
-            @Override
-            public Arena newArena() {
-                Class<?>[] args = {};
-                try {
-                    Constructor<?> constructor = arenaClass.getConstructor(args);
-                    Arena arena = (Arena) constructor.newInstance((Object[]) args);
-
-                    return arena;
-                } catch (NoSuchMethodException ex) {
-                    Log.err("If you have custom constructors for your class you must also have a public default constructor");
-                    Log.err("Add the following line to your Arena Class '" + arenaClass.getSimpleName() + ".java'");
-                    Log.err("public " + arenaClass.getSimpleName() + "(){}");
-                    Log.err("Or you can create your own ArenaFactory to support custom constructors");
-                    Log.printStackTrace(ex);
-                } catch (IllegalAccessException ex) {
-                    Log.printStackTrace(ex);
-                } catch (IllegalArgumentException ex) {
-                    Log.printStackTrace(ex);
-                } catch (InstantiationException ex) {
-                    Log.printStackTrace(ex);
-                } catch (SecurityException ex) {
-                    Log.printStackTrace(ex);
-                } catch (InvocationTargetException ex) {
-                    Log.printStackTrace(ex);
-                } catch (NullPointerException ex) {
-                    Log.printStackTrace(ex);
-                }
-                return null;
-            }
-        };
-    }
 
     /**
      * Register a competiton with BattleArena
@@ -696,20 +651,7 @@ public class BattleArena extends JavaPlugin {
      * @param arenaClass: The Arena Class for your competition
      */
     public static void registerCompetition(JavaPlugin plugin, String name, String cmd, Class<? extends Arena> arenaClass) {
-        ArenaFactory factory = createArenaFactory(arenaClass);
-        registerCompetition(plugin, name, cmd, factory); 
-    }
-    
-    /**
-     * Register a competiton with BattleArena
-     *
-     * @param plugin:     The plugin that is registering the Arena
-     * @param name:       Name of the competition
-     * @param cmd:        The cmd you would like to use (can be an alias)
-     * @param factory:    The ArenaFactory for your competition
-     */
-    public static void registerCompetition(JavaPlugin plugin, String name, String cmd, ArenaFactory factory) {
-        new APIRegistrationController().registerCompetition(plugin, name, cmd, factory);
+        new APIRegistrationController().registerCompetition(plugin, name, cmd, arenaClass);
     }
 
     /**
@@ -722,33 +664,15 @@ public class BattleArena extends JavaPlugin {
      * @param executor:   The executor you would like to receive commands
      */
     public static void registerCompetition(JavaPlugin plugin, String name, String cmd, Class<? extends Arena> arenaClass, CustomCommandExecutor executor) {
-        ArenaFactory factory = createArenaFactory(arenaClass);
-        registerCompetition(plugin, name, cmd, factory, executor);
+        new APIRegistrationController().registerCompetition(plugin, name, cmd, arenaClass, executor);
     }
-    
-    /**
-     * Register a competiton with BattleArena
-     *
-     * @param plugin:     The plugin that is registering the Arena
-     * @param name:       Name of the competition
-     * @param cmd:        The cmd you would like to use (can be an alias)
-     * @param factory:    The ArenaFactory for your competition
-     * @param executor:   The executor you would like to receive commands
-     */
-    public static void registerCompetition(JavaPlugin plugin, String name, String cmd, ArenaFactory factory, CustomCommandExecutor executor) {
-        new APIRegistrationController().registerCompetition(plugin, name, cmd, factory, executor);
-    }
-    
+
     /**
      * Get the module directory
      * @return File: Module Directory
      */
     public File getModuleDirectory() {
         return new File(this.getDataFolder() + "/modules");
-    }
-    
-    public static void addModule(ArenaModule mod) {
-        Modules.addModule(mod);
     }
 
     /**
@@ -758,9 +682,4 @@ public class BattleArena extends JavaPlugin {
     public ArenaEditorExecutor getArenaEditorExecutor() {
         return arenaEditorExecutor;
     }
-    
-    public static Collection<? extends Player> getOnlinePlayers() {
-        return BukkitInterface.getOnlinePlayers();
-    }
 }
-

@@ -25,34 +25,36 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.GameManager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.SignUpdateListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.MethodController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchOpenEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ContainerState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaControllerInterface;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.MatchCreationException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.NeverWouldJoinException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.ArenaMatchQueue;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.MatchTeamQObject;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.TeamJoinObject;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.WaitingObject;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions.EventOpenOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.JoinOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.pairs.JoinResult;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.pairs.JoinResult.JoinStatus;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
-import mc.alk.arena.listeners.SignUpdateListener;
-import mc.alk.arena.objects.ContainerState;
-import mc.alk.arena.objects.arenas.ArenaControllerInterface;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.exceptions.MatchCreationException;
-import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
-import mc.alk.arena.objects.pairs.JoinResult;
-import mc.alk.arena.objects.pairs.JoinResult.JoinStatus;
+
+
 
 public class BattleArenaController implements ArenaListener, Listener{
 
@@ -138,7 +140,7 @@ public class BattleArenaController implements ArenaListener, Listener{
 
     private void addAllOnline(MatchParams mp, Arena arena) {
         String cmd = mp.getCommand() +" add "+arena.getName();
-        for (Player p: BukkitInterface.getOnlinePlayers()){
+        for (Player p: Bukkit.getOnlinePlayers()){
             PlayerUtil.doCommand(p, cmd);
         }
     }

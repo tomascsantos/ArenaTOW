@@ -1,10 +1,12 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
-import mc.alk.arena.controllers.StateController;
-import mc.alk.arena.objects.options.TransitionOption;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.StateController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 
 /**
  * @author alkarin

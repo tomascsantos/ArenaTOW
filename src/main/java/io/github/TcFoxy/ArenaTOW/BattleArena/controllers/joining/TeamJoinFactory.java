@@ -7,8 +7,8 @@ import java.util.List;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.NeverWouldJoinException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
 
 public class TeamJoinFactory {
 

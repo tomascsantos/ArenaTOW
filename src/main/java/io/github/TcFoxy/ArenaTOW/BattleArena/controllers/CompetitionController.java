@@ -6,7 +6,8 @@ import java.util.Map;
 import org.bukkit.plugin.Plugin;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
-import mc.alk.arena.objects.RegisteredCompetition;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.RegisteredCompetition;
+
 
 public class CompetitionController {
     static HashMap<String, Map<String, RegisteredCompetition>> registeredCompetitions =

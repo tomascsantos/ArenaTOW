@@ -2,9 +2,9 @@ package io.github.TcFoxy.ArenaTOW.BattleArena;
 
 import java.io.File;
 
-import mc.alk.arena.objects.CompetitionSize;
-
 import org.bukkit.Material;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionSize;
 
 public class Defaults {
 

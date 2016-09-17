@@ -19,10 +19,11 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.SpawnOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.BlockSpawn;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.ChestSpawn;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.TimedSpawn;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ArenaSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.SpawnSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
-import mc.alk.arena.serializers.ArenaSerializer;
-import mc.alk.arena.serializers.SpawnSerializer;
-import mc.alk.arena.util.MessageUtil;
+
 
 
 
@@ -86,7 +87,7 @@ public class ArenaEditor implements Listener{
         }
         TimedSpawn ts = SpawnSerializer.createTimedSpawn(bs, cs.listeningOptions);
 
-        a.addTimedSpawn(cs.listeningIndex,ts);
+        a.putTimedSpawn(cs.listeningIndex, ts);
         BattleArena.getBAController().updateArena(a);
         ArenaSerializer.saveArenas(a.getArenaType().getPlugin());
         MessageUtil.sendMessage(event.getPlayer(), "&2Added block spawn &6"+ ts +"&2 to index=&5"+cs.listeningIndex);

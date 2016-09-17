@@ -42,12 +42,6 @@
         	<id>sk89q-repo</id>
         	<url>http://maven.sk89q.com/repo/</url>
     	</repository>
-        <!-- This repository does not seam to work, will keep here for reference 
-       <repository>
-      		<id>battleplugins-net</id>
-      		<name>BattlePlugins</name>
-      		<url>http://server.battleplugins.com/maven/repository/</url>
-   	   </repository>-->
    </repositories>
      <dependencies>
       	<dependency>
@@ -59,7 +53,7 @@
         	<groupId>com.sk89q</groupId>
         	<artifactId>worldguard</artifactId>
         	<version>6.1</version>
-    </dependency>
+        </dependency>
        	<dependency>
       		<groupId>mc.alk</groupId>
      		 <artifactId>BattleArena</artifactId>

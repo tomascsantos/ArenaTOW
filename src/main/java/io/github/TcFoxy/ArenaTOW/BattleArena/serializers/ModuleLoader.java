@@ -12,8 +12,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ModuleController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.objects.modules.ArenaModule;
 
 public class ModuleLoader {
 	public void loadModules(File moduleDirectory) {

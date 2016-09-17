@@ -8,10 +8,11 @@ import java.util.List;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.NeverWouldJoinException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.TeamJoinObject;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
-import mc.alk.arena.objects.teams.TeamFactory;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamFactory;
+
 
 /**
  * When there is an infinite number of teams

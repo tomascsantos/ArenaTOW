@@ -27,15 +27,16 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimeUtil;
 import mc.alk.arena.controllers.plugins.DisguiseInterface;
 import mc.alk.arena.controllers.plugins.HeroesController;
-import mc.alk.arena.util.EffectUtil;
-import mc.alk.arena.util.InventoryUtil;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.TeamUtil;
-import mc.alk.arena.util.TimeUtil;
+
 
 public class ArenaClassController {
     final static HashMap<String,ArenaClass> classes = new HashMap<String,ArenaClass>();
@@ -163,7 +164,7 @@ public class ArenaClassController {
         }
 
         if (am != null){
-            am.callEvent( );
+            am.callEvent(new ArenaPlayerClassSelectedEvent(ac));
         } else {
             new ArenaPlayerClassSelectedEvent(ac).callEvent();
         }

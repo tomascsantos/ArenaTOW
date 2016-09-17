@@ -1,21 +1,23 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.options;
 
-import mc.alk.arena.BattleArena;
-import mc.alk.arena.Defaults;
-import mc.alk.arena.controllers.BattleArenaController;
-import mc.alk.arena.controllers.ParamController;
-import mc.alk.arena.objects.ArenaParams;
-import mc.alk.arena.objects.ArenaSize;
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.arenas.Arena;
-import mc.alk.arena.objects.exceptions.InvalidOptionException;
-import mc.alk.arena.util.MinMax;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BattleArenaController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 
 public class EventOpenOptions {
 	public static enum EventOpenOption{

@@ -34,8 +34,10 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaControllerInterface;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Persistable;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.RegionNotFound;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.BlockSpawn;
@@ -47,13 +49,12 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnTime;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.TimedSpawn;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
 import mc.alk.arena.controllers.plugins.WorldGuardController;
-import mc.alk.arena.objects.arenas.ArenaControllerInterface;
-import mc.alk.arena.objects.exceptions.RegionNotFound;
-import mc.alk.arena.util.InventoryUtil;
-import mc.alk.arena.util.SerializerUtil;
+
 
 public class ArenaSerializer extends BaseConfig{
     static BattleArenaController arenaController;
@@ -284,7 +285,7 @@ public class ArenaSerializer extends BaseConfig{
                 }
                 if (s == null)
                     continue;
-                arena.addTimedSpawn(Long.parseLong(spawnStr), s);
+                arena.putTimedSpawn(Long.parseLong(spawnStr), s);
             }
         }
         cs = cs.getConfigurationSection("persistable");

@@ -1,10 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.matches;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-
 import java.util.List;
 
-import mc.alk.arena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+
 
 public class MatchPrestartEvent extends MatchEvent {
 	final List<ArenaTeam> teams;

@@ -8,19 +8,17 @@ import java.util.List;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.events.Event.TeamSizeComparator;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.NeverWouldJoinException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.JoinOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.TeamJoinObject;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.JoinOptions.JoinOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.competition.events.Event.TeamSizeComparator;
-import mc.alk.arena.controllers.joining.AbstractJoinHandler;
-import mc.alk.arena.controllers.joining.AbstractJoinHandler.TeamJoinResult;
-import mc.alk.arena.controllers.joining.AbstractJoinHandler.TeamJoinStatus;
-import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
-import mc.alk.arena.objects.teams.TeamFactory;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamFactory;
+
 
 public class AddToLeastFullTeam extends AbstractJoinHandler {
 

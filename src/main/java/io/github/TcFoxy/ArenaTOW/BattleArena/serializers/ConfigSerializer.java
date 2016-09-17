@@ -29,33 +29,35 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.StateController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CommandLineString;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.JoinType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.ConfigException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions.AnnouncementOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.BrokenArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.OneTeamLeft;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
 import mc.alk.arena.controllers.plugins.DisguiseInterface;
 import mc.alk.arena.controllers.plugins.TrackerController;
-import mc.alk.arena.objects.CommandLineString;
-import mc.alk.arena.objects.JoinType;
-import mc.alk.arena.objects.exceptions.ConfigException;
-import mc.alk.arena.objects.exceptions.InvalidOptionException;
-import mc.alk.arena.objects.messaging.AnnouncementOptions;
-import mc.alk.arena.objects.messaging.AnnouncementOptions.AnnouncementOption;
-import mc.alk.arena.objects.modules.ArenaModule;
-import mc.alk.arena.objects.modules.BrokenArenaModule;
-import mc.alk.arena.objects.victoryconditions.OneTeamLeft;
-import mc.alk.arena.objects.victoryconditions.VictoryType;
 import mc.alk.arena.util.BTInterface;
-import mc.alk.arena.util.EffectUtil;
-import mc.alk.arena.util.InventoryUtil;
-import mc.alk.arena.util.SerializerUtil;
+
+
 
 /**
  *

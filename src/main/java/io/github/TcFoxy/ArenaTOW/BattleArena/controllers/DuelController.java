@@ -19,18 +19,19 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCancelledEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCompletedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCreatedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.Duel;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.Matchup;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.MatchTeamQObject;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.DuelOptions.DuelOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.JoinOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.objects.Duel;
-import mc.alk.arena.objects.Matchup;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.options.DuelOptions.DuelOption;
-import mc.alk.arena.util.MessageUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
+
 
 public class DuelController implements ArenaListener{
 	List<Duel> formingDuels = new CopyOnWriteArrayList<Duel>();

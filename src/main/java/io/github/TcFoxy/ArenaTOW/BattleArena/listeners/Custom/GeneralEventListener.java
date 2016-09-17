@@ -1,13 +1,14 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom;
 
-import mc.alk.arena.Defaults;
-import org.bukkit.event.Event;
-import org.bukkit.event.EventPriority;
-
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+
+import org.bukkit.event.Event;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
 
 
 /**
@@ -17,12 +18,12 @@ import java.util.Map;
  */
 abstract class GeneralEventListener extends BaseEventListener  {
     /** Set of arena listeners */
-    final public EnumMap<mc.alk.arena.objects.events.EventPriority, Map<RListener,Integer>> listeners =
-            new EnumMap<mc.alk.arena.objects.events.EventPriority, Map<RListener,Integer>>(mc.alk.arena.objects.events.EventPriority.class);
+    final public EnumMap<EventPriority, Map<RListener,Integer>> listeners =
+            new EnumMap<EventPriority, Map<RListener,Integer>>(EventPriority.class);
 
     protected volatile RListener[] handlers = null;
 
-    public GeneralEventListener(Class<? extends Event> bukkitEvent, EventPriority bukkitPriority) {
+    public GeneralEventListener(Class<? extends Event> bukkitEvent, org.bukkit.event.EventPriority bukkitPriority) {
         super(bukkitEvent, bukkitPriority);
     }
 
@@ -40,7 +41,7 @@ abstract class GeneralEventListener extends BaseEventListener  {
      * Get the set of arena listeners
      * @return map of listeners
      */
-    public EnumMap<mc.alk.arena.objects.events.EventPriority, Map<RListener,Integer>> getListeners(){
+    public EnumMap<EventPriority, Map<RListener,Integer>> getListeners(){
         return listeners;
     }
 
@@ -85,7 +86,7 @@ abstract class GeneralEventListener extends BaseEventListener  {
     protected synchronized void bake() {
         if (handlers != null) return;
         List<RListener> entries = new ArrayList<RListener>();
-        for (Map.Entry<mc.alk.arena.objects.events.EventPriority,Map<RListener,Integer>> entry : listeners.entrySet()){
+        for (Map.Entry<EventPriority,Map<RListener,Integer>> entry : listeners.entrySet()){
             entries.addAll(entry.getValue().keySet());}
         handlers = entries.toArray(new RListener[entries.size()]);
     }

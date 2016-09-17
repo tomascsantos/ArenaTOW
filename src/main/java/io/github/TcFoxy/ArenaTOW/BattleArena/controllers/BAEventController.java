@@ -14,13 +14,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.events.Event;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.events.EventFinishedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.EventParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.EventState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
-import mc.alk.arena.competition.events.Event;
-import mc.alk.arena.events.events.EventFinishedEvent;
-import mc.alk.arena.objects.EventParams;
-import mc.alk.arena.objects.EventState;
-import mc.alk.arena.objects.exceptions.InvalidEventException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidEventException;
+
 
 
 public class BAEventController implements Listener{

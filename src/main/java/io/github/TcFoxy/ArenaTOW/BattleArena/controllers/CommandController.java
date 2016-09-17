@@ -1,13 +1,15 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
-import mc.alk.arena.util.Log;
-import mc.alk.arena.util.Util;
-import mc.alk.plugin.updater.Version;
+
+import java.lang.reflect.Field;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 
-import java.lang.reflect.Field;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
+import mc.alk.arena.version.Version;
 
 public class CommandController {
 

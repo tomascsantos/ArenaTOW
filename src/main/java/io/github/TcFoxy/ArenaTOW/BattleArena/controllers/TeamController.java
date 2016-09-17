@@ -18,9 +18,10 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEven
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.FormingTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamFactory;
 import mc.alk.arena.controllers.plugins.HeroesController;
-import mc.alk.arena.objects.teams.FormingTeam;
-import mc.alk.arena.objects.teams.TeamFactory;
+
 
 
 public enum TeamController implements Listener {

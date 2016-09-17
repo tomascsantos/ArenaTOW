@@ -3,16 +3,18 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining;
 
 import java.util.Collection;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.TeamJoinFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.NeverWouldJoinException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.JoinOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 
-import mc.alk.arena.controllers.joining.AbstractJoinHandler;
-import mc.alk.arena.controllers.joining.TeamJoinFactory;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
+
 
 public class WaitingObject {
     protected boolean joinable = true;

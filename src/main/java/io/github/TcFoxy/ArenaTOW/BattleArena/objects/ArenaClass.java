@@ -10,8 +10,8 @@ import org.bukkit.potion.PotionEffect;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.EntitySpawn;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
-import mc.alk.arena.objects.CommandLineString;
-import mc.alk.arena.util.InventoryUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
+
 
 public class ArenaClass {
 	public static final Integer DEFAULT = Integer.MAX_VALUE;

@@ -13,7 +13,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContaine
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.FixedLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
-import mc.alk.arena.util.SerializerUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
 
 
 public class PlayerContainerSerializer extends BaseConfig{

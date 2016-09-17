@@ -11,19 +11,20 @@ import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.ArenaMatch;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerTeleportEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
 
-import mc.alk.arena.competition.match.ArenaMatch;
-import mc.alk.arena.objects.events.ArenaEventHandler;
-import mc.alk.arena.util.Util;
+
 
 
 public class AreaContainer extends AbstractAreaContainer{

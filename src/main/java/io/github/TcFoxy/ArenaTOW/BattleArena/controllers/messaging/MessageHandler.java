@@ -1,11 +1,13 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging;
 
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.messaging.Message;
-import mc.alk.arena.serializers.MessageSerializer;
-import mc.alk.arena.util.Log;
 
 import java.util.List;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Message;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.MessageSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 
 public class MessageHandler extends MessageSerializer {
 

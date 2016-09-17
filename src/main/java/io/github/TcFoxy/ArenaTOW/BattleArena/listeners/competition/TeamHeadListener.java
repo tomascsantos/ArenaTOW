@@ -11,7 +11,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.util.TeamUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 
 
 public class TeamHeadListener implements ArenaListener{

@@ -14,18 +14,21 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.TeamJoinObject;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.WaitingScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamFactory;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import mc.alk.arena.controllers.joining.scoreboard.CutoffScoreboard;
 import mc.alk.arena.controllers.joining.scoreboard.FullScoreboard;
-import mc.alk.arena.objects.joining.JoinHandler;
-import mc.alk.arena.objects.scoreboard.WaitingScoreboard;
-import mc.alk.arena.objects.teams.TeamFactory;
-import mc.alk.arena.objects.teams.TeamHandler;
 import mc.alk.scoreboardapi.api.SAPI;
 import mc.alk.scoreboardapi.api.SAPIFactory;
 import mc.alk.scoreboardapi.api.SScoreboard;
+
+
+
 
 public abstract class AbstractJoinHandler implements JoinHandler, TeamHandler {
     public static final TeamJoinResult CANTFIT = new TeamJoinResult(TeamJoinStatus.CANT_FIT,-1,null);

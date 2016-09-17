@@ -4,9 +4,11 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom;
 
 import java.util.Comparator;
 
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.events.ArenaEventMethod;
-import mc.alk.arena.objects.events.EventPriority;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventMethod;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
+
+
 
 class RListener {
     final private ArenaListener al;

@@ -1,14 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
-import mc.alk.arena.controllers.MoneyController;
-import mc.alk.arena.serializers.InventorySerializer;
-import mc.alk.arena.util.EffectUtil;
-import mc.alk.arena.util.ExpUtil;
-import mc.alk.arena.util.InventoryUtil;
-import mc.alk.arena.util.InventoryUtil.PInv;
-import mc.alk.arena.util.Log;
-import mc.alk.arena.util.PermissionsUtil;
-import mc.alk.arena.util.PlayerUtil;
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -16,11 +12,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.InventorySerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.ExpUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil.PInv;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import mc.alk.arena.controllers.plugins.EssentialsController;
+import mc.alk.arena.controllers.plugins.HeroesController;
 
 /**
  * @author alkarin
@@ -271,36 +274,36 @@ public class PlayerSave {
         return ret;
     }
 
-////    public void storeMagic() {
-////        if (!HeroesController.enabled() || magic != null)
-////            return;
-////        magic = HeroesController.getMagicLevel(player.getPlayer());
-////    }
-////
-////    public void restoreMagic() {
-////        if (!HeroesController.enabled() || magic ==null)
-////            return;
-////        HeroesController.setMagicLevel(player.getPlayer(), magic);
-////        magic = null;
-////    }
-//
-//    public Integer removeMagic() {
-//        Integer ret = magic;
-//        magic = null;
-//        return ret;
-//    }
+    public void storeMagic() {
+        if (!HeroesController.enabled() || magic != null)
+            return;
+        magic = HeroesController.getMagicLevel(player.getPlayer());
+    }
+
+    public void restoreMagic() {
+        if (!HeroesController.enabled() || magic ==null)
+            return;
+        HeroesController.setMagicLevel(player.getPlayer(), magic);
+        magic = null;
+    }
+
+    public Integer removeMagic() {
+        Integer ret = magic;
+        magic = null;
+        return ret;
+    }
 
     public void storeItems() {
         if (items != null)
             return;
-//        if (Defaults.DEBUG_STORAGE) Log.info("storing items for = " + name +" contains=" + itemmap.containsKey(name));
+        if (Defaults.DEBUG_STORAGE) Log.info("storing items for = " + name +" contains=" + itemmap.containsKey(name));
         InventoryUtil.closeInventory(player.getPlayer());
         items = new PInv(player.getInventory());
         InventorySerializer.saveInventory(player.getID(), items);
     }
 
     public void restoreItems() {
-        //        if (Defaults.DEBUG_STORAGE)  Log.info("   "+p.getName()+" psc contains=" + itemmap.containsKey(p.getName()) +"  dead=" + p.isDead()+" online=" + p.isOnline());
+        if (Defaults.DEBUG_STORAGE)  Log.info("   "+p.getName()+" psc contains=" + itemmap.containsKey(p.getName()) +"  dead=" + p.isDead()+" online=" + p.isOnline());
         if (items ==null)
             return;
         InventoryUtil.addToInventory(player.getPlayer(), items);
@@ -315,7 +318,7 @@ public class PlayerSave {
 
     public void storeMatchItems() {
         final UUID id = player.getID();
-//        if (Defaults.DEBUG_STORAGE) Log.info("storing in match items for = " + name +" contains=" + matchitemmap.containsKey(name));
+        if (Defaults.DEBUG_STORAGE) Log.info("storing in match items for = " + name +" contains=" + matchitemmap.containsKey(name));
         InventoryUtil.closeInventory(player.getPlayer());
         final PInv pinv = new PInv(player.getInventory());
         if (matchItems == null) {
@@ -340,7 +343,7 @@ public class PlayerSave {
     }
 
     public void storeGamemode() {
-//        if (Defaults.DEBUG_STORAGE)  Log.info("storing gamemode " + p.getName() +" " + p.getPlayer().getGameMode());
+        if (Defaults.DEBUG_STORAGE)  Log.info("storing gamemode " + p.getName() +" " + p.getPlayer().getGameMode());
         if (gamemode !=null)
             return;
         PermissionsUtil.givePlayerInventoryPerms(player.getPlayer());
@@ -348,39 +351,39 @@ public class PlayerSave {
     }
 
 
-//    public void storeFlight() {
-//        if (!EssentialsController.enabled() || flight != null){
-//            return;}
-////        if (Defaults.DEBUG_STORAGE)  Log.info("storing flight " + p.getName() +" " + p.getPlayer().getGameMode());
-//        Boolean b = EssentialsController.isFlying(player);
-//        if (b)
-//            flight = true;
-//    }
-//
-//    public void restoreFlight() {
-//        if (flight == null)
-//            return;
-//        EssentialsController.setFlight(player.getPlayer(), flight);
-//        flight = null;
-//    }
+    public void storeFlight() {
+        if (!EssentialsController.enabled() || flight != null){
+            return;}
+        if (Defaults.DEBUG_STORAGE)  Log.info("storing flight " + p.getName() +" " + p.getPlayer().getGameMode());
+        Boolean b = EssentialsController.isFlying(player);
+        if (b)
+            flight = true;
+    }
+
+    public void restoreFlight() {
+        if (flight == null)
+            return;
+        EssentialsController.setFlight(player.getPlayer(), flight);
+        flight = null;
+    }
 
 
-//    public void storeGodmode() {
-//        if (!EssentialsController.enabled() || godmode != null){
-//            return;
-//        }
-////        if (Defaults.DEBUG_STORAGE)  Log.info("storing godmode " + p.getName() +" " + p.getPlayer().getGameMode());
-//        Boolean b = EssentialsController.isGod(player);
-//        if (b)
-//            godmode = true;
-//    }
-//
-//    public void restoreGodmode() {
-//        if (godmode == null)
-//            return;
-//        EssentialsController.setGod(player.getPlayer(), godmode);
-//        godmode = null;
-//    }
+    public void storeGodmode() {
+        if (!EssentialsController.enabled() || godmode != null){
+            return;
+        }
+        if (Defaults.DEBUG_STORAGE)  Log.info("storing godmode " + p.getName() +" " + p.getPlayer().getGameMode());
+        Boolean b = EssentialsController.isGod(player);
+        if (b)
+            godmode = true;
+    }
+
+    public void restoreGodmode() {
+        if (godmode == null)
+            return;
+        EssentialsController.setGod(player.getPlayer(), godmode);
+        godmode = null;
+    }
 
     public void restoreGamemode() {
         if (gamemode == null)
@@ -395,17 +398,17 @@ public class PlayerSave {
         return ret;
     }
 
-//    public void storeArenaClass() {
-//        if (!HeroesController.enabled() || arenaClass != null)
-//            return;
-//        arenaClass = HeroesController.getHeroClassName(player.getPlayer());
-//    }
-//
-//    public void restoreArenaClass() {
-//        if (!HeroesController.enabled() || arenaClass==null)
-//            return;
-//        HeroesController.setHeroClass(player.getPlayer(), arenaClass);
-//    }
+    public void storeArenaClass() {
+        if (!HeroesController.enabled() || arenaClass != null)
+            return;
+        arenaClass = HeroesController.getHeroClassName(player.getPlayer());
+    }
+
+    public void restoreArenaClass() {
+        if (!HeroesController.enabled() || arenaClass==null)
+            return;
+        HeroesController.setHeroClass(player.getPlayer(), arenaClass);
+    }
 
     public void storeScoreboard() {
         if (scoreboard != null)

@@ -1,7 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.options;
 
-import mc.alk.arena.objects.exceptions.InvalidOptionException;
-import mc.alk.arena.util.MinMax;
+
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -9,6 +8,8 @@ import java.util.Set;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 
 public class MatchJoinOptions {
 	public static enum MatchJoinOption{

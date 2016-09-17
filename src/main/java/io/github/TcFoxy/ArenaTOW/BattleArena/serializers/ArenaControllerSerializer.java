@@ -21,11 +21,12 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerRestoreController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil.PInv;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
-import mc.alk.arena.util.InventoryUtil;
-import mc.alk.arena.util.InventoryUtil.PInv;
-import mc.alk.arena.util.SerializerUtil;
+
 
 
 public class ArenaControllerSerializer extends BaseConfig{
@@ -159,7 +160,7 @@ public class ArenaControllerSerializer extends BaseConfig{
 			if (prc.getTeleportLocation() != null)
 				playerLocs.put(id, prc.getTeleportLocation());
 			if (prc.getKill())
-				dieOnReenter.add(id);S
+				dieOnReenter.add(id);
 			if (prc.getClearInventory())
 				clearInventoryReenter.add(id);
 			if (prc.getGamemode()!=null)

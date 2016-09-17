@@ -11,24 +11,25 @@ import org.bukkit.command.CommandSender;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.events.Event;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.events.EventFinishedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.EventExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.TournamentExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.EventParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidEventException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.pairs.EventPair;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.competition.events.Event;
-import mc.alk.arena.events.events.EventFinishedEvent;
-import mc.alk.arena.executors.EventExecutor;
-import mc.alk.arena.executors.TournamentExecutor;
-import mc.alk.arena.objects.EventParams;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.exceptions.InvalidEventException;
-import mc.alk.arena.objects.exceptions.InvalidOptionException;
-import mc.alk.arena.objects.pairs.EventPair;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.TimeUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimeUtil;
+
 
 public class EventScheduler implements Runnable, ArenaListener{
 

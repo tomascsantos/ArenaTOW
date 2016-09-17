@@ -15,11 +15,12 @@ import java.util.Set;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.objects.exceptions.InvalidOptionException;
-import mc.alk.arena.util.InventoryUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
+
 
 public class StateGraph {
 	final Map<CompetitionState,StateOptions> ops = new HashMap<CompetitionState,StateOptions>();

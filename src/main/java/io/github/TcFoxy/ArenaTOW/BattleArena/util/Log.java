@@ -2,6 +2,8 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
 import org.bukkit.Bukkit;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+
 import java.util.logging.Logger;
 
 public class Log {

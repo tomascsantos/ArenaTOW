@@ -26,20 +26,22 @@ import org.bukkit.plugin.java.JavaPlugin;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena.AnnounceUpdateOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena.UpdateOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BAExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.DuelExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.RegisteredCompetition;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ArenaSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ConfigSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.MessageSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.FileUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.executors.BAExecutor;
-import mc.alk.arena.executors.CustomCommandExecutor;
-import mc.alk.arena.executors.DuelExecutor;
-import mc.alk.arena.objects.RegisteredCompetition;
-import mc.alk.arena.serializers.ArenaSerializer;
-import mc.alk.arena.serializers.ConfigSerializer;
-import mc.alk.arena.util.FileUtil;
 import mc.alk.mc.updater.FileUpdater;
 import mc.alk.mc.updater.PluginUpdater;
+
+
 
 public class APIRegistrationController {
     final static Set<String> delayedInits = Collections.synchronizedSet(new HashSet<String>());

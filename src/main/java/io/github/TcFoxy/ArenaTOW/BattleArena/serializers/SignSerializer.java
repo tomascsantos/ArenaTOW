@@ -1,15 +1,17 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.serializers;
 
-import mc.alk.arena.listeners.SignUpdateListener;
-import mc.alk.arena.objects.signs.ArenaCommandSign;
-import mc.alk.arena.util.Log;
-import mc.alk.arena.util.MapOfTreeSet;
-import mc.alk.arena.util.SerializerUtil;
-import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import org.bukkit.configuration.ConfigurationSection;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.SignUpdateListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.signs.ArenaCommandSign;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MapOfTreeSet;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
 
 public class SignSerializer extends BaseConfig {
 	public void loadAll(SignUpdateListener sc){

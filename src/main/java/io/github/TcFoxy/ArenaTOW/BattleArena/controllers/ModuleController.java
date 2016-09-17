@@ -5,8 +5,9 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 import org.bukkit.Bukkit;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import mc.alk.arena.objects.modules.ArenaModule;
-import mc.alk.arena.util.CaseInsensitiveMap;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.CaseInsensitiveMap;
+
 
 public enum ModuleController {
 	INSTANCE;

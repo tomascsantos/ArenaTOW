@@ -4,10 +4,11 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
 import java.util.HashMap;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.events.Event;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.EventExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.competition.events.Event;
-import mc.alk.arena.executors.EventExecutor;
+
 
 
 public class EventController {

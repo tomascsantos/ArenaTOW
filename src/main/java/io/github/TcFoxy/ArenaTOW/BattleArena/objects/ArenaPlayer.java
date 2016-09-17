@@ -1,17 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
-import mc.alk.arena.controllers.plugins.TrackerController;
-import mc.alk.arena.controllers.containers.AreaContainer;
-import mc.alk.arena.controllers.plugins.HeroesController;
-import mc.alk.arena.objects.meta.PlayerMetaData;
-import mc.alk.arena.objects.spawns.EntitySpawn;
-import mc.alk.arena.objects.spawns.FixedLocation;
-import mc.alk.arena.objects.spawns.SpawnInstance;
-import mc.alk.arena.objects.spawns.SpawnLocation;
-import mc.alk.arena.objects.stats.ArenaStat;
-import mc.alk.arena.util.PermissionsUtil;
-import mc.alk.arena.util.PlayerUtil;
-import mc.alk.arena.util.ServerUtil;
+
+
+import java.util.List;
+import java.util.Stack;
+import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
@@ -20,13 +13,22 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.PlayerInventory;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.AreaContainer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.meta.PlayerMetaData;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.EntitySpawn;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.FixedLocation;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.stats.ArenaStat;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
+import mc.alk.arena.controllers.plugins.HeroesController;
+import mc.alk.arena.controllers.plugins.TrackerController;
 
-import java.util.List;
-import java.util.Stack;
-import java.util.UUID;
 
 
 public class ArenaPlayer {
@@ -278,7 +280,9 @@ public class ArenaPlayer {
         return meta;
     }
 
-
+/*
+ * FIXME
+ */
     public ArenaStat getStat(MatchParams type) {
         return TrackerController.loadRecord(type, this);
     }

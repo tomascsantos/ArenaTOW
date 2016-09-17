@@ -29,48 +29,51 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Permissions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.ArenaMatch;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerStoreController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.Scheduler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler.TeamJoinResult;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.TeamJoinFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.BAEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerEnterQueueEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveQueueEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BAExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.MethodController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCreatedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.PlayerSave;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.MatchCreationException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.NeverWouldJoinException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.JoinOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.pairs.JoinResult;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.pairs.JoinResult.JoinStatus;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.CommandUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 
-import mc.alk.arena.Permissions;
-import mc.alk.arena.competition.match.ArenaMatch;
-import mc.alk.arena.controllers.Scheduler;
-import mc.alk.arena.controllers.joining.AbstractJoinHandler;
-import mc.alk.arena.controllers.joining.AbstractJoinHandler.TeamJoinResult;
-import mc.alk.arena.controllers.joining.TeamJoinFactory;
-import mc.alk.arena.executors.BAExecutor;
-import mc.alk.arena.listeners.custom.MethodController;
-import mc.alk.arena.objects.ArenaSize;
-import mc.alk.arena.objects.CompetitionSize;
-import mc.alk.arena.objects.arenas.ArenaListener;
-import mc.alk.arena.objects.events.ArenaEventHandler;
-import mc.alk.arena.objects.exceptions.MatchCreationException;
-import mc.alk.arena.objects.exceptions.NeverWouldJoinException;
-import mc.alk.arena.objects.pairs.JoinResult;
-import mc.alk.arena.objects.pairs.JoinResult.JoinStatus;
-import mc.alk.arena.util.CommandUtil;
-import mc.alk.arena.util.Countdown;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.MinMax;
+
+
 
 
 public class ArenaMatchQueue implements ArenaListener, Listener {

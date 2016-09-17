@@ -19,9 +19,11 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinResponseHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.objects.joining.JoinResponseHandler;
-import mc.alk.arena.objects.teams.TeamHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamHandler;
+
+
 
 
 

@@ -4,13 +4,14 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
 import org.bukkit.entity.Player;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.prizes.ArenaPrizeEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.prizes.Reward;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.events.prizes.ArenaPrizeEvent;
-import mc.alk.arena.events.prizes.Reward;
-import mc.alk.arena.util.EffectUtil;
-import mc.alk.arena.util.ExpUtil;
-import mc.alk.arena.util.InventoryUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.ExpUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
+
 
 
 public class RewardController {

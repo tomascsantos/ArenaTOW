@@ -1,21 +1,26 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
-import mc.alk.arena.util.EffectUtil;
-import mc.alk.arena.util.InventoryUtil;
-import mc.alk.arena.util.InventoryUtil.PInv;
-import mc.alk.arena.util.Log;
 
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
-import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
-import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.PlayerSave;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.PlayerSave;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil.PInv;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import mc.alk.arena.controllers.plugins.HeroesController;
+import mc.alk.arena.controllers.plugins.WorldGuardController;
+import mc.alk.arena.objects.regions.WorldGuardRegion;
 
 public class PlayerStoreController {
     static final PlayerStoreController INSTANCE = new PlayerStoreController();
@@ -144,20 +149,20 @@ public class PlayerStoreController {
     }
 
 
-//    public void storeMagic(MyArenaPlayer player) {
-//        getOrCreateSave(player).storeMagic();
-//    }
-//
-//    public void restoreMagic(MyArenaPlayer p) {
-//        MyPlayerSave save = getSave(p);
-//        if (save == null || save.getMagic()==null)
-//            return;
-//        if (restoreable(p)){
-//            save.restoreMagic();
-//        } else {
-//            MyBAPlayerListener.restoreMagicOnReenter(p, save.removeMagic());
-//        }
-//    }
+    public void storeMagic(ArenaPlayer player) {
+        getOrCreateSave(player).storeMagic();
+    }
+
+    public void restoreMagic(ArenaPlayer p) {
+       PlayerSave save = getSave(p);
+        if (save == null || save.getMagic()==null)
+            return;
+        if (restoreable(p)){
+            save.restoreMagic();
+        } else {
+            BAPlayerListener.restoreMagicOnReenter(p, save.removeMagic());
+        }
+    }
 
 
     public void storeItems(ArenaPlayer player) {
@@ -223,32 +228,32 @@ public class PlayerStoreController {
         }
     }
 
-//    public void storeFlight(MyArenaPlayer p) {
-//        getOrCreateSave(p).storeFlight();
-//    }
-//
-//    public void restoreFlight(MyArenaPlayer p) {
-//        MyPlayerSave save = getSave(p);
-//        if (save == null || save.getFlight()==null)
-//            return;
-//        if (restoreable(p)){
-//            save.restoreFlight();
-//        }
-//    }
+    public void storeFlight(ArenaPlayer p) {
+        getOrCreateSave(p).storeFlight();
+    }
+
+    public void restoreFlight(ArenaPlayer p) {
+        PlayerSave save = getSave(p);
+        if (save == null || save.getFlight()==null)
+            return;
+        if (restoreable(p)){
+            save.restoreFlight();
+        }
+    }
 
 
-//    public void storeGodmode(MyArenaPlayer p) {
-//        getOrCreateSave(p).storeGodmode();
-//    }
-//
-//    public void restoreGodmode(MyArenaPlayer p) {
-//        MyPlayerSave save = getSave(p);
-//        if (save == null || save.getGodmode()==null)
-//            return;
-//        if (restoreable(p)){
-//            save.restoreGodmode();
-//        }
-//    }
+    public void storeGodmode(ArenaPlayer p) {
+        getOrCreateSave(p).storeGodmode();
+    }
+
+    public void restoreGodmode(ArenaPlayer p) {
+        PlayerSave save = getSave(p);
+        if (save == null || save.getGodmode()==null)
+            return;
+        if (restoreable(p)){
+            save.restoreGodmode();
+        }
+    }
 
 
     public void storeGamemode(ArenaPlayer p) {
@@ -290,43 +295,43 @@ public class PlayerStoreController {
         }
     }
 
-//    public void addMember(MyArenaPlayer p, WorldGuardRegion region) {
-//        WorldGuardController.addMember(p.getName(), region);
-//    }
-//    public void removeMember(MyArenaPlayer p, WorldGuardRegion region) {
-//        WorldGuardController.removeMember(p.getName(), region);
-//    }
-//
-//    public void storeHeroClass(MyArenaPlayer player) {
-//        getOrCreateSave(player).storeArenaClass();
-//    }
-//
-//    public void restoreHeroClass(MyArenaPlayer p) {
-//        MyPlayerSave save = getSave(p);
-//        if (save == null || save.getArenaClass()==null)
-//            return;
-//        if (restoreable(p)){
-//            save.restoreArenaClass();
-//        }
-//    }
+    public void addMember(ArenaPlayer p, WorldGuardRegion region) {
+        WorldGuardController.addMember(p.getName(), region);
+    }
+    public void removeMember(ArenaPlayer p, WorldGuardRegion region) {
+        WorldGuardController.removeMember(p.getName(), region);
+    }
 
-//    public void cancelExpLoss(MyArenaPlayer p, boolean cancel) {
-//        if (!HeroesController.enabled())
-//            return;
-//        HeroesController.cancelExpLoss(p.getPlayer(),cancel);
-//    }
+    public void storeHeroClass(ArenaPlayer player) {
+        getOrCreateSave(player).storeArenaClass();
+    }
+
+    public void restoreHeroClass(ArenaPlayer p) {
+        PlayerSave save = getSave(p);
+        if (save == null || save.getArenaClass()==null)
+            return;
+        if (restoreable(p)){
+            save.restoreArenaClass();
+        }
+    }
+
+    public void cancelExpLoss(ArenaPlayer p, boolean cancel) {
+        if (!HeroesController.enabled())
+            return;
+        HeroesController.cancelExpLoss(p.getPlayer(),cancel);
+    }
 
     public static PlayerStoreController getPlayerStoreController() {
         return INSTANCE;
     }
 
-//    public void deEnchant(Player p) {
-//        try{ EffectUtil.deEnchantAll(p);} catch (Exception e){/* do nothing */}
-//        HeroesController.deEnchant(p);
-//        if (!p.isOnline() || p.isDead()){
-//            MyBAPlayerListener.deEnchantOnEnter(BattleArena.toArenaPlayer(p));
-//        }
-//    }
+    public void deEnchant(Player p) {
+        try{ EffectUtil.deEnchantAll(p);} catch (Exception e){/* do nothing */}
+        HeroesController.deEnchant(p);
+        if (!p.isOnline() || p.isDead()){
+            BAPlayerListener.deEnchantOnEnter(BattleArena.toArenaPlayer(p));
+        }
+    }
 
 
     public void storeScoreboard(ArenaPlayer player) {

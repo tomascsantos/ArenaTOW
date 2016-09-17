@@ -1,9 +1,9 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.matches;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-import mc.alk.arena.objects.CompetitionResult;
-
 import org.bukkit.event.Cancellable;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionResult;
 
 public class MatchResultEvent extends MatchEvent implements Cancellable{
     CompetitionResult matchResult;

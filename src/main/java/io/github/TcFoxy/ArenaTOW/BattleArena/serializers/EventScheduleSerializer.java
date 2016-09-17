@@ -16,9 +16,10 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventScheduler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.pairs.EventPair;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.objects.pairs.EventPair;
-import mc.alk.arena.util.SerializerUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
+
 
 
 public class EventScheduleSerializer extends BaseConfig {

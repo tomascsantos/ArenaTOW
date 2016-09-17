@@ -1,9 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
-import mc.alk.arena.listeners.PlayerHolder;
-import mc.alk.arena.util.SerializerUtil;
+
 
 import org.bukkit.Location;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
 
 public class ArenaLocation {
 	final PlayerHolder ph;

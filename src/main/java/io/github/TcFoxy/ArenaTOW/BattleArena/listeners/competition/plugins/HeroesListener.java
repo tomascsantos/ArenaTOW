@@ -1,4 +1,4 @@
-package mc.alk.arena.listeners.competition.plugins;
+package io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.plugins;
 
 import com.herocraftonline.heroes.api.events.ExperienceChangeEvent;
 import com.herocraftonline.heroes.api.events.SkillUseEvent;

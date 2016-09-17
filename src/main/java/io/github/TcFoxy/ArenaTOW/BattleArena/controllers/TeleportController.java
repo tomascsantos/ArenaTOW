@@ -26,6 +26,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Permissions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
@@ -33,7 +34,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
 import mc.alk.arena.controllers.plugins.EssentialsController;
 import mc.alk.arena.controllers.plugins.VanishNoPacketInterface;
 import mc.alk.arena.plugins.combattag.CombatTagInterface;
-import mc.alk.arena.util.InventoryUtil;
+
 
 public class TeleportController implements Listener{
     final static Set<UUID> teleporting = Collections.synchronizedSet(new HashSet<UUID>());

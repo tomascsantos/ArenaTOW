@@ -17,37 +17,38 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena.AnnounceUpdateOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena.UpdateOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.ArenaMatch;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.APIRegistrationController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.OptionSetController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.DuelExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.EventExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.TournamentExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.EventParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.ArenaMatchQueue;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions.AnnouncementOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.DuelOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.Custom;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.FileUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.KeyValue;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
-import mc.alk.arena.competition.match.ArenaMatch;
 import mc.alk.arena.controllers.plugins.HeroesController;
 import mc.alk.arena.controllers.plugins.McMMOController;
-import mc.alk.arena.executors.CustomCommandExecutor;
-import mc.alk.arena.executors.DuelExecutor;
-import mc.alk.arena.executors.EventExecutor;
-import mc.alk.arena.executors.TournamentExecutor;
-import mc.alk.arena.objects.EventParams;
-import mc.alk.arena.objects.exceptions.InvalidOptionException;
-import mc.alk.arena.objects.messaging.AnnouncementOptions;
-import mc.alk.arena.objects.messaging.AnnouncementOptions.AnnouncementOption;
-import mc.alk.arena.objects.options.DuelOptions;
-import mc.alk.arena.objects.victoryconditions.Custom;
-import mc.alk.arena.objects.victoryconditions.VictoryType;
-import mc.alk.arena.util.FileUtil;
-import mc.alk.arena.util.KeyValue;
+
 
 public class BAConfigSerializer extends BaseConfig{
 
@@ -65,9 +66,9 @@ public class BAConfigSerializer extends BaseConfig{
         if (!Defaults.MONEY_SET)
             Defaults.MONEY_STR = config.getString("moneyName",Defaults.MONEY_STR);
         UpdateOption o = UpdateOption.fromString(config.getString("autoUpdate", "none"));
-        Defaults.AUTO_UPDATE =  o != null ? o : UpdateOption.NONE;
+        //Defaults.AUTO_UPDATE =  o != null ? o : UpdateOption.NONE;
         AnnounceUpdateOption ao = AnnounceUpdateOption.fromString(config.getString("announceUpdate", "none"));
-        Defaults.ANNOUNCE_UPDATE =  ao != null ? ao : AnnounceUpdateOption.NONE;
+        //Defaults.ANNOUNCE_UPDATE =  ao != null ? ao : AnnounceUpdateOption.NONE;
         Defaults.TELEPORT_Y_OFFSET = config.getDouble("teleportYOffset", Defaults.TELEPORT_Y_OFFSET);
         Defaults.TELEPORT_Y_VELOCITY = config.getDouble("teleportYVelocity", Defaults.TELEPORT_Y_VELOCITY);
         Defaults.NUM_INV_SAVES = config.getInt("numberSavedInventories", Defaults.NUM_INV_SAVES);

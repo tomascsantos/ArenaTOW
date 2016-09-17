@@ -13,8 +13,8 @@ import org.bukkit.plugin.Plugin;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.CaseInsensitiveMap;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.util.CaseInsensitiveMap;
 
 
 public class ArenaType implements Comparable<ArenaType>{

@@ -9,8 +9,8 @@ import org.bukkit.GameMode;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaClassController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
-import mc.alk.arena.util.EffectUtil;
 
 public enum TransitionOption implements StateOption {
     /// Default only Options

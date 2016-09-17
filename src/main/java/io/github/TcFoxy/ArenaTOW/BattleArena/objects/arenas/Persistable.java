@@ -1,17 +1,5 @@
-package mc.alk.arena.objects.arenas;
+package io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas;
 
-import mc.alk.arena.objects.YamlSerializable;
-import mc.alk.arena.objects.exceptions.SerializationException;
-import mc.alk.arena.serializers.Persist;
-import mc.alk.arena.util.InventoryUtil;
-import mc.alk.arena.util.Log;
-import mc.alk.arena.util.SerializerUtil;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.inventory.ItemStack;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -25,6 +13,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.inventory.ItemStack;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.Persist;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
+import mc.alk.arena.objects.YamlSerializable;
+import mc.alk.arena.objects.exceptions.SerializationException;
 
 public class Persistable {
 

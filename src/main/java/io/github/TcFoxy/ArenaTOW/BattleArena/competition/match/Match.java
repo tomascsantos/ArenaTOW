@@ -31,10 +31,18 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RewardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.Scheduler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.GameManager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.MatchMessageHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MatchMessager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.EventManager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerDeathEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerTeleportEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.prizes.ArenaDrawersPrizeEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.prizes.ArenaLosersPrizeEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.prizes.ArenaPrizeEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.prizes.ArenaWinnersPrizeEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.teams.TeamDeathEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCancelledEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCompletedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFindCurrentLeaderEvent;
@@ -58,38 +66,35 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaControllerInterface;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Channels;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ScoreboardFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.TeamTimeLimit;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryCondition;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown.CountdownCallback;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.controllers.messaging.MatchMessager;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 import mc.alk.arena.controllers.plugins.HeroesController;
 import mc.alk.arena.controllers.plugins.TrackerController;
-import mc.alk.arena.events.EventManager;
-import mc.alk.arena.events.prizes.ArenaDrawersPrizeEvent;
-import mc.alk.arena.events.prizes.ArenaLosersPrizeEvent;
-import mc.alk.arena.events.prizes.ArenaPrizeEvent;
-import mc.alk.arena.events.prizes.ArenaWinnersPrizeEvent;
-import mc.alk.arena.events.teams.TeamDeathEvent;
-import mc.alk.arena.objects.arenas.ArenaControllerInterface;
-import mc.alk.arena.objects.messaging.Channels;
-import mc.alk.arena.objects.messaging.MatchMessageHandler;
-import mc.alk.arena.objects.modules.ArenaModule;
-import mc.alk.arena.objects.scoreboard.ArenaObjective;
-import mc.alk.arena.objects.scoreboard.ArenaScoreboard;
-import mc.alk.arena.objects.victoryconditions.TeamTimeLimit;
-import mc.alk.arena.objects.victoryconditions.VictoryCondition;
-import mc.alk.arena.util.Countdown;
-import mc.alk.arena.util.Countdown.CountdownCallback;
-import mc.alk.arena.util.InventoryUtil;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.TeamUtil;
+import mc.alk.arena.controllers.plugins.WorldGuardController;
 import mc.alk.scoreboardapi.api.SEntry;
 import mc.alk.scoreboardapi.api.SObjective;
 import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
+
+
+
 
 
 public abstract class Match extends Competition implements Runnable, ArenaController {
@@ -170,7 +175,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         addArenaListener(arena);
         if (listeners != null)
             addArenaListeners(listeners);
-        //scoreboard = ScoreboardFactory.createScoreboard(this,params);
+        scoreboard = ScoreboardFactory.createScoreboard(this,params);
 
         this.mc = new MatchMessager(this);
         arena.setMatch(this);
@@ -183,16 +188,16 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
             }
         }
         /// placed anywhere options
-//        boolean noEnter = tops.hasAnyOption(TransitionOption.WGNOENTER);
-//        if (arena.hasRegion())
-//            WorldGuardController.setFlag(arena.getWorldGuardRegion(), "entry", !noEnter);
+        boolean noEnter = tops.hasAnyOption(TransitionOption.WGNOENTER);
+        if (arena.hasRegion())
+            WorldGuardController.setFlag(arena.getWorldGuardRegion(), "entry", !noEnter);
 
         this.woolTeams = tops.hasAnyOption(TransitionOption.WOOLTEAMS) && params.getMaxTeamSize() >1 ||
                 tops.hasAnyOption(TransitionOption.ALWAYSWOOLTEAMS);
         this.armorTeams = tops.hasAnyOption(TransitionOption.ARMORTEAMS);
 
         tinState = tops.getCompetitionState(TransitionOption.TELEPORTIN);
-//        this.spawnsRandom = tinState != null && tops.hasOptionAt(tinState, TransitionOption.RANDOMSPAWN);
+        this.spawnsRandom = tinState != null && tops.hasOptionAt(tinState, TransitionOption.RANDOMSPAWN);
         this.alwaysTeamNames = tops.hasAnyOption(TransitionOption.ALWAYSTEAMNAMES);
         this.cancelExpLoss = tops.hasAnyOption(TransitionOption.NOEXPERIENCELOSS);
         this.matchResult = new MatchResult();
@@ -1062,7 +1067,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
 
     protected void privateQuitting(ArenaPlayerLeaveEvent event) {
         ArenaPlayer ap = event.getPlayer();
-        if (params.hasOptionAt(MatchState.MyDefaults, TransitionOption.DROPITEMS)) {
+        if (params.hasOptionAt(MatchState.DEFAULTS, TransitionOption.DROPITEMS)) {
             InventoryUtil.dropItems(ap.getPlayer());
             InventoryUtil.clearInventory(ap.getPlayer());
         }

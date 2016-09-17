@@ -10,18 +10,19 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.PVPState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.DmgDeathUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.objects.PVPState;
-import mc.alk.arena.objects.StateGraph;
-import mc.alk.arena.util.DmgDeathUtil;
-import mc.alk.arena.util.Util;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
 import mc.alk.arena.util.compat.IEventHelper;
 import mc.alk.arena.version.Version;
+
 
 public class DamageListener implements ArenaListener{
 	StateGraph transitionOptions;

@@ -1,18 +1,19 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams;
 
-import mc.alk.arena.objects.MatchParams;
-import mc.alk.arena.objects.scoreboard.ArenaObjective;
-import mc.alk.arena.objects.stats.ArenaStat;
+
+
+import java.util.Collection;
+import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-
-import java.util.Collection;
-import java.util.Set;
-import java.util.UUID;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
+import mc.alk.arena.objects.stats.ArenaStat;
 
 public interface ArenaTeam {
 

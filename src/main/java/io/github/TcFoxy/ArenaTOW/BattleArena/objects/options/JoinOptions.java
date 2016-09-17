@@ -14,12 +14,13 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
-import mc.alk.arena.objects.exceptions.InvalidOptionException;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.TeamUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
+
 
 public class JoinOptions {
 

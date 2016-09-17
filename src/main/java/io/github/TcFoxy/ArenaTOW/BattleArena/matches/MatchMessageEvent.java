@@ -1,9 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.matches;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-import mc.alk.arena.objects.MatchState;
-import mc.alk.arena.objects.messaging.Channel;
-import mc.alk.arena.objects.messaging.Channels;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Channel;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Channels;
+
 
 
 public class MatchMessageEvent extends MatchEvent {

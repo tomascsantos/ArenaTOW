@@ -3,10 +3,11 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.events.players;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.TeleportDirection;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 
-import mc.alk.arena.objects.TeleportDirection;
-import mc.alk.arena.objects.arenas.ArenaType;
+
 
 public class ArenaPlayerTeleportEvent extends ArenaPlayerEvent{
 	final ArenaTeam team;

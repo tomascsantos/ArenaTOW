@@ -11,11 +11,12 @@ import org.bukkit.potion.PotionEffect;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaClassController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CommandLineString;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.objects.CommandLineString;
-import mc.alk.arena.objects.exceptions.InvalidOptionException;
-import mc.alk.arena.util.InventoryUtil;
+
 
 public class BAClassesSerializer extends BaseConfig{
 
@@ -70,7 +71,7 @@ public class BAClassesSerializer extends BaseConfig{
 		}
 		String displayName = cs.getString("displayName", null);
         displayName = displayName == null || displayName.isEmpty() ? cs.getName() : displayName;
-        ArenaClass ac = new ArenaClass(cs.getName(),displayName, items,effects);
+        ArenaClass ac = new ArenaClass(cs.getName(),displayName, items,effects, null); //TODO replace null with permissions
 		if (mobs != null && !mobs.isEmpty())
 			ac.setMobs(mobs);
 		if (cs.contains("disguise")){ ac.setDisguiseName(cs.getString("disguise"));}

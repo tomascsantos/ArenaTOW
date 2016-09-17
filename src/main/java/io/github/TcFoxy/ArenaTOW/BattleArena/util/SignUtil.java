@@ -14,8 +14,9 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaClassController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
-import mc.alk.arena.objects.signs.ArenaCommandSign;
-import mc.alk.arena.objects.signs.ArenaStatusSign;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.signs.ArenaCommandSign;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.signs.ArenaStatusSign;
+
 
 public class SignUtil {
 
