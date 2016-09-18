@@ -1,10 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
-import mc.alk.arena.util.compat.IEntityHelper;
-import mc.alk.plugin.updater.Version;
+
 import org.bukkit.DyeColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Wolf;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.IEntityHelper;
 
 public class EntityUtil {
 
@@ -14,21 +15,33 @@ public class EntityUtil {
     /**
      * 1_4_5 was the version where colors came in
      */
+//    static {
+//        Class<?>[] args = {};
+//        try {
+//            Version version = Util.getCraftBukkitVersion();
+//            if (version.compareTo("v1_4_5") >= 0){
+//                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_4_5.EntityHelper");
+//                handler = (IEntityHelper) clazz.getConstructor(args).newInstance((Object[])args);
+//            } else {
+//                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.pre.EntityHelper");
+//                handler = (IEntityHelper) clazz.getConstructor(args).newInstance((Object[])args);
+//            }
+//        } catch (Exception e) {
+//            Log.printStackTrace(e);
+//        }
+//    }
+
     static {
-        Class<?>[] args = {};
-        try {
-            Version version = Util.getCraftBukkitVersion();
-            if (version.compareTo("v1_4_5") >= 0){
-                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_4_5.EntityHelper");
-                handler = (IEntityHelper) clazz.getConstructor(args).newInstance((Object[])args);
-            } else {
-                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.pre.EntityHelper");
-                handler = (IEntityHelper) clazz.getConstructor(args).newInstance((Object[])args);
-            }
-        } catch (Exception e) {
-            Log.printStackTrace(e);
-        }
+    	Class<?>[] args = {};
+    	try {
+    		final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_4_5.EntityHelper");
+    		handler = (IEntityHelper) clazz.getConstructor(args).newInstance((Object[])args);
+
+    	} catch (Exception e) {
+    		Log.printStackTrace(e);
+    	}
     }
+
 
 	public static EntityType parseEntityType(String str) {
 		boolean tamed = str.startsWith(TAMED);

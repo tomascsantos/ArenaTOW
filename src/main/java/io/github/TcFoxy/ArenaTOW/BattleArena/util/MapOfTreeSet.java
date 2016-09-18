@@ -42,7 +42,7 @@ public class MapOfTreeSet<K,V> extends HashMap<K,TreeSet<V>>{
         }
     }
 
-    public boolean remove(K k, V v) {
+    public boolean removeValue(K k, V v) {
         if (!containsKey(k))
             return false;
         Set<V> set = get(k);

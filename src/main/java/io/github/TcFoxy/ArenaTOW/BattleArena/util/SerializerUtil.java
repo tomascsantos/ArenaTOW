@@ -1,6 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -99,7 +98,7 @@ public class SerializerUtil {
         if (split.length > 5){pitch = Float.valueOf(split[5]);}
         World world = null;
         if (w != null){
-            world = Bukkit.getWorld(w);}
+            world = Bukkit.getServer().getWorld(w);}
         if (world ==null){
             throw new IllegalArgumentException("Error parsing location, World '"+locstr+"' does not exist");}
         return new Location(world,x,y,z,yaw,pitch);

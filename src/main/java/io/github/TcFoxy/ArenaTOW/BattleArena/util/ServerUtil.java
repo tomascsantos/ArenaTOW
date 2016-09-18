@@ -1,6 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
-
 import java.io.File;
 import java.util.Collection;
 import java.util.Set;
@@ -11,6 +10,12 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import mc.alk.arena.bukkit.BukkitInterface;
+import mc.alk.mc.updater.Version;
+
+
+
 
 public class ServerUtil {
 
@@ -19,9 +24,9 @@ public class ServerUtil {
      * @param name Name of the player to find
      * @return Player or null
      */
-    public static Player findOnlinePlayer(String name) {
-        return findPlayer(name);
-    }
+//    public static Player findOnlinePlayer(String name) {
+//        return findPlayer(name);
+//    }
 
     public static Player findPlayer(UUID id) {
         if (id == null)
@@ -30,7 +35,7 @@ public class ServerUtil {
             Player player = Bukkit.getPlayer(id);
             if (player != null)
                 return player;
-//            if (MyDefaults.DEBUG_VIRTUAL) {
+//            if (Defaults.DEBUG_VIRTUAL) {
 //                return VirtualPlayers.getPlayer(id);
 //            }
         } catch (Throwable e){
@@ -41,106 +46,109 @@ public class ServerUtil {
         return null;
     }
 
-    @Deprecated
-	public static Player findPlayerExact(String name) {
-		if (name == null)
-			return null;
-		Player player = Bukkit.getPlayerExact(name);
-		if (player != null)
-			return player;
-		else return null;
+//    @Deprecated
+//	public static Player findPlayerExact(String name) {
+//		if (name == null)
+//			return null;
+//		Player player = Bukkit.getPlayerExact(name);
+//		if (player != null)
+//			return player;
 //		if (Defaults.DEBUG_VIRTUAL){return VirtualPlayers.getPlayer(name);}
 //		return null;
-	}
+//	}
 
-    @Deprecated
-	public static Player findPlayer(String name) {
-		if (name == null)
-			return null;
-		Player foundPlayer = Bukkit.getPlayer(name);
-        if (foundPlayer != null) {
-            return foundPlayer;}
-//        if (MyDefaults.DEBUG_VIRTUAL){foundPlayer = VirtualPlayers.getPlayer(name);}
-        if (foundPlayer != null) {
-            return foundPlayer;}
-        Collection<? extends Player> online = Bukkit.getOnlinePlayers();
-		// if (Defaults.DEBUG_VIRTUAL){online = VirtualPlayers.getOnlinePlayers();}
-
-		for (Player player : online) {
-			String playerName = player.getName();
-
-			if (playerName.equalsIgnoreCase(name)) {
-				foundPlayer = player;
-				break;
-			}
-			if (playerName.toLowerCase().indexOf(name.toLowerCase(),0) != -1) {
-				if (foundPlayer != null) {
-					return null;}
-
-				foundPlayer = player;
-			}
-		}
-
-		return foundPlayer;
-	}
-
-    @Deprecated
-	public static OfflinePlayer findOfflinePlayer(String name) {
-		OfflinePlayer p = findPlayer(name);
-		if (p != null){
-			return p;
-		} else{
-			/// Iterate over the worlds to see if a player.dat file exists
-			for (World w : Bukkit.getWorlds()){
-				File f = new File(w.getName()+"/players/"+name+".dat");
-				if (f.exists()){
-					return Bukkit.getOfflinePlayer(name);
-				}
-			}
-			return null;
-		}
-	}
-
-    public static Player[] getOnlinePlayers() {
-    	return Bukkit.getOnlinePlayers().toArray(new Player[Bukkit.getOnlinePlayers().size()]);
-    }
-
-	public static void findOnlinePlayers(Set<String> names, Set<Player> foundplayers, Set<String> unfoundplayers) {
-		Player[] online = getOnlinePlayers();
-		for (String name : names){
-			Player lastPlayer = null;
-			for (Player player : online) {
-				String playerName = player.getName();
-				if (playerName.equalsIgnoreCase(name)) {
-					lastPlayer = player;
-					break;
-				}
-
-				if (playerName.toLowerCase().indexOf(name.toLowerCase(),0) != -1) { /// many names match the one given
-					if (lastPlayer != null) {
-						lastPlayer = null;
-						break;
-					}
-					lastPlayer = player;
-				}
-			}
-			if (lastPlayer != null){
-				foundplayers.add(lastPlayer);
-			} else{
-				unfoundplayers.add(name);
-			}
-		}
-	}
-
-//	public static Version getBukkitVersion(){
-//		final String pkg = Bukkit.getServer().getClass().getPackage().getName();
-//		String version = pkg.substring(pkg.lastIndexOf('.') + 1);
-//		if (version.equalsIgnoreCase("craftbukkit")){
-//			return new Version("v1_4_5-");
+//    @Deprecated
+//	public static Player findPlayer(String name) {
+//		if (name == null)
+//			return null;
+//		Player foundPlayer = Bukkit.getPlayer(name);
+//        if (foundPlayer != null) {
+//            return foundPlayer;}
+//        if (Defaults.DEBUG_VIRTUAL){foundPlayer = VirtualPlayers.getPlayer(name);}
+//        if (foundPlayer != null) {
+//            return foundPlayer;}
+//        Collection<? extends Player> online = Bukkit.getOnlinePlayers();
+//		// if (Defaults.DEBUG_VIRTUAL){online = VirtualPlayers.getOnlinePlayers();}
+//
+//		for (Player player : online) {
+//			String playerName = player.getName();
+//
+//			if (playerName.equalsIgnoreCase(name)) {
+//				foundPlayer = player;
+//				break;
+//			}
+//			if (playerName.toLowerCase().indexOf(name.toLowerCase(),0) != -1) {
+//				if (foundPlayer != null) {
+//					return null;}
+//
+//				foundPlayer = player;
+//			}
+//		}
+//
+//		return foundPlayer;
+//	}
+//
+//    @Deprecated
+//	public static OfflinePlayer findOfflinePlayer(String name) {
+//		OfflinePlayer p = findPlayer(name);
+//		if (p != null){
+//			return p;
 //		} else{
-//			return new Version(version);
+//			/// Iterate over the worlds to see if a player.dat file exists
+//			for (World w : Bukkit.getWorlds()){
+//				File f = new File(w.getName()+"/players/"+name+".dat");
+//				if (f.exists()){
+//					return Bukkit.getOfflinePlayer(name);
+//				}
+//			}
+//			return null;
 //		}
 //	}
+//
+//	public static Player[] getOnlinePlayers() {
+//		if (Defaults.DEBUG_VIRTUAL){
+//			return VirtualPlayers.getOnlinePlayers();
+//		} else {
+//			return BukkitInterface.getOnlinePlayers().toArray(new Player[BukkitInterface.getOnlinePlayers().size()]);
+//		}
+//	}
+//
+//	public static void findOnlinePlayers(Set<String> names, Set<Player> foundplayers, Set<String> unfoundplayers) {
+//		Player[] online = getOnlinePlayers();
+//		for (String name : names){
+//			Player lastPlayer = null;
+//			for (Player player : online) {
+//				String playerName = player.getName();
+//				if (playerName.equalsIgnoreCase(name)) {
+//					lastPlayer = player;
+//					break;
+//				}
+//
+//				if (playerName.toLowerCase().indexOf(name.toLowerCase(),0) != -1) { /// many names match the one given
+//					if (lastPlayer != null) {
+//						lastPlayer = null;
+//						break;
+//					}
+//					lastPlayer = player;
+//				}
+//			}
+//			if (lastPlayer != null){
+//				foundplayers.add(lastPlayer);
+//			} else{
+//				unfoundplayers.add(name);
+//			}
+//		}
+//	}
+
+	public static Version getBukkitVersion(){
+		final String pkg = Bukkit.getServer().getClass().getPackage().getName();
+		String version = pkg.substring(pkg.lastIndexOf('.') + 1);
+		if (version.equalsIgnoreCase("craftbukkit")){
+			return new Version("v1_4_5-");
+		} else{
+			return new Version(version);
+		}
+	}
 
 
 }

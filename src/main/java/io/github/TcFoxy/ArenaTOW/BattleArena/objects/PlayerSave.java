@@ -1,11 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffect;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.InventorySerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
@@ -23,7 +24,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
 import mc.alk.arena.controllers.plugins.EssentialsController;
-import mc.alk.arena.controllers.plugins.HeroesController;
 
 /**
  * @author alkarin
@@ -296,14 +296,14 @@ public class PlayerSave {
     public void storeItems() {
         if (items != null)
             return;
-        if (Defaults.DEBUG_STORAGE) Log.info("storing items for = " + name +" contains=" + itemmap.containsKey(name));
+//        if (Defaults.DEBUG_STORAGE) Log.info("storing items for = " + name +" contains=" + itemmap.containsKey(name));
         InventoryUtil.closeInventory(player.getPlayer());
         items = new PInv(player.getInventory());
         InventorySerializer.saveInventory(player.getID(), items);
     }
 
     public void restoreItems() {
-        if (Defaults.DEBUG_STORAGE)  Log.info("   "+p.getName()+" psc contains=" + itemmap.containsKey(p.getName()) +"  dead=" + p.isDead()+" online=" + p.isOnline());
+        //        if (Defaults.DEBUG_STORAGE)  Log.info("   "+p.getName()+" psc contains=" + itemmap.containsKey(p.getName()) +"  dead=" + p.isDead()+" online=" + p.isOnline());
         if (items ==null)
             return;
         InventoryUtil.addToInventory(player.getPlayer(), items);
@@ -318,7 +318,7 @@ public class PlayerSave {
 
     public void storeMatchItems() {
         final UUID id = player.getID();
-        if (Defaults.DEBUG_STORAGE) Log.info("storing in match items for = " + name +" contains=" + matchitemmap.containsKey(name));
+//        if (Defaults.DEBUG_STORAGE) Log.info("storing in match items for = " + name +" contains=" + matchitemmap.containsKey(name));
         InventoryUtil.closeInventory(player.getPlayer());
         final PInv pinv = new PInv(player.getInventory());
         if (matchItems == null) {
@@ -343,7 +343,7 @@ public class PlayerSave {
     }
 
     public void storeGamemode() {
-        if (Defaults.DEBUG_STORAGE)  Log.info("storing gamemode " + p.getName() +" " + p.getPlayer().getGameMode());
+//        if (Defaults.DEBUG_STORAGE)  Log.info("storing gamemode " + p.getName() +" " + p.getPlayer().getGameMode());
         if (gamemode !=null)
             return;
         PermissionsUtil.givePlayerInventoryPerms(player.getPlayer());
@@ -354,10 +354,12 @@ public class PlayerSave {
     public void storeFlight() {
         if (!EssentialsController.enabled() || flight != null){
             return;}
-        if (Defaults.DEBUG_STORAGE)  Log.info("storing flight " + p.getName() +" " + p.getPlayer().getGameMode());
-        Boolean b = EssentialsController.isFlying(player);
-        if (b)
-            flight = true;
+//        if (Defaults.DEBUG_STORAGE)  Log.info("storing flight " + p.getName() +" " + p.getPlayer().getGameMode());
+//        Boolean b = EssentialsController.isFlying(player);
+         
+//        if (b)
+//            flight = true;
+        flight = player.getPlayer().isFlying();
     }
 
     public void restoreFlight() {
@@ -372,10 +374,11 @@ public class PlayerSave {
         if (!EssentialsController.enabled() || godmode != null){
             return;
         }
-        if (Defaults.DEBUG_STORAGE)  Log.info("storing godmode " + p.getName() +" " + p.getPlayer().getGameMode());
-        Boolean b = EssentialsController.isGod(player);
-        if (b)
-            godmode = true;
+//        if (Defaults.DEBUG_STORAGE)  Log.info("storing godmode " + p.getName() +" " + p.getPlayer().getGameMode());
+//        Boolean b = EssentialsController.isGod(player);
+//        if (b)
+//            godmode = true;
+        godmode = player.getPlayer().isInvulnerable();
     }
 
     public void restoreGodmode() {

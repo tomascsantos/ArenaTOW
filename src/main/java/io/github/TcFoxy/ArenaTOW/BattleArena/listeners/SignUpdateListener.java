@@ -8,10 +8,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchFinishedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchStartEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerEnterQueueEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveQueueEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchStartEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.signs.ArenaCommandSign;

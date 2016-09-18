@@ -1,25 +1,27 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.plugins;
 
-import com.herocraftonline.heroes.api.events.ExperienceChangeEvent;
-import com.herocraftonline.heroes.api.events.SkillUseEvent;
-import mc.alk.arena.BattleArena;
-import mc.alk.arena.events.players.ArenaPlayerEnterMatchEvent;
-import mc.alk.arena.listeners.competition.InArenaListener;
-import mc.alk.arena.util.MessageUtil;
-import mc.alk.arena.util.PlayerUtil;
-import mc.alk.arena.util.ServerUtil;
-import mc.alk.arena.util.plugins.HeroesUtil;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import com.herocraftonline.heroes.api.events.ExperienceChangeEvent;
+import com.herocraftonline.heroes.api.events.SkillUseEvent;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerEnterMatchEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.InArenaListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins.HeroesUtil;
 
 public enum HeroesListener implements Listener {
 	INSTANCE;

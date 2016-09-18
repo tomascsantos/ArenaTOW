@@ -12,7 +12,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.EntitySpawn;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 
-
 public class ArenaClass {
 	public static final Integer DEFAULT = Integer.MAX_VALUE;
 	public static final ArenaClass CHOSEN_CLASS = new ArenaClass("CHOSENCLASS","chosenClass", null, null, null);

@@ -40,13 +40,13 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHan
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.TeamJoinFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.BAEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCreatedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchFinishedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerEnterQueueEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveQueueEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BAExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.MethodController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCreatedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;

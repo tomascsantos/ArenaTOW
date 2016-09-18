@@ -1,5 +1,22 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+
 import com.sk89q.minecraft.util.commands.CommandContext;
 import com.sk89q.worldedit.CuboidClipboard;
 import com.sk89q.worldedit.EditSession;
@@ -22,35 +39,20 @@ import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.schematic.SchematicFormat;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.domains.DefaultDomain;
-import com.sk89q.worldguard.protection.databases.ProtectionDatabaseException;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.flags.StateFlag.State;
 import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.managers.storage.StorageException;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedPolygonalRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import mc.alk.arena.objects.exceptions.RegionNotFound;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.RegionNotFound;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import mc.alk.arena.objects.regions.ArenaRegion;
 import mc.alk.arena.objects.regions.WorldGuardRegion;
-import mc.alk.arena.util.Log;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Creature;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Stub class for future expansion
@@ -89,7 +91,7 @@ public class WorldGuardUtil {
 	}
 
 	public static boolean hasRegion(World world, String id){
-		RegionManager mgr = wgp.getGlobalRegionManager().get(world);
+		RegionManager mgr = wgp.getRegionContainer().get(world);
 		return mgr.hasRegion(id);
 	}
 
@@ -97,7 +99,7 @@ public class WorldGuardUtil {
 		World w = Bukkit.getWorld(world);
 		if (w == null)
 			return false;
-		RegionManager mgr = wgp.getGlobalRegionManager().get(w);
+		RegionManager mgr = wgp.getRegionContainer().get(w);
 		return mgr.hasRegion(id);
 	}
 
@@ -110,11 +112,10 @@ public class WorldGuardUtil {
 		return createRegion(p,id);
 	}
 
-	private static ProtectedRegion createRegion(Player p, String id)
-			throws ProtectionDatabaseException {
+	private static ProtectedRegion createRegion(Player p, String id) throws StorageException{
 		Selection sel = WorldEditUtil.getSelection(p);
 		World w = sel.getWorld();
-		RegionManager mgr = wgp.getGlobalRegionManager().get(w);
+		RegionManager mgr = wgp.getRegionContainer().get(w);
 		mgr.removeRegion(id);
 		ProtectedRegion region;
 	      // Detect the type of region from WorldEdit

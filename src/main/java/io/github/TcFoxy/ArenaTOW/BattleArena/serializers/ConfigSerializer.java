@@ -26,6 +26,8 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ModuleController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.OptionSetController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.StateController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.DisguiseInterface;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
@@ -48,14 +50,13 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.OneTeamLeft;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.BTInterface;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
-import mc.alk.arena.controllers.plugins.DisguiseInterface;
-import mc.alk.arena.controllers.plugins.TrackerController;
-import mc.alk.arena.util.BTInterface;
+
 
 
 

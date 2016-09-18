@@ -1,6 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.competition.events;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -52,10 +51,8 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown.CountdownCallback;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimeUtil;
-
-
+import mc.alk.arena.bukkit.BukkitInterface;
 
 
 public abstract class Event extends Competition implements CountdownCallback, ArenaListener {
@@ -109,9 +106,8 @@ public abstract class Event extends Competition implements CountdownCallback, Ar
     }
 
     public void addAllOnline() {
-        Player[] online = ServerUtil.getOnlinePlayers();
 
-        for (Player p: online){
+        for (Player p: BukkitInterface.getOnlinePlayers()){
             if (PermissionsUtil.isAdmin(p)) { /// skip admins (they are doin' importantz thingz)
                 continue;}
             ArenaTeam t = TeamController.createTeam(eventParams, BattleArena.toArenaPlayer(p));

@@ -1,6 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces;
 
-import mc.alk.arena.objects.scoreboard.ArenaScoreboard;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
 
 public interface ScoreTracker extends DefinesLeaderRanking {
 	public void setScoreBoard(ArenaScoreboard scoreboard);

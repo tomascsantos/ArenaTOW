@@ -1,5 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.competition.match;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,10 +32,20 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RewardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.Scheduler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.GameManager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.MatchMessageHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MatchMessager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.EventManager;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCancelledEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCompletedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchFindCurrentLeaderEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchFinishedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchOpenEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchPrestartEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchResultEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchStartEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchTimerIntervalEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerDeathEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerTeleportEvent;
@@ -43,33 +54,25 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.events.prizes.ArenaLosersPrizeEvent
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.prizes.ArenaPrizeEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.prizes.ArenaWinnersPrizeEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.teams.TeamDeathEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCancelledEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCompletedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFindCurrentLeaderEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchOpenEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchPrestartEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchResultEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchStartEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchTimerIntervalEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionResult;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ContainerState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult.WinLossDraw;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.WinLossDraw;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaControllerInterface;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Channels;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.MatchMessageHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
@@ -78,25 +81,29 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ScoreboardFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.NLives;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.NoTeamsLeft;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.OneTeamLeft;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.TeamTimeLimit;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.TimeLimit;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryCondition;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.DefinesNumLivesPerPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.DefinesNumTeams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.DefinesTimeLimit;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.ScoreTracker;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown.CountdownCallback;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
-import mc.alk.arena.controllers.plugins.HeroesController;
-import mc.alk.arena.controllers.plugins.TrackerController;
 import mc.alk.arena.controllers.plugins.WorldGuardController;
 import mc.alk.scoreboardapi.api.SEntry;
 import mc.alk.scoreboardapi.api.SObjective;
 import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
 
-
-
-
-
+/// TODO once I have GameLogic, split this into two matches, one for always open, one for normal
 public abstract class Match extends Competition implements Runnable, ArenaController {
 
     public enum PlayerState{OUTOFMATCH,INMATCH}
@@ -420,9 +427,9 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
     private void startMatch(){
         if (state == MatchState.ONCANCEL) return; /// If the match was cancelled, dont proceed
         transitionTo(MatchState.ONSTART);
-//        if (!addedVictoryConditions.get()){
-//            addVictoryConditions();
-//        }
+        if (!addedVictoryConditions.get()){
+            addVictoryConditions();
+        }
         List<ArenaTeam> competingTeams = new ArrayList<ArenaTeam>();
         /// If we will teleport them into the arena for the first time, check to see they are ready first
         StateOptions ts = params.getStateOptions(state);
@@ -994,7 +1001,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         }
     }
 
-    private void privateRemovedFromTeam(ArenaTeam team, ArenaPlayer ap){
+    private void privateRemovedFromTeam(ArenaTeam team,ArenaPlayer ap){
         if (Defaults.DEBUG_MATCH_TEAMS) Log.info(getID()+" removedFromTeam("+team.getName()+":"+team.getId()+")"+ap.getName());
         HeroesController.removedFromTeam(team, ap.getPlayer());
         scoreboard.removedFromTeam(team,ap);
@@ -1008,8 +1015,8 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         player.addCompetition(this);
         if (params.hasEntranceFee()){
             prizePoolMoney += params.getEntranceFee();}
-//        if (WorldGuardController.hasWorldGuard() && arena.hasRegion()){
-//            psc.addMember(player, arena.getWorldGuardRegion());}
+        if (WorldGuardController.hasWorldGuard() && arena.hasRegion()){
+            psc.addMember(player, arena.getWorldGuardRegion());}
 
         performTransition(MatchState.ONENTERARENA, player, team, false);
     }
@@ -1098,8 +1105,8 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         if (Defaults.DEBUG_TRACE) Log.trace(getID(), player.getName() + " -onPostQuit  t=" + player.getTeam());
         ArenaTeam t = player.getTeam();
         performTransition(MatchState.ONLEAVEARENA, player, t, false);
-//        if (WorldGuardController.hasWorldGuard() && arena.hasRegion())
-//            psc.removeMember(player, arena.getWorldGuardRegion());
+        if (WorldGuardController.hasWorldGuard() && arena.hasRegion())
+            psc.removeMember(player, arena.getWorldGuardRegion());
         player.removeCompetition(this);
         player.reset(); /// reset the players
         if (!params.getUseTrackerPvP()){
@@ -1174,42 +1181,42 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
     public void setMessageHandler(MatchMessageHandler mc){this.mc.setMessageHandler(mc);}
     public MatchMessageHandler getMessageHandler(){return mc.getMessageHandler();}
 
-//    private synchronized void addVictoryConditions(){
-//        addedVictoryConditions.set(true);
-//        VictoryCondition vt = VictoryType.createVictoryCondition(this);
-//
-//        /// Add a time limit unless one is provided by default
-//        if (!alwaysOpen && !(vt instanceof DefinesTimeLimit) &&
-//                (params.getMatchTime() != null && params.getMatchTime() > 0 &&
-//                        params.getMatchTime() != Integer.MAX_VALUE)){
-//            addVictoryCondition(new TimeLimit(this));
-//        }
-//        if (alwaysOpen){
-//            for (ArenaTeam team : getNonEmptyTeams()){
-//                TeamTimeLimit ttl = new TeamTimeLimit(this, team);
-//                individualTeamTimeLimits.put(team, ttl);
-//                ttl.startCountdown();
-//            }
-//        }
-//        /// set the number of lives
-//        Integer nLives = params.getNLives();
-//        if (nLives != null && nLives > 0 && !(vt instanceof DefinesNumLivesPerPlayer)){
-//            addVictoryCondition(new NLives(this, nLives));
-//        }
-//
-//        /// Add a default number of teams unless the specified victory condition handles it
-//        Integer nTeams = params.getMinTeams();
-//        if (!(vt instanceof DefinesNumTeams)){
-//            if (nTeams <= 0 || alwaysOpen){
-//                /* do nothing.  They want this event to be open even with no teams*/
-//            } else if (nTeams == 1){
-//                addVictoryCondition(new NoTeamsLeft(this));
-//            } else {
-//                addVictoryCondition(new OneTeamLeft(this));
-//            }
-//        }
-//        addVictoryCondition(vt);
-//    }
+    private synchronized void addVictoryConditions(){
+        addedVictoryConditions.set(true);
+        VictoryCondition vt = VictoryType.createVictoryCondition(this);
+
+        /// Add a time limit unless one is provided by default
+        if (!alwaysOpen && !(vt instanceof DefinesTimeLimit) &&
+                (params.getMatchTime() != null && params.getMatchTime() > 0 &&
+                        params.getMatchTime() != Integer.MAX_VALUE)){
+            addVictoryCondition(new TimeLimit(this));
+        }
+        if (alwaysOpen){
+            for (ArenaTeam team : getNonEmptyTeams()){
+                TeamTimeLimit ttl = new TeamTimeLimit(this, team);
+                individualTeamTimeLimits.put(team, ttl);
+                ttl.startCountdown();
+            }
+        }
+        /// set the number of lives
+        Integer nLives = params.getNLives();
+        if (nLives != null && nLives > 0 && !(vt instanceof DefinesNumLivesPerPlayer)){
+            addVictoryCondition(new NLives(this, nLives));
+        }
+
+        /// Add a default number of teams unless the specified victory condition handles it
+        Integer nTeams = params.getMinTeams();
+        if (!(vt instanceof DefinesNumTeams)){
+            if (nTeams <= 0 || alwaysOpen){
+                /* do nothing.  They want this event to be open even with no teams*/
+            } else if (nTeams == 1){
+                addVictoryCondition(new NoTeamsLeft(this));
+            } else {
+                addVictoryCondition(new OneTeamLeft(this));
+            }
+        }
+        addVictoryCondition(vt);
+    }
 
 //    private boolean hasVictoryConditionType(Class<?> vcClass) {
 //        for (VictoryCondition vc : vcs){
@@ -1223,62 +1230,62 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
      * Add Another victory condition to this match
      * @param victoryCondition Victory condition to add
      */
-//    public void addVictoryCondition(VictoryCondition victoryCondition){
-//        if (MyDefaults.DEBUG_TRACE) Log.trace(getID(), getArena().getName() + " adding vc=" + victoryCondition);
-//        vcs.add(victoryCondition);
-//        addArenaListener(victoryCondition);
-//        if (!alwaysOpen && victoryCondition instanceof DefinesNumTeams){
-//            neededTeams = Math.max(neededTeams, ((DefinesNumTeams)victoryCondition).getNeededNumberOfTeams().max);}
-//        if (victoryCondition instanceof DefinesNumLivesPerPlayer){
-//            nLivesPerPlayer = Math.max(nLivesPerPlayer, ((DefinesNumLivesPerPlayer)victoryCondition).getLivesPerPlayer());
-//            if (nLivesPerPlayer > 1){
-//                respawns=true;
-//            }
-//            for (ArenaPlayer ap : inGamePlayers){
-//                if (nLivesPerPlayer != 1 && nLivesPerPlayer != ArenaSize.MAX) {
-//                    ap.getMetaData().setLivesLeft(nLivesPerPlayer);
-//                    scoreboard.setEntryNameSuffix(ap.getName(),"&4("+nLivesPerPlayer+")");
-//                }
-//            }
-//        }
-//        /// if it's a time limit. make a timer for the scoreboard
-//        if (MyDefaults.USE_SCOREBOARD && !alwaysOpen && victoryCondition instanceof TimeLimit){
-//            if (matchCountdown != null){
-//                matchCountdown.stop();}
-//            final MyMatch match = this;
-//            matchCountdown = new Countdown(BattleArena.getSelf(),((TimeLimit)victoryCondition).getTime(), 1, new CountdownCallback() {
-//                @Override
-//                public boolean intervalTick(int secondsRemaining) {
-//                    match.secondTick(secondsRemaining);
-//                    return true;
-//                }
-//            });
-//        }
-//        if (victoryCondition instanceof ScoreTracker){
-//            if (params.getMaxTeamSize() <= 2){
-//                ((ScoreTracker)victoryCondition).setDisplayTeams(false);
-//            }
-//            ((ScoreTracker)victoryCondition).setScoreBoard(scoreboard);
-//        }
-//    }
+    public void addVictoryCondition(VictoryCondition victoryCondition){
+        if (Defaults.DEBUG_TRACE) Log.trace(getID(),getArena().getName() + " adding vc=" + victoryCondition);
+        vcs.add(victoryCondition);
+        addArenaListener(victoryCondition);
+        if (!alwaysOpen && victoryCondition instanceof DefinesNumTeams){
+            neededTeams = Math.max(neededTeams, ((DefinesNumTeams)victoryCondition).getNeededNumberOfTeams().max);}
+        if (victoryCondition instanceof DefinesNumLivesPerPlayer){
+            nLivesPerPlayer = Math.max(nLivesPerPlayer, ((DefinesNumLivesPerPlayer)victoryCondition).getLivesPerPlayer());
+            if (nLivesPerPlayer > 1){
+                respawns=true;
+            }
+            for (ArenaPlayer ap : inGamePlayers){
+                if (nLivesPerPlayer != 1 && nLivesPerPlayer != ArenaSize.MAX) {
+                    ap.getMetaData().setLivesLeft(nLivesPerPlayer);
+                    scoreboard.setEntryNameSuffix(ap.getName(),"&4("+nLivesPerPlayer+")");
+                }
+            }
+        }
+        /// if it's a time limit. make a timer for the scoreboard
+        if (Defaults.USE_SCOREBOARD && !alwaysOpen && victoryCondition instanceof TimeLimit){
+            if (matchCountdown != null){
+                matchCountdown.stop();}
+            final Match match = this;
+            matchCountdown = new Countdown(BattleArena.getSelf(),((TimeLimit)victoryCondition).getTime(), 1, new CountdownCallback() {
+                @Override
+                public boolean intervalTick(int secondsRemaining) {
+                    match.secondTick(secondsRemaining);
+                    return true;
+                }
+            });
+        }
+        if (victoryCondition instanceof ScoreTracker){
+            if (params.getMaxTeamSize() <= 2){
+                ((ScoreTracker)victoryCondition).setDisplayTeams(false);
+            }
+            ((ScoreTracker)victoryCondition).setScoreBoard(scoreboard);
+        }
+    }
 
-//    /**
-//     * Remove a victory condition from this match
-//     * @param victoryCondition VictoryCondition to remove
-//     */
-//    public void removeVictoryCondition(VictoryCondition victoryCondition){
-//        vcs.remove(victoryCondition);
-//        removeArenaListener(victoryCondition);
-//    }
-//
-//
-//    public VictoryCondition getVictoryCondition(Class<? extends VictoryCondition> clazz) {
-//        for (VictoryCondition vc : vcs){
-//            if (vc.getClass() == clazz)
-//                return vc;
-//        }
-//        return null;
-//    }
+    /**
+     * Remove a victory condition from this match
+     * @param victoryCondition VictoryCondition to remove
+     */
+    public void removeVictoryCondition(VictoryCondition victoryCondition){
+        vcs.remove(victoryCondition);
+        removeArenaListener(victoryCondition);
+    }
+
+
+    public VictoryCondition getVictoryCondition(Class<? extends VictoryCondition> clazz) {
+        for (VictoryCondition vc : vcs){
+            if (vc.getClass() == clazz)
+                return vc;
+        }
+        return null;
+    }
 
     /**
      * Gets the arena currently being used by this match
@@ -1305,8 +1312,8 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
     @Override
     protected void transitionTo(CompetitionState state){
         this.state = (MatchState) state;
-//        if (!addedVictoryConditions.get() && state == tinState){
-//            addVictoryConditions();}
+        if (!addedVictoryConditions.get() && state == tinState){
+            addVictoryConditions();}
         times.put(this.state, System.currentTimeMillis());
     }
 
@@ -1553,9 +1560,9 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         return arena.getWaitroom() != null;
     }
 
-//    public boolean hasSpectatorRoom() {
-//        return arena.getSpectatorRoom()!= null;
-//    }
+    public boolean hasSpectatorRoom() {
+        return arena.getSpectatorRoom()!= null;
+    }
 
     public boolean isJoinablePostCreate(){
         return joinHandler != null &&
@@ -1568,7 +1575,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
     public boolean canStillJoin() {
         return joinHandler != null &&
                 ((alwaysOpen || tops.hasOptionAt(MatchState.ONJOIN, TransitionOption.ALWAYSJOIN) ||
-                        ((hasWaitroom()) && !joinHandler.isFull() && (isInWaitRoomState() &&
+                        ((hasWaitroom() || hasSpectatorRoom()) && !joinHandler.isFull() && (isInWaitRoomState() &&
                                 (joinCutoffTime == null || System.currentTimeMillis() < joinCutoffTime)))) ||
                         (params.hasOptionAt(MatchState.ONJOIN, TransitionOption.TELEPORTIN) && state.ordinal() < MatchState.ONSTART.ordinal())
                 );
@@ -1670,4 +1677,3 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
     }
 
 }
-

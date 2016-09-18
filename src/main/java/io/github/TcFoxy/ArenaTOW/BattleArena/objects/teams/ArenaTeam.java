@@ -1,7 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams;
 
 
-
 import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
@@ -13,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
-import mc.alk.arena.objects.stats.ArenaStat;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.stats.ArenaStat;
 
 public interface ArenaTeam {
 

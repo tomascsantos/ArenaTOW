@@ -1,12 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult.WinLossDraw;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-
 import java.util.Collection;
 import java.util.Set;
 import java.util.SortedMap;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 
 
 /**

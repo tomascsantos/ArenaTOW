@@ -17,7 +17,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.MatchMessageHandl
 
 
 
-
 public class MatchMessager {
 	MatchMessageHandler impl;
 	final AnnouncementOptions bos;

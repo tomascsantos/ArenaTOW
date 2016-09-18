@@ -1,34 +1,38 @@
-//package mc.alk.arena.util.plugins;
-//
-//import mc.alk.arena.util.DisguiseUtil;
-//import mc.alk.arena.util.Log;
+package io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins;
+
+
 //import org.bukkit.entity.Player;
 //import org.bukkit.plugin.Plugin;
 //
+//import io.github.TcFoxy.ArenaTOW.BattleArena.util.DisguiseUtil;
+//import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 //import pgDev.bukkit.DisguiseCraft.DisguiseCraft;
 //import pgDev.bukkit.DisguiseCraft.api.DisguiseCraftAPI;
 //import pgDev.bukkit.DisguiseCraft.disguise.Disguise;
 //import pgDev.bukkit.DisguiseCraft.disguise.DisguiseType;
-//
-//public class DisguiseCraftUtil implements DisguiseUtil{
-//	public static DisguiseCraftAPI disguiseInterface;
-//
-//
+
+public class DisguiseCraftUtil 
+	//implements DisguiseUtil
+	{
+
+	//public static DisguiseCraftAPI disguiseInterface;
+
+
 //	public static DisguiseUtil setPlugin(Plugin plugin){
 //		disguiseInterface = DisguiseCraft.getAPI();
 //        return new DisguiseCraftUtil();
 //    }
-//
+
 //	public static boolean enabled(){
 //		return disguiseInterface != null;
 //	}
-//
+
 //    @Override
 //	public void undisguise(Player player) {
 //		if (disguiseInterface.isDisguised(player)){
 //			disguiseInterface.undisguisePlayer(player);}
 //	}
-//
+
 //    @Override
 //	public void disguisePlayer(Player player, String disguise) {
 //		try{
@@ -48,5 +52,5 @@
 //			Log.printStackTrace(e);
 //		}
 //	}
-//
-//}
+
+}

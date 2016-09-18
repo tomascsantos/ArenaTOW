@@ -21,7 +21,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 
-
 public class StateGraph {
 	final Map<CompetitionState,StateOptions> ops = new HashMap<CompetitionState,StateOptions>();
 	Set<StateOption> allops;

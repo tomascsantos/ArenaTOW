@@ -17,8 +17,9 @@ import org.bukkit.plugin.Plugin;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.version.Version;
 import mc.alk.mc.updater.FileUpdater;
+import mc.alk.mc.updater.Version;
+
 
 public class YamlFileUpdater {
     private BufferedReader br = null;

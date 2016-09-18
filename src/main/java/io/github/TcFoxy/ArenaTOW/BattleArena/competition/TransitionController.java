@@ -1,7 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.competition;
 
 
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +20,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerStoreController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.TeleportLocationController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
@@ -39,9 +39,9 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 import mc.alk.arena.controllers.plugins.DisguiseInterface;
-import mc.alk.arena.controllers.plugins.HeroesController;
-
-
+import mc.alk.arena.controllers.plugins.PylamoController;
+import mc.alk.arena.controllers.plugins.WorldGuardController;
+import mc.alk.arena.objects.regions.WorldGuardRegion;
 
 
 public class TransitionController {
@@ -80,20 +80,20 @@ public class TransitionController {
         if (performOncePerTransitionOptions && (am instanceof ArenaController)){
             ArenaController ac = (ArenaController) am;
             /// Options that don't affect players first
-//            if (WorldGuardController.hasWorldGuard() && ac.getArena() != null && ac.getArena().hasRegion()){
-//                WorldGuardRegion region = ac.getArena().getWorldGuardRegion();
-//                /// Clear the area
-//                if (mo.shouldClearRegion()){
-//                    WorldGuardController.clearRegion(region);}
-//
-//                if (mo.hasOption(TransitionOption.WGRESETREGION)){
-//                    if (PylamoController.enabled() && ac.getArena().getPylamoRegion() != null){
-//                        PylamoController.resetRegion(ac.getArena().getPylamoRegion());
-//                    } else {
-//                        WorldGuardController.pasteSchematic(region);
-//                    }
-//                }
-//            }
+            if (WorldGuardController.hasWorldGuard() && ac.getArena() != null && ac.getArena().hasRegion()){
+                WorldGuardRegion region = ac.getArena().getWorldGuardRegion();
+                /// Clear the area
+                if (mo.shouldClearRegion()){
+                    WorldGuardController.clearRegion(region);}
+
+                if (mo.hasOption(TransitionOption.WGRESETREGION)){
+                    if (PylamoController.enabled() && ac.getArena().getPylamoRegion() != null){
+                        PylamoController.resetRegion(ac.getArena().getPylamoRegion());
+                    } else {
+                        WorldGuardController.pasteSchematic(region);
+                    }
+                }
+            }
         }
         for (ArenaPlayer p : team.getPlayers()){
             transition(am, transition,p,team, onlyInMatch);
@@ -167,10 +167,10 @@ public class TransitionController {
             if (storeAll || mo.hasOption(TransitionOption.STOREITEMS)) { psc.storeItems(player);}
             if (storeAll || mo.hasOption(TransitionOption.STOREHEALTH)){ psc.storeHealth(player);}
             if (storeAll || mo.hasOption(TransitionOption.STOREHUNGER)){ psc.storeHunger(player);}
-//            if (storeAll || mo.hasOption(TransitionOption.STOREMAGIC)){ psc.storeMagic(player);}
-//            if (storeAll || mo.hasOption(TransitionOption.STOREHEROCLASS)){psc.storeHeroClass(player);}
-//            if (storeAll || mo.hasOption(TransitionOption.STOREGAMEMODE)){psc.storeGodmode(player);}
-//            if (storeAll || mo.hasOption(TransitionOption.STOREFLIGHT)){psc.storeFlight(player);}
+            if (storeAll || mo.hasOption(TransitionOption.STOREMAGIC)){ psc.storeMagic(player);}
+            if (storeAll || mo.hasOption(TransitionOption.STOREHEROCLASS)){psc.storeHeroClass(player);}
+            if (storeAll || mo.hasOption(TransitionOption.STOREGAMEMODE)){psc.storeGodmode(player);}
+            if (storeAll || mo.hasOption(TransitionOption.STOREFLIGHT)){psc.storeFlight(player);}
             if (storeAll || mo.hasOption(TransitionOption.STOREENCHANTS)){psc.storeEffects(player);}
             if (wipeInventory){InventoryUtil.clearInventory(p);}
             if (mo.hasOption(TransitionOption.CLEAREXPERIENCE)){ ExpUtil.clearExperience(p);}
@@ -185,7 +185,7 @@ public class TransitionController {
             if (mo.hasOption(TransitionOption.FLIGHTON)) { PlayerUtil.setFlight(p,true); }
             if (mo.hasOption(TransitionOption.FLIGHTSPEED)) { PlayerUtil.setFlightSpeed(p,mo.getFlightSpeed()); }
             if (mo.hasOption(TransitionOption.DOCOMMANDS)) { PlayerUtil.doCommands(p,mo.getDoCommands()); }
-          //  if (mo.deEnchant()) { psc.deEnchant(p);}
+            if (mo.deEnchant()) { psc.deEnchant(p);}
             if (mo.undisguise() != null && mo.undisguise()) {DisguiseInterface.undisguise(p);}
             if (mo.getDisguiseAllAs() != null) {DisguiseInterface.disguisePlayer(p, mo.getDisguiseAllAs());}
             if (mo.getMoney() != null) {MoneyController.add(player.getName(), mo.getMoney());}
@@ -271,10 +271,10 @@ public class TransitionController {
         if (restoreAll || mo.hasOption(TransitionOption.RESTOREENCHANTS)){psc.restoreEffects(player);}
         if (restoreAll || mo.hasOption(TransitionOption.RESTOREHEALTH)){ psc.restoreHealth(player);}
         if (restoreAll || mo.hasOption(TransitionOption.RESTOREHUNGER)){ psc.restoreHunger(player);}
-//        if (restoreAll || mo.hasOption(TransitionOption.RESTOREMAGIC)) { psc.restoreMagic(player);}
-//        if (restoreAll || mo.hasOption(TransitionOption.RESTOREHEROCLASS)){psc.restoreHeroClass(player);}
-//        if (restoreAll || mo.hasOption(TransitionOption.RESTOREGODMODE)){psc.restoreGodmode(player);}
-//        if (restoreAll || mo.hasOption(TransitionOption.RESTOREFLIGHT)){psc.restoreFlight(player);}
+        if (restoreAll || mo.hasOption(TransitionOption.RESTOREMAGIC)) { psc.restoreMagic(player);}
+        if (restoreAll || mo.hasOption(TransitionOption.RESTOREHEROCLASS)){psc.restoreHeroClass(player);}
+        if (restoreAll || mo.hasOption(TransitionOption.RESTOREGODMODE)){psc.restoreGodmode(player);}
+        if (restoreAll || mo.hasOption(TransitionOption.RESTOREFLIGHT)){psc.restoreFlight(player);}
         return true;
     }
 
@@ -311,7 +311,7 @@ public class TransitionController {
     }
 
     private static ArenaClass getArenaClass(StateOptions mo, final int teamIndex) {
-        Map<Integer, ArenaClass> classes = mo.getClasses();
+        Map<Integer,ArenaClass> classes = mo.getClasses();
         if (classes == null)
             return null;
         if (classes.containsKey(teamIndex)){

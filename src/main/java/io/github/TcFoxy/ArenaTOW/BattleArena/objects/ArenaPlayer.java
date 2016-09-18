@@ -1,7 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
 
-
 import java.util.List;
 import java.util.Stack;
 import java.util.UUID;
@@ -14,7 +13,8 @@ import org.bukkit.inventory.PlayerInventory;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.AreaContainer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.meta.PlayerMetaData;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.EntitySpawn;
@@ -26,9 +26,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
-import mc.alk.arena.controllers.plugins.HeroesController;
-import mc.alk.arena.controllers.plugins.TrackerController;
-
 
 
 public class ArenaPlayer {
@@ -76,7 +73,7 @@ public class ArenaPlayer {
 
     public ArenaPlayer(Player player) {
         this.player = player;
-        this.uuid = PlayerUtil.getID(player);
+        this.uuid = PlayerUtil.getID(this);
     }
 
     public ArenaPlayer(UUID id) {
@@ -280,9 +277,7 @@ public class ArenaPlayer {
         return meta;
     }
 
-/*
- * FIXME
- */
+
     public ArenaStat getStat(MatchParams type) {
         return TrackerController.loadRecord(type, this);
     }

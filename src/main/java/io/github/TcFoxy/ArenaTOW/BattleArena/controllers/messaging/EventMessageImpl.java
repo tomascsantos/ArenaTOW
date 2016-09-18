@@ -18,7 +18,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.MessageSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 
 
-
 /**
  *
  * @author alkarin

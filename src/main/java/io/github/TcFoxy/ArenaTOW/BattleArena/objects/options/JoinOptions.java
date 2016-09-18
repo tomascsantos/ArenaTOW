@@ -1,7 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.options;
 
 
-
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
-
 
 public class JoinOptions {
 

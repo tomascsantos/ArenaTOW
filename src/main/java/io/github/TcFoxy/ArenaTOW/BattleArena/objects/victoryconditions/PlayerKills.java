@@ -8,16 +8,16 @@ import java.util.TreeMap;
 import org.bukkit.configuration.ConfigurationSection;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchFindCurrentLeaderEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerKillEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFindCurrentLeaderEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult.WinLossDraw;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.WinLossDraw;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.ScoreTracker;
-import mc.alk.arena.controllers.plugins.TrackerController;
-import mc.alk.arena.objects.scoreboard.ArenaObjective;
-import mc.alk.arena.objects.scoreboard.ArenaScoreboard;
 import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
 
 public class PlayerKills extends VictoryCondition implements ScoreTracker{

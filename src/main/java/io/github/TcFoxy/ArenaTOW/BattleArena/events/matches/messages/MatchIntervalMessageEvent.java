@@ -1,7 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.messages;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchMessageEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchMessageEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Channel;
 

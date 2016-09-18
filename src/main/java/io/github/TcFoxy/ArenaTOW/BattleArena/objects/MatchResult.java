@@ -1,22 +1,17 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedMap;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+
 /**
  * @author alkarin
  */
 public class MatchResult implements CompetitionResult {
-	
-	public enum WinLossDraw {
-	    UNKNOWN, LOSS, DRAW, WIN
-	}
-	
     Set<ArenaTeam> victors = new HashSet<ArenaTeam>();
     Set<ArenaTeam> losers = new HashSet<ArenaTeam>();
     Set<ArenaTeam> drawers = new HashSet<ArenaTeam>();

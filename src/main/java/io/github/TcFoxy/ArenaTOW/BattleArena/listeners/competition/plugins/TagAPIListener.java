@@ -1,41 +1,43 @@
-//package mc.alk.arena.listeners.competition.plugins;
-//
-//import mc.alk.arena.BattleArena;
-//import mc.alk.arena.events.players.ArenaPlayerEnterMatchEvent;
-//import mc.alk.arena.events.players.ArenaPlayerLeaveMatchEvent;
-//import mc.alk.arena.objects.arenas.ArenaListener;
-//import mc.alk.arena.objects.events.ArenaEventHandler;
-//import mc.alk.arena.objects.teams.ArenaTeam;
-//import mc.alk.arena.util.Log;
-//import mc.alk.arena.util.PlayerUtil;
-//import org.bukkit.Bukkit;
-//import org.bukkit.ChatColor;
-//import org.bukkit.entity.Player;
-//import org.bukkit.event.EventHandler;
-//import org.bukkit.event.EventPriority;
-//import org.bukkit.event.Listener;
+package io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.plugins;
+
+
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 //import org.kitteh.tag.AsyncPlayerReceiveNameTagEvent;
 //import org.kitteh.tag.TagAPI;
-//
-//import java.util.Map;
-//import java.util.UUID;
-//import java.util.concurrent.ConcurrentHashMap;
-//
-//
-//
-//public enum TagAPIListener implements Listener, ArenaListener {
-//	INSTANCE;
-//
-//	final Map<UUID, ChatColor> playerName = new ConcurrentHashMap<UUID,ChatColor>();
-//
-//	public static void enable() {
-//		Bukkit.getPluginManager().registerEvents(INSTANCE, BattleArena.getSelf());
-//	}
-//
-//	/**
-//	 * Need to be highest to override the standard renames
-//	 * @param event AsyncPlayerReceiveNameTagEvent
-//	 */
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerEnterMatchEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveMatchEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+
+
+
+public enum TagAPIListener implements Listener, ArenaListener {
+	INSTANCE;
+
+	final Map<UUID, ChatColor> playerName = new ConcurrentHashMap<UUID,ChatColor>();
+
+	public static void enable() {
+		Bukkit.getPluginManager().registerEvents(INSTANCE, BattleArena.getSelf());
+	}
+
+	/**
+	 * Need to be highest to override the standard renames
+	 * @param event AsyncPlayerReceiveNameTagEvent
+	 */
 //	@EventHandler(priority = EventPriority.HIGHEST)
 //	public void onNameTag(AsyncPlayerReceiveNameTagEvent event) {
 //        final UUID id = PlayerUtil.getID(event.getNamedPlayer());
@@ -43,7 +45,7 @@
 //            event.setTag(playerName.get(id) + event.getPlayer().getName());
 //        }
 //    }
-//
+
 //	@ArenaEventHandler
 //	public void onArenaPlayerEnterEvent(ArenaPlayerEnterMatchEvent event){
 //		Player player = event.getPlayer().getPlayer();
@@ -63,7 +65,7 @@
 //			Log.printStackTrace(e);
 //		}
 //	}
-//
+
 //	@ArenaEventHandler
 //	public void onArenaPlayerLeaveMatchEvent(ArenaPlayerLeaveMatchEvent event){
 //		Player player = event.getPlayer().getPlayer();
@@ -82,5 +84,5 @@
 //		}
 //
 //	}
-//
-//}
+
+}

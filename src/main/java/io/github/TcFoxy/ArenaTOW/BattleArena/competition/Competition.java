@@ -23,10 +23,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.JoinResponseHandler
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamHandler;
 
-
-
-
-
 /**
  * Base class for Matches and Events
  * @author alkarin

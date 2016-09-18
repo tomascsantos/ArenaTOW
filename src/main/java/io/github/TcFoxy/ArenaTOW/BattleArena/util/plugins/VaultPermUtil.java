@@ -1,16 +1,15 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins;
 
+import mc.alk.arena.BattleArena;
+import mc.alk.arena.Permissions;
+import mc.alk.arena.objects.messaging.AnnouncementOptions;
+import mc.alk.arena.util.Log;
+import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
-
-import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.Permissions;
-import mc.alk.arena.objects.messaging.AnnouncementOptions;
-import net.milkbowl.vault.permission.Permission;
 
 public class VaultPermUtil {
 	static Permission perm = null;

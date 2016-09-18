@@ -82,16 +82,14 @@ public class ArenaType implements Comparable<ArenaType>{
 		compatibleTypes.add(at);
 	}
 
-	@SuppressWarnings("NullableProblems")
-    @Override
+	@Override
     public int compareTo(ArenaType type) {
 		Integer ord = ordinal();
 		return ord.compareTo(type.ordinal());
 	}
 
 	@Override
-    @SuppressWarnings("SimplifiableIfStatement")
-	public boolean equals(Object obj){
+    public boolean equals(Object obj){
 		if(this == obj)
 			return true;
 		if((obj == null) || (obj.getClass() != this.getClass()))

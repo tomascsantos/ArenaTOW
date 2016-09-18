@@ -11,6 +11,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.scoreboard.CutoffScoreboard;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.scoreboard.FullScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
@@ -21,11 +23,11 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.controllers.joining.scoreboard.CutoffScoreboard;
-import mc.alk.arena.controllers.joining.scoreboard.FullScoreboard;
 import mc.alk.scoreboardapi.api.SAPI;
 import mc.alk.scoreboardapi.api.SAPIFactory;
 import mc.alk.scoreboardapi.api.SScoreboard;
+
+
 
 
 

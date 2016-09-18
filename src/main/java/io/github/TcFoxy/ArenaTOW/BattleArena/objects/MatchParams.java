@@ -19,9 +19,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryTy
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 
 
-
-
-
 public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
 
     String prefix;

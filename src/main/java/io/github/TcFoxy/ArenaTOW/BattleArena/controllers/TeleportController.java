@@ -82,8 +82,8 @@ public class TeleportController implements Listener{
             PermissionsUtil.givePlayerInventoryPerms(player);
 
             /// CombatTag will prevent teleports
-            if (CombatTagInterface.enabled())
-                CombatTagInterface.untag(player);
+//            if (CombatTagInterface.enabled())
+//                CombatTagInterface.untag(player);
 
             /// Give bypass perms for Teleport checks like noTeleport, and noChangeWorld
             if (giveBypassPerms && BattleArena.getSelf().isEnabled() && !Defaults.DEBUG_STRESS) {

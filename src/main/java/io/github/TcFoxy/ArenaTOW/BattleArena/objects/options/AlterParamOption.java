@@ -1,10 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.options;
 
-import mc.alk.arena.objects.ArenaSize;
-import mc.alk.arena.objects.arenas.ArenaType;
-import mc.alk.arena.objects.victoryconditions.VictoryType;
-import mc.alk.arena.serializers.ConfigSerializer;
-import mc.alk.arena.util.MinMax;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ConfigSerializer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 
 public enum AlterParamOption {
     NLIVES ("nLives", true, false),

@@ -18,11 +18,11 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RoomController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.SpawnController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.AreaContainer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionTransition;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ContainerState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
@@ -212,7 +212,6 @@ public class Arena extends AreaContainer {
      * @param player the player
      * @param team the team they are on
      */
-    @SuppressWarnings("unused")
     protected void onJoin(ArenaPlayer player, ArenaTeam team){}
 
     /**
@@ -221,7 +220,6 @@ public class Arena extends AreaContainer {
      * @param player the player
      * @param team the team they were on
      */
-    @SuppressWarnings("unused")
     protected void onLeave(ArenaPlayer player, ArenaTeam team) {}
 
     /**
@@ -243,7 +241,6 @@ public class Arena extends AreaContainer {
      * Called after the victor team has won the match
      * @param result Result of the Match
      */
-    @SuppressWarnings("unused")
     protected void onVictory(MatchResult result){}
 
     /**
@@ -266,7 +263,6 @@ public class Arena extends AreaContainer {
      * @param player ArenaPlayer
      * @param team : the team they were in
      */
-    @SuppressWarnings("unused")
     protected void onEnter(ArenaPlayer player, ArenaTeam team) {}
 
     /**
@@ -274,7 +270,6 @@ public class Arena extends AreaContainer {
      * @param player ArenaPlayer
      * @param team: the team they are in
      */
-    @SuppressWarnings("unused")
     protected void onEnterWaitRoom(ArenaPlayer player, ArenaTeam team) {}
 
     /**
@@ -282,7 +277,6 @@ public class Arena extends AreaContainer {
      * @param player ArenaPlayer
      * @param team: the team they are in
      */
-    @SuppressWarnings("unused")
     protected void onEnterSpectate(ArenaPlayer player, ArenaTeam team) {}
 
     /**
@@ -290,7 +284,6 @@ public class Arena extends AreaContainer {
      * @param player ArenaPlayer
      * @param team : the team they were in
      */
-    @SuppressWarnings("unused")
     protected void onExit(ArenaPlayer player, ArenaTeam team) {}
 
     /**
@@ -584,7 +577,6 @@ public class Arena extends AreaContainer {
     }
 
 
-    @SuppressWarnings("SimplifiableIfStatement")
     public boolean matches(Arena arena) {
         if (arena == null)
             return false;
@@ -600,7 +592,6 @@ public class Arena extends AreaContainer {
      * @param params params
      * @return true if arena matches the params
      */
-    @SuppressWarnings("RedundantIfStatement")
     public boolean matches(MatchParams params) {
         if (!getParams().matches(params)) {
             return false;}
@@ -682,7 +673,6 @@ public class Arena extends AreaContainer {
      * return detailed arena details (includes bukkit coloring)
      * @return detailed info
      */
-    @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
     public String toDetailedString(){
         StringBuilder sb = new StringBuilder("&6" + name+" &e");
         sb.append("&eTeamSizes=&6"+params.getTeamSize() + " &eTypes=&6" +params.getType());
@@ -704,7 +694,6 @@ public class Arena extends AreaContainer {
      * return arena summary string (includes bukkit coloring)
      * @return summary
      */
-    @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
     public String toSummaryString(){
         StringBuilder sb = new StringBuilder("&4" + name);
         if (params != null){

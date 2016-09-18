@@ -170,7 +170,8 @@ public class BattleArenaExecutor extends CustomCommandExecutor {
 
     @MCCommand(cmds = {"setAPIKey"}, admin = true, perm = "arena.api")
     public boolean setAPIKey(CommandSender sender, String key) {
-        BattleArena.getSelf().getBattlePluginsAPI().setAPIKey(key);
-        return sendMessage(sender, "&2Api-Key set to: &e" + key);
+        // BattleArena.getSelf().getBattlePluginsAPI().setAPIKey(key);
+        // return sendMessage(sender, "&2Api-Key set to: &e" + key);
+        return sendMessage(sender, "&2command not yet implemented");
     }
 }

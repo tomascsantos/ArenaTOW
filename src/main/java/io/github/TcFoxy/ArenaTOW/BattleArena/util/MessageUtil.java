@@ -102,7 +102,7 @@ public class MessageUtil {
 	}
 
 	public static ChatColor getFirstColor(String str) {
-		int index = str.indexOf('ยง');
+		int index = str.indexOf('ง');
         if (index == -1)
             index = str.indexOf('&');
         if (index != -1 && str.length() > index+1){

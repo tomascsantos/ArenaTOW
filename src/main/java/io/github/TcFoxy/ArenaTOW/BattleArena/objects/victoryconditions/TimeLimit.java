@@ -2,9 +2,9 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFinishedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchResultEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchStartEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchFinishedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchResultEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchStartEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.DefinesTimeLimit;

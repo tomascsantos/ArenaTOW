@@ -23,7 +23,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 
 
-
 public class TournamentExecutor extends EventExecutor implements CommandExecutor {
 
     public TournamentExecutor() {

@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Set;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.teams.TeamDeathEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.DefinesNumTeams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
-import mc.alk.arena.events.teams.TeamDeathEvent;
 
 public class NTeamsNeeded extends VictoryCondition implements DefinesNumTeams{
 	MinMax neededTeams;

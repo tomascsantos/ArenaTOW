@@ -1,7 +1,7 @@
-//package mc.alk.arena.util.plugins;
-//
+package io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins;
+
 //import mc.alk.arena.objects.regions.PylamoRegion;
-//
+
 //import org.bukkit.Bukkit;
 //import org.bukkit.Location;
 //import org.bukkit.plugin.Plugin;
@@ -10,8 +10,8 @@
 //import de.pylamo.pylamorestorationsystem.Commands.CreateRegionCommand;
 //import de.pylamo.pylamorestorationsystem.Commands.DeleteRegionCommand;
 //import de.pylamo.pylamorestorationsystem.Commands.RestoreCommand;
-//
-//public class PylamoUtil {
+
+public class PylamoUtil {
 //	static PylamoRestorationSystem plugin;
 //
 //	public static boolean setPylamo(Plugin plugin) {
@@ -27,5 +27,5 @@
 //	public static void resetRegion(PylamoRegion pylamoRegion) {
 //		RestoreCommand.restoreCommand(Bukkit.getConsoleSender(), new String[]{"restore", pylamoRegion.getID()});
 //	}
-//
-//}
+
+}

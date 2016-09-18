@@ -1,10 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerKillEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult.WinLossDraw;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.WinLossDraw;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
-import mc.alk.arena.controllers.plugins.TrackerController;
 
 public class ArenaPlayerKillListener implements ArenaListener{
 	final TrackerController sc;

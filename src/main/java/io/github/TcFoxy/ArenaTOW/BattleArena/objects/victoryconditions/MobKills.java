@@ -9,15 +9,15 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchFindCurrentLeaderEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchFindCurrentLeaderEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.ScoreTracker;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.DmgDeathUtil;
-import mc.alk.arena.objects.scoreboard.ArenaObjective;
-import mc.alk.arena.objects.scoreboard.ArenaScoreboard;
 import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
 
 public class MobKills extends VictoryCondition implements ScoreTracker{

@@ -23,7 +23,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.MethodController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;

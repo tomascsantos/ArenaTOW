@@ -10,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.bukkit.entity.Player;
 
-import mc.alk.arena.objects.MessageListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MessageListener;
 
 public class NotifierUtil {
     public static Map<String,Set<UUID>> listeners = new ConcurrentHashMap<String,Set<UUID>>();
@@ -23,7 +23,7 @@ public class NotifierUtil {
 			Player p = ServerUtil.findPlayer(name);
 			if (p== null || !p.isOnline())
 				continue;
-			MyMessageUtil.sendMessage(p, msg);
+			MessageUtil.sendMessage(p, msg);
 		}
 	}
 
@@ -39,7 +39,7 @@ public class NotifierUtil {
 			Player p = ServerUtil.findPlayer(name);
 			if (p== null || !p.isOnline())
 				continue;
-			MyMessageUtil.sendMessage(p, msg);
+			MessageUtil.sendMessage(p, msg);
 		}
 	}
 

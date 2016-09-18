@@ -1,7 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
 
-
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;

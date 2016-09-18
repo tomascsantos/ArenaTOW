@@ -79,8 +79,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil.ArmorLevel;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
-import mc.alk.arena.controllers.plugins.MobArenaInterface;
-
 
 
 @SuppressWarnings("unchecked")
@@ -238,9 +236,9 @@ public class StateOptions {
             }
         }
         /// Inside MobArena?
-        if (MobArenaInterface.hasMobArena() && MobArenaInterface.insideMobArena(p)){
-            return false;
-        }
+//        if (MobArenaInterface.hasMobArena() && MobArenaInterface.insideMobArena(p)){
+//            return false;
+//        }
         if (options.containsKey(GAMEMODE)){
             GameMode gm = getGameMode();
             if (p.getPlayer().getGameMode() != gm){
@@ -336,10 +334,10 @@ public class StateOptions {
             }
         }
         /// Inside MobArena?
-        if (MobArenaInterface.hasMobArena() && MobArenaInterface.insideMobArena(p)){
-            isReady = false;
-            sb.append("&5 - &4You are Inside Mob Arena");
-        }
+//        if (MobArenaInterface.hasMobArena() && MobArenaInterface.insideMobArena(p)){
+//            isReady = false;
+//            sb.append("&5 - &4You are Inside Mob Arena");
+//        }
 
         if (needsArmor()){
             if (!InventoryUtil.hasArmor(p.getPlayer())){

@@ -2,6 +2,7 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TagAPIController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.BlockBreakListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.BlockPlaceListener;
@@ -18,10 +19,9 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
-import mc.alk.arena.controllers.plugins.McMMOController;
-import mc.alk.arena.controllers.plugins.TagAPIController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ScoreboardFactory;
 import mc.alk.arena.objects.regions.ArenaRegion;
-import mc.alk.arena.objects.scoreboard.ScoreboardFactory;
+
 
 
 public class ListenerAdder {
@@ -48,8 +48,8 @@ public class ListenerAdder {
             holder.addArenaListener(new ItemPickupListener(holder));}
         if (tops.hasAnyOption(TransitionOption.POTIONDAMAGEON)){
             holder.addArenaListener(new PotionListener(holder));}
-        if (McMMOController.enabled() && McMMOController.hasDisabledSkills()){
-            holder.addArenaListener(McMMOController.createNewListener());}
+//        if (McMMOController.enabled() && McMMOController.hasDisabledSkills()){
+//            holder.addArenaListener(McMMOController.createNewListener());}
         if (tops.hasAnyOption(TransitionOption.WGNOLEAVE)) {
             ArenaRegion region = null;
             if (holder instanceof Match) {

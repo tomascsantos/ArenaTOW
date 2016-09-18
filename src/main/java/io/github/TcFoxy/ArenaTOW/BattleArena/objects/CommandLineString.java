@@ -1,4 +1,4 @@
-package mc.alk.arena.objects;
+package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
 
 

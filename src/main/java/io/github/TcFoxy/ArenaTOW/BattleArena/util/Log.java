@@ -1,10 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
+import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
-
-import java.util.logging.Logger;
 
 public class Log {
 	private static Logger log;
@@ -15,7 +15,7 @@ public class Log {
     public static void info(String msg){
 		if (msg == null) return;
 		try{
-			MyMessageUtil.sendMessage(Bukkit.getConsoleSender(),colorChat(msg));
+			MessageUtil.sendMessage(Bukkit.getConsoleSender(),colorChat(msg));
 		} catch (Exception e){
 			if (log != null)
 				log.info(colorChat(msg));

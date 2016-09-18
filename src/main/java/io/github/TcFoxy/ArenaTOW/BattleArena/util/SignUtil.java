@@ -17,7 +17,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.signs.ArenaCommandSign;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.signs.ArenaStatusSign;
 
-
 public class SignUtil {
 
 	public static ArenaCommandSign getArenaCommandSign(Sign sign, String[] lines) {

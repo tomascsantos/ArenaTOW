@@ -1,7 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;

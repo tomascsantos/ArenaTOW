@@ -19,14 +19,13 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidEventExce
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.TeamJoinObject;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions.EventOpenOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.JoinOptions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions.EventOpenOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimeUtil;
-
 
 
 public class EventExecutor extends BAExecutor{

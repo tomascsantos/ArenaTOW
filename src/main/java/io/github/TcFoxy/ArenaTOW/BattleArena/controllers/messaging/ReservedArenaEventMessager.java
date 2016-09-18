@@ -1,7 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging;
 
 
-
 import java.util.Collection;
 import java.util.Set;
 

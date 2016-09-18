@@ -19,7 +19,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.arena.objects.teams.TeamAppearance;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamAppearance;
 
 public class TeamUtil {
 	static final int NTEAMS = 35;

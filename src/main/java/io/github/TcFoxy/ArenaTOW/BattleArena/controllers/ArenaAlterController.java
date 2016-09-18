@@ -1,6 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
-
 import java.util.Set;
 
 import org.bukkit.ChatColor;
@@ -16,9 +15,9 @@ import com.sk89q.worldedit.bukkit.selections.Selection;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
@@ -33,12 +32,9 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins.WorldEditUtil;
-import mc.alk.arena.controllers.plugins.PylamoController;
 import mc.alk.arena.controllers.plugins.WorldGuardController;
-import mc.alk.arena.objects.regions.PylamoRegion;
 import mc.alk.arena.objects.regions.WorldGuardRegion;
-
+import mc.alk.arena.util.plugins.WorldEditUtil;
 
 public class ArenaAlterController {
 
@@ -188,7 +184,7 @@ public class ArenaAlterController {
             case SPECTATE: success = changeSpectateSpawn(player,arena,ac,(SpawnIndex)value); break;
             case LOBBY: success = changeLobbySpawn(player, params,(SpawnIndex)value); break;
             case ADDREGION: success = addWorldGuardRegion(player,arena); break;
-            case ADDPYLAMOREGION: success = addPylamoRegion(player,arena); break;
+            //case ADDPYLAMOREGION: success = addPylamoRegion(player,arena); break;
             default:
                 sendMessage(sender,ChatColor.RED+ "Option: &6" + ct+"&c does not exist. \n&cValid options are &6"+ChangeType.getValidList());
                 break;
@@ -210,26 +206,26 @@ public class ArenaAlterController {
         return true;
     }
 
-    private static boolean addPylamoRegion(Player sender, Arena arena) {
-        if (!WorldGuardController.hasWorldEdit()){
-            sendMessage(sender,"&cYou need world edit to use this command");
-            return false;}
-        if (!PylamoController.enabled()){
-            sendMessage(sender,"&cYou need PylamoRestorationSystem to use this command");
-            return false;}
-        WorldEditPlugin wep = WorldEditUtil.getWorldEditPlugin();
-        Selection sel = wep.getSelection(sender);
-        if (sel == null){
-            sendMessage(sender,"&cYou need to select a region to use this command.");
-            return false;
-        }
-        String id = makeRegionName(arena);
-        PylamoController.createRegion(id, sel.getMinimumPoint(), sel.getMaximumPoint());
-        PylamoRegion region = new PylamoRegion(id);
-        region.setID(id);
-        arena.setPylamoRegion(region);
-        return true;
-    }
+//    private static boolean addPylamoRegion(Player sender, Arena arena) {
+//        if (!WorldGuardController.hasWorldEdit()){
+//            sendMessage(sender,"&cYou need world edit to use this command");
+//            return false;}
+//        if (!PylamoController.enabled()){
+//            sendMessage(sender,"&cYou need PylamoRestorationSystem to use this command");
+//            return false;}
+//        WorldEditPlugin wep = WorldEditUtil.getWorldEditPlugin();
+//        Selection sel = wep.getSelection(sender);
+//        if (sel == null){
+//            sendMessage(sender,"&cYou need to select a region to use this command.");
+//            return false;
+//        }
+//        String id = makeRegionName(arena);
+//        PylamoController.createRegion(id, sel.getMinimumPoint(), sel.getMaximumPoint());
+//        PylamoRegion region = new PylamoRegion(id);
+//        region.setID(id);
+//        arena.setPylamoRegion(region);
+//        return true;
+//    }
 
     private static boolean addWorldGuardRegion(Player sender, Arena arena) {
         if (!checkWorldGuard(sender)){

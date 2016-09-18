@@ -1,4 +1,4 @@
-package mc.alk.arena.util.plugins;
+package io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins;
 
 public class BungeeCordUtil {
     BungeeCordUtil() {

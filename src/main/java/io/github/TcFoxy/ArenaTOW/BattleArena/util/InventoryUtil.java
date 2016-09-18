@@ -29,7 +29,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
-import mc.alk.arena.util.compat.IInventoryHelper;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.IInventoryHelper;
 
 @SuppressWarnings("deprecation")
 public class InventoryUtil {
@@ -135,6 +135,7 @@ public class InventoryUtil {
 		if (iname.contains("inf")) return Enchantment.ARROW_INFINITE;
 		if (iname.contains("unbreaking")) return Enchantment.DURABILITY;
 		if (iname.contains("dura")) return Enchantment.DURABILITY;
+		if (iname.contains("strider")) return Enchantment.DEPTH_STRIDER;
         return handler.getEnchantmentByCommonName(iname);
 	}
 
@@ -160,6 +161,7 @@ public class InventoryUtil {
 		else if (enc.getId() == Enchantment.ARROW_KNOCKBACK.getId()){return "Punch";}
 		else if (enc.getId() == Enchantment.ARROW_FIRE.getId()){return "Flame";}
 		else if (enc.getId() == Enchantment.ARROW_INFINITE.getId()){return "Infinity";}
+		else if (enc.getId() == Enchantment.DEPTH_STRIDER.getId()){return "Depth Strider";}
         else return (handler.getCommonNameByEnchantment(enc));
 	}
 
@@ -428,7 +430,12 @@ public class InventoryUtil {
 	private static void addArmorToInventory(PlayerInventory inv,
 			ItemStack itemStack, int stockAmount, boolean ignoreCustomHelmet, Color color) {
 		Material itemType =itemStack.getType();
-		final boolean isHelmet = armor.get(itemType).type == ArmorType.HELM;
+		boolean isHelmet = false; // armor.get(itemType).type == ArmorType.HELM;
+                try {
+                    isHelmet = armor.get(itemType).type == ArmorType.HELM;
+                } catch (NullPointerException handled) {
+                    isHelmet = false;
+                }
 		/// no item: add to armor slot
 		/// item better: add old to inventory, new to armor slot
 		/// item notbetter: add to inventory

@@ -36,7 +36,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 
-
 public abstract class CustomCommandExecutor extends BaseExecutor{
 
     protected final BattleArenaController ac;

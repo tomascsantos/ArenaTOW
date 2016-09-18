@@ -1,12 +1,13 @@
-//package mc.alk.arena.util.plugins;
-//
+package io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins;
+
 //import org.bukkit.entity.Player;
 //import org.bukkit.plugin.Plugin;
-//
+
 //import com.garbagemule.MobArena.MobArena;
-//
-//public class MobArenaUtil {
-//	MobArena ma = null;
+
+public class MobArenaUtil {
+	//MobArena ma = null;
+	
 //	public MobArenaUtil(Plugin plugin){
 //		ma = (MobArena) plugin;
 //	}
@@ -19,4 +20,4 @@
 //		}
 //		return has;
 //	}
-//}
+}

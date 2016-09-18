@@ -11,11 +11,6 @@ public class ArenaLocation {
 	final PlayerHolder ph;
 	Location location;
 	final LocationType type;
-	
-	public enum LocationType {
-		NONE, HOME, ARENA, WAITROOM, LOBBY, COURTYARD, SPECTATE, VISITOR, ANY
-	}
-
 
 	public ArenaLocation(PlayerHolder ph, Location location, LocationType type){
 		this.ph = ph;

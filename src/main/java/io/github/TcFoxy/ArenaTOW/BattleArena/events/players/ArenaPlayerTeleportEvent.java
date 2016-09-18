@@ -1,7 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.events.players;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.TeleportDirection;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;

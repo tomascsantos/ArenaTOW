@@ -8,7 +8,7 @@ import java.util.SortedMap;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult.WinLossDraw;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.WinLossDraw;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 
 public class MatchFindCurrentLeaderEvent extends MatchEvent {

@@ -1,9 +1,11 @@
-package io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins.heroes;
+package io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins;
 
-import mc.alk.arena.util.plugins.HeroesUtil;
-import mc.alk.arena.util.PlayerUtil;
+
 
 import org.bukkit.entity.Player;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins.HeroesUtil;
 
 public class Heroes_1_5_2 extends HeroesUtil{
 

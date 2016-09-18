@@ -16,13 +16,12 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.competition.events.Event;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.TeamController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.FormingTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
-import mc.alk.arena.controllers.plugins.HeroesController;
-
 
 public class TeamExecutor extends CustomCommandExecutor {
 	private TeamController teamc;
@@ -44,7 +43,7 @@ public class TeamExecutor extends CustomCommandExecutor {
 		return sendMessage(sender,sb.toString());
 	}
 
-	@MCCommand(cmds={"join"}, usage="join", perm="arena.team.join")
+	@MCCommand(cmds={"join", "accept"}, usage="join", perm="arena.team.join")
 	public boolean teamJoin(ArenaPlayer player) {
 
 		ArenaTeam t = teamc.getSelfFormedTeam(player);
@@ -123,14 +122,14 @@ public class TeamExecutor extends CustomCommandExecutor {
 		/// Finally ready to create a team
 		FormingTeam ft = new FormingTeam(player, foundArenaPlayers);
 		teamc.addFormingTeam(ft);
-		sendMessage(player,ChatColor.YELLOW + "You are now forming a team. The others must accept by using &6/team add");
+		sendMessage(player,ChatColor.YELLOW + "You are now forming a team. The others must accept by using &6/team accept");
 
 		/// Send a message to the other teammates
 		for (ArenaPlayer p: ft.getPlayers()){
 			if (player.equals(p))
 				continue;
 			sendMessage(p, "&eYou have been invited to a team with &6" + ft.getOtherNames(player));
-			sendMessage(p, "&6/team add&e : to accept: &6/team decline&e to refuse ");
+			sendMessage(p, "&6/team accept&e : to accept: &6/team decline&e to refuse ");
 		}
 		return true;
 	}

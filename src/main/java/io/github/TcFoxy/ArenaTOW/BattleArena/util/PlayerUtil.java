@@ -12,12 +12,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CommandLineString;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.IPlayerHelper;
 import mc.alk.arena.controllers.plugins.EssentialsController;
-import mc.alk.arena.controllers.plugins.HeroesController;
-import mc.alk.arena.objects.CommandLineString;
-import mc.alk.arena.util.compat.IPlayerHelper;
-import mc.alk.arena.version.Version;
 
 public class PlayerUtil {
     static IPlayerHelper handler = null;
@@ -25,30 +24,41 @@ public class PlayerUtil {
     /**
      * 1.7.8 -> v1_7_R3
      */
+//    static {
+//        Class<?>[] args = {};
+//        try {
+//            Method m = Player.class.getMethod("getHealth");
+//            Version version = Util.getCraftBukkitVersion();
+//            if (version.compareTo("v1_7_R3") >= 0) {
+//                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_7_R3.PlayerHelper");
+//                handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[]) args);
+//            } else if (m.getReturnType() == double.class || version.compareTo("v1_6_R1") >= 0){
+//                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_6_R1.PlayerHelper");
+//                handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[])args);
+//            } else {
+//                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.pre.PlayerHelper");
+//                handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[])args);
+//            }
+//        } catch (Exception e) {
+//            Log.printStackTrace(e);
+//            try {
+//                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.pre.PlayerHelper");
+//                handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[])args);
+//            } catch (Exception e1) {
+//                e1.printStackTrace();
+//            }
+//        }
+//    }
+
     static {
-        Class<?>[] args = {};
-        try {
-            Method m = Player.class.getMethod("getHealth");
-            Version version = Util.getCraftBukkitVersion();
-            if (version.compareTo("v1_7_R3") >= 0) {
-                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_7_R3.PlayerHelper");
-                handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[]) args);
-            } else if (m.getReturnType() == double.class || version.compareTo("v1_6_R1") >= 0){
-                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_6_R1.PlayerHelper");
-                handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[])args);
-            } else {
-                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.pre.PlayerHelper");
-                handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[])args);
-            }
-        } catch (Exception e) {
-            Log.printStackTrace(e);
-            try {
-                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.pre.PlayerHelper");
-                handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[])args);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        }
+    	Class<?>[] args = {};
+    	try {
+    		Method m = Player.class.getMethod("getHealth");
+    		final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_7_R3.PlayerHelper");
+    		handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[]) args);
+    	} catch (Exception e) {
+    		Log.printStackTrace(e);
+    	}
     }
 
 

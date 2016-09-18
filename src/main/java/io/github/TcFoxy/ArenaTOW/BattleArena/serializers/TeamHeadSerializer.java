@@ -8,12 +8,13 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.ConfigException;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamAppearance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
-import mc.alk.arena.objects.exceptions.ConfigException;
-import mc.alk.arena.objects.teams.TeamAppearance;
+
 
 public class TeamHeadSerializer extends BaseConfig{
 

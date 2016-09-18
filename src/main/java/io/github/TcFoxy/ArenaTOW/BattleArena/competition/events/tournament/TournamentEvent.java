@@ -1,6 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.competition.events.tournament;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,11 +29,12 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BattleArenaController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.Scheduler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.TeamJoinFactory;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.events.tournaments.TournamentRoundEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCancelledEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCompletedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.matches.MatchCreatedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCancelledEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCompletedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCreatedEvent;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionResult;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.EventParams;
@@ -56,7 +56,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimeUtil;
-import mc.alk.arena.controllers.plugins.TrackerController;
 
 public class TournamentEvent extends Event implements Listener, ArenaListener {
     public long timeBetweenRounds;

@@ -16,7 +16,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 
 
-
 public class EventMessager {
 	EventMessageHandler impl;
 	final AnnouncementOptions bos;

@@ -14,12 +14,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.stats.ArenaStat;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
-import mc.alk.arena.controllers.plugins.TrackerController;
 
 abstract class AbstractTeam implements ArenaTeam{
 	static int count = 0;

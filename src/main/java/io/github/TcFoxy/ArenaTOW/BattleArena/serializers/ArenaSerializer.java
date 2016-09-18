@@ -29,8 +29,8 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RoomController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.Scheduler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.AreaContainer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
@@ -54,7 +54,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
 import mc.alk.arena.controllers.plugins.WorldGuardController;
-
 
 public class ArenaSerializer extends BaseConfig{
     static BattleArenaController arenaController;
@@ -290,7 +289,15 @@ public class ArenaSerializer extends BaseConfig{
         }
         cs = cs.getConfigurationSection("persistable");
         Persistable.yamlToObjects(arena, cs,Arena.class);
-        updateRegions(arena);
+        try {
+			updateRegions(arena);
+		} catch (mc.alk.arena.objects.exceptions.RegionNotFound e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (RegionNotFound e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         ArenaControllerInterface aci = new ArenaControllerInterface(arena);
         aci.init();
         bac.addArena(arena);
@@ -331,7 +338,7 @@ public class ArenaSerializer extends BaseConfig{
         }
     }
 
-    private static void updateRegions(Arena arena) {
+    private static void updateRegions(Arena arena) throws mc.alk.arena.objects.exceptions.RegionNotFound, RegionNotFound {
         if (!WorldGuardController.hasWorldGuard())
             return;
         if (!arena.hasRegion())
@@ -346,11 +353,7 @@ public class ArenaSerializer extends BaseConfig{
         if (trans == null)
             return;
         WorldGuardController.setFlag(arena.getWorldGuardRegion(), "entry", !trans.hasAnyOption(TransitionOption.WGNOENTER));
-        try {
-            WorldGuardController.trackRegion(arena.getWorldGuardRegion());
-        } catch (RegionNotFound e) {
-            Log.printStackTrace(e);
-        }
+        WorldGuardController.trackRegion(arena.getWorldGuardRegion());
     }
 
     private void saveArenas(boolean log) {
@@ -488,9 +491,9 @@ public class ArenaSerializer extends BaseConfig{
             si = new ChestSpawn(loc.getBlock(), false);
             Material mat = Material.valueOf(cs.getString("spawn"));
             ((BlockSpawn)si).setMaterial(mat);
-            List<ItemStack> items = InventoryUtil.getItemList(cs,"giveItems");
-            if (items == null)
-                items = new ArrayList<ItemStack>();
+            List<ItemStack> items = InventoryUtil.getItemList(cs,"items");
+            List<ItemStack> giveItems = InventoryUtil.getItemList(cs, "giveItems");
+            items = (items.size() >= giveItems.size()) ? items : giveItems;
             ((ChestSpawn)si).setItems(items);
         } else {
             List<SpawnInstance> spawns = SpawnSerializer.parseSpawnable(strings);
