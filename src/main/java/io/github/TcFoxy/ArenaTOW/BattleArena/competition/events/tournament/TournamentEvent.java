@@ -34,11 +34,11 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.events.events.tournaments.Tournamen
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCancelledEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCompletedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCreatedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionResult;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.EventParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.EventState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.Matchup;

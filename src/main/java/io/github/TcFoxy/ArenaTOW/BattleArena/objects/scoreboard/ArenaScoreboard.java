@@ -14,12 +14,13 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.scoreboardapi.ScoreboardAPI;
-import mc.alk.scoreboardapi.api.SEntry;
-import mc.alk.scoreboardapi.api.SObjective;
-import mc.alk.scoreboardapi.api.SScoreboard;
-import mc.alk.scoreboardapi.api.STeam;
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.ScoreboardAPI;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SEntry;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SObjective;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SScoreboard;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.STeam;
+
 
 public class ArenaScoreboard implements SScoreboard {
     final protected SScoreboard board;

@@ -11,8 +11,9 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ScoreboardFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.WaitingScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import mc.alk.scoreboardapi.api.STeam;
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.STeam;
+
 
 public class AbridgedScoreboard implements WaitingScoreboard {
     final ArenaScoreboard scoreboard;

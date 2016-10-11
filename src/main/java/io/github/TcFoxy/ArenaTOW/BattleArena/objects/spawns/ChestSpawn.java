@@ -1,12 +1,12 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns;
 
+import java.util.Collection;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Collection;
 
 
 public class ChestSpawn extends BlockSpawn{

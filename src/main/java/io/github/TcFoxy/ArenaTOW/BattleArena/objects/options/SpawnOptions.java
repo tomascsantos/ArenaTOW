@@ -1,10 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.options;
 
-import org.bukkit.Material;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.bukkit.Material;
 
 public class SpawnOptions {
     public HashMap<SpawnOption, Object> options = new HashMap<SpawnOption, Object>();

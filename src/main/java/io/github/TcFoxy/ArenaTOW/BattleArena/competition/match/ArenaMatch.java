@@ -53,7 +53,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
-import mc.alk.scoreboardapi.api.SEntry;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SEntry;
 
 
 public class ArenaMatch extends Match {

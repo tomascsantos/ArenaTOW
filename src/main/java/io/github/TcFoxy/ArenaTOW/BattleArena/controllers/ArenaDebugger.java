@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
-import mc.alk.arena.util.TeamUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 
 
 public class ArenaDebugger {

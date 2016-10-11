@@ -5,7 +5,6 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins;
 import org.bukkit.entity.Player;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins.HeroesUtil;
 
 public class Heroes_1_5_2 extends HeroesUtil{
 

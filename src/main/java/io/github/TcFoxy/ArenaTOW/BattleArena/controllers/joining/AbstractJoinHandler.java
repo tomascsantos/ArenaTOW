@@ -23,9 +23,10 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.scoreboardapi.api.SAPI;
-import mc.alk.scoreboardapi.api.SAPIFactory;
-import mc.alk.scoreboardapi.api.SScoreboard;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SAPI;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SAPIFactory;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SScoreboard;
+
 
 
 

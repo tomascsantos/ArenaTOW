@@ -15,7 +15,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -37,31 +36,43 @@ public class InventoryUtil {
 	static final boolean DEBUG = false;
 	static IInventoryHelper handler = null;
 
+//	static {
+//		Class<?>[] args = {};
+//		try {
+//			final String pkg = Bukkit.getServer().getClass().getPackage().getName();
+//			String version = pkg.substring(pkg.lastIndexOf('.') + 1);
+//			final Class<?> clazz;
+//			if (version.equalsIgnoreCase("craftbukkit")){
+//				clazz = Class.forName("mc.alk.arena.util.compat.pre.InventoryHelper");
+//			} else{
+//				clazz = Class.forName("mc.alk.arena.util.compat.v1_4_5.InventoryHelper");
+//			}
+//
+//			handler = (IInventoryHelper) clazz.getConstructor(args).newInstance((Object[])args);
+//		} catch (Exception e) {
+//			try{
+//				final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.pre.InventoryHelper");
+//				handler = (IInventoryHelper) clazz.getConstructor(args).newInstance((Object[])args);
+//			} catch (Exception e2){
+//                //noinspection PointlessBooleanExpression,ConstantConditions
+//                if (!Defaults.TESTSERVER && !Defaults.TESTSERVER_DEBUG) Log.printStackTrace(e2);
+//			}
+//            //noinspection PointlessBooleanExpression,ConstantConditions
+//            if (!Defaults.TESTSERVER && !Defaults.TESTSERVER_DEBUG) Log.printStackTrace(e);
+//		}
+//	}
+	
 	static {
 		Class<?>[] args = {};
+		Class<?> clazz;
 		try {
-			final String pkg = Bukkit.getServer().getClass().getPackage().getName();
-			String version = pkg.substring(pkg.lastIndexOf('.') + 1);
-			final Class<?> clazz;
-			if (version.equalsIgnoreCase("craftbukkit")){
-				clazz = Class.forName("mc.alk.arena.util.compat.pre.InventoryHelper");
-			} else{
-				clazz = Class.forName("mc.alk.arena.util.compat.v1_4_5.InventoryHelper");
-			}
-
+			clazz = Class.forName("io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_4_5.InventoryHelper");
 			handler = (IInventoryHelper) clazz.getConstructor(args).newInstance((Object[])args);
 		} catch (Exception e) {
-			try{
-				final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.pre.InventoryHelper");
-				handler = (IInventoryHelper) clazz.getConstructor(args).newInstance((Object[])args);
-			} catch (Exception e2){
-                //noinspection PointlessBooleanExpression,ConstantConditions
-                if (!Defaults.TESTSERVER && !Defaults.TESTSERVER_DEBUG) Log.printStackTrace(e2);
-			}
-            //noinspection PointlessBooleanExpression,ConstantConditions
-            if (!Defaults.TESTSERVER && !Defaults.TESTSERVER_DEBUG) Log.printStackTrace(e);
+			e.printStackTrace();
 		}
 	}
+	
 
     public static class Armor{
 		final public ArmorLevel level;

@@ -16,7 +16,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
 
 /**
  * Command executor used to modify the Scoreboard of an arena that is in

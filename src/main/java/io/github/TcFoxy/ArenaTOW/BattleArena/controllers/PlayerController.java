@@ -1,12 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
-import mc.alk.arena.util.PlayerUtil;
-import mc.alk.arena.util.ServerUtil;
 
-import org.bukkit.entity.Player;
-
-import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +9,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import org.bukkit.entity.Player;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
 
 public final class PlayerController {
 	private static HashMap<UUID,ArenaPlayer> players = new HashMap<UUID,ArenaPlayer>();
@@ -27,7 +28,7 @@ public final class PlayerController {
 	public static ArenaPlayer toArenaPlayer(Player player){
 		ArenaPlayer ap = players.get(PlayerUtil.getID(player));
 		if (Defaults.DEBUG_VIRTUAL) {
-			Player p2 = ServerUtil.findPlayerExact(player.getName());
+			Player p2 = ServerUtil.findPlayer(player.getName());
 			if (p2 != null)
 				player = p2;
 		}

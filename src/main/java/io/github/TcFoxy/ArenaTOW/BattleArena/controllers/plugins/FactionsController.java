@@ -1,7 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins;
 
-import mc.alk.arena.listeners.competition.plugins.FactionsListener;
-
 public class FactionsController {
 	static boolean hasFactions = false;
 
@@ -9,8 +7,8 @@ public class FactionsController {
 		return hasFactions;
 	}
 
-	public static boolean setPlugin(boolean enable) {
-		hasFactions = FactionsListener.enable();
-		return hasFactions;
-	}
+//	public static boolean setPlugin(boolean enable) {
+//		hasFactions = FactionsListener.enable();
+//		return hasFactions;
+//	}
 }

@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.ExpUtil;
@@ -25,7 +26,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
-import mc.alk.arena.controllers.plugins.HeroesController;
 
 
 public class PlayerRestoreController {

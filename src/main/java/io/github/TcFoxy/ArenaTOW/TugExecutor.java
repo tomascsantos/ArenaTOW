@@ -1,17 +1,16 @@
 package io.github.TcFoxy.ArenaTOW;
 
-import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
-import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo.BaseType;
-
 import java.util.HashMap;
-
-import mc.alk.arena.executors.CustomCommandExecutor;
-import mc.alk.arena.executors.MCCommand;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.MCCommand;
+import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
+import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo.BaseType;
 
 public class TugExecutor extends CustomCommandExecutor{
 
@@ -70,6 +69,8 @@ public class TugExecutor extends CustomCommandExecutor{
 			return arena.removeNexus(sender, loc, col);
 		case SPAWNER:
 			return arena.removeSpawner(sender, loc, col, index);
+		case DEATHROOM:
+			return arena.removeDeathroom(sender, loc, col);
 		default:
 			return false;
 		}
@@ -94,14 +95,14 @@ public class TugExecutor extends CustomCommandExecutor{
 		return remove(sender, color, index, arena, BaseType.SPAWNER);
 	}
 	
-	@MCCommand(cmds={"remove", "r"}, subCmds={"nexus"}, admin=true, usage="remove spawner <Blue/Red> <Tower#> <Arena_Name>")
+	@MCCommand(cmds={"remove", "r"}, subCmds={"nexus"}, admin=true, usage="remove nexus <Blue/Red> <Arena_Name>")
 	public static boolean removeNexus(Player sender, String color, TugArena arena){
-		return remove(sender, color, null, arena, BaseType.SPAWNER);
+		return remove(sender, color, null, arena, BaseType.NEXUS);
 	}
 	
-	@MCCommand(cmds={"remove", "r"}, subCmds={"nexus"}, admin=true, usage="remove spawner <Blue/Red> <Tower#> <Arena_Name>")
+	@MCCommand(cmds={"remove", "r"}, subCmds={"deathroom"}, admin=true, usage="remove deathroom <Blue/Red> <Arena_Name>")
 	public static boolean removeDeathRoom(Player sender, String color, TugArena arena){
-		return remove(sender, color, null, arena, BaseType.SPAWNER);
+		return remove(sender, color, null, arena, BaseType.DEATHROOM);
 	}
 	
 	/*
@@ -164,7 +165,7 @@ public class TugExecutor extends CustomCommandExecutor{
 		case PATHP:
 			return arena.addPathPoints(loc, sender, col, index);
 		case DEATHROOM:
-			return arena.addDeathroom(sender, loc, col);
+			return arena.addDeathroom(loc, sender, col);
 		default:
 			return false;
 		}

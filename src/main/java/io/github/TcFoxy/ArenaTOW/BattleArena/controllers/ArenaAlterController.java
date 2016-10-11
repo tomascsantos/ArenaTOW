@@ -15,6 +15,7 @@ import com.sk89q.worldedit.bukkit.selections.Selection;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
@@ -24,6 +25,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.AlterParamOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.WorldGuardRegion;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.FixedLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnIndex;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ArenaSerializer;
@@ -32,9 +34,8 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
-import mc.alk.arena.controllers.plugins.WorldGuardController;
-import mc.alk.arena.objects.regions.WorldGuardRegion;
-import mc.alk.arena.util.plugins.WorldEditUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins.WorldEditUtil;
+
 
 public class ArenaAlterController {
 

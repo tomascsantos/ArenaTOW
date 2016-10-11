@@ -36,6 +36,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MatchMessager
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.EventManager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCancelledEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCompletedEvent;
@@ -98,10 +99,10 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
-import mc.alk.arena.controllers.plugins.WorldGuardController;
-import mc.alk.scoreboardapi.api.SEntry;
-import mc.alk.scoreboardapi.api.SObjective;
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SEntry;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SObjective;
+
 
 /// TODO once I have GameLogic, split this into two matches, one for always open, one for normal
 public abstract class Match extends Competition implements Runnable, ArenaController {
@@ -310,7 +311,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
             joinHandler.useWaitingScoreboard();
             joinHandler.setWaitingScoreboardTime(seconds);
         }
-        if (seconds > 0){
+        if (seconds > 0){	
             mc.sendCountdownTillPrestart(seconds);
             this.startCountdown = new Countdown(BattleArena.getSelf(), seconds, interval, new CountdownCallback(){
                 @Override

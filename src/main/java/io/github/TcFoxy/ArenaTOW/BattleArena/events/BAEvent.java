@@ -1,11 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.events;
 
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
-
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 
 public class BAEvent extends Event{
 	private static final HandlerList handlers = new HandlerList();

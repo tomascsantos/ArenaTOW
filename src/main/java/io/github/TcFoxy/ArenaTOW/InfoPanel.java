@@ -1,20 +1,19 @@
 package io.github.TcFoxy.ArenaTOW;
 
-import io.github.TcFoxy.ArenaTOW.Serializable.Nexus;
-import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
-import io.github.TcFoxy.ArenaTOW.Serializable.Tower;
-
 import java.util.HashMap;
-
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.scoreboard.ArenaScoreboard;
-import mc.alk.scoreboardapi.api.SObjective;
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.entity.Player;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
+import io.github.TcFoxy.ArenaTOW.Serializable.Nexus;
+import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
+import io.github.TcFoxy.ArenaTOW.Serializable.Tower;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SObjective;
 
 public class InfoPanel {
 

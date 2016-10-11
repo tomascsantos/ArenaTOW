@@ -13,6 +13,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.TcFoxy.ArenaTOW.ArenaTOW;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.APIRegistrationController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaEditor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BAEventController;
@@ -73,9 +74,8 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.FileUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
-import mc.alk.mc.updater.FileUpdater;
-import mc.alk.mc.updater.PluginUpdater;
-import mc.battleplugins.api.BattlePluginsAPI;
+import io.github.TcFoxy.ArenaTOW.updater.FileUpdater;
+import io.github.TcFoxy.ArenaTOW.updater.PluginUpdater;
 
 public class BattleArena extends JavaPlugin {
 
@@ -103,8 +103,10 @@ public class BattleArena extends JavaPlugin {
     private static final EventScheduleSerializer eventSchedulerSerializer = new EventScheduleSerializer();
     private static final SignSerializer signSerializer = new SignSerializer();
     private static final int bukkitId = 43134; /// project bukkitId
-    private BattlePluginsAPI bpapi;
+    //private BattlePluginsAPI bpapi;
 
+    private ArenaTOW arenaTow = new ArenaTOW();
+    
     /**
      * enable the BattleArena plugin
      */
@@ -195,7 +197,7 @@ public class BattleArena extends JavaPlugin {
         VictoryType.register(HighestKills.class, this);
 
         /// Load our configs, then arenas
-        baConfigSerializer.setConfig(FileUtil.load(clazz, dir.getPath() + "/config.yml", "/default_files/config.yml"));
+        baConfigSerializer.setConfig(FileUtil.load(clazz, dir.getPath() + "/config.yml", "/default_files/main/config.yml"));
         try {
             YamlFileUpdater.updateBaseConfig(this, baConfigSerializer); /// Update our config if necessary
         } catch (Exception e) {
@@ -232,6 +234,9 @@ public class BattleArena extends JavaPlugin {
         createMessageSerializers();
         FileLogger.init(); /// shrink down log size
 
+        
+
+        
         /// Load Competitions and Arenas after everything is loaded (plugins and worlds)
         /// Other plugins using BattleArena are going to be registering
         /// Lets hold off on loading the scheduled events until those plugins have registered
@@ -240,6 +245,7 @@ public class BattleArena extends JavaPlugin {
             public void run() {
                 baConfigSerializer.loadVictoryConditions();
                 baConfigSerializer.loadCompetitions(); /// Load our competitions, has to happen after classes and teams
+                arenaTow.startThePlugin(); //Registers entities for ArenaTOW
 
                 /// persist our disabled arena types
                 StateFlagSerializer sfs = new StateFlagSerializer();
@@ -258,13 +264,13 @@ public class BattleArena extends JavaPlugin {
                 signUpdateListener.updateAllSigns();
 
                 eventSchedulerSerializer.loadAll();
-                if (mc.alk.arena.Defaults.START_NEXT)
+                if (Defaults.START_NEXT)
                     es.startNext();
-                else if (mc.alk.arena.Defaults.START_CONTINUOUS)
+                else if (Defaults.START_CONTINUOUS)
                     es.start();
             }
         });
-        bpapi = new BattlePluginsAPI();
+        //bpapi = new BattlePluginsAPI();
         //PluginUpdater.update(this, bukkitId, this.getFile(),
         //        Defaults.AUTO_UPDATE, Defaults.ANNOUNCE_UPDATE);
         Log.info("&4[" + pluginname + "] &6v" + BattleArena.version + "&f enabled!");
@@ -287,6 +293,8 @@ public class BattleArena extends JavaPlugin {
                 RoomController.getLobbies(),
                 arenaController.getArenas());
         FileLogger.saveAll();
+        
+        arenaTow.stopThePlugin();
     }
 
     /**
@@ -309,9 +317,9 @@ public class BattleArena extends JavaPlugin {
      * Return the BattlePluginsAPI used by BattleArena
      * @return BattlePluginsAPI
      */
-    public BattlePluginsAPI getBattlePluginsAPI() {
-        return bpapi;
-    }
+//    public BattlePluginsAPI getBattlePluginsAPI() {
+//        return bpapi;
+//    }
 
     /**
      * Return the watch controller

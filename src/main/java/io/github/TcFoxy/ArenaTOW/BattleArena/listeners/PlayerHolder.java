@@ -4,9 +4,9 @@ import org.bukkit.event.Listener;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.BAEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerTeleportEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateOption;

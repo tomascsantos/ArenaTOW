@@ -3,12 +3,12 @@ package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
 import java.lang.reflect.Field;
 import java.util.LinkedHashSet;
 
+import org.bukkit.Location;
+
 import net.minecraft.server.v1_10_R1.EntityZombie;
 import net.minecraft.server.v1_10_R1.GenericAttributes;
 import net.minecraft.server.v1_10_R1.PathfinderGoalSelector;
 import net.minecraft.server.v1_10_R1.World;
-
-import org.bukkit.Location;
 
 public class MyEntityZombie extends EntityZombie {
 
@@ -16,7 +16,7 @@ public class MyEntityZombie extends EntityZombie {
 		super(world);
 
 		getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(10.0D);//foloow range
-		fireProof = true;
+		//fireProof = true;
 	}
 
 	@Override

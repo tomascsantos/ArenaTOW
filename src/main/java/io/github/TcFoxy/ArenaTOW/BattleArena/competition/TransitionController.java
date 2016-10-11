@@ -20,7 +20,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerStoreController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.TeleportLocationController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
@@ -30,6 +30,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.WorldGuardRegion;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.ExpUtil;
@@ -38,10 +39,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
-import mc.alk.arena.controllers.plugins.DisguiseInterface;
-import mc.alk.arena.controllers.plugins.PylamoController;
-import mc.alk.arena.controllers.plugins.WorldGuardController;
-import mc.alk.arena.objects.regions.WorldGuardRegion;
+
 
 
 public class TransitionController {
@@ -87,11 +85,11 @@ public class TransitionController {
                     WorldGuardController.clearRegion(region);}
 
                 if (mo.hasOption(TransitionOption.WGRESETREGION)){
-                    if (PylamoController.enabled() && ac.getArena().getPylamoRegion() != null){
-                        PylamoController.resetRegion(ac.getArena().getPylamoRegion());
-                    } else {
+//                    if (PylamoController.enabled() && ac.getArena().getPylamoRegion() != null){
+//                        PylamoController.resetRegion(ac.getArena().getPylamoRegion());
+//                    } else {
                         WorldGuardController.pasteSchematic(region);
-                    }
+                      //}
                 }
             }
         }
@@ -176,8 +174,8 @@ public class TransitionController {
             if (mo.hasOption(TransitionOption.CLEAREXPERIENCE)){ ExpUtil.clearExperience(p);}
             if (mo.hasOption(TransitionOption.HEALTH)) { PlayerUtil.setHealth(p, mo.getHealth());}
             if (mo.hasOption(TransitionOption.HEALTHP)) { PlayerUtil.setHealthP(p, mo.getHealthP());}
-            if (mo.hasOption(TransitionOption.MAGIC)) { setMagicLevel(p, mo.getMagic()); }
-            if (mo.hasOption(TransitionOption.MAGICP)) { setMagicLevelP(p, mo.getMagicP()); }
+//            if (mo.hasOption(TransitionOption.MAGIC)) { setMagicLevel(p, mo.getMagic()); }
+//            if (mo.hasOption(TransitionOption.MAGICP)) { setMagicLevelP(p, mo.getMagicP()); }
             if (hunger != null) { PlayerUtil.setHunger(p, hunger); }
             if (mo.hasOption(TransitionOption.INVULNERABLE)) { PlayerUtil.setInvulnerable(p,mo.getInvulnerable()*20); }
             if (mo.hasOption(TransitionOption.GAMEMODE)) { PlayerUtil.setGameMode(p,mo.getGameMode()); }
@@ -186,8 +184,8 @@ public class TransitionController {
             if (mo.hasOption(TransitionOption.FLIGHTSPEED)) { PlayerUtil.setFlightSpeed(p,mo.getFlightSpeed()); }
             if (mo.hasOption(TransitionOption.DOCOMMANDS)) { PlayerUtil.doCommands(p,mo.getDoCommands()); }
             if (mo.deEnchant()) { psc.deEnchant(p);}
-            if (mo.undisguise() != null && mo.undisguise()) {DisguiseInterface.undisguise(p);}
-            if (mo.getDisguiseAllAs() != null) {DisguiseInterface.disguisePlayer(p, mo.getDisguiseAllAs());}
+//            if (mo.undisguise() != null && mo.undisguise()) {DisguiseInterface.undisguise(p);}
+//            if (mo.getDisguiseAllAs() != null) {DisguiseInterface.disguisePlayer(p, mo.getDisguiseAllAs());}
             if (mo.getMoney() != null) {MoneyController.add(player.getName(), mo.getMoney());}
             if (mo.hasOption(TransitionOption.POOLMONEY) && am instanceof Match) {
                 prizeMoney = ((Match)am).getPrizePoolMoney() * mo.getDouble(TransitionOption.POOLMONEY) /
@@ -217,11 +215,11 @@ public class TransitionController {
                 if (ac != null){
                     ArenaClassController.giveClassEnchants(p, ac);}
             }
-            if (mo.hasOption(TransitionOption.GIVEDISGUISE) && DisguiseInterface.enabled()){
-                final String disguise = getDisguise(mo,teamIndex);
-                if (disguise != null){ /// Give class items and effects
-                    DisguiseInterface.disguisePlayer(p, disguise);}
-            }
+//            if (mo.hasOption(TransitionOption.GIVEDISGUISE) && DisguiseInterface.enabled()){
+//                final String disguise = getDisguise(mo,teamIndex);
+//                if (disguise != null){ /// Give class items and effects
+//                    DisguiseInterface.disguisePlayer(p, disguise);}
+//            }
             if (mo.hasOption(TransitionOption.GIVEITEMS)){
                 Color color = armorTeams ? TeamUtil.getTeamColor(teamIndex) : null;
                 giveItems(transition, player, mo.getGiveItems(),teamIndex, woolTeams, insideArena,color);
@@ -278,17 +276,17 @@ public class TransitionController {
         return true;
     }
 
-    private static void setMagicLevel(Player p, Integer magic) {
-        HeroesController.setMagicLevel(p, magic);
-    }
-
-    private static void setMagicLevelP(Player p, Integer magic) {
-        HeroesController.setMagicLevelP(p, magic);
-    }
+//    private static void setMagicLevel(Player p, Integer magic) {
+//        HeroesController.setMagicLevel(p, magic);
+//    }
+//
+//    private static void setMagicLevelP(Player p, Integer magic) {
+//        HeroesController.setMagicLevelP(p, magic);
+//    }
 
     private static void removePerms(ArenaPlayer p, List<String> perms) {
-//		if (perms == null || perms.isEmpty()) {
-//        }
+		if (perms == null || perms.isEmpty()) {
+        }
         /// TODO complete
     }
 
@@ -322,16 +320,16 @@ public class TransitionController {
         return null;
     }
 
-    private static String getDisguise(StateOptions mo, final int teamIndex) {
-        Map<Integer,String> disguises = mo.getDisguises();
-        if (disguises==null)
-            return null;
-        if (disguises.containsKey(teamIndex)){
-            return disguises.get(teamIndex);
-        } else if (disguises.containsKey(DisguiseInterface.DEFAULT)){
-            return disguises.get(DisguiseInterface.DEFAULT);
-        }
-        return null;
-    }
+//    private static String getDisguise(StateOptions mo, final int teamIndex) {
+//        Map<Integer,String> disguises = mo.getDisguises();
+//        if (disguises==null)
+//            return null;
+//        if (disguises.containsKey(teamIndex)){
+//            return disguises.get(teamIndex);
+//        } else if (disguises.containsKey(DisguiseInterface.DEFAULT)){
+//            return disguises.get(DisguiseInterface.DEFAULT);
+//        }
+//        return null;
+//    }
 
 }

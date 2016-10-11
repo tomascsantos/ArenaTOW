@@ -18,7 +18,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.ScoreTracker;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.DmgDeathUtil;
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
 
 public class MobKills extends VictoryCondition implements ScoreTracker{
 	final ArenaObjective mkills;

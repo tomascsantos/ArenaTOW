@@ -5,19 +5,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
-import mc.alk.arena.controllers.plugins.WorldGuardController;
-import mc.alk.arena.objects.regions.ArenaRegion;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.WorldGuardRegion;
+
 
 public class PlayerMoveListener implements ArenaListener{
 	PlayerHolder holder;
-    ArenaRegion region;
+    WorldGuardRegion region;
     final World w;
-	public PlayerMoveListener(PlayerHolder holder, ArenaRegion region){
+	public PlayerMoveListener(PlayerHolder holder, WorldGuardRegion region){
 		this.holder = holder;
         this.region = region;
         this.w = Bukkit.getWorld(region.getWorldName());

@@ -26,7 +26,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ModuleController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.OptionSetController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.StateController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.DisguiseInterface;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
@@ -522,13 +521,13 @@ public class ConfigSerializer extends BaseConfig{
             Log.err("Error setting the value of giveClass ");
             Log.printStackTrace(e);
         }
-        try{
-            if (cs.contains("giveDisguise")){
-                tops.addOption(TransitionOption.GIVEDISGUISE, getArenaDisguises(cs.getConfigurationSection("giveDisguise")));}
-        } catch (Exception e){
-            Log.err("Error setting the value of giveDisguise ");
-            Log.printStackTrace(e);
-        }
+//        try{
+//            if (cs.contains("giveDisguise")){
+//                tops.addOption(TransitionOption.GIVEDISGUISE, getArenaDisguises(cs.getConfigurationSection("giveDisguise")));}
+//        } catch (Exception e){
+//            Log.err("Error setting the value of giveDisguise ");
+//            Log.printStackTrace(e);
+//        }
         try{
             if (cs.contains("doCommands")){
                 tops.addOption(TransitionOption.DOCOMMANDS, getDoCommands(cs.getStringList("doCommands")));}
@@ -647,30 +646,30 @@ public class ConfigSerializer extends BaseConfig{
         return classes;
     }
 
-    public static HashMap<Integer,String> getArenaDisguises(ConfigurationSection cs){
-        HashMap<Integer,String> disguises = new HashMap<Integer,String>();
-        Set<String> keys = cs.getKeys(false);
-        for (String whichTeam: keys){
-            int team;
-            final String disguiseName = cs.getString(whichTeam);
-            if (whichTeam.equalsIgnoreCase("default")){
-                team = DisguiseInterface.DEFAULT;
-            } else {
-                try {
-                    team = Integer.valueOf(whichTeam.replaceAll("team", "")) - 1;
-                } catch(Exception e){
-                    Log.err("Couldnt find which team this disguise belongs to '" + whichTeam+"'");
-                    continue;
-                }
-            }
-            if (team ==-1){
-                Log.err("Couldnt find which team this disguise belongs to '" + whichTeam+"'");
-                continue;
-            }
-            disguises.put(team, disguiseName);
-        }
-        return disguises;
-    }
+//    public static HashMap<Integer,String> getArenaDisguises(ConfigurationSection cs){
+//        HashMap<Integer,String> disguises = new HashMap<Integer,String>();
+//        Set<String> keys = cs.getKeys(false);
+//        for (String whichTeam: keys){
+//            int team;
+//            final String disguiseName = cs.getString(whichTeam);
+//            if (whichTeam.equalsIgnoreCase("default")){
+//                team = DisguiseInterface.DEFAULT;
+//            } else {
+//                try {
+//                    team = Integer.valueOf(whichTeam.replaceAll("team", "")) - 1;
+//                } catch(Exception e){
+//                    Log.err("Couldnt find which team this disguise belongs to '" + whichTeam+"'");
+//                    continue;
+//                }
+//            }
+//            if (team ==-1){
+//                Log.err("Couldnt find which team this disguise belongs to '" + whichTeam+"'");
+//                continue;
+//            }
+//            disguises.put(team, disguiseName);
+//        }
+//        return disguises;
+//    }
 
     public static List<PotionEffect> getEffectList(ConfigurationSection cs, String nodeString) {
         if (cs == null || cs.getList(nodeString) == null)

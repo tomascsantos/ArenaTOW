@@ -1,45 +1,55 @@
 package io.github.TcFoxy.ArenaTOW;
 
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityType;
-import mc.alk.arena.BattleArena;
-
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
-public class ArenaTOW extends JavaPlugin{
-	static ArenaTOW pluginArenaTOW;
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityType;
+
+public class ArenaTOW{
 	
 	//public TugArena tug;
 	
-	@Override
-	public void onDisable(){
-		MyEntityType.unregisterEntities();
-	}
+//	@Override
+//	public void onDisable(){
+//		MyEntityType.unregisterEntities();
+//	}
 	
-	@Override
-	public void onEnable(){
-		pluginArenaTOW = this;
-		//Messages msgConfig = new Messages();
-		//register with battlearena
-		BattleArena.registerCompetition(this, "ArenaTow", "tow", TugArena.class, new TugExecutor());    
+//	@Override
+//	public void onEnable(){
+//		pluginArenaTOW = this;
+//		//Messages msgConfig = new Messages();
+//		//register with battlearena
+//		BattleArena.registerCompetition(this, "ArenaTow", "tow", TugArena.class, new TugExecutor());    
+//		MyEntityType.registerEntities();
+//	}
+//	
+
+	public void startThePlugin(){   
 		MyEntityType.registerEntities();
 	}
 	
+	public void stopThePlugin(){
+		MyEntityType.unregisterEntities();
+
+	}
+
+	
 	public WorldGuardPlugin getWorldGuard() {
-	    Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+	    Plugin Wgplugin = getSelf().getServer().getPluginManager().getPlugin("WorldGuard");
 	 
 	    // WorldGuard may not be loaded
-	    if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+	    if (Wgplugin == null || !(Wgplugin instanceof WorldGuardPlugin)) {
 	        return null; // Maybe you want throw an exception instead
 	    }
 	 
-	    return (WorldGuardPlugin) plugin;
+	    return (WorldGuardPlugin) Wgplugin;
 	}
 	
-	public static ArenaTOW getSelf() {
-		return pluginArenaTOW;
+	public static JavaPlugin getSelf() {
+		return BattleArena.getSelf();
 	}
 }

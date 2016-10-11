@@ -18,11 +18,12 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.scoreboardapi.api.SObjective;
-import mc.alk.scoreboardapi.api.SScoreboard;
-import mc.alk.scoreboardapi.api.STeam;
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
-import mc.alk.scoreboardapi.scoreboard.bukkit.BScoreboard;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SObjective;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SScoreboard;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.STeam;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.bukkit.BScoreboard;
+
 
 
 public class ArenaBukkitScoreboard extends ArenaScoreboard{

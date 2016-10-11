@@ -14,10 +14,11 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interface
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown.CountdownCallback;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
-import mc.alk.scoreboardapi.api.SObjective;
-import mc.alk.scoreboardapi.api.STeam;
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
-import mc.alk.scoreboardapi.scoreboard.bukkit.BObjective;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SObjective;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.STeam;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.bukkit.BObjective;
+
 
 public class TeamTimeLimit extends VictoryCondition implements DefinesTimeLimit, CountdownCallback {
 

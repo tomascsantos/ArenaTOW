@@ -4,13 +4,6 @@ import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.minecraft.server.v1_10_R1.IChatBaseComponent;
-import net.minecraft.server.v1_10_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_10_R1.PacketPlayOutPlayerListHeaderFooter;
-import net.minecraft.server.v1_10_R1.PacketPlayOutTitle;
-import net.minecraft.server.v1_10_R1.PacketPlayOutTitle.EnumTitleAction;
-import net.minecraft.server.v1_10_R1.PlayerConnection;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -23,6 +16,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.util.Vector;
+
+import net.minecraft.server.v1_10_R1.IChatBaseComponent;
+import net.minecraft.server.v1_10_R1.IChatBaseComponent.ChatSerializer;
+import net.minecraft.server.v1_10_R1.PacketPlayOutPlayerListHeaderFooter;
+import net.minecraft.server.v1_10_R1.PacketPlayOutTitle;
+import net.minecraft.server.v1_10_R1.PacketPlayOutTitle.EnumTitleAction;
+import net.minecraft.server.v1_10_R1.PlayerConnection;
 
 public class Utils {
 	//Minecraft Ticks Per Second
@@ -37,7 +37,12 @@ public class Utils {
 		return helm;
 	}
 	
-	public static String toSimpleColorString(Color col){
+	/**
+	 * 
+	 * @param Color col
+	 * @return String color in simple english
+	 */
+	public static String toSimpleColor(Color col){
 		if(col == Color.BLUE){
 			return "Blue";
 		}else if(col == Color.RED){

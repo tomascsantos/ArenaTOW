@@ -26,14 +26,15 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.Permissions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BattleArenaController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerRestoreController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.WorldGuardRegion;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil.PInv;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
-import mc.alk.arena.controllers.plugins.EssentialsController;
-import mc.alk.arena.controllers.plugins.WorldGuardController;
-import mc.alk.arena.objects.regions.WorldGuardRegion;
+
 
 
 /**

@@ -24,10 +24,10 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveLobb
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerTeleportEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.MethodController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ContainerState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateOption;

@@ -11,9 +11,10 @@ import org.bukkit.plugin.Plugin;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.TimedSpawn;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.CaseInsensitiveMap;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.util.CaseInsensitiveMap;
-import mc.alk.arena.util.TimeUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimeUtil;
+
 
 
 

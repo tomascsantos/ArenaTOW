@@ -15,13 +15,14 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.ScoreTracker;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.ScoreMap;
-import mc.alk.scoreboardapi.api.SAPIFactory;
-import mc.alk.scoreboardapi.api.SEntry;
-import mc.alk.scoreboardapi.api.SObjective;
-import mc.alk.scoreboardapi.api.SScoreboard;
-import mc.alk.scoreboardapi.api.STeam;
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
-import mc.alk.scoreboardapi.scoreboard.bukkit.BObjective;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SAPIFactory;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SEntry;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SObjective;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SScoreboard;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.STeam;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.bukkit.BObjective;
+
 
 
 public class ArenaObjective implements SObjective, ScoreTracker{

@@ -1,6 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard;
 
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
 
 public enum ArenaDisplaySlot {
 	SIDEBAR, PLAYER_LIST, BELOW_NAME, NONE;

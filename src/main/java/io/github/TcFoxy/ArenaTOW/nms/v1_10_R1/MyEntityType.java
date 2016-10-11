@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.entity.EntityType;
+
 import net.minecraft.server.v1_10_R1.BiomeBase;
 import net.minecraft.server.v1_10_R1.BiomeBase.BiomeMeta;
 import net.minecraft.server.v1_10_R1.EntityGuardian;
@@ -11,8 +13,6 @@ import net.minecraft.server.v1_10_R1.EntityInsentient;
 import net.minecraft.server.v1_10_R1.EntityIronGolem;
 import net.minecraft.server.v1_10_R1.EntityTypes;
 import net.minecraft.server.v1_10_R1.EntityZombie;
-
-import org.bukkit.entity.EntityType;
 
 public enum MyEntityType {
 	

@@ -12,11 +12,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CommandLineString;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.IPlayerHelper;
-import mc.alk.arena.controllers.plugins.EssentialsController;
 
 public class PlayerUtil {
     static IPlayerHelper handler = null;
@@ -54,7 +54,7 @@ public class PlayerUtil {
     	Class<?>[] args = {};
     	try {
     		Method m = Player.class.getMethod("getHealth");
-    		final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_7_R3.PlayerHelper");
+    		final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_7_R3.PlayerHelper");
     		handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[]) args);
     	} catch (Exception e) {
     		Log.printStackTrace(e);

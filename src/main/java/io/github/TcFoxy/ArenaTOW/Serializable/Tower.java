@@ -1,10 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.Serializable;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
-import net.minecraft.server.v1_10_R1.Entity;
-
 import org.bukkit.Color;
 import org.bukkit.Location;
+
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
+import net.minecraft.server.v1_10_R1.Entity;
 
 public class Tower extends PersistInfo {
 

@@ -21,9 +21,10 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.ItemSpawn;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnGroup;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.TimedSpawn;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.EntityUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.util.EntityUtil;
-import mc.alk.arena.util.InventoryUtil;
+
 
 
 public class SpawnSerializer {

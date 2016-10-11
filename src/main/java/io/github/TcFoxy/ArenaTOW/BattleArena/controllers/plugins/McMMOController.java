@@ -2,11 +2,8 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins;
 
 
 
-import java.util.List;
-
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.plugins.McMMOListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 
 
 public class McMMOController {

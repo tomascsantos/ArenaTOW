@@ -44,15 +44,14 @@ import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.flags.StateFlag.State;
 import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.managers.storage.StorageException;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedPolygonalRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.RegionNotFound;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.ArenaRegion;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.WorldGuardRegion;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.objects.regions.ArenaRegion;
-import mc.alk.arena.objects.regions.WorldGuardRegion;
 
 /**
  * Stub class for future expansion
@@ -112,7 +111,7 @@ public class WorldGuardUtil {
 		return createRegion(p,id);
 	}
 
-	private static ProtectedRegion createRegion(Player p, String id) throws StorageException{
+	private static ProtectedRegion createRegion(Player p, String id) throws Exception{
 		Selection sel = WorldEditUtil.getSelection(p);
 		World w = sel.getWorld();
 		RegionManager mgr = wgp.getRegionContainer().get(w);

@@ -1,5 +1,12 @@
 package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces;
 
+import java.lang.reflect.Field;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
+
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyBlueGolem;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyBlueGuardian;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyBlueZombie;
@@ -9,15 +16,7 @@ import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityZombie;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyRedGolem;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyRedGuardian;
 import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyRedZombie;
-
-import java.lang.reflect.Field;
-
 import net.minecraft.server.v1_10_R1.WorldServer;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Color;
-import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
-import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 /**
  * author @BigTeddy98
  * Used for tutorial purposes

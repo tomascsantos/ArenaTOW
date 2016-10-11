@@ -4,7 +4,8 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
-import mc.alk.arena.util.InventoryUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
+
 
 
 public class ItemSpawn extends SpawnInstance{

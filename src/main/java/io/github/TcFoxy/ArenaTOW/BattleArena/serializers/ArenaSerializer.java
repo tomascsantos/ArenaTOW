@@ -29,6 +29,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RoomController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.Scheduler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.AreaContainer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
@@ -53,7 +54,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
-import mc.alk.arena.controllers.plugins.WorldGuardController;
 
 public class ArenaSerializer extends BaseConfig{
     static BattleArenaController arenaController;
@@ -291,9 +291,6 @@ public class ArenaSerializer extends BaseConfig{
         Persistable.yamlToObjects(arena, cs,Arena.class);
         try {
 			updateRegions(arena);
-		} catch (mc.alk.arena.objects.exceptions.RegionNotFound e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		} catch (RegionNotFound e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -338,7 +335,7 @@ public class ArenaSerializer extends BaseConfig{
         }
     }
 
-    private static void updateRegions(Arena arena) throws mc.alk.arena.objects.exceptions.RegionNotFound, RegionNotFound {
+    private static void updateRegions(Arena arena) throws RegionNotFound {
         if (!WorldGuardController.hasWorldGuard())
             return;
         if (!arena.hasRegion())

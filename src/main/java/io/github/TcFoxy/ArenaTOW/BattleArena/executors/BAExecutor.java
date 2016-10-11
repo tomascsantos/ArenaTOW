@@ -43,7 +43,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContaine
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.arenas.ArenaCreateEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.arenas.ArenaDeleteEvent;
@@ -95,7 +94,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimeUtil;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins.CombatTagUtil;
 
 
 /**
@@ -1509,13 +1507,13 @@ public class BAExecutor extends CustomCommandExecutor {
 //        }
 
         /// Check for player in combat
-        if (CombatTagUtil.isTagged(player.getPlayer())
-                || (HeroesController.enabled() && HeroesController.isInCombat(player.getPlayer()))) {
-            if (showMessages) {
-                sendMessage(player, "&cYou are in combat!");
-            }
-            return false;
-        }
+//        if (CombatTagUtil.isTagged(player.getPlayer())
+//                || (HeroesController.enabled() && HeroesController.isInCombat(player.getPlayer()))) {
+//            if (showMessages) {
+//                sendMessage(player, "&cYou are in combat!");
+//            }
+//            return false;
+//        }
 
         /// Inside an Event?
         Event ae = insideEvent(player);

@@ -1,26 +1,9 @@
 package io.github.TcFoxy.ArenaTOW;
 
-import io.github.TcFoxy.ArenaTOW.Listeners.TugListener;
-import io.github.TcFoxy.ArenaTOW.Serializable.Nexus;
-import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
-import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo.BaseType;
-import io.github.TcFoxy.ArenaTOW.Serializable.Spawner;
-import io.github.TcFoxy.ArenaTOW.Serializable.Tower;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-
-import mc.alk.arena.BattleArena;
-import mc.alk.arena.controllers.MoneyController;
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.arenas.Arena;
-import mc.alk.arena.objects.events.ArenaEventHandler;
-import mc.alk.arena.objects.spawns.SpawnLocation;
-import mc.alk.arena.objects.teams.ArenaTeam;
-import mc.alk.arena.serializers.Persist;
-import net.minecraft.server.v1_10_R1.EntityLiving;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -36,6 +19,23 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.Persist;
+import io.github.TcFoxy.ArenaTOW.Listeners.TugListener;
+import io.github.TcFoxy.ArenaTOW.Serializable.Deathroom;
+import io.github.TcFoxy.ArenaTOW.Serializable.Nexus;
+import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
+import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo.BaseType;
+import io.github.TcFoxy.ArenaTOW.Serializable.Spawner;
+import io.github.TcFoxy.ArenaTOW.Serializable.Tower;
+import net.minecraft.server.v1_10_R1.EntityLiving;
 
 
 public class TugArena extends Arena {
@@ -57,8 +57,8 @@ public class TugArena extends Arena {
 	 * this information is stored when the plugin unloads and
 	 * is loaded when the plugin loads
 	 */
-	@Persist 
-	public HashMap<String, Location> deathrooms;
+//	@Persist 
+//	public HashMap<String, Location> deathrooms;
 	@Persist 
 	public HashMap<String, String> savedInfo;
 
@@ -104,6 +104,21 @@ public class TugArena extends Arena {
 
 	}
 
+	
+	/*
+	 * occurs when player joins match?
+	 */
+	@Override
+	public void onJoin(ArenaPlayer player, ArenaTeam team){
+		/*
+		 * stop the match if not valid arena
+		 */
+		if(isValidArena()){
+			this.getMatch().cancelMatch();
+			player.sendMessage("Arena is not completely ready. Run /tow check [arenaName]");
+		}
+
+	}
 
 	/*
 	 * Classes should be initialized in this method because
@@ -114,22 +129,15 @@ public class TugArena extends Arena {
 	public void onOpen() {
 		//teamLevel.resetTeams();
 
+		
+		
+		
 		/*
 		 * load the towers from
 		 * the persist annotation 
 		 * above.
 		 */
 		TugExecutor.initSaves(tug);
-
-		
-		/*
-		 * cancel the game if there are no deathrooms.
-		 */
-
-		if(deathrooms == null){
-			this.getMatch().cancelMatch();
-			Bukkit.broadcastMessage("You must add deathrooms to start this arena!");
-		}
 
 		// Must create new objects of all classes in onOpen method.
 		//minionFactory = new MinionFactory(minionFactorySpawners);
@@ -141,6 +149,7 @@ public class TugArena extends Arena {
 
 
 	}
+
 
 	private void enableListeners() {
 		/*
@@ -160,6 +169,7 @@ public class TugArena extends Arena {
 		 * Dont create new objects in this method!
 		 */
 		
+		
 		/*
 		 * start the bukkit
 		 * scheduled tasks
@@ -178,10 +188,10 @@ public class TugArena extends Arena {
 		for (int i = 0; i < t.size(); i++) {
 			if (i == 0) {
 				redTeam = t.get(i);
-				redTeam.setName(Utils.toSimpleColorString(Color.RED));
+				redTeam.setName(Utils.toSimpleColor(Color.RED));
 			} else if (i == 1) {
 				blueTeam = t.get(i);
-				blueTeam.setName(Utils.toSimpleColorString(Color.BLUE));
+				blueTeam.setName(Utils.toSimpleColor(Color.BLUE));
 			}
 		}
 
@@ -233,6 +243,8 @@ public class TugArena extends Arena {
 	@Override
 	public void onFinish(){
 		resetTowers();
+		if(timers==null)
+			return;
 		timers.cancelTimers();
 		timers.killminions();
 		//Necromancer.instakillnecros(Necromancer.necro);
@@ -263,8 +275,11 @@ public class TugArena extends Arena {
 	 */
 
 	private void resetTowers() {
+		if(activeInfo.isEmpty())
+			return;
 		for(PersistInfo base: activeInfo.values()){
-			((EntityLiving) base.getMob()).setHealth(0);
+			if(base.hasMob())
+				((EntityLiving) base.getMob()).setHealth(0);
 		}
 	}
 
@@ -406,8 +421,8 @@ public class TugArena extends Arena {
 		 * teleport to the correct deathroom
 		 */
 
-		String team = ap.getTeam().getDisplayName();
-		p.teleport(deathrooms.get(team));
+		Deathroom dr = PersistInfo.getDeathroom(ap.getTeam().getDisplayName(), activeInfo);		
+		p.teleport(dr.getSpawnLoc());
 
 		/*
 		 * calculate the respawn time
@@ -492,7 +507,13 @@ public class TugArena extends Arena {
 	}
 
 	public boolean addNexus(Location loc, Player sender, Color color){
-		String key = "ba_" + this.name + "_" + BaseType.NEXUS.toString() + "_" + String.valueOf(color.asRGB());
+		String key = "ba_" + this.name + "_" + BaseType.NEXUS.toString() + "_" + String.valueOf(color.asRGB()); 
+		String info = "null";
+		return saveBase(key, loc, info, sender, color, this);
+	}
+	
+	public boolean addDeathroom(Location loc, Player sender,  Color color) {
+		String key = "ba_" + this.name + "_" + BaseType.DEATHROOM.toString() + "_" + String.valueOf(color.asRGB());
 		String info = "null";
 		return saveBase(key, loc, info, sender, color, this);
 	}
@@ -527,15 +548,7 @@ public class TugArena extends Arena {
 		return true;
 	}
 	
-	public boolean addDeathroom(Player sender, Location location, Color col) {
-		if(deathrooms == null){
-			deathrooms = new HashMap<String, Location>();
-		}
-		deathrooms.put(col.toString(), location);
-		sender.sendMessage("deathroom created successfully");
-		BattleArena.saveArenas();
-		return true;
-	}
+	
 
 
 	public boolean removePersistInfo(String key, Player sender){
@@ -566,6 +579,11 @@ public class TugArena extends Arena {
 		String key = "ba_" + this.name + "_" + BaseType.TOWER.toString() + "_" + String.valueOf(col.asRGB());
 		return removePersistInfo(key, sender);
 	}
+	
+	public boolean removeDeathroom(Player sender, Location loc, Color col){
+		String key = "ba_" + this.name + "_" + BaseType.DEATHROOM.toString() + "_" + String.valueOf(col.asRGB());
+		return removePersistInfo(key, sender);
+	}
 
 	public void clearInfo(Player sender) {
 		activeInfo.clear();
@@ -588,30 +606,22 @@ public class TugArena extends Arena {
 
 
 
-
-	public boolean verify(Player sender){
+	public HashMap<String, aValid> preVerify(){
 		/*
-		 * Necessary Stuff:
-		 * Tower, Spawner, DeathRoom, Waitroom, Pathpoints, Nexus
+		 * Create Valid class for each type 
 		 */
-		HashMap<String, aValid> list = new HashMap<String, aValid>();
+		HashMap<String, aValid> ObjectsReady = new HashMap<String, aValid>();
 		
 		aValid towers = new aValid("Tower");
-		list.put(towers.deets, towers);
 		aValid nexuses = new aValid("Nexus");
-		list.put(nexuses.deets, nexuses);
 		aValid drooms = new aValid("Deathroom");
-		list.put(drooms.deets, drooms);
 		aValid waitrooms = new aValid("Waitroom");
-		list.put(waitrooms.deets, waitrooms);
 		aValid spawners = new aValid("Spawner");
-		list.put(spawners.deets, spawners);
 		aValid pps = new aValid("PathPoint");
-		list.put(pps.deets, pps);
-		
 
 		/*
 		 * Nexi/Towers/Spawners/Pathpoints Check
+		 * and add checked valud to list
 		 */
 
 		for(PersistInfo base : activeInfo.values()){
@@ -619,19 +629,13 @@ public class TugArena extends Arena {
 				nexuses.setColor(base.getTeamColor(), true);
 			}else if( base instanceof Tower){
 				towers.setColor(base.getTeamColor(), true);
+			}else if( base instanceof Deathroom){
+				drooms.setColor(base.getTeamColor(), true);
 			}else if(base instanceof Spawner){
 				spawners.setColor(base.getTeamColor(), true);
 				if(((Spawner) base).hasPps()){
 					pps.setColor(base.getTeamColor(), true);
 				}
-			}
-		}
-		if(deathrooms != null){
-			if(deathrooms.get(Color.RED.toString()) != null){
-				drooms.setColor(Color.RED, true);
-			}
-			if(deathrooms.get(Color.BLUE.toString()) != null){
-				drooms.setColor(Color.BLUE, true);
 			}
 		}
 		if(this.getWaitroom() != null){
@@ -643,14 +647,37 @@ public class TugArena extends Arena {
 			}
 		}
 		
-
+		ObjectsReady.put(towers.deets, towers);
+		ObjectsReady.put(nexuses.deets, nexuses);
+		ObjectsReady.put(drooms.deets, drooms);
+		ObjectsReady.put(waitrooms.deets, waitrooms);
+		ObjectsReady.put(spawners.deets, spawners);
+		ObjectsReady.put(pps.deets, pps);
 		
-		for(aValid valid : list.values()){
+		return ObjectsReady;
+	}
+	
+	public boolean isValidArena(){
+		HashMap<String, aValid> ObjectsReady = preVerify();
+		/*
+		 * loop through every vlud until one is false
+		 * if all are true then return true
+		 */
+		for(aValid valid : ObjectsReady.values()){
+			if(!(valid.red || valid.blue))
+				Bukkit.broadcastMessage(valid.deets + "color red:" + valid.red + " color blue: " + valid.blue);
+				return false;
+		}
+		return true;
+	}
+
+	public void verify(Player sender){
+		HashMap<String, aValid> ObjectsReady = preVerify();
+		
+		for(aValid valid : ObjectsReady.values()){
 			sender.sendMessage(valid.getDeets(Color.RED) + componentReady(valid.red));
 			sender.sendMessage(valid.getDeets(Color.BLUE) + componentReady(valid.blue));
 		}
-		return true;
-
 	}
 	
 	private String componentReady(boolean bool){

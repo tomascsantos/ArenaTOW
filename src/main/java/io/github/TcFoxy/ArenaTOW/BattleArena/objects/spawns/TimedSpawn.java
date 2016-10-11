@@ -6,7 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import mc.alk.arena.util.SerializerUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
 
 
 public class TimedSpawn implements Spawnable{

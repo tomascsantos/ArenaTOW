@@ -1,9 +1,9 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
 
 public class MessageOptions {
 	public static enum MessageOption{

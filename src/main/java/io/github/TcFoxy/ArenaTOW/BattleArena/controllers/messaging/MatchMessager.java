@@ -11,9 +11,9 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Channel;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Channels;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.MatchMessageHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.MatchMessageHandler;
 
 
 

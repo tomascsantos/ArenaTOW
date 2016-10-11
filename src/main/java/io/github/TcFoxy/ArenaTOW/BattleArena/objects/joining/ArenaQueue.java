@@ -1,10 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining;
 
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
-
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 
 
 class ArenaQueue extends LinkedList<Arena> {

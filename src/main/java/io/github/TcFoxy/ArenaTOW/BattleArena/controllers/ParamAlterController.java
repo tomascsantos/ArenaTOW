@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CommandLineString;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
@@ -30,7 +31,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
-import mc.alk.arena.controllers.plugins.WorldGuardController;
 
 
 public class ParamAlterController {

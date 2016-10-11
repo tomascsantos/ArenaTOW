@@ -15,10 +15,11 @@ import org.bukkit.entity.Tameable;
 import org.bukkit.entity.Wolf;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.EntityUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 
-import mc.alk.arena.util.EntityUtil;
-import mc.alk.arena.util.TeamUtil;
+
 
 public class EntitySpawn extends SpawnInstance{
     final private EntityType et;
@@ -29,7 +30,7 @@ public class EntitySpawn extends SpawnInstance{
     static Method spawnEntityMethod;
     static {
         try {
-            spawnEntityMethod = World.class.getMethod("spawnEntity");
+            spawnEntityMethod = World.class.getMethod("spawnEntity", Location.class, EntityType.class);
         } catch (Exception e) {
             try {
                 spawnEntityMethod = World.class.getMethod("spawnCreature", Location.class, EntityType.class);

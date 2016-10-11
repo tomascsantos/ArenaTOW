@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
-import mc.alk.arena.util.CaseInsensitiveMap;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.CaseInsensitiveMap;
 
 public class OptionSetController {
 	static final Map<String,StateOptions> options = new CaseInsensitiveMap<StateOptions>();

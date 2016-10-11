@@ -1,9 +1,9 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util.compat;
 
+import java.util.UUID;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-
-import java.util.UUID;
 
 public interface IPlayerHelper {
 

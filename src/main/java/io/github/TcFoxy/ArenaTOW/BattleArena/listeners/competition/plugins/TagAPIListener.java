@@ -7,21 +7,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 //import org.kitteh.tag.AsyncPlayerReceiveNameTagEvent;
 //import org.kitteh.tag.TagAPI;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerEnterMatchEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveMatchEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
 
 
 

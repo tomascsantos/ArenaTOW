@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -13,6 +12,7 @@ import org.bukkit.potion.PotionEffect;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.InventorySerializer;
@@ -23,7 +23,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil.PInv;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
-import mc.alk.arena.controllers.plugins.EssentialsController;
 
 /**
  * @author alkarin
@@ -365,7 +364,8 @@ public class PlayerSave {
     public void restoreFlight() {
         if (flight == null)
             return;
-        EssentialsController.setFlight(player.getPlayer(), flight);
+        //EssentialsController.setFlight(player.getPlayer(), flight);
+        player.getPlayer().setFlying(flight);
         flight = null;
     }
 

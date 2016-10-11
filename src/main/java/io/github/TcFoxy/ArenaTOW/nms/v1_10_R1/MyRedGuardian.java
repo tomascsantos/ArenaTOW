@@ -1,12 +1,14 @@
 package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
 
-import mc.alk.arena.BattleArena;
-import mc.alk.arena.objects.ArenaPlayer;
-import net.minecraft.server.v1_10_R1.DamageSource;
-import net.minecraft.server.v1_10_R1.World;
 
 import org.bukkit.Color;
 import org.bukkit.entity.Player;
+
+import io.github.TcFoxy.ArenaTOW.Utils;
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import net.minecraft.server.v1_10_R1.DamageSource;
+import net.minecraft.server.v1_10_R1.World;
 
 public class MyRedGuardian extends MyEntityGuardian{
 		
@@ -22,7 +24,7 @@ public class MyRedGuardian extends MyEntityGuardian{
 				Player p = (Player) damagesource.getEntity().getBukkitEntity();
 				ArenaPlayer ap = BattleArena.toArenaPlayer(p);
 				String arenateam = ap.getTeam().getDisplayName();
-				if(arenateam.equals(Color.RED.toString())){
+				if(arenateam.equals(Utils.toSimpleColor(Color.RED))){
 					return false;
 				}else{ super.damageEntity(damagesource, f);}
 			} else {super.damageEntity(damagesource, f);}

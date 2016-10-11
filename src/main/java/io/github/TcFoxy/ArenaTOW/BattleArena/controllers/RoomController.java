@@ -10,8 +10,8 @@ import java.util.Map;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.LobbyContainer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;

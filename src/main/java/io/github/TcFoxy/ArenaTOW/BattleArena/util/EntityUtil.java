@@ -34,7 +34,7 @@ public class EntityUtil {
     static {
     	Class<?>[] args = {};
     	try {
-    		final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_4_5.EntityHelper");
+    		final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_4_5.EntityHelper");
     		handler = (IEntityHelper) clazz.getConstructor(args).newInstance((Object[])args);
 
     	} catch (Exception e) {

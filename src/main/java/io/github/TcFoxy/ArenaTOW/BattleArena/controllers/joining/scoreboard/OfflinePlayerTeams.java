@@ -1,9 +1,9 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.scoreboard;
 
+import java.util.HashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-
-import java.util.HashMap;
 
 /**
  * @author alkarin

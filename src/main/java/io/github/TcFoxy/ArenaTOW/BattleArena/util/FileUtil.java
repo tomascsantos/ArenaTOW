@@ -78,6 +78,7 @@ public class FileUtil {
 			try{
 				inputStream = clazz.getResourceAsStream(default_file);
 				if (inputStream == null){
+					Log.warn("ITS NOT FUCKING WORKING WHY DOESNT THIS SHIT WORKK!!!!?????????");
 					inputStream = clazz.getClassLoader().getResourceAsStream(default_file);}
 				out=new FileOutputStream(config_file);
 				byte buf[]=new byte[1024];

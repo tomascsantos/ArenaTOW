@@ -21,12 +21,12 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.YamlSerializable;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.SerializationException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.Persist;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
-import mc.alk.arena.objects.YamlSerializable;
-import mc.alk.arena.objects.exceptions.SerializationException;
 
 public class Persistable {
 
@@ -59,7 +59,7 @@ public class Persistable {
                 if (!(a instanceof Persist || !cs.contains(name))){
                     continue;
                 }
-//				System.out.println("Type = " + type +"  " + name +"   " + annotations + "   " + cs.getString(name));
+                // System.out.println("Type = " + type +"  " + name +"   " + annotations + "   " + cs.getString(name));
                 field.setAccessible(true);
                 try {
                     Object obj = null;

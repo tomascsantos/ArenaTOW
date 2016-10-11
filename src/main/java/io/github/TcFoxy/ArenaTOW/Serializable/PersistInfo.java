@@ -1,19 +1,18 @@
 package io.github.TcFoxy.ArenaTOW.Serializable;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.NMSConstants;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.UUID;
-
-import net.minecraft.server.v1_10_R1.Entity;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.World;
+
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.NMSConstants;
+import net.minecraft.server.v1_10_R1.Entity;
 
 public class PersistInfo {
 
@@ -43,7 +42,7 @@ public class PersistInfo {
 		String[] rawparts = key.split("_");
 		String newKey = ChatColor.GOLD + rawparts[0] + "_" + rawparts[1] 
 				+ "_" +  rawparts[2] + "_" + getTeamColorStringReadable(key);
-		if(rawparts[2].equals(BaseType.NEXUS.toString())){
+		if(rawparts[2].equals(BaseType.NEXUS.toString()) || rawparts[2].equals(BaseType.DEATHROOM.toString())){
 			return newKey;
 		}else{
 			newKey += ChatColor.GOLD + "_" + rawparts[4];
@@ -99,6 +98,7 @@ public class PersistInfo {
 		ArrayList<String> towers = new ArrayList<String>();
 		ArrayList<String> nexus = new ArrayList<String>();
 		ArrayList<String> spawners = new ArrayList<String>();
+		ArrayList<String> deathrooms = new ArrayList<String>();
 
 		for(Entry <String, PersistInfo> entry : dic.entrySet()){
 			if(entry.getValue() instanceof Nexus){
@@ -107,6 +107,8 @@ public class PersistInfo {
 				towers.add(entry.getKey());
 			}else if(entry.getValue() instanceof Spawner){
 				spawners.add(entry.getKey());
+			}else if(entry.getValue() instanceof Deathroom){
+				deathrooms.add(entry.getKey());
 			}
 		}
 		
@@ -117,9 +119,20 @@ public class PersistInfo {
 			return nexus;
 		case SPAWNER:
 			return spawners;
+		case DEATHROOM:
+			return deathrooms;
 		default:
 			return null;
 		}
+	}
+	
+	public static Deathroom getDeathroom(String color, HashMap<String, PersistInfo> dic){
+		for(PersistInfo base : dic.values()){
+			if((base instanceof Deathroom) && PersistInfo.getTeamColorStringReadable(base.getKey()).equalsIgnoreCase(color)){
+				return (Deathroom) base;
+			}
+		}
+		return null;
 	}
 
 	public static String locationToString(Location loc){
@@ -144,6 +157,10 @@ public class PersistInfo {
 		return this.mob;
 	}
 	
+	public boolean hasMob(){
+		return true;
+	}
+	
 	public void setMob(Entity ent){
 		this.mob = ent;
 	}
@@ -159,7 +176,6 @@ public class PersistInfo {
 	}
 	
 	public Entity spawnMob(){
-		Bukkit.broadcastMessage("spawnmob is called in SerializableBase");
 		return null;
 	}
 	
@@ -175,6 +191,8 @@ public class PersistInfo {
 			return new Nexus(b.key, b.teamColor, b.loc, b.info);
 		}else if(type.equals(BaseType.TOWER.toString())){
 			return new Tower(b.key, b.teamColor, b.loc, b.info);
+		}else if(type.equals(BaseType.DEATHROOM.toString())){
+			return new Deathroom(b.key, b.teamColor, b.loc, b.info);
 		}else if(type.equals(BaseType.SPAWNER.toString())){
 			return new Spawner(b.key, b.teamColor, b.loc, b.info);
 		}else{

@@ -14,6 +14,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.TransitionController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerStoreController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.BAEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerEnterMatchEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEvent;
@@ -23,9 +24,9 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.MethodController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaLocation;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateOption;
@@ -38,7 +39,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
-import mc.alk.arena.controllers.plugins.EssentialsController;
 
 
 public class GameManager implements PlayerHolder{

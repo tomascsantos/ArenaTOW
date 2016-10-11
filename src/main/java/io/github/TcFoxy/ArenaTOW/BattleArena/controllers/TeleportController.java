@@ -24,16 +24,13 @@ import org.bukkit.util.Vector;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Permissions;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
-import mc.alk.arena.controllers.plugins.EssentialsController;
-import mc.alk.arena.controllers.plugins.VanishNoPacketInterface;
-import mc.alk.arena.plugins.combattag.CombatTagInterface;
 
 
 public class TeleportController implements Listener{
@@ -172,11 +169,11 @@ public class TeleportController implements Listener{
 		for (Player player : players) {
 			if (!player.isOnline())
 				continue;
-			if (VanishNoPacketInterface.isVanished(player)) {
-				if (!BattleArena.inArena(player))
-					continue;
-				VanishNoPacketInterface.toggleVanish(player);
-			}
+//			if (VanishNoPacketInterface.isVanished(player)) {
+//				if (!BattleArena.inArena(player))
+//					continue;
+//				VanishNoPacketInterface.toggleVanish(player);
+//			}
 			if (visible){
 				tpedPlayer.showPlayer(player);
 				player.showPlayer(tpedPlayer);
@@ -191,7 +188,7 @@ public class TeleportController implements Listener{
 		List<Player> res = new ArrayList<Player>();
 		final int d2 = distance * distance;
 		final UUID uid = player.getWorld().getUID();
-		for (Player p : ServerUtil.getOnlinePlayers()) {
+		for (Player p : Bukkit.getOnlinePlayers()) {
 			try{
 				if (p.getWorld().getUID() == uid &&
 						p != player && p.getLocation().distanceSquared(player.getLocation()) <= d2) {

@@ -14,8 +14,8 @@ import org.bukkit.plugin.EventExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.util.TimingUtil;
-import mc.alk.arena.util.TimingUtil.TimingStat;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimingUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimingUtil.TimingStat;
 
 
 /**

@@ -2,9 +2,11 @@ package io.github.TcFoxy.ArenaTOW;
 
 import java.io.File;
 
+import org.bukkit.plugin.java.JavaPlugin;
+
 public class Messages {
 	
-	ArenaTOW main = ArenaTOW.getSelf();
+	JavaPlugin main = ArenaTOW.getSelf();
 
 	public Messages(){
 		createMsgConfig();

@@ -1,15 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.plugins;
 
 
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-
-//import com.massivecraft.factions.event.FactionsEventPowerChange;
-
-import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.InArenaListener;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
 
 public enum FactionsListener implements Listener{
 	INSTANCE;

@@ -12,9 +12,10 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
-import mc.alk.arena.objects.events.ArenaEventHandler;
-import mc.alk.arena.objects.events.EventPriority;
-import mc.alk.arena.util.InventoryUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
+
 
 
 public class RoomContainer extends AreaContainer{

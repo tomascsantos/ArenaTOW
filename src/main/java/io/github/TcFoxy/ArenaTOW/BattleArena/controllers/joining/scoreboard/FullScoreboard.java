@@ -22,9 +22,10 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown.CountdownCallback;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
-import mc.alk.scoreboardapi.api.SEntry;
-import mc.alk.scoreboardapi.api.STeam;
-import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SEntry;
+import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.STeam;
+
 
 public class FullScoreboard implements WaitingScoreboard {
     Map<Integer, LinkedList<SEntry>> reqPlaceHolderPlayers = new HashMap<Integer, LinkedList<SEntry>>();

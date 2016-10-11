@@ -1,10 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns;
 
-import mc.alk.arena.objects.exceptions.SerializationException;
+import java.util.Map;
+
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import java.util.Map;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.SerializationException;
 
 /**
  * @author alkarin

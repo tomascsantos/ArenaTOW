@@ -283,7 +283,8 @@ public class ArenaPlayer {
     }
 
     public Player regetPlayer() {
-        return ServerUtil.findPlayerExact(this.getName());
+//        return ServerUtil.findPlayerExact(this.getName());
+        return ServerUtil.findPlayer(this.getID());
     }
 
     public String toString() {

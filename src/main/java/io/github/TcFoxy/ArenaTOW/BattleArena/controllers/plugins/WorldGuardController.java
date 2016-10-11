@@ -8,10 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.RegionNotFound;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.ArenaRegion;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.WorldGuardRegion;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins.WorldEditUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.plugins.WorldGuardUtil;
-import mc.alk.arena.objects.regions.ArenaRegion;
-import mc.alk.arena.objects.regions.WorldGuardRegion;
 
 
 /**
@@ -46,7 +46,7 @@ public class WorldGuardController {
 		return WorldGuardUtil.createProtectedRegion(sender, id)!=null;
 	}
 
-	public static boolean hasRegion(ArenaRegion region){
+	public static boolean hasRegion(WorldGuardRegion region){
 		return WorldGuardUtil.hasRegion(region);
 	}
 	public static boolean hasRegion(World world, String id){

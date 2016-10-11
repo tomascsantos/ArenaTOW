@@ -1,9 +1,9 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns;
 
-import org.bukkit.Location;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bukkit.Location;
 
 public class SpawnGroup extends SpawnInstance implements Spawnable{
 	String name;

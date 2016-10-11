@@ -19,9 +19,8 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.DmgDeathUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
-import mc.alk.arena.util.compat.IEventHelper;
-import mc.alk.arena.version.Version;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.IEventHelper;
+
 
 
 public class DamageListener implements ArenaListener{
@@ -32,18 +31,29 @@ public class DamageListener implements ArenaListener{
     static {
         Class<?>[] args = {};
         try {
-            Version version = Util.getCraftBukkitVersion();
-            if (version.compareTo("v1_6_R1") >= 0){
-                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.v1_6_R1.EventHelper");
-                handler = (IEventHelper) clazz.getConstructor(args).newInstance((Object[])args);
-            } else {
-                final Class<?> clazz = Class.forName("mc.alk.arena.util.compat.pre.EventHelper");
-                handler = (IEventHelper) clazz.getConstructor(args).newInstance((Object[])args);
-            }
+        	final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_6_R1.EventHelper");
+        	handler = (IEventHelper) clazz.getConstructor(args).newInstance((Object[])args);
         } catch (Exception e) {
             Log.printStackTrace(e);
         }
     }
+    
+    
+//    static {
+//        Class<?>[] args = {};
+//        try {
+//            Version version = Util.getCraftBukkitVersion();
+//            if (version.compareTo("v1_6_R1") >= 0){
+//                final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_6_R1.EventHelper");
+//                handler = (IEventHelper) clazz.getConstructor(args).newInstance((Object[])args);
+//            } else {
+//                final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.pre.EventHelper");
+//                handler = (IEventHelper) clazz.getConstructor(args).newInstance((Object[])args);
+//            }
+//        } catch (Exception e) {
+//            Log.printStackTrace(e);
+//        }
+//    }
 
     public DamageListener(PlayerHolder holder){
 		this.transitionOptions = holder.getParams().getStateGraph();

@@ -2,8 +2,6 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.events.players;
 
 import java.util.List;
 
-
-
 import org.bukkit.inventory.ItemStack;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.CompetitionEvent;

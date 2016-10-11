@@ -1,9 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging;
 
-import mc.alk.arena.util.MessageUtil;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 
 public class WorldChannel implements Channel {
 	final World world;

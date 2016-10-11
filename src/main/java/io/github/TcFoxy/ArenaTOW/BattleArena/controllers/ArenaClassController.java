@@ -17,6 +17,7 @@ import org.bukkit.potion.PotionEffect;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerClassSelectedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
@@ -34,8 +35,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimeUtil;
-import mc.alk.arena.controllers.plugins.DisguiseInterface;
-import mc.alk.arena.controllers.plugins.HeroesController;
+
 
 
 public class ArenaClassController {
@@ -72,8 +72,8 @@ public class ArenaClassController {
             InventoryUtil.addItemsToInventory(player.getPlayer(), ac.getItems(),true, color);}
         catch (Exception e){/* do nothing, error would be reported inside InventoryUtil */}
         giveClassEnchants(player.getPlayer(),ac);
-        if (ac.getDisguiseName()!=null && DisguiseInterface.enabled())
-            DisguiseInterface.disguisePlayer(player.getPlayer(), ac.getDisguiseName());
+//        if (ac.getDisguiseName()!=null && DisguiseInterface.enabled())
+//            DisguiseInterface.disguisePlayer(player.getPlayer(), ac.getDisguiseName());
         if (ac.getMobs() != null){
             try {
                 List<SpawnInstance> mobs = ac.getMobsClone();

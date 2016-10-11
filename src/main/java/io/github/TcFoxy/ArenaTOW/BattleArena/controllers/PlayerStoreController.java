@@ -11,16 +11,17 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.PlayerSave;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.WorldGuardRegion;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil.PInv;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.arena.controllers.plugins.HeroesController;
-import mc.alk.arena.controllers.plugins.WorldGuardController;
-import mc.alk.arena.objects.regions.WorldGuardRegion;
+
 
 public class PlayerStoreController {
     static final PlayerStoreController INSTANCE = new PlayerStoreController();

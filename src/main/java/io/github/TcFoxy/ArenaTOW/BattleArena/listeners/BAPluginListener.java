@@ -14,10 +14,10 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
-import mc.alk.arena.controllers.plugins.WorldGuardController;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 

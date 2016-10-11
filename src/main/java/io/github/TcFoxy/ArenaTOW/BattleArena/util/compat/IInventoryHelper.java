@@ -1,11 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util.compat;
 
+import java.awt.Color;
+import java.util.List;
+
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
-
-import java.awt.*;
-import java.util.List;
 
 public interface IInventoryHelper {
 

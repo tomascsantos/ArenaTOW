@@ -8,20 +8,22 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.TcFoxy.ArenaTOW.TugArena;
+import io.github.TcFoxy.ArenaTOW.TugExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena.AnnounceUpdateOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena.UpdateOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.ArenaMatch;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.APIRegistrationController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.OptionSetController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.DuelExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.EventExecutor;
@@ -46,8 +48,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.FileUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.KeyValue;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
-import mc.alk.arena.controllers.plugins.HeroesController;
-import mc.alk.arena.controllers.plugins.McMMOController;
+
 
 
 public class BAConfigSerializer extends BaseConfig{
@@ -65,9 +66,9 @@ public class BAConfigSerializer extends BaseConfig{
         parseDefaultOptions(config.getConfigurationSection("defaultOptions"),defaults);
         if (!Defaults.MONEY_SET)
             Defaults.MONEY_STR = config.getString("moneyName",Defaults.MONEY_STR);
-        UpdateOption o = UpdateOption.fromString(config.getString("autoUpdate", "none"));
+        //UpdateOption o = UpdateOption.fromString(config.getString("autoUpdate", "none"));
         //Defaults.AUTO_UPDATE =  o != null ? o : UpdateOption.NONE;
-        AnnounceUpdateOption ao = AnnounceUpdateOption.fromString(config.getString("announceUpdate", "none"));
+        //AnnounceUpdateOption ao = AnnounceUpdateOption.fromString(config.getString("announceUpdate", "none"));
         //Defaults.ANNOUNCE_UPDATE =  ao != null ? ao : AnnounceUpdateOption.NONE;
         Defaults.TELEPORT_Y_OFFSET = config.getDouble("teleportYOffset", Defaults.TELEPORT_Y_OFFSET);
         Defaults.TELEPORT_Y_VELOCITY = config.getDouble("teleportYVelocity", Defaults.TELEPORT_Y_VELOCITY);
@@ -111,6 +112,7 @@ public class BAConfigSerializer extends BaseConfig{
 
         /// Load all default types
         for (String comp : allTypes){
+        	Bukkit.broadcastMessage(comp + "has been initialized");
             /// For some reason this next line is almost directly in APIRegistration and works
             /// for extensions but not for BattleArena defaults.
             /// ONLY doesnt work in Windows... odd...
@@ -125,6 +127,10 @@ public class BAConfigSerializer extends BaseConfig{
                     new File(dir.getPath()+"/saves/arenas.yml"));
             exclude.add(capComp+"Config.yml");
         }
+        /*
+         * Added for ArenaTow
+         */
+        api.registerCompetition(BattleArena.getSelf(), "ArenaTow", "tow", TugArena.class, new TugExecutor());  
 
         /// These commands arent specified in the config, so manually add.
         ArenaType.addAliasForType("FreeForAll","ffa");
@@ -338,7 +344,7 @@ public class BAConfigSerializer extends BaseConfig{
 
     private void loadOtherFiles() {
         loadHeroes();
-        loadMcMMO();
+//        loadMcMMO();
     }
 
 
@@ -396,17 +402,17 @@ public class BAConfigSerializer extends BaseConfig{
         }
     }
 
-    private void loadMcMMO(){
-        if (McMMOController.enabled()){
-            /// Look for it in the old location first, config.yml
-            ConfigurationSection cs = loadOtherConfigSection(BattleArena.getSelf().getDataFolder() +
-                    "/otherPluginConfigs/McMMOConfig.yml");
-            if (cs == null)
-                return;
-            List<String> disabled = cs.getStringList("disabledSkills");
-            if (disabled != null && !disabled.isEmpty()) {
-                McMMOController.setDisabledSkills(disabled);
-            }
-        }
-    }
+//    private void loadMcMMO(){
+//        if (McMMOController.enabled()){
+//            /// Look for it in the old location first, config.yml
+//            ConfigurationSection cs = loadOtherConfigSection(BattleArena.getSelf().getDataFolder() +
+//                    "/otherPluginConfigs/McMMOConfig.yml");
+//            if (cs == null)
+//                return;
+//            List<String> disabled = cs.getStringList("disabledSkills");
+//            if (disabled != null && !disabled.isEmpty()) {
+//                McMMOController.setDisabledSkills(disabled);
+//            }
+//        }
+//    }
 }

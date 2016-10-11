@@ -1,19 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.Listeners;
 
-import io.github.TcFoxy.ArenaTOW.TugArena;
-import io.github.TcFoxy.ArenaTOW.Utils;
-import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyFireball;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.NMSConstants;
-
 import java.util.Collection;
-
-import mc.alk.arena.BattleArena;
-import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.objects.teams.ArenaTeam;
-import net.minecraft.server.v1_10_R1.EntityFireball;
-import net.minecraft.server.v1_10_R1.EntityLiving;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -21,6 +8,7 @@ import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftFireball;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,6 +23,18 @@ import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import io.github.TcFoxy.ArenaTOW.TugArena;
+import io.github.TcFoxy.ArenaTOW.Utils;
+import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
+import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyFireball;
+import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.NMSConstants;
+import net.minecraft.server.v1_10_R1.EntityFireball;
+import net.minecraft.server.v1_10_R1.EntityLiving;
 
 public class TugListener implements Listener{
 	
@@ -71,22 +71,22 @@ public class TugListener implements Listener{
 				String entityclass = el.getClass().getName();
 				switch(entityclass){
 				case NMSConstants.MyRedZombie:
-					if(teamname.equals(Utils.toSimpleColorString(Color.RED))) event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
 					break;
 				case NMSConstants.MyRedGolem:
-					if(teamname.equals(Utils.toSimpleColorString(Color.RED))) event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
 					break;
 				case NMSConstants.MyRedGuardian:
-					if(teamname.equals(Utils.toSimpleColorString(Color.RED))) event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
 					break;
 				case NMSConstants.MyBlueZombie:
-					if(teamname.equals(Utils.toSimpleColorString(Color.BLUE))) event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
 					break;
 				case NMSConstants.MyBlueGolem:
-					if(teamname.equals(Utils.toSimpleColorString(Color.BLUE))) event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
 					break;
 				case NMSConstants.MyBlueGuardian:
-					if(teamname.equals(Utils.toSimpleColorString(Color.BLUE))) event.setCancelled(true);
+					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
 					break;
 				default:
 					return;
@@ -210,15 +210,16 @@ public class TugListener implements Listener{
 	 */
 	@EventHandler
 	private void nexusDeath(EntityDeathEvent event){
-		
+		if(event.getEntityType() != EntityType.GUARDIAN)
+			return;
 		for(PersistInfo b : tug.activeInfo.values()){
-			if(b.getMob() != null &&
-					((EntityLiving) b.getMob()).getHealth() == 0){
-				
+			if(b.hasMob() && ((EntityLiving) b.getMob()).getHealth() == 0){
 				if(b.getMob().getClass().getName() == NMSConstants.MyBlueGuardian){
 					tug.arena.getMatch().setVictor(tug.redTeam);
+					return;
 				}else if (b.getMob().getClass().getName() == NMSConstants.MyRedGuardian){
 					tug.arena.getMatch().setVictor(tug.blueTeam);
+					return;
 				}
 			}
 		}

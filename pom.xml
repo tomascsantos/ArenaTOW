@@ -12,11 +12,41 @@
 			<resource>
 				<targetPath>.</targetPath>
 				<filtering>true</filtering>
-				<directory>${basedir}/src/main/resources</directory>
+				<directory>${basedir}</directory>
 				<includes>
-					<include>plugin.yml</include>
 					<include>ArenaTowConfig.yml</include>
 				</includes>
+			</resource>
+				<resource>
+				<targetPath>.</targetPath>
+				<filtering>true</filtering>
+				<directory>${basedir}/default_files/main</directory>
+				<includes>
+					<include>plugin.yml</include>
+					<include>config.yml</include>
+				</includes>
+			</resource>
+ 			<resource>
+				<targetPath>.</targetPath>
+				<filtering>true</filtering>
+				<directory>${basedir}</directory>
+				<includes>
+					<include>default_files/*</include>
+					<include>default_files/main/*</include>
+					<include>default_files/competitions</include>
+					<include>default_files/competitions/*</include>
+					<include>default_files/otherPluginConfigs</include>
+					<include>default_files/otherPluginConfigs/*</include>
+					<include>default_files/victoryConditions</include>
+					<include>default_files/victoryConditions/*</include>
+				</includes>
+			</resource>
+			<!-- Exclude JUnit test directory -->
+			<resource>
+				<directory>src/tests</directory>
+				<excludes>
+					<exclude>**/*</exclude>
+				</excludes>
 			</resource>
 		</resources>
 		<plugins>
@@ -60,13 +90,9 @@
 			<artifactId>worldguard</artifactId>
 			<version>6.1</version>
 		</dependency>
-		<dependency>
-			<groupId>mc.alk</groupId>
-			<artifactId>BattleArena</artifactId>
-			<version>3.9.7.9</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/BattleArena.jar</systemPath>
-		</dependency>
+		<!-- <dependency> <groupId>mc.alk</groupId> <artifactId>BattleArena</artifactId> 
+			<version>3.9.7.9</version> <scope>system</scope> <systemPath>${project.basedir}/lib/BattleArena.jar</systemPath> 
+			</dependency> -->
 		<dependency>
 			<groupId>net.milkbowl.vault</groupId>
 			<artifactId>VaultAPI</artifactId>

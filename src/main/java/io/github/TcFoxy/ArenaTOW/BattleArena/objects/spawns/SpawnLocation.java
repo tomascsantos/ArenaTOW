@@ -1,7 +1,8 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns;
 
-import mc.alk.arena.objects.YamlSerializable;
 import org.bukkit.Location;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.YamlSerializable;
 
 /**
  * @author alkarin

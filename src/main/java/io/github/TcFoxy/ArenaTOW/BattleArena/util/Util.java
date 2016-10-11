@@ -8,7 +8,7 @@ import org.bukkit.Location;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
-import mc.alk.arena.version.Version;
+import io.github.TcFoxy.ArenaTOW.updater.Version;
 
 public class Util {
 

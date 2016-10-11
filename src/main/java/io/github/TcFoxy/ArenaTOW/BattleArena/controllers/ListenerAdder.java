@@ -19,8 +19,8 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.WorldGuardRegion;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ScoreboardFactory;
-import mc.alk.arena.objects.regions.ArenaRegion;
 
 
 
@@ -51,7 +51,7 @@ public class ListenerAdder {
 //        if (McMMOController.enabled() && McMMOController.hasDisabledSkills()){
 //            holder.addArenaListener(McMMOController.createNewListener());}
         if (tops.hasAnyOption(TransitionOption.WGNOLEAVE)) {
-            ArenaRegion region = null;
+            WorldGuardRegion region = null;
             if (holder instanceof Match) {
                 region = ((Match) holder).getArena().getWorldGuardRegion();
             } else if (holder instanceof Arena) {

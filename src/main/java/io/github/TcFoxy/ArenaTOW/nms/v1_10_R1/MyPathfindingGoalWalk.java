@@ -2,11 +2,11 @@ package io.github.TcFoxy.ArenaTOW.nms.v1_10_R1;
 
 import javax.annotation.Nullable;
 
+import org.bukkit.Location;
+
 import net.minecraft.server.v1_10_R1.EntityCreature;
 import net.minecraft.server.v1_10_R1.PathfinderGoal;
 import net.minecraft.server.v1_10_R1.Vec3D;
-
-import org.bukkit.Location;
 
 public class MyPathfindingGoalWalk extends PathfinderGoal
 {

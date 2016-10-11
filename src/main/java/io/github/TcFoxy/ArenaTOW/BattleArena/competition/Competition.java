@@ -133,8 +133,7 @@ public abstract class Competition implements JoinResponseHandler, PlayerHolder, 
 			addArenaListener(tl);}
 	}
 
-    protected void performTransition(MatchState state, ArenaPlayer player,
-                                     ArenaTeam team, boolean onlyInMatch){
+    protected void performTransition(MatchState state, ArenaPlayer player, ArenaTeam team, boolean onlyInMatch){
         TransitionController.transition(this, state, player, team, onlyInMatch);
     }
 

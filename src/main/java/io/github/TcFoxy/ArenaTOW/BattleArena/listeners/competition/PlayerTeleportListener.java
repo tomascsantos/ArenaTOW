@@ -9,7 +9,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
-import mc.alk.arena.util.MessageUtil;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 
 public class PlayerTeleportListener implements ArenaListener{
     final PlayerHolder holder;

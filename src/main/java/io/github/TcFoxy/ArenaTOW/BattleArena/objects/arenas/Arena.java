@@ -29,14 +29,14 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.StateGraph;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.JoinOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.WorldGuardRegion;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.TimedSpawn;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.Persist;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Util;
-import mc.alk.arena.objects.regions.PylamoRegion;
-import mc.alk.arena.objects.regions.WorldGuardRegion;
+
 
 
 
@@ -60,8 +60,8 @@ public class Arena extends AreaContainer {
     @Persist
     protected WorldGuardRegion wgRegion;
 
-    @Persist
-    protected PylamoRegion pylamoRegion;
+//    @Persist
+//    protected PylamoRegion pylamoRegion;
 
     /**
      * Arena constructor
@@ -719,13 +719,13 @@ public class Arena extends AreaContainer {
         return spawnController;
     }
 
-    public void setPylamoRegion(PylamoRegion region) {
-        this.pylamoRegion = region;
-    }
-
-    public PylamoRegion getPylamoRegion() {
-        return pylamoRegion;
-    }
+//    public void setPylamoRegion(PylamoRegion region) {
+//        this.pylamoRegion = region;
+//    }
+//
+//    public PylamoRegion getPylamoRegion() {
+//        return pylamoRegion;
+//    }
 
     public void setWaitRoom(RoomContainer waitroom) {
         this.waitroom = waitroom;

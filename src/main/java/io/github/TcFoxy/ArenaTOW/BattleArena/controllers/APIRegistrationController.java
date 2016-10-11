@@ -38,8 +38,8 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ConfigSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.MessageSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.FileUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
-import mc.alk.mc.updater.FileUpdater;
-import mc.alk.mc.updater.PluginUpdater;
+import io.github.TcFoxy.ArenaTOW.updater.FileUpdater;
+import io.github.TcFoxy.ArenaTOW.updater.PluginUpdater;
 
 
 
@@ -109,32 +109,57 @@ public class APIRegistrationController {
     }
 
     public boolean registerCompetition(JavaPlugin plugin, String name, String cmd, Class<? extends Arena> arenaClass) {
-        return registerCompetition(plugin,name,cmd, arenaClass,null);
+    	return registerCompetition(plugin,name,cmd, arenaClass,null);
     }
 
     public boolean registerCompetition(JavaPlugin plugin, String name, String cmd,
-                                       Class<? extends Arena> arenaClass, CustomCommandExecutor executor) {
-        File dir = plugin.getDataFolder();
-        File configFile = new File(dir.getAbsoluteFile()+"/"+name+"Config.yml");
-        File msgFile = new File(dir.getAbsoluteFile()+"/"+name+"Messages.yml");
-        File defaultArenaFile = new File(dir.getAbsoluteFile()+"/arenas.yml");
-        return registerCompetition(plugin, name, cmd, arenaClass, executor,
-                configFile, msgFile, defaultArenaFile);
+    		Class<? extends Arena> arenaClass, CustomCommandExecutor executor) {
+    	File dir = plugin.getDataFolder();
+    	File configFile = new File(dir.getAbsoluteFile()+"/"+name+"Config.yml");
+    	File msgFile = new File(dir.getAbsoluteFile()+"/"+name+"Messages.yml");
+    	File defaultArenaFile = new File(dir.getAbsoluteFile()+"/arenas.yml");
+    	return registerCompetition(plugin, name, cmd, arenaClass, executor,
+    			configFile, msgFile, defaultArenaFile);
+    }
+    
+    /*
+     * My version of above
+     */
+
+    public boolean registerTowCompetition(JavaPlugin plugin, String name, String cmd,
+    		Class<? extends Arena> arenaClass, CustomCommandExecutor executor) {
+    	File dir = plugin.getDataFolder();
+    	File configFile = new File(dir.getAbsoluteFile()+"/competitions/"+name+"Config.yml");
+    	File msgFile = new File(dir.getAbsoluteFile()+"/"+name+"Messages.yml");
+    	File defaultArenaFile = new File(dir.getAbsoluteFile()+"/arenas.yml");
+    	return registerTowCompetition(plugin, name, cmd, arenaClass, executor,
+    			configFile, msgFile, defaultArenaFile);
     }
 
     public boolean registerCompetition(JavaPlugin plugin, String name, String cmd,
-                                       Class<? extends Arena> arenaClass, CustomCommandExecutor executor,
-                                       File configFile, File messageFile,File defaultArenaFile) {
-        return registerCompetition(plugin, name, cmd, arenaClass, executor, configFile, messageFile,
-                new File(plugin.getDataFolder()+"/"+name+"Config.yml"),defaultArenaFile);
+    		Class<? extends Arena> arenaClass, CustomCommandExecutor executor,
+    		File configFile, File messageFile,File defaultArenaFile) {
+    	return registerCompetition(plugin, name, cmd, arenaClass, executor, configFile, messageFile,
+    			new File(plugin.getDataFolder()+"/"+name+"Config.yml"),defaultArenaFile);
+    }
+    
+    /*
+     * My version of above
+     */
+    
+    public boolean registerTowCompetition(JavaPlugin plugin, String name, String cmd,
+    		Class<? extends Arena> arenaClass, CustomCommandExecutor executor,
+    		File configFile, File messageFile,File defaultArenaFile) {
+    	return registerCompetition(plugin, name, cmd, arenaClass, executor, configFile, messageFile,
+    			new File(plugin.getDataFolder()+"/competitions/"+name+"Config.yml"),defaultArenaFile);
     }
 
     public boolean registerCompetition(JavaPlugin plugin, String name, String cmd,
-                                       Class<? extends Arena> arenaClass, CustomCommandExecutor executor,
-                                       File configFile, File messageFile, File defaultPluginConfigFile,File defaultArenaFile) {
-        try {
-            return _registerCompetition(plugin, name, cmd, arenaClass, executor,
-                    configFile, messageFile, defaultPluginConfigFile, defaultArenaFile);
+    		Class<? extends Arena> arenaClass, CustomCommandExecutor executor,
+    		File configFile, File messageFile, File defaultPluginConfigFile,File defaultArenaFile) {
+    	try {
+    		return _registerCompetition(plugin, name, cmd, arenaClass, executor,
+    				configFile, messageFile, defaultPluginConfigFile, defaultArenaFile);
         } catch (Exception e) {
             Log.err("[BattleArena] could not register " + plugin.getName() +" "+name);
             Log.err("[BattleArena] config " + configFile);
@@ -233,9 +258,9 @@ public class APIRegistrationController {
         /// Set our config
         rc.setConfigSerializer(config);
 
-        /// schedule stats
-        if (!CompetitionController.hasPlugin(plugin)){
-            BattleArena.getSelf().getBattlePluginsAPI().scheduleSendStats(plugin);}
+//        /// schedule stats
+//        if (!CompetitionController.hasPlugin(plugin)){
+//            BattleArena.getSelf().getBattlePluginsAPI().scheduleSendStats(plugin);}
 
         /// Add the competition
         CompetitionController.addRegisteredCompetition(rc);
