@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
-import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_10_R1.entity.CraftFireball;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftFireball;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -30,11 +30,11 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyFireball;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.NMSConstants;
-import net.minecraft.server.v1_10_R1.EntityFireball;
-import net.minecraft.server.v1_10_R1.EntityLiving;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyEntityGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyFireball;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSConstants;
+import net.minecraft.server.v1_11_R1.EntityFireball;
+import net.minecraft.server.v1_11_R1.EntityLiving;
 
 public class TugListener implements Listener{
 	
@@ -56,6 +56,7 @@ public class TugListener implements Listener{
 	@EventHandler
 	private void sameTeamTarget(EntityTargetEvent event){
 		if (event.getTarget() == null) return;		
+		
 		
 		if(event.getEntity().getClass().getName() == NMSConstants.spigotZombie ||
 				event.getEntity().getClass().getName() == NMSConstants.spigotGolem ||

@@ -35,7 +35,7 @@ import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo.BaseType;
 import io.github.TcFoxy.ArenaTOW.Serializable.Spawner;
 import io.github.TcFoxy.ArenaTOW.Serializable.Tower;
-import net.minecraft.server.v1_10_R1.EntityLiving;
+import net.minecraft.server.v1_11_R1.EntityLiving;
 
 
 public class TugArena extends Arena {
@@ -110,13 +110,7 @@ public class TugArena extends Arena {
 	 */
 	@Override
 	public void onJoin(ArenaPlayer player, ArenaTeam team){
-		/*
-		 * stop the match if not valid arena
-		 */
-		if(isValidArena()){
-			this.getMatch().cancelMatch();
-			player.sendMessage("Arena is not completely ready. Run /tow check [arenaName]");
-		}
+		
 
 	}
 
@@ -128,17 +122,18 @@ public class TugArena extends Arena {
 	@Override
 	public void onOpen() {
 		//teamLevel.resetTeams();
-
-		
 		
 		
 		/*
 		 * load the towers from
 		 * the persist annotation 
-		 * above.
+		 * above.  
+		 * THIS HAS TO HAPPEN FIRST TO INITIALIZE ALL PERSISTED STUFF!
 		 */
 		TugExecutor.initSaves(tug);
 
+
+		
 		// Must create new objects of all classes in onOpen method.
 		//minionFactory = new MinionFactory(minionFactorySpawners);
 		//PlayerE.resetdefaultStats();
@@ -168,6 +163,14 @@ public class TugArena extends Arena {
 		/*
 		 * Dont create new objects in this method!
 		 */
+		
+		/*
+		 * stop the match if not valid arena
+		 */
+		if(!isValidArena()){
+			this.getMatch().cancelMatch();
+			return;
+		}
 		
 		
 		/*
@@ -278,7 +281,7 @@ public class TugArena extends Arena {
 		if(activeInfo.isEmpty())
 			return;
 		for(PersistInfo base: activeInfo.values()){
-			if(base.hasMob())
+			if(base.getMob() != null)
 				((EntityLiving) base.getMob()).setHealth(0);
 		}
 	}
@@ -377,7 +380,7 @@ public class TugArena extends Arena {
 
 	@ArenaEventHandler
 	public void playerDeathEvent(PlayerDeathEvent event){
-
+		event.setDeathMessage("");//no deathmessages all over
 		/*
 		 * get the player and reset anything that
 		 * might be wrong since he died:
@@ -388,6 +391,7 @@ public class TugArena extends Arena {
 		Double maxhealth = p.getMaxHealth();
 		p.setMaxHealth(20);
 		p.setHealth(20);
+		p.setInvulnerable(true);
 		/*
 		 * delayed task for fire ticks because they last a little time.
 		 */
@@ -444,7 +448,7 @@ public class TugArena extends Arena {
 			@Override
 			public void run() {
 
-				Utils.sendTitle(p, 8, 20, 8, "&5You Have FALLEN!", (respawntime-time) + " seconds left!");
+				Utils.sendTitle(p, 0, 21, 0, "&5You Have FALLEN!", (respawntime-time) + " seconds left!");
 				time++;
 			}		
 		}, 0*Utils.TPS, 1*Utils.TPS);
@@ -463,8 +467,9 @@ public class TugArena extends Arena {
 				if(ap.getTeam() == null)return;//in case the game ends it wont throw a NPException
 				SpawnLocation spawnloc = tug.getSpawn(ap.getTeam().getIndex(), false);
 				p.teleport(spawnloc.getLocation());
-				p.getInventory().setItem(8, new ItemStack(Material.NETHER_STAR, 1));
+				//p.getInventory().setItem(8, new ItemStack(Material.NETHER_STAR, 1));
 				Bukkit.getScheduler().cancelTask(deathtimer);
+				p.setInvulnerable(false);
 			}
 
 		}, respawntime*Utils.TPS);
@@ -659,14 +664,27 @@ public class TugArena extends Arena {
 	
 	public boolean isValidArena(){
 		HashMap<String, aValid> ObjectsReady = preVerify();
+		
 		/*
-		 * loop through every vlud until one is false
-		 * if all are true then return true
+		 * first loop through just for the message
 		 */
 		for(aValid valid : ObjectsReady.values()){
-			if(!(valid.red || valid.blue))
-				Bukkit.broadcastMessage(valid.deets + "color red:" + valid.red + " color blue: " + valid.blue);
+			if(!valid.blue){
+				Bukkit.broadcastMessage(valid.getDeets(Color.BLUE) + componentReady(valid.blue));
+			}
+			if(!valid.red){
+				Bukkit.broadcastMessage(valid.getDeets(Color.RED) + componentReady(valid.red));
+			}
+		}
+		
+		/*
+		 * then loop through for the final result
+		 */
+		for(aValid valid : ObjectsReady.values()){
+			if(!valid.blue || !valid.red){
+				Bukkit.broadcastMessage(ChatColor.DARK_RED + "The arena is not complete. Add the missing components to start successfully. \n Use /tow check [arena name]");
 				return false;
+			}
 		}
 		return true;
 	}

@@ -17,7 +17,7 @@
 					<include>ArenaTowConfig.yml</include>
 				</includes>
 			</resource>
-				<resource>
+			<resource>
 				<targetPath>.</targetPath>
 				<filtering>true</filtering>
 				<directory>${basedir}/default_files/main</directory>
@@ -26,7 +26,7 @@
 					<include>config.yml</include>
 				</includes>
 			</resource>
- 			<resource>
+			<resource>
 				<targetPath>.</targetPath>
 				<filtering>true</filtering>
 				<directory>${basedir}</directory>
@@ -67,7 +67,7 @@
 		</repository>
 		<repository>
 			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
 		<repository>
 			<id>sk89q-repo</id>
@@ -80,31 +80,32 @@
 		</repository>
 	</repositories>
 	<dependencies>
+		<!-- Spigot API -->
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.10.2-R0.1-SNAPSHOT</version>
+			<version>1.11-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
+		<!-- Craftbukkit -->
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>craftbukkit</artifactId>
+			<version>1.11-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- World Guard -->
 		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>worldguard</artifactId>
 			<version>6.1</version>
 		</dependency>
-		<!-- <dependency> <groupId>mc.alk</groupId> <artifactId>BattleArena</artifactId> 
-			<version>3.9.7.9</version> <scope>system</scope> <systemPath>${project.basedir}/lib/BattleArena.jar</systemPath> 
-			</dependency> -->
+		<!-- Vault -->
 		<dependency>
 			<groupId>net.milkbowl.vault</groupId>
 			<artifactId>VaultAPI</artifactId>
 			<version>1.6</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.minecraft</groupId>
-			<artifactId>minecraft</artifactId>
-			<version>1.8</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/craftbukkit-1.10.2.jar</systemPath>
 		</dependency>
 		<!-- Stuff For BattleArena that I'll probably remove -->
 		<dependency>

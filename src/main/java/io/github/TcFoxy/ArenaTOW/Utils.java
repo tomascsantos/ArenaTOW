@@ -11,18 +11,19 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.util.Vector;
 
-import net.minecraft.server.v1_10_R1.IChatBaseComponent;
-import net.minecraft.server.v1_10_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_10_R1.PacketPlayOutPlayerListHeaderFooter;
-import net.minecraft.server.v1_10_R1.PacketPlayOutTitle;
-import net.minecraft.server.v1_10_R1.PacketPlayOutTitle.EnumTitleAction;
-import net.minecraft.server.v1_10_R1.PlayerConnection;
+import net.minecraft.server.v1_11_R1.IChatBaseComponent;
+import net.minecraft.server.v1_11_R1.IChatBaseComponent.ChatSerializer;
+import net.minecraft.server.v1_11_R1.PacketPlayOutPlayerListHeaderFooter;
+import net.minecraft.server.v1_11_R1.PacketPlayOutTitle;
+import net.minecraft.server.v1_11_R1.PathfinderGoalSelector;
+import net.minecraft.server.v1_11_R1.PacketPlayOutTitle.EnumTitleAction;
+import net.minecraft.server.v1_11_R1.PlayerConnection;
 
 public class Utils {
 	//Minecraft Ticks Per Second
@@ -68,6 +69,29 @@ public class Utils {
 	    }
 	 
 	    return b;
+	}
+	
+	/*
+	 * For nms fields:
+	 */
+	public static Object getPrivateField(String fieldName, Class<PathfinderGoalSelector> clazz, Object object){
+		Field field;
+		Object o = null;
+		try {
+			field = clazz.getDeclaredField(fieldName);
+
+			field.setAccessible(true);
+
+			o = field.get(object);
+		}
+		catch(NoSuchFieldException e){
+			e.printStackTrace();
+		}
+		catch(IllegalAccessException e){
+			e.printStackTrace();
+		}
+
+		return o;
 	}
 	
 	public static void sendTitle(Player player, Integer fadeIn, Integer stay, Integer fadeOut, String title, String subtitle) {

@@ -1,0 +1,397 @@
+[12:38:39] [Server thread/INFO]: Starting minecraft server version 1.11
+[12:38:39] [Server thread/INFO]: Loading properties
+[12:38:39] [Server thread/INFO]: Default game type: SURVIVAL
+[12:38:39] [Server thread/INFO]: This server is running CraftBukkit version git-Spigot-16c940b-eed13ca (MC: 1.11) (Implementing API version 1.11-R0.1-SNAPSHOT)
+[12:38:39] [Server thread/INFO]: Debug logging is disabled
+[12:38:39] [Server thread/INFO]: Server Ping Player Sample Count: 12
+[12:38:39] [Server thread/INFO]: Using 4 threads for Netty based IO
+[12:38:39] [Server thread/INFO]: Generating keypair
+[12:38:39] [Server thread/INFO]: Starting Minecraft server on *:25565
+[12:38:39] [Server thread/INFO]: Using default channel type
+[12:38:40] [Server thread/INFO]: Set PluginClassLoader as parallel capable
+[12:38:40] [Server thread/INFO]: [ArenaTugOfWar] Loading ArenaTugOfWar v0.0.1-SNAPSHOT
+[12:38:40] [Server thread/INFO]: **** Beginning UUID conversion, this may take A LONG time ****
+[12:38:40] [Server thread/INFO]: Preparing level "world"
+[12:38:40] [Server thread/INFO]: -------- World Settings For [world] --------
+[12:38:40] [Server thread/INFO]: Arrow Despawn Rate: 1200
+[12:38:40] [Server thread/INFO]: Item Despawn Rate: 6000
+[12:38:40] [Server thread/INFO]: Item Merge Radius: 2.5
+[12:38:40] [Server thread/INFO]: Experience Merge Radius: 3.0
+[12:38:40] [Server thread/INFO]: Cactus Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Cane Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Melon Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Mushroom Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Sapling Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Wheat Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: NetherWart Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Vine Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Cocoa Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Structure Info Saving: true
+[12:38:40] [Server thread/INFO]: Mob Spawn Range: 4
+[12:38:40] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Mi 16
+[12:38:40] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 8 Hopper Amount: 1
+[12:38:40] [Server thread/INFO]: Random Lighting Updates: false
+[12:38:40] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
+[12:38:40] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
+[12:38:40] [Server thread/INFO]: Max TNT Explosions: 100
+[12:38:40] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Feature: 14357617
+[12:38:40] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
+[12:38:40] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
+[12:38:40] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
+[12:38:40] [Server thread/INFO]: View Distance: 10
+[12:38:40] [Server thread/INFO]: -------- World Settings For [world_nether] --------
+[12:38:40] [Server thread/INFO]: Arrow Despawn Rate: 1200
+[12:38:40] [Server thread/INFO]: Item Despawn Rate: 6000
+[12:38:40] [Server thread/INFO]: Item Merge Radius: 2.5
+[12:38:40] [Server thread/INFO]: Experience Merge Radius: 3.0
+[12:38:40] [Server thread/INFO]: Cactus Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Cane Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Melon Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Mushroom Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Sapling Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Wheat Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: NetherWart Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Vine Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Cocoa Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Structure Info Saving: true
+[12:38:40] [Server thread/INFO]: Mob Spawn Range: 4
+[12:38:40] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Mi 16
+[12:38:40] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 8 Hopper Amount: 1
+[12:38:40] [Server thread/INFO]: Random Lighting Updates: false
+[12:38:40] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
+[12:38:40] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
+[12:38:40] [Server thread/INFO]: Max TNT Explosions: 100
+[12:38:40] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Feature: 14357617
+[12:38:40] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
+[12:38:40] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
+[12:38:40] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
+[12:38:40] [Server thread/INFO]: View Distance: 10
+[12:38:40] [Server thread/INFO]: -------- World Settings For [world_the_end] --------
+[12:38:40] [Server thread/INFO]: Arrow Despawn Rate: 1200
+[12:38:40] [Server thread/INFO]: Item Despawn Rate: 6000
+[12:38:40] [Server thread/INFO]: Item Merge Radius: 2.5
+[12:38:40] [Server thread/INFO]: Experience Merge Radius: 3.0
+[12:38:40] [Server thread/INFO]: Cactus Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Cane Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Melon Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Mushroom Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Pumpkin Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Sapling Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Wheat Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: NetherWart Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Vine Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Cocoa Growth Modifier: 100%
+[12:38:40] [Server thread/INFO]: Structure Info Saving: true
+[12:38:40] [Server thread/INFO]: Mob Spawn Range: 4
+[12:38:40] [Server thread/INFO]: Entity Activation Range: An 32 / Mo 32 / Mi 16
+[12:38:40] [Server thread/INFO]: Hopper Transfer: 8 Hopper Check: 8 Hopper Amount: 1
+[12:38:40] [Server thread/INFO]: Random Lighting Updates: false
+[12:38:40] [Server thread/INFO]: Tile Max Tick Time: 50ms Entity max Tick Time: 50ms
+[12:38:40] [Server thread/INFO]: Entity Tracking Range: Pl 48 / An 48 / Mo 48 / Mi 32 / Other 64
+[12:38:40] [Server thread/INFO]: Max TNT Explosions: 100
+[12:38:40] [Server thread/INFO]: Custom Map Seeds:  Village: 10387312 Feature: 14357617
+[12:38:40] [Server thread/INFO]: Nerfing mobs spawned from spawners: false
+[12:38:40] [Server thread/INFO]: Zombie Aggressive Towards Villager: true
+[12:38:40] [Server thread/INFO]: Allow Zombie Pigmen to spawn from portal blocks: true
+[12:38:40] [Server thread/INFO]: View Distance: 10
+[12:38:40] [Server thread/INFO]: Preparing start region for level 0 (Seed: 1413978666937103110)
+[12:38:41] [Server thread/INFO]: Preparing spawn area: 80%
+[12:38:41] [Server thread/INFO]: Preparing start region for level 1 (Seed: 6854498536247808680)
+[12:38:41] [Server thread/INFO]: Preparing start region for level 2 (Seed: 6854498536247808680)
+[12:38:42] [Server thread/INFO]: [ArenaTugOfWar] Enabling ArenaTugOfWar v0.0.1-SNAPSHOT
+[12:38:42] [Server thread/INFO]: [ArenaTugOfWar] v0.0.1-SNAPSHOT enabling!
+[12:38:42] [Server thread/INFO]: [BattleArena] BattleTracker not detected, not tracking wins
+[12:38:42] [Server thread/INFO]: [BA Error] ignoring duel option money as there is no economy!
+[12:38:42] [Server thread/INFO]: [BattleArena] no additional Arena modules
+[12:38:42] [Server thread/INFO]: [ArenaTugOfWar] registering classes: gladiator, archer, monk
+[12:38:42] [Server thread/INFO]: [ArenaTugOfWar] v0.0.1-SNAPSHOT enabled!
+[12:38:42] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
+[12:38:42] [Server thread/INFO]: Done (2.377s)! For help, type "help" or "?"
+[12:38:42] [Server thread/INFO]: Skirmishhas been initialized
+[12:38:42] [Server thread/INFO]: Duelhas been initialized
+[12:38:42] [Server thread/INFO]: DeathMatchhas been initialized
+[12:38:42] [Server thread/INFO]: FreeForAllhas been initialized
+[12:38:42] [Server thread/INFO]: Arenahas been initialized
+[12:38:42] [Server thread/INFO]: Colosseumhas been initialized
+[12:38:42] [Server thread/INFO]: Battlegroundhas been initialized
+[12:38:42] [Server thread/INFO]: [ArenaTugOfWar] Loaded ArenaTow arenas: test
+[12:39:29] [User Authenticator #1/INFO]: UUID of player TcFox is 6cc0e263-6b1d-406c-8adb-6990bb2878e2
+[12:39:29] [Server thread/INFO]: TcFox[/127.0.0.1:65010] logged in with entity id 249 at ([world]-183.04276811999188, 90.0, 275.18700036205007)
+[12:39:37] [Server thread/INFO]: TcFox issued server command: /tow join test
+[12:39:42] [Server thread/INFO]: TcFox issued server command: /tow forcestart
+[12:39:42] [Server thread/INFO]: [Tug Of War] TcFox[1250] is entering the test!
+[12:39:42] [Server thread/WARN]: TcFox moved wrongly!
+[12:39:51] [Server thread/WARN]: java.lang.ClassCastException: java.lang.Float cannot be cast to net.minecraft.server.v1_11_R1.DataWatcherObject
+[12:39:51] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.getFieldB(MyEntityGuardian.java:67)
+[12:39:51] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.b(MyEntityGuardian.java:86)
+[12:39:51] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.access$0(MyEntityGuardian.java:83)
+[12:39:51] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian$PathfinderGoalGuardianAttack.e(MyEntityGuardian.java:144)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PathfinderGoalSelector.a(SourceFile:129)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.doTick(EntityInsentient.java:656)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.n(EntityLiving.java:2033)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.n(EntityInsentient.java:501)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.n(EntityMonster.java:24)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityGuardian.n(SourceFile:286)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.A_(EntityLiving.java:1889)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.A_(EntityInsentient.java:244)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.A_(EntityMonster.java:28)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.entityJoinedWorld(World.java:1652)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.g(World.java:1627)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.tickEntities(World.java:1453)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.WorldServer.tickEntities(WorldServer.java:635)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:806)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:51] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:51] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:39:52] [Server thread/WARN]: java.lang.ClassCastException: java.lang.Float cannot be cast to net.minecraft.server.v1_11_R1.DataWatcherObject
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.getFieldB(MyEntityGuardian.java:67)
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.b(MyEntityGuardian.java:86)
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.access$0(MyEntityGuardian.java:83)
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian$PathfinderGoalGuardianAttack.d(MyEntityGuardian.java:128)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PathfinderGoalSelector.a(SourceFile:88)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.doTick(EntityInsentient.java:656)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.n(EntityLiving.java:2033)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.n(EntityInsentient.java:501)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.n(EntityMonster.java:24)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityGuardian.n(SourceFile:286)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.A_(EntityLiving.java:1889)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.A_(EntityInsentient.java:244)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.A_(EntityMonster.java:28)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.entityJoinedWorld(World.java:1652)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.g(World.java:1627)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.tickEntities(World.java:1453)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.WorldServer.tickEntities(WorldServer.java:635)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:806)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:52] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:39:52] [Server thread/WARN]: java.lang.ClassCastException: java.lang.Float cannot be cast to net.minecraft.server.v1_11_R1.DataWatcherObject
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.getFieldB(MyEntityGuardian.java:67)
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.b(MyEntityGuardian.java:86)
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.access$0(MyEntityGuardian.java:83)
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian$PathfinderGoalGuardianAttack.e(MyEntityGuardian.java:144)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PathfinderGoalSelector.a(SourceFile:129)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.doTick(EntityInsentient.java:656)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.n(EntityLiving.java:2033)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.n(EntityInsentient.java:501)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.n(EntityMonster.java:24)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityGuardian.n(SourceFile:286)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.A_(EntityLiving.java:1889)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.A_(EntityInsentient.java:244)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.A_(EntityMonster.java:28)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.entityJoinedWorld(World.java:1652)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.g(World.java:1627)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.tickEntities(World.java:1453)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.WorldServer.tickEntities(WorldServer.java:635)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:806)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:52] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:39:52] [Server thread/WARN]: java.lang.ClassCastException: java.lang.Float cannot be cast to net.minecraft.server.v1_11_R1.DataWatcherObject
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.getFieldB(MyEntityGuardian.java:67)
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.b(MyEntityGuardian.java:86)
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.access$0(MyEntityGuardian.java:83)
+[12:39:52] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian$PathfinderGoalGuardianAttack.d(MyEntityGuardian.java:128)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PathfinderGoalSelector.a(SourceFile:113)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.doTick(EntityInsentient.java:656)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.n(EntityLiving.java:2033)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.n(EntityInsentient.java:501)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.n(EntityMonster.java:24)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityGuardian.n(SourceFile:286)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.A_(EntityLiving.java:1889)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.A_(EntityInsentient.java:244)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.A_(EntityMonster.java:28)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.entityJoinedWorld(World.java:1652)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.g(World.java:1627)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.tickEntities(World.java:1453)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.WorldServer.tickEntities(WorldServer.java:635)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:806)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:52] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:52] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:39:53] [Server thread/INFO]: [[ArenaTugOfWar_v0.0.1-SNAPSHOT] Error] method=public void io.github.TcFoxy.ArenaTOW.TugArena.playerDeathEvent(org.bukkit.event.entity.PlayerDeathEvent),  types.length=1,  p=CraftPlayer{name=TcFox},  listener=[TugArena : [MEM playerDeathEvent, PlayerDeathEvent p=HIGHEST onEnter:onLeave   playerMethod=public org.bukkit.entity.Player org.bukkit.event.entity.PlayerDeathEvent.getEntity()]]
+[12:39:53] [Server thread/WARN]: java.lang.reflect.InvocationTargetException
+[12:39:53] [Server thread/WARN]: 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[12:39:53] [Server thread/WARN]: 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+[12:39:53] [Server thread/WARN]: 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+[12:39:53] [Server thread/WARN]: 	at java.lang.reflect.Method.invoke(Method.java:498)
+[12:39:53] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.SpecificPlayerEventListener.doMethods(SpecificPlayerEventListener.java:172)
+[12:39:53] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.SpecificPlayerEventListener.invokeEvent(SpecificPlayerEventListener.java:162)
+[12:39:53] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.BattleArena.listeners.Custom.BaseEventListener$3.execute(BaseEventListener.java:108)
+[12:39:53] [Server thread/WARN]: 	at org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:62)
+[12:39:53] [Server thread/WARN]: 	at org.bukkit.plugin.SimplePluginManager.fireEvent(SimplePluginManager.java:502)
+[12:39:53] [Server thread/WARN]: 	at org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:487)
+[12:39:53] [Server thread/WARN]: 	at org.bukkit.craftbukkit.v1_11_R1.event.CraftEventFactory.callPlayerDeathEvent(CraftEventFactory.java:409)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityPlayer.die(EntityPlayer.java:399)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.damageEntity(EntityLiving.java:932)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityHuman.damageEntity(EntityHuman.java:782)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityPlayer.damageEntity(EntityPlayer.java:484)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.e(EntityLiving.java:1170)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityHuman.e(EntityHuman.java:1522)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.Block.fallOn(Block.java:518)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.Entity.a(Entity.java:916)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.a(EntityLiving.java:188)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityPlayer.a(EntityPlayer.java:642)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PlayerConnection.a(PlayerConnection.java:641)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PacketPlayInFlying.a(SourceFile:126)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PacketPlayInFlying$PacketPlayInPosition.a(SourceFile:57)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PlayerConnectionUtils$1.run(SourceFile:13)
+[12:39:53] [Server thread/WARN]: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+[12:39:53] [Server thread/WARN]: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.SystemUtils.a(SourceFile:46)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:739)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:53] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:53] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:39:53] [Server thread/WARN]: Caused by: java.lang.NullPointerException
+[12:39:53] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.TugArena.playerDeathEvent(TugArena.java:425)
+[12:39:53] [Server thread/WARN]: 	... 33 more
+[12:39:53] [Server thread/INFO]: TcFox fell from a high place
+[12:39:54] [Server thread/WARN]: java.lang.ClassCastException: java.lang.Float cannot be cast to net.minecraft.server.v1_11_R1.DataWatcherObject
+[12:39:54] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.getFieldB(MyEntityGuardian.java:67)
+[12:39:54] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.b(MyEntityGuardian.java:86)
+[12:39:54] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.access$0(MyEntityGuardian.java:83)
+[12:39:54] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian$PathfinderGoalGuardianAttack.e(MyEntityGuardian.java:144)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PathfinderGoalSelector.a(SourceFile:129)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.doTick(EntityInsentient.java:656)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.n(EntityLiving.java:2033)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.n(EntityInsentient.java:501)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.n(EntityMonster.java:24)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityGuardian.n(SourceFile:286)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.A_(EntityLiving.java:1889)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.A_(EntityInsentient.java:244)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.A_(EntityMonster.java:28)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.entityJoinedWorld(World.java:1652)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.g(World.java:1627)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.tickEntities(World.java:1453)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.WorldServer.tickEntities(WorldServer.java:635)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:806)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:54] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:54] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:39:55] [Server thread/WARN]: java.lang.ClassCastException: java.lang.Float cannot be cast to net.minecraft.server.v1_11_R1.DataWatcherObject
+[12:39:55] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.getFieldB(MyEntityGuardian.java:67)
+[12:39:55] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.b(MyEntityGuardian.java:86)
+[12:39:55] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.access$0(MyEntityGuardian.java:83)
+[12:39:55] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian$PathfinderGoalGuardianAttack.d(MyEntityGuardian.java:128)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PathfinderGoalSelector.a(SourceFile:88)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.doTick(EntityInsentient.java:656)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.n(EntityLiving.java:2033)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.n(EntityInsentient.java:501)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.n(EntityMonster.java:24)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityGuardian.n(SourceFile:286)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.A_(EntityLiving.java:1889)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.A_(EntityInsentient.java:244)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.A_(EntityMonster.java:28)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.entityJoinedWorld(World.java:1652)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.g(World.java:1627)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.tickEntities(World.java:1453)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.WorldServer.tickEntities(WorldServer.java:635)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:806)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:55] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:39:55] [Server thread/WARN]: java.lang.ClassCastException: java.lang.Float cannot be cast to net.minecraft.server.v1_11_R1.DataWatcherObject
+[12:39:55] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.getFieldB(MyEntityGuardian.java:67)
+[12:39:55] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.b(MyEntityGuardian.java:86)
+[12:39:55] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.access$0(MyEntityGuardian.java:83)
+[12:39:55] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian$PathfinderGoalGuardianAttack.d(MyEntityGuardian.java:128)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PathfinderGoalSelector.a(SourceFile:113)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.doTick(EntityInsentient.java:656)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.n(EntityLiving.java:2033)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.n(EntityInsentient.java:501)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.n(EntityMonster.java:24)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityGuardian.n(SourceFile:286)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.A_(EntityLiving.java:1889)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.A_(EntityInsentient.java:244)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.A_(EntityMonster.java:28)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.entityJoinedWorld(World.java:1652)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.g(World.java:1627)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.tickEntities(World.java:1453)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.WorldServer.tickEntities(WorldServer.java:635)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:806)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:55] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:55] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:39:57] [Server thread/WARN]: java.lang.ClassCastException: java.lang.Float cannot be cast to net.minecraft.server.v1_11_R1.DataWatcherObject
+[12:39:57] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.getFieldB(MyEntityGuardian.java:67)
+[12:39:57] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.b(MyEntityGuardian.java:86)
+[12:39:57] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.access$0(MyEntityGuardian.java:83)
+[12:39:57] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian$PathfinderGoalGuardianAttack.d(MyEntityGuardian.java:128)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PathfinderGoalSelector.a(SourceFile:88)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.doTick(EntityInsentient.java:656)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.n(EntityLiving.java:2033)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.n(EntityInsentient.java:501)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.n(EntityMonster.java:24)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityGuardian.n(SourceFile:286)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.A_(EntityLiving.java:1889)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.A_(EntityInsentient.java:244)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.A_(EntityMonster.java:28)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.entityJoinedWorld(World.java:1652)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.g(World.java:1627)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.tickEntities(World.java:1453)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.WorldServer.tickEntities(WorldServer.java:635)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:806)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:57] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:57] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:39:58] [Server thread/WARN]: java.lang.ClassCastException: java.lang.Float cannot be cast to net.minecraft.server.v1_11_R1.DataWatcherObject
+[12:39:58] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.getFieldB(MyEntityGuardian.java:67)
+[12:39:58] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.b(MyEntityGuardian.java:86)
+[12:39:58] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.access$0(MyEntityGuardian.java:83)
+[12:39:58] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian$PathfinderGoalGuardianAttack.e(MyEntityGuardian.java:144)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PathfinderGoalSelector.a(SourceFile:129)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.doTick(EntityInsentient.java:656)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.n(EntityLiving.java:2033)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.n(EntityInsentient.java:501)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.n(EntityMonster.java:24)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityGuardian.n(SourceFile:286)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.A_(EntityLiving.java:1889)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.A_(EntityInsentient.java:244)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.A_(EntityMonster.java:28)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.entityJoinedWorld(World.java:1652)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.g(World.java:1627)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.tickEntities(World.java:1453)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.WorldServer.tickEntities(WorldServer.java:635)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:806)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:58] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:58] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:39:59] [Server thread/INFO]: TcFox issued server command: /gamemode c
+[12:39:59] [Server thread/INFO]: [TcFox: Set own game mode to Creative Mode]
+[12:39:59] [Server thread/WARN]: java.lang.ClassCastException: java.lang.Float cannot be cast to net.minecraft.server.v1_11_R1.DataWatcherObject
+[12:39:59] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.getFieldB(MyEntityGuardian.java:67)
+[12:39:59] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.b(MyEntityGuardian.java:86)
+[12:39:59] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian.access$0(MyEntityGuardian.java:83)
+[12:39:59] [Server thread/WARN]: 	at io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityGuardian$PathfinderGoalGuardianAttack.d(MyEntityGuardian.java:128)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.PathfinderGoalSelector.a(SourceFile:113)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.doTick(EntityInsentient.java:656)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.n(EntityLiving.java:2033)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.n(EntityInsentient.java:501)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.n(EntityMonster.java:24)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityGuardian.n(SourceFile:286)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityLiving.A_(EntityLiving.java:1889)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityInsentient.A_(EntityInsentient.java:244)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.EntityMonster.A_(EntityMonster.java:28)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.entityJoinedWorld(World.java:1652)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.g(World.java:1627)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.World.tickEntities(World.java:1453)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.WorldServer.tickEntities(WorldServer.java:635)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:806)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:675)
+[12:39:59] [Server thread/WARN]: 	at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:574)
+[12:39:59] [Server thread/WARN]: 	at java.lang.Thread.run(Thread.java:745)
+[12:40:08] [Server thread/INFO]: TcFox issued server command: /tow cancel

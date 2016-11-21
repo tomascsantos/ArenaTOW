@@ -3,9 +3,9 @@ package io.github.TcFoxy.ArenaTOW.Serializable;
 import org.bukkit.Color;
 import org.bukkit.Location;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.interfaces.NMSUtils;
-import net.minecraft.server.v1_10_R1.Entity;
-import net.minecraft.server.v1_10_R1.EntityLiving;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSUtils;
+import net.minecraft.server.v1_11_R1.Entity;
+import net.minecraft.server.v1_11_R1.EntityLiving;
 
 public class Nexus extends PersistInfo{
 		

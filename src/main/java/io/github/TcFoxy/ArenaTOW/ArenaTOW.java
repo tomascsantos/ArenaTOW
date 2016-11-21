@@ -7,7 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.nms.v1_10_R1.MyEntityType;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyEntityType;
 
 public class ArenaTOW{
 	
@@ -33,7 +33,7 @@ public class ArenaTOW{
 	}
 	
 	public void stopThePlugin(){
-		MyEntityType.unregisterEntities();
+		//MyEntityType.unregisterEntities();
 
 	}
 
