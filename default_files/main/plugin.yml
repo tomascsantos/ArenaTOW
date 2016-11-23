@@ -71,6 +71,7 @@ permissions:
         default: true
         children:
             arena.leave: true
+            arena.join.arenatow: true
             arena.join.arena: true
             arena.join.team.all: true
             arena.join.battleground: true

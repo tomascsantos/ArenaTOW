@@ -112,7 +112,7 @@ public class TugArena extends Arena {
 	public void onJoin(ArenaPlayer player, ArenaTeam team){
 		Player p = player.getPlayer();
 		player.setHealth(p.getMaxHealth());
-		p.setInvulnerable(false);
+		//p.setInvulnerable(false);
 		//TODO make a "reset player function"
 
 	}
@@ -394,7 +394,7 @@ public class TugArena extends Arena {
 		Double maxhealth = p.getMaxHealth();
 		p.setMaxHealth(20);
 		p.setHealth(20);
-		p.setInvulnerable(true);
+		//p.setInvulnerable(true);
 		/*
 		 * delayed task for fire ticks because they last a little time.
 		 */
@@ -472,7 +472,7 @@ public class TugArena extends Arena {
 				p.teleport(spawnloc.getLocation());
 				//p.getInventory().setItem(8, new ItemStack(Material.NETHER_STAR, 1));
 				Bukkit.getScheduler().cancelTask(deathtimer);
-				p.setInvulnerable(false);
+				//p.setInvulnerable(false);
 				
 				Bukkit.broadcastMessage("player is currently invulnerable: " + p.isInvulnerable());
 			}
