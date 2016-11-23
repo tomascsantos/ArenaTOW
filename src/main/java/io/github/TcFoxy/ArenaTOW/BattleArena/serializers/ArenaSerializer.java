@@ -4,7 +4,6 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.serializers;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,11 +13,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
@@ -41,16 +37,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Persistable;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.RegionNotFound;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.BlockSpawn;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.ChestSpawn;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.EntitySpawn;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.ItemSpawn;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnGroup;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnTime;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.TimedSpawn;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.SerializerUtil;
@@ -270,23 +257,23 @@ public class ArenaSerializer extends BaseConfig{
             setSpawns(rc, locs);
         }
 
-        /// Item/mob/group spawns
-        ConfigurationSection spawncs = cs.getConfigurationSection("spawns");
-        if (spawncs != null){
-            for (String spawnStr : spawncs.getKeys(false)){
-                ConfigurationSection scs = spawncs.getConfigurationSection(spawnStr);
-                TimedSpawn s;
-                try {
-                    s = parseSpawnable(scs);
-                } catch (Exception e) {
-                    Log.printStackTrace(e);
-                    continue;
-                }
-                if (s == null)
-                    continue;
-                arena.putTimedSpawn(Long.parseLong(spawnStr), s);
-            }
-        }
+//        /// Item/mob/group spawns
+//        ConfigurationSection spawncs = cs.getConfigurationSection("spawns");
+//        if (spawncs != null){
+//            for (String spawnStr : spawncs.getKeys(false)){
+//                ConfigurationSection scs = spawncs.getConfigurationSection(spawnStr);
+//                TimedSpawn s;
+//                try {
+//                    s = parseSpawnable(scs);
+//                } catch (Exception e) {
+//                    Log.printStackTrace(e);
+//                    continue;
+//                }
+//                if (s == null)
+//                    continue;
+//                arena.putTimedSpawn(Long.parseLong(spawnStr), s);
+//            }
+//        }
         cs = cs.getConfigurationSection("persistable");
         Persistable.yamlToObjects(arena, cs,Arena.class);
         try {
@@ -362,7 +349,6 @@ public class ArenaSerializer extends BaseConfig{
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
     private static void saveArenas(Collection<Arena> arenas, File f, ConfigurationSection config, Plugin plugin, boolean log){
         ConfigurationSection maincs = config.createSection("arenas");
         config.createSection("brokenArenas");
@@ -398,18 +384,6 @@ public class ArenaSerializer extends BaseConfig{
                 locs = SerializerUtil.toSpawnMap(arena.getVisitorRoom());
                 if (locs != null) {
                     amap.put("visitorLocations", locs);}
-
-                /// Timed spawns
-                Map<Long, TimedSpawn> timedSpawns = arena.getTimedSpawns();
-                if (timedSpawns != null && !timedSpawns.isEmpty()){
-                    HashMap<String,Object> spawnmap = new HashMap<String,Object>();
-                    for (Long key: timedSpawns.keySet() ){
-                        TimedSpawn ts = timedSpawns.get(key);
-                        HashMap<String,Object> itemSpawnMap = saveSpawnable(ts);
-                        spawnmap.put(key.toString(), itemSpawnMap);
-                    }
-                    amap.put("spawns", spawnmap);
-                }
 
                 Map<String,Object> persisted = Persistable.objectsToYamlMap(arena, Arena.class);
                 if (persisted != null && !persisted.isEmpty()){
@@ -460,97 +434,4 @@ public class ArenaSerializer extends BaseConfig{
             serializer.saveArenas(true);
         }
     }
-
-    private static TimedSpawn parseSpawnable(ConfigurationSection cs) throws IllegalArgumentException {
-        if (!cs.contains("spawn") || !cs.contains("time") || !cs.contains("loc")){
-            Log.err("configuration section cs = " + cs +"  is missing either spawn,time,or loc");
-            return null;
-        }
-        SpawnTime st = parseSpawnTime(cs.getString("time"));
-        Location loc = SerializerUtil.getLocation(cs.getString("loc"));
-        List<String> strings = SpawnSerializer.convertToStringList(cs.getString("spawn"));
-        if (strings == null || strings.isEmpty())
-            return null;
-        SpawnInstance si;
-        if (cs.contains("type") && cs.getString("type").equalsIgnoreCase("block")){
-            si = new BlockSpawn(loc.getBlock(),false);
-            Material mat = Material.valueOf(cs.getString("spawn"));
-            ((BlockSpawn)si).setMaterial(mat);
-            try {
-                mat = Material.valueOf(cs.getString("despawnMaterial", "AIR"));
-            } catch (Exception e) {
-                Log.err("Error setting despawnMaterial. " +e.getMessage());
-                mat = Material.AIR;
-            }
-            if (mat != null)
-                ((BlockSpawn)si).setDespawnMaterial(mat);
-        }else if (cs.contains("type") && cs.getString("type").equalsIgnoreCase("chest")) {
-            si = new ChestSpawn(loc.getBlock(), false);
-            Material mat = Material.valueOf(cs.getString("spawn"));
-            ((BlockSpawn)si).setMaterial(mat);
-            List<ItemStack> items = InventoryUtil.getItemList(cs,"items");
-            List<ItemStack> giveItems = InventoryUtil.getItemList(cs, "giveItems");
-            items = (items.size() >= giveItems.size()) ? items : giveItems;
-            ((ChestSpawn)si).setItems(items);
-        } else {
-            List<SpawnInstance> spawns = SpawnSerializer.parseSpawnable(strings);
-            if (spawns == null || spawns.isEmpty())
-                return null;
-
-            spawns.get(0).setLocation(loc);
-            si = spawns.get(0);
-        }
-        return new TimedSpawn(st.i1,st.i2, st.i3,si);
-    }
-
-    public static SpawnTime parseSpawnTime(String str){
-        String strs[] = str.split(" ");
-        Integer is[] = new Integer[strs.length];
-        for (int i=0;i<strs.length;i++){
-            is[i] = Integer.valueOf(strs[i]);
-        }
-        return new SpawnTime(is[0],is[1],is[2]);
-    }
-
-    private static HashMap<String, Object> saveSpawnable(TimedSpawn ts) {
-        HashMap<String, Object> spawnMap = new HashMap<String,Object>();
-        SpawnInstance si = ts.getSpawn();
-        String key = null;
-        String value =null;
-        if (si instanceof SpawnGroup){
-            SpawnGroup in = (SpawnGroup) si;
-            key = in.getName();
-            value =  "1";
-        } else if (si instanceof ItemSpawn){
-            ItemSpawn in = (ItemSpawn) si;
-            key = InventoryUtil.getItemString(in.getItemStack());
-
-        } else if (si instanceof EntitySpawn){
-            EntitySpawn in = (EntitySpawn) si;
-            key = in.getEntityString() + " " + in.getNumber();
-        } else if (si instanceof ChestSpawn){
-            ChestSpawn bs = (ChestSpawn) si;
-            key = bs.getMaterial().name();
-            ItemStack[] items = bs.getItems();
-            spawnMap.put("type", "chest");
-            if (items != null) {
-                spawnMap.put("items", ConfigSerializer.getItems(Arrays.asList(items)));
-            }
-        } else if (si instanceof BlockSpawn){
-            BlockSpawn bs = (BlockSpawn) si;
-            spawnMap.put("type", "block");
-            spawnMap.put("despawnMat", (bs.getDespawnMaterial()!=null ? bs.getDespawnMaterial().name() : "AIR"));
-            key = bs.getMaterial().name();
-        }
-
-        if (value == null)
-            spawnMap.put("spawn", key);
-        else
-            spawnMap.put("spawn", key+":" + value);
-        spawnMap.put("loc", SerializerUtil.getLocString(si.getLocation()));
-        spawnMap.put("time", ts.getFirstSpawnTime() + " " + ts.getRespawnTime() + " " + ts.getTimeToDespawn());
-        return spawnMap;
-    }
-
-
 }

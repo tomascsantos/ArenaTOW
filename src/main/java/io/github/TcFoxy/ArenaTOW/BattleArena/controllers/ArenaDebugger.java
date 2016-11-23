@@ -56,18 +56,11 @@ public class ArenaDebugger {
 			player.sendBlockChange(l, is.getType(), (byte) is.getDurability());
 		}
 		oldBlocks.clear();
-		SpawnController sc = arena.getSpawnController();
-		if (sc != null){
-			sc.stop();
-		}
 	}
 
 	public void showSpawns(Player player) {
 		oldBlocks = new HashMap<Location,ItemStack>();
-		SpawnController sc = arena.getSpawnController();
-		if (sc != null){
-			sc.start();
-		}
+
 		List<List<SpawnLocation>> locs = arena.getSpawns();
 		if (locs != null){
 			for (int i=0;i<locs.size();i++){

@@ -1,12 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
 
-import java.util.List;
 import java.util.Stack;
 import java.util.UUID;
 
 import org.bukkit.Location;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.PlayerInventory;
@@ -17,9 +15,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesControlle
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.meta.PlayerMetaData;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.EntitySpawn;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.FixedLocation;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.stats.ArenaStat;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
@@ -61,15 +57,11 @@ public class ArenaPlayer {
     /** The current location of the player (in arena, lobby, etc)*/
     ArenaLocation curLocation = new ArenaLocation(AreaContainer.HOMECONTAINER, null , LocationType.HOME);
 
-    List<SpawnInstance> mobs;
-
     /** Has the player specified they are "ready" by clicking a block or sign */
     boolean isReady;
 
     final PlayerMetaData meta = new PlayerMetaData();
     final UUID uuid;
-
-    LivingEntity curTarget;
 
     public ArenaPlayer(Player player) {
         this.player = player;
@@ -88,10 +80,6 @@ public class ArenaPlayer {
         this.isReady = false;
         this.currentClass = null;
         this.preferredClass = null;
-        if (mobs != null) {
-            despawnMobs();
-            mobs.clear();
-        }
     }
 
     @Override
@@ -249,30 +237,6 @@ public class ArenaPlayer {
         return this.curLocation;
     }
 
-    public void despawnMobs(){
-        if (mobs != null){
-            for (SpawnInstance es: mobs){
-                es.despawn();}
-        }
-    }
-
-    public void setMobs(List<SpawnInstance> mobs){
-        this.mobs = mobs;
-    }
-
-    public void spawnMobs(){
-        if (mobs == null) {
-            return;}
-        for (SpawnInstance es: mobs){
-            es.despawn();
-            es.setLocation(this.getLocation());
-            es.spawn();
-            if (es instanceof EntitySpawn) {
-                ((EntitySpawn) es).setOwner(this);
-            }
-        }
-    }
-
     public PlayerMetaData getMetaData(){
         return meta;
     }
@@ -293,21 +257,5 @@ public class ArenaPlayer {
 
     public UUID getID() {
         return uuid;
-    }
-
-    public void setTarget(LivingEntity entity) {
-        curTarget = entity;
-        if (mobs == null) {
-            return;
-        }
-        for (SpawnInstance es: mobs){
-            if (es instanceof EntitySpawn) {
-                ((EntitySpawn) es).setTarget(entity);
-            }
-        }
-    }
-
-    public LivingEntity getTarget() {
-        return curTarget;
     }
 }

@@ -1,13 +1,23 @@
-curSection: 3
+curSection: 4
 '0':
-  storedDate: November 20, 2016 9:04:39 PM PST
+  storedDate: November 23, 2016 12:03:16 PM PST
   armor: []
   contents: []
 '1':
-  storedDate: November 22, 2016 7:16:27 PM PST
+  storedDate: November 23, 2016 12:03:41 PM PST
   armor: []
   contents: []
 '2':
-  storedDate: November 22, 2016 8:58:37 PM PST
+  storedDate: November 23, 2016 12:09:27 PM PST
+  armor: []
+  contents: []
+'3':
+  storedDate: November 23, 2016 12:16:40 PM PST
+  armor:
+  - WOOL:14 1
+  contents:
+  - WOOL:14 1
+'4':
+  storedDate: November 23, 2016 12:02:40 PM PST
   armor: []
   contents: []

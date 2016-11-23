@@ -110,7 +110,10 @@ public class TugArena extends Arena {
 	 */
 	@Override
 	public void onJoin(ArenaPlayer player, ArenaTeam team){
-		
+		Player p = player.getPlayer();
+		player.setHealth(p.getMaxHealth());
+		p.setInvulnerable(false);
+		//TODO make a "reset player function"
 
 	}
 
@@ -470,6 +473,8 @@ public class TugArena extends Arena {
 				//p.getInventory().setItem(8, new ItemStack(Material.NETHER_STAR, 1));
 				Bukkit.getScheduler().cancelTask(deathtimer);
 				p.setInvulnerable(false);
+				
+				Bukkit.broadcastMessage("player is currently invulnerable: " + p.isInvulnerable());
 			}
 
 		}, respawntime*Utils.TPS);

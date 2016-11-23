@@ -1,9 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.ChatColor;
@@ -15,7 +13,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.competition.TransitionController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaAlterController.ChangeType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RoomController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.SpawnController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.AreaContainer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContainer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
@@ -31,7 +28,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.JoinOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.regions.WorldGuardRegion;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.TimedSpawn;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.Persist;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
@@ -44,10 +40,6 @@ public class Arena extends AreaContainer {
 
     /// If this is not null, this is where distance will be based off of, otherwise it's an area around the spawns
     protected Location joinloc;
-
-    protected Map<Long, TimedSpawn> timedSpawns; /// Item/mob/other spawn events
-
-    protected SpawnController spawnController;
 
     protected Match match;
 
@@ -115,7 +107,6 @@ public class Arena extends AreaContainer {
      * private Arena onStart events, calls onStart for subclasses to be able to override
      */
     void privateOnStart(){
-        startSpawns();
         try{onStart();}catch(Exception e){Log.printStackTrace(e);}
     }
 
@@ -123,7 +114,6 @@ public class Arena extends AreaContainer {
      * private Arena onStart events, calls onStart for subclasses to be able to override
      */
     void privateOnVictory(MatchResult result){
-        stopSpawns();
         try{onVictory(result);}catch(Exception e){Log.printStackTrace(e);}
     }
 
@@ -131,7 +121,6 @@ public class Arena extends AreaContainer {
      * private Arena onComplete events, calls onComplete for subclasses to be able to override
      */
     void privateOnComplete(){
-        stopSpawns();
         try{onComplete();}catch(Exception e){Log.printStackTrace(e);}
     }
 
@@ -139,7 +128,6 @@ public class Arena extends AreaContainer {
      * private Arena onCancel events, calls onCancel for subclasses to be able to override
      */
     void privateOnCancel(){
-        stopSpawns();
         try{onCancel();}catch(Exception e){Log.printStackTrace(e);}
     }
 
@@ -398,39 +386,6 @@ public class Arena extends AreaContainer {
     }
 
     /**
-     * Return the timed spawns for this arena
-     * @return the timed spawns
-     */
-    public Map<Long, TimedSpawn> getTimedSpawns() {
-        return timedSpawns;
-    }
-
-    /**
-     * add a timed spawn to this arena
-     */
-    public void putTimedSpawn(Long index, TimedSpawn s) {
-        if (timedSpawns == null){
-            timedSpawns = new HashMap<Long,TimedSpawn>();
-        }
-        timedSpawns.put(index, s);
-    }
-    
-    public long addTimedSpawn(TimedSpawn s) {
-        timedSpawns = (timedSpawns == null) ? new HashMap<Long,TimedSpawn>() : timedSpawns;
-        long index = timedSpawns.size() + 1L;
-        timedSpawns.put(index, s);
-        return index;
-    }
-
-    /**
-     * add a timed spawn to this arena
-     * @return TimedSpawn
-     */
-    public TimedSpawn deleteTimedSpawn(Long num) {
-        return timedSpawns == null ? null : timedSpawns.remove(num);
-    }
-
-    /**
      * Set which match this arena belongs to
      */
     public void setMatch(Match myMatch) {
@@ -535,23 +490,6 @@ public class Arena extends AreaContainer {
      */
     public ArenaTeam getTeam(int teamIndex){
         return match == null ? null : match.getTeam(teamIndex);
-    }
-
-    /**
-     * Start any spawns happening for this arena
-     */
-    public void startSpawns(){
-        SpawnController sc = getSpawnController();
-        if (sc != null)
-            sc.start();
-    }
-
-    /**
-     * Stop any spawns occuring in this arena
-     */
-    public void stopSpawns(){
-        if (spawnController != null){
-            spawnController.stop();}
     }
 
     public boolean matches(final JoinOptions jos) {
@@ -681,7 +619,6 @@ public class Arena extends AreaContainer {
         sb.append("&eteamSpawnLocs=&b"+getSpawnLocationString()+"\n");
         if (waitroom != null) sb.append("&ewrSpawnLocs=&b"+waitroom.getSpawnLocationString()+"\n");
         if (spectate != null) sb.append("&espectateSpawnLocs=&b"+spectate.getSpawnLocationString()+"\n");
-        if (timedSpawns != null){sb.append("&e#item/mob spawns:&6" +timedSpawns.size() +"\n");}
         return sb.toString();
     }
 
@@ -707,16 +644,7 @@ public class Arena extends AreaContainer {
             SpawnLocation l = spawns.get(0).get(0);
             sb.append("["+ Util.getLocString(l)+"] ");
         }
-        if (timedSpawns != null && !timedSpawns.isEmpty())
-            sb.append("&2#item/mob Spawns:&f" +timedSpawns.size());
         return sb.toString();
-    }
-
-    public SpawnController getSpawnController() {
-        if (timedSpawns != null && !timedSpawns.isEmpty() && spawnController == null){
-            spawnController = new SpawnController(timedSpawns);
-        }
-        return spawnController;
     }
 
 //    public void setPylamoRegion(PylamoRegion region) {

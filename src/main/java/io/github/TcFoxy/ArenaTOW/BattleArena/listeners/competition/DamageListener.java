@@ -1,8 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition;
 
 
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -17,7 +15,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.EventPriority;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.DmgDeathUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.IEventHelper;
 
@@ -66,28 +63,6 @@ public class DamageListener implements ArenaListener{
         final ArenaPlayer target = (event.getEntity() instanceof Player) ?
                 BattleArena.toArenaPlayer((Player) event.getEntity()) :
                 null;
-
-        /// Handle setting targets for mob spawns first
-        if (event instanceof EntityDamageByEntityEvent && event.getEntity() instanceof LivingEntity){
-            final Entity damagerEntity = ((EntityDamageByEntityEvent)event).getDamager();
-            damager = DmgDeathUtil.getPlayerCause(damagerEntity);
-            if (damager != null ) {
-                if (target == null || damager.getTeam()==null || target.getTeam()==null ||
-                        !target.getTeam().equals(damager.getTeam())){
-                    damager.setTarget((LivingEntity) event.getEntity());
-                }
-            }
-            if (target != null && damagerEntity instanceof LivingEntity) {
-                if ((target.getTarget() == null || target.getTarget().isDead()) &&
-                        (damager == null ||
-                                damager.getTeam()==null ||
-                                target.getTeam()==null ||
-                                !target.getTeam().equals(damager.getTeam())
-                        )
-                        )
-                target.setTarget((LivingEntity) damagerEntity);
-            }
-        }
 		if (target == null) {
             return;
         }
@@ -118,7 +93,8 @@ public class DamageListener implements ArenaListener{
 			if (targetTeam == null || !targetTeam.hasAliveMember(target)) /// We dont care about dead players
 				return;
 			if (damager == null){ /// damage from some source, its not pvp though. so we dont care
-				return;}
+				return;
+			}
 			ArenaTeam t = holder.getTeam(damager);
 			if (t != null && t.hasMember(target)){ /// attacker is on the same team
 				event.setCancelled(true);

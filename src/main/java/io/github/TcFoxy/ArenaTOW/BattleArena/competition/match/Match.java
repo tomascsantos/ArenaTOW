@@ -155,7 +155,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
     final ArenaObjective defaultObjective;
     ArenaPreviousState oldArenaState;
 
-    @SuppressWarnings("unchecked")
     public Match(Arena arena, MatchParams matchParams, Collection<ArenaListener> listeners) {
         transitionTo(MatchState.ONCREATE);
 
@@ -841,7 +840,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         }
         if (Defaults.DEBUG_TRACE) Log.trace(getID(), player.getName() + "   !!!!&4playerLeaving  "+removed+" t=" + player.getTeam());
         if (removed){
-            player.despawnMobs();
             updateBukkitEvents(MatchState.ONLEAVE,player);
             arenaInterface.onLeave(player,player.getTeam());
         }
