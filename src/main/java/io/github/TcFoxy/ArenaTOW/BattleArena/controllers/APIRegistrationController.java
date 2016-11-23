@@ -28,7 +28,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena.AnnounceUpdateOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena.UpdateOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BAExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
-import io.github.TcFoxy.ArenaTOW.BattleArena.executors.DuelExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.RegisteredCompetition;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
@@ -274,13 +273,7 @@ public class APIRegistrationController {
     }
 
     private void createExecutor(JavaPlugin plugin, String cmd, CustomCommandExecutor executor, MatchParams mp) {
-        CustomCommandExecutor exe;
-
-        if (mp.isDuelOnly()){
-            exe = new DuelExecutor();
-        } else {
-            exe = new BAExecutor();
-        }
+        CustomCommandExecutor  exe = new BAExecutor();
 
         if (executor != null){
             exe.addMethods(executor, executor.getClass().getMethods());}

@@ -19,7 +19,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaEditor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BAEventController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BattleArenaController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.CompetitionController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.DuelController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventScheduler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
@@ -88,7 +87,6 @@ public class BattleArena extends JavaPlugin {
     private final static TeamController tc = TeamController.INSTANCE;
     private final static EventController ec = new EventController();
     private final static ArenaEditor aac = new ArenaEditor();
-    private final static DuelController dc = new DuelController();
     private static BAExecutor commandExecutor;
     private ArenaEditorExecutor arenaEditorExecutor;
     private final BAPlayerListener playerListener = new BAPlayerListener(arenaController);
@@ -429,15 +427,6 @@ public class BattleArena extends JavaPlugin {
      */
     public static TeamController getTeamController() {
         return tc;
-    }
-
-    /**
-     * Get the DuelController, deals with who is currently trying to duel other people/teams
-     *
-     * @return DuelController
-     */
-    public static DuelController getDuelController() {
-        return dc;
     }
 
     /**

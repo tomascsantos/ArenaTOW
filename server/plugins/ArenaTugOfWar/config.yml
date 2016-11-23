@@ -79,7 +79,7 @@ defaultOptions:
 
     #### Match Options ####
     secondsTillMatch: 6 ## how long between onPrestart and onStart
-    matchTime: 120 ## How long do timed matches last, (in seconds)
+    matchTime: 0 ## How long do timed matches last, (in seconds)
     secondsToLoot: 5 ## Time after winning to run around and collect loot
     matchUpdateInterval: 30 ## For timed matched, how long between sending players match updates
 

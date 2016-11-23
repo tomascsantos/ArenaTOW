@@ -25,7 +25,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.OptionSetController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
-import io.github.TcFoxy.ArenaTOW.BattleArena.executors.DuelExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.EventExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.TournamentExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
@@ -34,11 +33,9 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.ArenaMatchQueue;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions.AnnouncementOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.DuelOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
@@ -119,7 +116,7 @@ public class BAConfigSerializer extends BaseConfig{
             FileUtil.load(BattleArena.getSelf().getClass(),dir.getPath()+"/competitions/"+comp+"Config.yml",
                     "/default_files/competitions/"+comp+"Config.yml");
             String capComp = StringUtils.capitalize(comp);
-            CustomCommandExecutor executor = comp.equalsIgnoreCase("duel") ? new DuelExecutor() : null;
+            CustomCommandExecutor executor = null;
             api.registerCompetition(plugin, capComp, capComp, Arena.class, executor,
                     new File(compDir+"/"+capComp+"Config.yml"),
                     new File(compDir+"/"+capComp+"Messages.yml"),
@@ -236,16 +233,6 @@ public class BAConfigSerializer extends BaseConfig{
         defaults.setAllowedTeamSizeDifference(cs.getInt("allowedTeamSizeDifference",1));
 
         defaults.setNConcurrentCompetitions(ArenaSize.toInt(cs.getString("nConcurrentCompetitions","infinite")));
-
-        List<String> list = cs.getStringList("defaultDuelOptions");
-        if (list != null && !list.isEmpty()){
-            try {
-                DuelOptions dop = DuelOptions.parseOptions(list.toArray(new String[list.size()]));
-                DuelOptions.setDefaults(dop);
-            } catch (InvalidOptionException e) {
-                Log.printStackTrace(e);
-            }
-        }
     }
 
     private static void parseOnServerStartOptions( ConfigurationSection cs) {

@@ -19,7 +19,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.events.Event;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
@@ -29,7 +28,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaAlterController.Ch
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaClassController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.BAEventController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.CompetitionController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.DuelController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamAlterController;
@@ -57,7 +55,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ContainerState;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.Duel;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.LocationType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
@@ -71,8 +68,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.TeamJoinObject;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Channel;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.AlterParamOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.DuelOptions;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.DuelOptions.DuelOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.JoinOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
@@ -83,13 +78,11 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.pairs.TransitionOptionTuple
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.FixedLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.FormingTeam;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamIndex;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil.PInv;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.ServerUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
@@ -107,14 +100,12 @@ public class BAExecutor extends CustomCommandExecutor {
 
     final TeamController teamc;
     final EventController ec;
-    final DuelController dc;
     final WatchController watchController;
 
     public BAExecutor() {
         super();
         this.ec = BattleArena.getEventController();
         this.teamc = BattleArena.getTeamController();
-        this.dc = BattleArena.getDuelController();
         this.watchController = BattleArena.getSelf().getWatchController();
     }
 
@@ -1078,313 +1069,6 @@ public class BAExecutor extends CustomCommandExecutor {
         return sendMessage(sender, "&2Game type &6" + params.getType() + " set back to default game options");
     }
 
-    @MCCommand(cmds = {"rescind"}, helpOrder = 13)
-    public boolean duelRescind(ArenaPlayer player) {
-        if (!dc.hasChallenger(player)) {
-            return sendMessage(player, "&cYou haven't challenged anyone!");
-        }
-        Duel d = dc.rescind(player);
-        ArenaTeam t = d.getChallengerTeam();
-        t.sendMessage("&4[Duel] &6" + player.getDisplayName()
-                + "&2 has cancelled the duel challenge!");
-        for (ArenaPlayer ap : d.getChallengedPlayers()) {
-            sendMessage(ap, "&4[Duel] &6" + player.getDisplayName()
-                    + "&2 has cancelled the duel challenge!");
-        }
-        return true;
-    }
-
-    @MCCommand(cmds = {"reject"}, helpOrder = 12)
-    public boolean duelReject(ArenaPlayer player) {
-        if (!dc.isChallenged(player)) {
-            return sendMessage(player, "&cYou haven't been invited to a duel!");
-        }
-        Duel d = dc.reject(player);
-        ArenaTeam t = d.getChallengerTeam();
-        String timeRem = TimeUtil
-                .convertSecondsToString(Defaults.DUEL_CHALLENGE_INTERVAL);
-        t.sendMessage("&4[Duel] &cThe duel was cancelled as &6"
-                + player.getDisplayName() + "&c rejected your offer");
-        t.sendMessage("&4[Duel] &cYou can challenge them again in " + timeRem);
-        for (ArenaPlayer ap : d.getChallengedPlayers()) {
-            if (ap == player) {
-                continue;
-            }
-            sendMessage(
-                    ap,
-                    "&4[Duel] &cThe duel was cancelled as &6"
-                    + player.getDisplayName() + "&c rejected the duel");
-        }
-        sendMessage(player,
-                "&4[Duel] &cYou rejected the duel, you can't be challenged again for&6 "
-                + timeRem);
-        return true;
-    }
-
-    @MCCommand(cmds = {"accept"}, helpOrder = 11)
-    public boolean duelAccept(ArenaPlayer player) {
-        if (!canJoin(player)) {
-            return true;
-        }
-        Duel d = dc.getDuel(player);
-        if (d == null) {
-            return sendMessage(player, "&cYou haven't been invited to a duel!");
-        }
-        Double wager = (Double) d.getDuelOptionValue(DuelOption.MONEY);
-        if (wager != null) {
-            if (MoneyController.balance(player.getName()) < wager) {
-                sendMessage(player,
-                        "&4[Duel] &cYou don't have enough money to accept the wager!");
-                dc.cancelFormingDuel(d, "&4[Duel]&6" + player.getDisplayName()
-                        + " didn't have enough money for the wager");
-                return true;
-            }
-        }
-        for (ArenaPlayer ap : d.getAllPlayers()) {
-            if (!d.getOptions().matches(ap, d.getMatchParams())) {
-                dc.cancelFormingDuel(d,
-                        "&4[Duel]&6"
-                        + player.getDisplayName()
-                        + " wasn't within "
-                        + d.getMatchParams().getStateGraph()
-                        .getOptions(MatchState.PREREQS)
-                        .getWithinDistance()
-                        + "&c blocks of an arena");
-                return true;
-            }
-        }
-        if (dc.accept(player) == null) {
-            return true;
-        }
-        ArenaTeam t = d.getChallengerTeam();
-        t.sendMessage("&4[Duel] &6" + player.getDisplayName()
-                + "&2 has accepted your duel offer!");
-        for (ArenaPlayer ap : d.getChallengedPlayers()) {
-            if (ap == player) {
-                continue;
-            }
-            sendMessage(ap, "&4[Duel] &6" + player.getDisplayName()
-                    + "&2 has accepted the duel offer");
-        }
-        return sendMessage(player, "&cYou have accepted the duel!");
-    }
-
-    @MCCommand(cmds = {"duel", "d"})
-    public boolean duel(ArenaPlayer player, String args[]) {
-        MatchParams mp = ParamController.getMatchParamCopy("duel");
-        return mp == null || duel(player, mp, args);
-    }
-
-    @MCCommand(cmds = {"duel", "d"}, helpOrder = 10)
-    public boolean duel(ArenaPlayer player, final MatchParams mp, String args[]) {
-        if (!PermissionsUtil.hasMatchPerm(player.getPlayer(), mp, "duel")) {
-            return sendMessage(
-                    player,
-                    "&cYou don't have permission to duel in a &6" + mp.getCommand());
-        }
-        if (isDisabled(player.getPlayer(), mp)) {
-            return true;
-        }
-
-        if (dc.isChallenged(player)) {
-            sendMessage(player,
-                    "&4[Duel] &cYou have already been challenged to a duel!");
-            return sendMessage(player, "&4[Duel] &6/" + mp.getCommand()
-                    + " reject&c to cancel the duel before starting your own");
-        }
-
-        // / Can the player add this match/event at this moment?
-        if (!canJoin(player)) {
-            return true;
-        }
-        if (EventController.isEventType(mp.getName())) {
-            return sendMessage(player,
-                    "&4[Duel] &cYou can't duel someone in an Event type!");
-        }
-
-        // / Parse the duel options
-        DuelOptions duelOptions;
-        try {
-            duelOptions = DuelOptions.parseOptions(mp, player,
-                    Arrays.copyOfRange(args, 1, args.length));
-        } catch (InvalidOptionException e1) {
-            return sendMessage(player, e1.getMessage());
-        }
-        Double rake = (Double) duelOptions.getOptionValue(DuelOption.RAKE);
-        if (rake != null) {
-            if (rake < 0) {
-                Double value = 0.0;
-                duelOptions.setOptionValue(DuelOption.RAKE, value);
-            }
-        }
-        Double wager = (Double) duelOptions.getOptionValue(DuelOption.MONEY);
-        if (wager != null) {
-            if (wager >= 0) {
-                if (MoneyController.balance(player.getName()) < wager) {
-                    return sendMessage(player,
-                            "&4[Duel] You can't afford that wager!");
-                }
-            } else {
-                return sendMessage(player,
-                        "&4[Duel] The wager must be positive");
-            }
-        }
-        if (!duelOptions.matches(player, mp)) {
-            return sendMessage(player, "&cYou need to be within &6"
-                    + mp.getStateGraph().getOptions(MatchState.PREREQS)
-                    .getWithinDistance() + "&c blocks of an arena");
-        }
-        // / Announce warnings
-        for (ArenaPlayer ap : duelOptions.getChallengedPlayers()) {
-            if (!canJoin(ap)) {
-                return sendMessage(player, "&4[Duel] &6" + ap.getDisplayName()
-                        + "&c is in a match, event, or queue");
-            }
-            if (!duelOptions.matches(ap, mp)) {
-                return sendMessage(
-                        player,
-                        "&6"
-                        + ap.getDisplayName()
-                        + "&c needs to be within "
-                        + mp.getStateGraph()
-                        .getOptions(MatchState.PREREQS)
-                        .getWithinDistance()
-                        + "&c blocks of an arena");
-            }
-
-            final StateGraph ops = mp.getStateGraph();
-            if (ops != null) {
-                ArenaTeam t = TeamController.createTeam(mp, ap);
-                // / Check ready
-                if (!ops.teamReady(t, null)) {
-                    sendMessage(player, "&c" + t.getDisplayName()
-                            + "&c doesn't have the prerequisites for this duel");
-                    return true;
-                }
-            }
-
-            if (dc.isChallenged(ap)) {
-                return sendMessage(player, "&4[Duel] &6" + ap.getDisplayName()
-                        + "&c already has been challenged!");
-            }
-            if (!PermissionsUtil.hasMatchPerm(ap.getPlayer(), mp, "duel")) {
-                return sendMessage(player,
-                        "&6" + ap.getDisplayName()
-                        + "&c doesn't have permission to duel in a &6"
-                        + mp.getCommand());
-            }
-
-            Long grace = dc.getLastRejectTime(ap);
-            if (grace != null
-                    && System.currentTimeMillis() - grace < Defaults.DUEL_CHALLENGE_INTERVAL * 1000) {
-                return sendMessage(
-                        player,
-                        "&4[Duel] &6"
-                        + ap.getDisplayName()
-                        + "&c can't be challenged for &6"
-                        + TimeUtil
-                        .convertMillisToString(Defaults.DUEL_CHALLENGE_INTERVAL
-                                * 1000
-                                - (System.currentTimeMillis() - grace)));
-            }
-            if (wager != null) {
-                if (MoneyController.balance(ap.getName()) < wager) {
-                    return sendMessage(player,
-                            "&4[Duel] &6" + ap.getDisplayName()
-                            + "&c can't afford that wager!");
-                }
-            }
-        }
-
-        // / Get our team1
-        ArenaTeam t = TeamController.getTeam(player);
-        if (t == null) {
-            t = TeamFactory.createCompositeTeam(0, mp, player);
-        } else {
-            t.setIndex(0);
-        }
-        for (ArenaPlayer ap : t.getPlayers()) {
-            if (!duelOptions.matches(ap, mp)) {
-                return sendMessage(
-                        player,
-                        "&6" + ap.getDisplayName() + "&c needs to be within "
-                        + mp.getStateGraph().getOptions(MatchState.PREREQS)
-                        .getWithinDistance());
-            }
-
-            if (wager != null) {
-                if (MoneyController.balance(ap.getName()) < wager) {
-                    return sendMessage(player,
-                            "&4[Duel] Your teammate &6" + ap.getDisplayName()
-                            + "&c can't afford that wager!");
-                }
-            }
-        }
-
-        mp.setNTeams(new MinMax(2));
-
-        int size = duelOptions.getChallengedPlayers().size();
-        mp.setMinTeamSize(Math.min(t.size(), size));
-        mp.setMaxTeamSize(Math.max(t.size(), size));
-        // / set our default rating
-        mp.setRated(Defaults.DUEL_ALLOW_RATED && mp.isRated());
-        // / allow specified options to overrule
-        if (duelOptions.hasOption(DuelOption.RATED)) {
-            mp.setRated(true);
-        } else if (duelOptions.hasOption(DuelOption.UNRATED)) {
-            mp.setRated(false);
-        }
-
-        // / Check to make sure at least one arena can be joined at some time
-        Arena arena = ac.getArenaByMatchParams(mp);
-        if (arena == null) {
-            Map<Arena, List<String>> reasons = ac.getNotMachingArenaReasons(mp);
-            if (!reasons.isEmpty()) {
-                for (Arena a : reasons.keySet()) {
-                    List<String> rs = reasons.get(a);
-                    if (!rs.isEmpty()) {
-                        return sendMessage(player, "&c" + rs.get(0));
-                    }
-                }
-            }
-            return sendSystemMessage(player, "valid_arena_not_built", mp.getName());
-        }
-        final StateGraph ops = mp.getStateGraph();
-        if (ops == null) {
-            return sendMessage(player,
-                    "&cThis match type has no valid options, contact an admin to fix ");
-        }
-
-        Duel duel = new Duel(mp, t, duelOptions);
-
-        // / Announce to the 2nd team
-        String t2 = duelOptions.getChallengedTeamString();
-        for (ArenaPlayer ap : duelOptions.getChallengedPlayers()) {
-            String other = duelOptions.getOtherChallengedString(ap);
-            if (!other.isEmpty()) {
-                other = "and " + other + " ";
-            }
-            sendMessage(
-                    ap,
-                    "&4[" + mp.getName() + " Duel] &6" + t.getDisplayName()
-                    + "&2 " + MessageUtil.hasOrHave(t.size())
-                    + " challenged you " + other + "to a &6"
-                    + mp.getName() + " &2duel!");
-            sendMessage(ap,
-                    "&4[Duel] &2Options: &6" + duelOptions.optionsString(mp));
-            sendMessage(ap, "&4[Duel] &6/" + mp.getCommand()
-                    + " accept &2: to accept. &6" + mp.getCommand()
-                    + " reject &e: to reject");
-        }
-
-        sendMessage(player, "&4[Duel] &2You have sent a challenge to &6" + t2);
-        sendMessage(player,
-                "&4[Duel] &2You can rescind by typing &6/" + mp.getCommand()
-                + " rescind");
-        dc.addOutstandingDuel(duel);
-        return true;
-    }
-
     @MCCommand(cmds = {"start"}, admin = true, perm = "arena.start")
     public boolean arenaStart(CommandSender sender, MatchParams mp) {
         List<Match> matches = ac.getRunningMatches(mp);
@@ -1574,14 +1258,6 @@ public class BAExecutor extends CustomCommandExecutor {
                     }
                 }
             }
-        }
-
-        if (dc.hasChallenger(player)) {
-            if (showMessages) {
-                sendMessage(player,
-                        "&cYou need to rescind your challenge first! &6/arena rescind");
-            }
-            return false;
         }
 
         if (EssentialsController.enabled()
