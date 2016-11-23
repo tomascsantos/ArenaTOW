@@ -202,8 +202,6 @@ public class Persistable {
             return SerializerUtil.getLocation(name.toString());
         } else if (type == ItemStack.class){
             return InventoryUtil.parseItem(name.toString());
-        } else if (type == Block.class){
-            return SerializerUtil.parseBlock(name.toString());
         } else if (YamlSerializable.class.isAssignableFrom((Class<?>) type)){
             if (Map.class.isAssignableFrom(name.getClass())){
                 return createYamlSerializable((Class<?>)type, (Map<String,Object>)name, null);
@@ -381,8 +379,6 @@ public class Persistable {
                 Log.err("[BA Error] saving object =" + obj);
                 Log.err(e.getMessage());
             }
-        } else if (obj instanceof Block){
-            return SerializerUtil.getBlockString((Block) obj);
         }
         return obj;
     }

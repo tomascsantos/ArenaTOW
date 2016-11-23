@@ -8,8 +8,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.EntitySpawn;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 
 public class ArenaClass {
@@ -28,9 +26,6 @@ public class ArenaClass {
 
 	/** Effects this class gives*/
 	final List<PotionEffect> effects;
-
-	/** Mobs for this class*/
-	List<SpawnInstance> mobs;
 
 	/** Name of a disguise for this class */
 	String disguiseName;
@@ -126,32 +121,12 @@ public class ArenaClass {
 		return valid;
 	}
 
-	public void setMobs(List<SpawnInstance> mobs) {
-		this.mobs = mobs;
-	}
-
-	public List<SpawnInstance> getMobs(){
-		return mobs;
-	}
 	public List<CommandLineString> getDoCommands(){
 		return this.commands;
 	}
 	public void setDoCommands(List<CommandLineString> commands){
 		this.commands = commands;
 	}
-
-
-    public List<SpawnInstance> getMobsClone() {
-        List<SpawnInstance> l = new ArrayList<SpawnInstance>();
-        for (SpawnInstance si: mobs){
-            if (si instanceof EntitySpawn){
-                l.add(new EntitySpawn((EntitySpawn)si));
-            } else {
-                l.add(si);
-            }
-        }
-        return l;
-    }
     
     public List<String> getPermissions() {
         return permissions;

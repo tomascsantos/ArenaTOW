@@ -14,4 +14,6 @@ public class SpawnIndex {
         this.teamIndex = teamIndex;
         this.spawnIndex = spawnIndex;
     }
+    
+    //TODO change this to red/blue no need for a whole index
 }

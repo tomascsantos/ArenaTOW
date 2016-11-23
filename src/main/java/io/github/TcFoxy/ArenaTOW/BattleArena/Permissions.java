@@ -6,7 +6,6 @@ public class Permissions {
 	/// Examples
 	///		arena.<type>.add
 	public static final String ADMIN_NODE = "arena.admin";
-	public static final String DUEL_EXEMPT = "arena.duel.exempt";
 	public static final String TELEPORT_BYPASS_PERM = "arena.teleport.bypass";
 
 	/// Permissions for other plugins

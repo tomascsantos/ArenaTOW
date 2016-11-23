@@ -26,7 +26,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnInstance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
@@ -62,10 +61,6 @@ public class ArenaClassController {
     }
 
     public static void giveClass(ArenaPlayer player, ArenaClass ac, Color color) {
-        ArenaClass oldClass = player.getCurrentClass();
-        if (oldClass != null){
-            player.despawnMobs();
-        }
         if (HeroesController.enabled())
             ac = giveHeroClass(player,ac);
         try{if (ac.getItems() != null)
@@ -74,15 +69,6 @@ public class ArenaClassController {
         giveClassEnchants(player.getPlayer(),ac);
 //        if (ac.getDisguiseName()!=null && DisguiseInterface.enabled())
 //            DisguiseInterface.disguisePlayer(player.getPlayer(), ac.getDisguiseName());
-        if (ac.getMobs() != null){
-            try {
-                List<SpawnInstance> mobs = ac.getMobsClone();
-                player.setMobs(mobs);
-                player.spawnMobs();
-            } catch (Exception e){
-                Log.printStackTrace(e);
-            }
-        }
         if (ac.getDoCommands() != null){
             PlayerUtil.doCommands(player.getPlayer(),ac.getDoCommands());
         }
@@ -175,7 +161,6 @@ public class ArenaClassController {
         EffectUtil.deEnchantAll(p);
 
         boolean armorTeams = mp != null && mp.hasAnyOption(TransitionOption.ARMORTEAMS);
-        ap.despawnMobs();
         /// Regive class/items
         ArenaClassController.giveClass(ap, ac);
         ap.setPreferredClass(ac);

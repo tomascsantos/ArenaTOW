@@ -51,7 +51,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.BaseConfig;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.EventScheduleSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.MessageSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.SignSerializer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.SpawnSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.StateFlagSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.TeamHeadSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.YamlFileUpdater;
@@ -115,22 +114,11 @@ public class BattleArena extends JavaPlugin {
         FileUpdater.makeIfNotExists(new File(dir + "/saves"));
         FileUpdater.makeIfNotExists(new File(dir + "/modules"));
         FileUpdater.makeIfNotExists(new File(dir + "/otherPluginConfigs"));
-        FileUpdater.makeIfNotExists(new File(dir + "/victoryConditions"));
 
         for (String c : new String[]{"HeroesConfig", "McMMOConfig", "WorldGuardConfig"}){
             try{
                 new BaseConfig(FileUtil.load(clazz, dir.getPath() + "/otherPluginConfigs/"+c+".yml",
                         "/default_files/otherPluginConfigs/"+c+".yml"));
-            } catch( Exception e ){
-                Log.err("Couldn't load File " + dir.getPath() + "/otherPluginConfigs/"+c+".yml");
-                Log.printStackTrace(e);
-            }
-        }
-
-        for (String c : new String[]{"AllKills", "KillLimit", "MobKills","PlayerKills"}){
-            try{
-                new BaseConfig(FileUtil.load(clazz, dir.getPath() + "/victoryConditions/"+c+".yml",
-                        "/default_files/victoryConditions/"+c+".yml"));
             } catch( Exception e ){
                 Log.err("Couldn't load File " + dir.getPath() + "/otherPluginConfigs/"+c+".yml");
                 Log.printStackTrace(e);
@@ -159,22 +147,6 @@ public class BattleArena extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(InArenaListener.INSTANCE, this);
         Bukkit.getPluginManager().registerEvents(signUpdateListener, this);
 
-
-//        /// Register our different Victory Types
-//        VictoryType.register(LastManStanding.class, this);
-//        VictoryType.register(NLives.class, this);
-//        VictoryType.register(InfiniteLives.class, this);
-//        VictoryType.register(TimeLimit.class, this);
-//        VictoryType.register(OneTeamLeft.class, this);
-//        VictoryType.register(NoTeamsLeft.class, this);
-//        VictoryType.register(PlayerKills.class, this);
-//        VictoryType.register(MobKills.class, this);
-//        VictoryType.register(AllKills.class, this);
-//        VictoryType.register(KillLimit.class, this);
-//        VictoryType.register(Custom.class, this);
-//        //noinspection deprecation
-//        VictoryType.register(HighestKills.class, this);
-
         /// Load our configs, then arenas
         baConfigSerializer.setConfig(FileUtil.load(clazz, dir.getPath() + "/config.yml", "/default_files/main/config.yml"));
         try {
@@ -187,10 +159,6 @@ public class BattleArena extends JavaPlugin {
 
         classesSerializer.setConfig(FileUtil.load(clazz, dir.getPath() + "/classes.yml", "/default_files/classes.yml")); /// Load classes
         classesSerializer.loadAll();
-
-        /// Spawn Groups need to be loaded before the arenas
-        SpawnSerializer ss = new SpawnSerializer();
-        ss.setConfig(FileUtil.load(clazz, dir.getPath() + "/spawns.yml", "/default_files/spawns.yml"));
 
         TeamHeadSerializer ts = new TeamHeadSerializer();
         ts.setConfig(FileUtil.load(clazz, dir.getPath() + "/teamConfig.yml", "/default_files/teamConfig.yml")); /// Load team Colors

@@ -57,8 +57,6 @@ public class TeleportController implements Listener{
             /// Close their inventory so they arent taking things in/out
             InventoryUtil.closeInventory(player);
             player.setFireTicks(0);
-            arenaPlayer.despawnMobs();
-
 
             /// Deal with vehicles
             if (player.isInsideVehicle()) {
@@ -97,7 +95,6 @@ public class TeleportController implements Listener{
                 //noinspection PointlessBooleanExpression,ConstantConditions
                 return false;
             }
-            arenaPlayer.spawnMobs();
 
             /// Handle the /back command from Essentials
             if (EssentialsController.enabled()) {
