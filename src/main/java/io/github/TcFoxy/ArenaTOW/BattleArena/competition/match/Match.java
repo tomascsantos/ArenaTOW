@@ -82,17 +82,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ScoreboardFactory;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.NLives;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.NoTeamsLeft;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.OneTeamLeft;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.TeamTimeLimit;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.TimeLimit;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryCondition;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.DefinesNumLivesPerPlayer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.DefinesNumTeams;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.DefinesTimeLimit;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.ScoreTracker;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Countdown.CountdownCallback;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
@@ -117,7 +106,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
 
     /// When did each transition occur
     final Map<MatchState, Long> times = Collections.synchronizedMap(new EnumMap<MatchState,Long>(MatchState.class));
-    final List<VictoryCondition> vcs = new ArrayList<VictoryCondition>(); /// Under what conditions does a victory occur
+//    final List<VictoryCondition> vcs = new ArrayList<VictoryCondition>(); /// Under what conditions does a victory occur
     MatchResult matchResult; /// Results for this match
 
     final StateGraph tops; /// Our match options for this arena match
@@ -140,7 +129,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
 
     final Set<ArenaTeam> nonEndingTeams = new HashSet<ArenaTeam>();
     final Map<ArenaTeam,Integer> individualTeamTimers = new HashMap<ArenaTeam,Integer>();
-    final Map<ArenaTeam,TeamTimeLimit> individualTeamTimeLimits = new HashMap<ArenaTeam,TeamTimeLimit>();
     final Set<ArenaTeam> deadTeams = new HashSet<ArenaTeam>();
 
     final AtomicBoolean addedVictoryConditions = new AtomicBoolean(false);
@@ -727,10 +715,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
             }
             individualTeamTimers.remove(t);
             scoreboard.removeTeam(t);
-            TeamTimeLimit ttl = individualTeamTimeLimits.remove(t);
-            if (ttl !=null){
-                ttl.stopCountdown();
-            }
             t.reset();
         }
         nonEndingTeams.removeAll(teams);
@@ -929,11 +913,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
                         doTransition(match, MatchState.ONSTART, player,team, true);
                     }
                 }, (int) (params.getSecondsTillMatch() * 20L ));
-                if (!individualTeamTimeLimits.containsKey(team)){
-                    TeamTimeLimit ttl = new TeamTimeLimit(this, team);
-                    individualTeamTimeLimits.put(team, ttl);
-                    ttl.startCountdown();
-                }
 
                 individualTeamTimers.put(team, timerid);
             }
@@ -994,10 +973,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
                 callEvent(new TeamDeathEvent(team));
             }
             if (alwaysOpen) {
-                TeamTimeLimit ttl = individualTeamTimeLimits.remove(team);
-                if (ttl !=null) {
-                    ttl.stopCountdown();
-                }
             }
         }
     }
@@ -1183,40 +1158,44 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
     public MatchMessageHandler getMessageHandler(){return mc.getMessageHandler();}
 
     private synchronized void addVictoryConditions(){
-        addedVictoryConditions.set(true);
-        VictoryCondition vt = VictoryType.createVictoryCondition(this);
-
-        /// Add a time limit unless one is provided by default
-        if (!alwaysOpen && !(vt instanceof DefinesTimeLimit) &&
-                (params.getMatchTime() != null && params.getMatchTime() > 0 &&
-                        params.getMatchTime() != Integer.MAX_VALUE)){
-            addVictoryCondition(new TimeLimit(this));
-        }
-        if (alwaysOpen){
-            for (ArenaTeam team : getNonEmptyTeams()){
-                TeamTimeLimit ttl = new TeamTimeLimit(this, team);
-                individualTeamTimeLimits.put(team, ttl);
-                ttl.startCountdown();
-            }
-        }
-        /// set the number of lives
-        Integer nLives = params.getNLives();
-        if (nLives != null && nLives > 0 && !(vt instanceof DefinesNumLivesPerPlayer)){
-            addVictoryCondition(new NLives(this, nLives));
-        }
-
-        /// Add a default number of teams unless the specified victory condition handles it
-        Integer nTeams = params.getMinTeams();
-        if (!(vt instanceof DefinesNumTeams)){
-            if (nTeams <= 0 || alwaysOpen){
-                /* do nothing.  They want this event to be open even with no teams*/
-            } else if (nTeams == 1){
-                addVictoryCondition(new NoTeamsLeft(this));
-            } else {
-                addVictoryCondition(new OneTeamLeft(this));
-            }
-        }
-        addVictoryCondition(vt);
+//        addedVictoryConditions.set(true);
+//        VictoryCondition vt = VictoryType.createVictoryCondition(this);
+//
+//        /*
+//         * no time limit - tomas
+//         */
+//        
+////        /// Add a time limit unless one is provided by default
+////        if (!alwaysOpen && !(vt instanceof DefinesTimeLimit) &&
+////                (params.getMatchTime() != null && params.getMatchTime() > 0 &&
+////                        params.getMatchTime() != Integer.MAX_VALUE)){
+////            addVictoryCondition(new TimeLimit(this));
+////        }
+////        if (alwaysOpen){
+////            for (ArenaTeam team : getNonEmptyTeams()){
+////                TeamTimeLimit ttl = new TeamTimeLimit(this, team);
+////                individualTeamTimeLimits.put(team, ttl);
+////                ttl.startCountdown();
+////            }
+////        }
+////        /// set the number of lives
+////        Integer nLives = params.getNLives();
+////        if (nLives != null && nLives > 0 && !(vt instanceof DefinesNumLivesPerPlayer)){
+////            addVictoryCondition(new NLives(this, nLives));
+////        }
+//
+//        /// Add a default number of teams unless the specified victory condition handles it
+////        Integer nTeams = params.getMinTeams();
+////        if (!(vt instanceof DefinesNumTeams)){
+////            if (nTeams <= 0 || alwaysOpen){
+////                /* do nothing.  They want this event to be open even with no teams*/
+////            } else if (nTeams == 1){
+////                addVictoryCondition(new NoTeamsLeft(this));
+////            } else {
+////                addVictoryCondition(new OneTeamLeft(this));
+////            }
+////        }
+//        addVictoryCondition(vt);
     }
 
 //    private boolean hasVictoryConditionType(Class<?> vcClass) {
@@ -1231,62 +1210,62 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
      * Add Another victory condition to this match
      * @param victoryCondition Victory condition to add
      */
-    public void addVictoryCondition(VictoryCondition victoryCondition){
-        if (Defaults.DEBUG_TRACE) Log.trace(getID(),getArena().getName() + " adding vc=" + victoryCondition);
-        vcs.add(victoryCondition);
-        addArenaListener(victoryCondition);
-        if (!alwaysOpen && victoryCondition instanceof DefinesNumTeams){
-            neededTeams = Math.max(neededTeams, ((DefinesNumTeams)victoryCondition).getNeededNumberOfTeams().max);}
-        if (victoryCondition instanceof DefinesNumLivesPerPlayer){
-            nLivesPerPlayer = Math.max(nLivesPerPlayer, ((DefinesNumLivesPerPlayer)victoryCondition).getLivesPerPlayer());
-            if (nLivesPerPlayer > 1){
-                respawns=true;
-            }
-            for (ArenaPlayer ap : inGamePlayers){
-                if (nLivesPerPlayer != 1 && nLivesPerPlayer != ArenaSize.MAX) {
-                    ap.getMetaData().setLivesLeft(nLivesPerPlayer);
-                    scoreboard.setEntryNameSuffix(ap.getName(),"&4("+nLivesPerPlayer+")");
-                }
-            }
-        }
-        /// if it's a time limit. make a timer for the scoreboard
-        if (Defaults.USE_SCOREBOARD && !alwaysOpen && victoryCondition instanceof TimeLimit){
-            if (matchCountdown != null){
-                matchCountdown.stop();}
-            final Match match = this;
-            matchCountdown = new Countdown(BattleArena.getSelf(),((TimeLimit)victoryCondition).getTime(), 1, new CountdownCallback() {
-                @Override
-                public boolean intervalTick(int secondsRemaining) {
-                    match.secondTick(secondsRemaining);
-                    return true;
-                }
-            });
-        }
-        if (victoryCondition instanceof ScoreTracker){
-            if (params.getMaxTeamSize() <= 2){
-                ((ScoreTracker)victoryCondition).setDisplayTeams(false);
-            }
-            ((ScoreTracker)victoryCondition).setScoreBoard(scoreboard);
-        }
-    }
+//    public void addVictoryCondition(VictoryCondition victoryCondition){
+//        if (Defaults.DEBUG_TRACE) Log.trace(getID(),getArena().getName() + " adding vc=" + victoryCondition);
+//        vcs.add(victoryCondition);
+//        addArenaListener(victoryCondition);
+//        if (!alwaysOpen && victoryCondition instanceof DefinesNumTeams){
+//            neededTeams = Math.max(neededTeams, ((DefinesNumTeams)victoryCondition).getNeededNumberOfTeams().max);}
+//        if (victoryCondition instanceof DefinesNumLivesPerPlayer){
+//            nLivesPerPlayer = Math.max(nLivesPerPlayer, ((DefinesNumLivesPerPlayer)victoryCondition).getLivesPerPlayer());
+//            if (nLivesPerPlayer > 1){
+//                respawns=true;
+//            }
+//            for (ArenaPlayer ap : inGamePlayers){
+//                if (nLivesPerPlayer != 1 && nLivesPerPlayer != ArenaSize.MAX) {
+//                    ap.getMetaData().setLivesLeft(nLivesPerPlayer);
+//                    scoreboard.setEntryNameSuffix(ap.getName(),"&4("+nLivesPerPlayer+")");
+//                }
+//            }
+//        }
+////        /// if it's a time limit. make a timer for the scoreboard
+////        if (Defaults.USE_SCOREBOARD && !alwaysOpen && victoryCondition instanceof TimeLimit){
+////            if (matchCountdown != null){
+////                matchCountdown.stop();}
+////            final Match match = this;
+////            matchCountdown = new Countdown(BattleArena.getSelf(),((TimeLimit)victoryCondition).getTime(), 1, new CountdownCallback() {
+////                @Override
+////                public boolean intervalTick(int secondsRemaining) {
+////                    match.secondTick(secondsRemaining);
+////                    return true;
+////                }
+////            });
+////        }
+////        if (victoryCondition instanceof ScoreTracker){
+////            if (params.getMaxTeamSize() <= 2){
+////                ((ScoreTracker)victoryCondition).setDisplayTeams(false);
+////            }
+////            ((ScoreTracker)victoryCondition).setScoreBoard(scoreboard);
+////        }
+//    }
 
     /**
      * Remove a victory condition from this match
      * @param victoryCondition VictoryCondition to remove
      */
-    public void removeVictoryCondition(VictoryCondition victoryCondition){
-        vcs.remove(victoryCondition);
-        removeArenaListener(victoryCondition);
-    }
-
-
-    public VictoryCondition getVictoryCondition(Class<? extends VictoryCondition> clazz) {
-        for (VictoryCondition vc : vcs){
-            if (vc.getClass() == clazz)
-                return vc;
-        }
-        return null;
-    }
+//    public void removeVictoryCondition(VictoryCondition victoryCondition){
+//        vcs.remove(victoryCondition);
+//        removeArenaListener(victoryCondition);
+//    }
+//
+//
+//    public VictoryCondition getVictoryCondition(Class<? extends VictoryCondition> clazz) {
+//        for (VictoryCondition vc : vcs){
+//            if (vc.getClass() == clazz)
+//                return vc;
+//        }
+//        return null;
+//    }
 
     /**
      * Gets the arena currently being used by this match
@@ -1318,7 +1297,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         times.put(this.state, System.currentTimeMillis());
     }
 
-    @SuppressWarnings("SuspiciousMethodCalls")
     @Override
     public Long getTime(CompetitionState state){
         return times.get(state);
@@ -1522,9 +1500,9 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         return teams.contains(team);
     }
 
-    public List<VictoryCondition> getVictoryConditions() {
-        return vcs;
-    }
+//    public List<VictoryCondition> getVictoryConditions() {
+//        return vcs;
+//    }
 
     public void timeExpired() {
         MatchFindCurrentLeaderEvent event = new MatchFindCurrentLeaderEvent(this,teams, true);

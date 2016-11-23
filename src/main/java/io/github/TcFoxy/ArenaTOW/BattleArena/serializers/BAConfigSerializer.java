@@ -39,8 +39,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptio
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.Custom;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.FileUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.KeyValue;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
@@ -53,8 +51,8 @@ public class BAConfigSerializer extends BaseConfig{
     public void loadDefaults(){
         try {config.load(file);} catch (Exception e){Log.printStackTrace(e);}
         EventParams defaults = new EventParams(ArenaType.register(Defaults.DEFAULT_CONFIG_NAME, Arena.class, BattleArena.getSelf()));
-        VictoryType.register(Custom.class, BattleArena.getSelf());
-        defaults.setVictoryType(VictoryType.getType(Custom.class));
+//        VictoryType.register(Custom.class, BattleArena.getSelf());
+//        defaults.setVictoryType(VictoryType.getType(Custom.class));
         defaults.setName(Defaults.DEFAULT_CONFIG_NAME);
         defaults.setCommand(Defaults.DEFAULT_CONFIG_NAME);
 
@@ -335,18 +333,18 @@ public class BAConfigSerializer extends BaseConfig{
     }
 
 
-    public void loadVictoryConditions() {
-        for (VictoryType vt : VictoryType.values()) {
-            String name = vt.getName();
-            if (name.equalsIgnoreCase("HighestKills")) { /// Old name for PlayerKills
-                name = "PlayerKills";}
-            BaseConfig c = loadOtherConfig(BattleArena.getSelf().getDataFolder() +
-                    "/victoryConditions/" + name + ".yml");
-            if (c == null)
-                continue;
-            VictoryType.addConfig(vt, c);
-        }
-    }
+//    public void loadVictoryConditions() {
+//        for (VictoryType vt : VictoryType.values()) {
+//            String name = vt.getName();
+//            if (name.equalsIgnoreCase("HighestKills")) { /// Old name for PlayerKills
+//                name = "PlayerKills";}
+//            BaseConfig c = loadOtherConfig(BattleArena.getSelf().getDataFolder() +
+//                    "/victoryConditions/" + name + ".yml");
+//            if (c == null)
+//                continue;
+//            VictoryType.addConfig(vt, c);
+//        }
+//    }
 
     private BaseConfig loadOtherConfig(String file){
         File f = new File(file);

@@ -2,7 +2,6 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.objects.options;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ConfigSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
 
@@ -101,8 +100,8 @@ public enum AlterParamOption {
             case DISPLAYNAME:
             case SIGNDISPLAYNAME:
                 return value;
-            case VICTORYCONDITION:
-                return VictoryType.fromString(value);
+//            case VICTORYCONDITION:
+//                return VictoryType.fromString(value);
             case GAMETYPE:
                 return ArenaType.getType(value);
             case CANCELIFNOTENOUGHPLAYERS:

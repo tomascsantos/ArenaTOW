@@ -15,7 +15,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 
 
@@ -23,7 +22,7 @@ public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
 
     String prefix;
     String signDisplayName;
-    VictoryType vc;
+//    VictoryType vc;
     Integer intervalTime;
     AnnouncementOptions ao;
 
@@ -56,7 +55,7 @@ public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
         if (ap instanceof MatchParams){
             MatchParams mp = (MatchParams)ap;
             this.prefix = mp.prefix;
-            this.vc = mp.vc;
+//            this.vc = mp.vc;
 
             this.intervalTime = mp.intervalTime;
             this.ao = mp.ao;
@@ -75,7 +74,7 @@ public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
     public void flatten() {
         if (mparent != null){
             if (this.prefix == null) this.prefix = mparent.getPrefix();
-            if (this.vc == null) this.vc = mparent.getVictoryType();
+//            if (this.vc == null) this.vc = mparent.getVictoryType();
             if (this.intervalTime == null) this.intervalTime = mparent.getIntervalTime();
             if (this.ao == null) this.ao = mparent.getAnnouncementOptions();
             if (this.numConcurrentCompetitions == null) this.numConcurrentCompetitions = mparent.getNConcurrentCompetitions();
@@ -89,11 +88,11 @@ public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
         super.flatten();
     }
 
-    public void setVictoryType(VictoryType type){this.vc = type;}
-
-    public VictoryType getVictoryType() {
-        return vc == null && mparent!=null ? mparent.getVictoryType() : vc;
-    }
+//    public void setVictoryType(VictoryType type){this.vc = type;}
+//
+//    public VictoryType getVictoryType() {
+//        return vc == null && mparent!=null ? mparent.getVictoryType() : vc;
+//    }
 
     public String getPrefix(){
         return prefix == null && mparent!=null ? mparent.getPrefix() : prefix;
@@ -118,9 +117,9 @@ public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
     }
 
 
-    public void setVictoryCondition(VictoryType victoryCondition) {
-        this.vc = victoryCondition;
-    }
+//    public void setVictoryCondition(VictoryType victoryCondition) {
+//        this.vc = victoryCondition;
+//    }
 
     public Integer getIntervalTime() {
         return intervalTime ==null && mparent!=null ? mparent.getIntervalTime() : intervalTime;
@@ -150,10 +149,10 @@ public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
         return ao;
     }
 
-    @Override
-    public String toString(){
-        return super.toString()+",vc=" + vc;
-    }
+//    @Override
+//    public String toString(){
+//        return super.toString()+",vc=" + vc;
+//    }
 
     public ChatColor getColor() {
         return MessageUtil.getFirstColor(prefix);

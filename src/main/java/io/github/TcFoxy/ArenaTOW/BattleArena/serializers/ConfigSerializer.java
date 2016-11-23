@@ -47,8 +47,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.BrokenArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.OneTeamLeft;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.BTInterface;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
@@ -101,8 +99,8 @@ public class ConfigSerializer extends BaseConfig{
                                               ConfigurationSection cs, boolean isNonBaseConfig) throws ConfigException, InvalidOptionException {
 
         MatchParams mp = at != null ? new MatchParams(at) : new MatchParams();
-        if (!isNonBaseConfig || cs.contains("victoryCondition"))
-            mp.setVictoryType(loadVictoryType(cs)); /// How does one win this game
+//        if (!isNonBaseConfig || cs.contains("victoryCondition"))
+//            mp.setVictoryType(loadVictoryType(cs)); /// How does one win this game
 
         /// Set our name and command
         if (!isNonBaseConfig){
@@ -188,20 +186,20 @@ public class ConfigSerializer extends BaseConfig{
         return mp;
     }
 
-    public static VictoryType loadVictoryType(ConfigurationSection cs) throws ConfigException {
-        VictoryType vt;
-        if (cs.contains("victoryCondition")){
-            vt = VictoryType.fromString(cs.getString("victoryCondition"));
-        } else {
-            vt = VictoryType.getType(OneTeamLeft.class);
-        }
-
-        // TODO make unknown types with a valid plugin name be deferred until after the other plugin is loaded
-        if (vt == null){
-            throw new ConfigException("Could not add the victoryCondition " +cs.getString("victoryCondition") +"\n"
-                    +"valid types are " + VictoryType.getValidList());}
-        return vt;
-    }
+//    public static VictoryType loadVictoryType(ConfigurationSection cs) throws ConfigException {
+//        VictoryType vt;
+//        if (cs.contains("victoryCondition")){
+//            vt = VictoryType.fromString(cs.getString("victoryCondition"));
+//        } else {
+//            vt = VictoryType.getType(OneTeamLeft.class);
+//        }
+//
+//        // TODO make unknown types with a valid plugin name be deferred until after the other plugin is loaded
+//        if (vt == null){
+//            throw new ConfigException("Could not add the victoryCondition " +cs.getString("victoryCondition") +"\n"
+//                    +"valid types are " + VictoryType.getValidList());}
+//        return vt;
+//    }
 
 
     private static StateGraph loadTransitionOptions(ConfigurationSection cs, MatchParams mp)
@@ -746,7 +744,7 @@ public class ConfigSerializer extends BaseConfig{
         }
 
         if (params.getNLives() != null) maincs.set("nLives", ArenaSize.toString(params.getNLives()));
-        if (params.getVictoryType()!= null) maincs.set("victoryCondition", params.getVictoryType().getName());
+//        if (params.getVictoryType()!= null) maincs.set("victoryCondition", params.getVictoryType().getName());
 
         if (params.getSecondsTillMatch() != null || params.getMatchTime() != null || params.getSecondsToLoot() != null ||
                 params.getTimeBetweenRounds() != null || params.getIntervalTime() != null){

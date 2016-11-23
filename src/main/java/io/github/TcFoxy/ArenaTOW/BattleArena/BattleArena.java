@@ -43,19 +43,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.InArenaListen
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.AllKills;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.Custom;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.HighestKills;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.InfiniteLives;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.KillLimit;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.LastManStanding;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.MobKills;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.NLives;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.NoTeamsLeft;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.OneTeamLeft;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.PlayerKills;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.TimeLimit;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ArenaControllerSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.ArenaSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.BAClassesSerializer;
@@ -100,8 +87,6 @@ public class BattleArena extends JavaPlugin {
     private static final BAClassesSerializer classesSerializer = new BAClassesSerializer();
     private static final EventScheduleSerializer eventSchedulerSerializer = new EventScheduleSerializer();
     private static final SignSerializer signSerializer = new SignSerializer();
-    private static final int bukkitId = 43134; /// project bukkitId
-    //private BattlePluginsAPI bpapi;
 
     private ArenaTOW arenaTow = new ArenaTOW();
     
@@ -152,13 +137,9 @@ public class BattleArena extends JavaPlugin {
             }
         }
 
-        /// For potential updates to default yml files
-        YamlFileUpdater yfu = new YamlFileUpdater(this);
-
         /// Set up our messages first before other initialization needs messages
         MessageSerializer defaultMessages = new MessageSerializer("default", null);
         defaultMessages.setConfig(FileUtil.load(clazz, dir.getPath() + "/messages.yml", "/default_files/messages.yml"));
-        yfu.updateMessageSerializer(plugin, defaultMessages); /// Update our config if necessary
         defaultMessages.loadAll();
         MessageSerializer.setDefaultConfig(defaultMessages);
 
@@ -179,20 +160,20 @@ public class BattleArena extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(signUpdateListener, this);
 
 
-        /// Register our different Victory Types
-        VictoryType.register(LastManStanding.class, this);
-        VictoryType.register(NLives.class, this);
-        VictoryType.register(InfiniteLives.class, this);
-        VictoryType.register(TimeLimit.class, this);
-        VictoryType.register(OneTeamLeft.class, this);
-        VictoryType.register(NoTeamsLeft.class, this);
-        VictoryType.register(PlayerKills.class, this);
-        VictoryType.register(MobKills.class, this);
-        VictoryType.register(AllKills.class, this);
-        VictoryType.register(KillLimit.class, this);
-        VictoryType.register(Custom.class, this);
-        //noinspection deprecation
-        VictoryType.register(HighestKills.class, this);
+//        /// Register our different Victory Types
+//        VictoryType.register(LastManStanding.class, this);
+//        VictoryType.register(NLives.class, this);
+//        VictoryType.register(InfiniteLives.class, this);
+//        VictoryType.register(TimeLimit.class, this);
+//        VictoryType.register(OneTeamLeft.class, this);
+//        VictoryType.register(NoTeamsLeft.class, this);
+//        VictoryType.register(PlayerKills.class, this);
+//        VictoryType.register(MobKills.class, this);
+//        VictoryType.register(AllKills.class, this);
+//        VictoryType.register(KillLimit.class, this);
+//        VictoryType.register(Custom.class, this);
+//        //noinspection deprecation
+//        VictoryType.register(HighestKills.class, this);
 
         /// Load our configs, then arenas
         baConfigSerializer.setConfig(FileUtil.load(clazz, dir.getPath() + "/config.yml", "/default_files/main/config.yml"));
@@ -241,7 +222,7 @@ public class BattleArena extends JavaPlugin {
         Scheduler.scheduleSynchronousTask(this, new Runnable() {
             @Override
             public void run() {
-                baConfigSerializer.loadVictoryConditions();
+//                baConfigSerializer.loadVictoryConditions();
                 baConfigSerializer.loadCompetitions(); /// Load our competitions, has to happen after classes and teams
                 arenaTow.startThePlugin(); //Registers entities for ArenaTOW
 

@@ -13,7 +13,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchResult;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.ScoreTracker;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.ScoreMap;
 import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
 import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SAPIFactory;
@@ -25,7 +24,7 @@ import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.bukkit.BObjective;
 
 
 
-public class ArenaObjective implements SObjective, ScoreTracker{
+public class ArenaObjective implements SObjective{
 
     final protected ScoreMap<ArenaTeam> teamPoints = new ScoreMap<ArenaTeam>();
     final protected ScoreMap<ArenaPlayer> playerPoints = new ScoreMap<ArenaPlayer>();
@@ -179,20 +178,20 @@ public class ArenaObjective implements SObjective, ScoreTracker{
 		return teamPoints.setPoints(t, points);
 	}
 
-	@Override
-	public List<ArenaTeam> getLeaders() {
-		return getTeamLeaders();
-	}
+//	@Override
+//	public List<ArenaTeam> getLeaders() {
+//		return getTeamLeaders();
+//	}
 
-	@Override
-	public TreeMap<?, Collection<ArenaTeam>> getRanks() {
-		return getTeamRanks();
-	}
+//	@Override
+//	public TreeMap<?, Collection<ArenaTeam>> getRanks() {
+//		return getTeamRanks();
+//	}
 
-	@Override
-	public void setScoreBoard(ArenaScoreboard scoreboard) {
-		scoreboard.setObjectiveScoreboard(this);
-	}
+//	@Override
+//	public void setScoreBoard(ArenaScoreboard scoreboard) {
+//		scoreboard.setObjectiveScoreboard(this);
+//	}
 
 	@Override
 	public void setDisplayName(String displayName) {

@@ -3,7 +3,6 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging;
 
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,11 +19,8 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.MatchMessageHandl
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Message;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.MessageOptions.MessageOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryCondition;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.interfaces.DefinesLeaderRanking;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.MessageSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimeUtil;
 
 /**
@@ -88,29 +84,29 @@ public class MatchMessageImpl extends MessageSerializer implements MatchMessageH
 	public void sendOnVictoryMsg(Channel serverChannel, Collection<ArenaTeam> victors, Collection<ArenaTeam> losers) {
 		int size = (victors != null ? victors.size() : 0) + (losers != null ? losers.size() : 0);
 		final String nTeamPath = getStringPathFromSize(size);
-		for (VictoryCondition vc: match.getVictoryConditions()){
-			if (vc instanceof DefinesLeaderRanking){
-				List<ArenaTeam> leaders = ((DefinesLeaderRanking)vc).getLeaders();
-				if (leaders==null)
-					continue;
-				int max = Math.min(leaders.size(), 4);
-				StringBuilder sb = new StringBuilder();
-				for (int i = 0;i<max;i++){
-					sb.append("&6").append(i + 1).append("&e : ").
-                            append(TeamUtil.formatName(leaders.get(i))).append("\n");
-				}
-				String leaderStr = sb.toString();
-				if (victors != null){
-					for (ArenaTeam t: victors){
-						t.sendMessage(leaderStr);}
-				}
-				if (losers != null){
-					for (ArenaTeam t: losers){
-						t.sendMessage(leaderStr);}
-				}
-				break;
-			}
-		}
+//		for (VictoryCondition vc: match.getVictoryConditions()){
+//			if (vc instanceof DefinesLeaderRanking){
+//				List<ArenaTeam> leaders = ((DefinesLeaderRanking)vc).getLeaders();
+//				if (leaders==null)
+//					continue;
+//				int max = Math.min(leaders.size(), 4);
+//				StringBuilder sb = new StringBuilder();
+//				for (int i = 0;i<max;i++){
+//					sb.append("&6").append(i + 1).append("&e : ").
+//                            append(TeamUtil.formatName(leaders.get(i))).append("\n");
+//				}
+//				String leaderStr = sb.toString();
+//				if (victors != null){
+//					for (ArenaTeam t: victors){
+//						t.sendMessage(leaderStr);}
+//				}
+//				if (losers != null){
+//					for (ArenaTeam t: losers){
+//						t.sendMessage(leaderStr);}
+//				}
+//				break;
+//			}
+//		}
 
 		sendVictory(serverChannel,victors,losers,mp,typedot+nTeamPath+".victory",typedot+nTeamPath+".loss",
 				typedot+nTeamPath+".server_victory");

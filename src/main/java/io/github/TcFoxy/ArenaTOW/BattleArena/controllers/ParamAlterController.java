@@ -26,7 +26,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionExc
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.AlterParamOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.victoryconditions.VictoryType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
@@ -133,9 +132,9 @@ public class ParamAlterController {
                 iv = (Integer) value;
                 checkGreater(iv,1, true);
                 params.setSecondsToLoot(iv); break;
-            case VICTORYCONDITION:
-                params.setVictoryCondition((VictoryType)value);
-                break;
+//            case VICTORYCONDITION:
+//                params.setVictoryCondition((VictoryType)value);
+//                break;
             case USETRACKERMESSAGES:
                 params.setUseTrackerMessages((Boolean)value);
                 break;
@@ -313,7 +312,7 @@ public class ParamAlterController {
             case MATCHTIME: params.setMatchTime(null);break;
             case PRESTARTTIME: params.setSecondsTillMatch(null);break;
             case VICTORYTIME: params.setSecondsToLoot(null); break;
-            case VICTORYCONDITION: params.setVictoryCondition(null); break;
+//            case VICTORYCONDITION: params.setVictoryCondition(null); break;
             case CLOSEWAITROOMWHILERUNNING: params.setWaitroomClosedWhileRunning(null);
             case RATED: params.setRated(false); break;
             default:
