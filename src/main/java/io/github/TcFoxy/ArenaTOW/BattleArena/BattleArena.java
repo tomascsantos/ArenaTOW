@@ -152,7 +152,7 @@ public class BattleArena extends JavaPlugin {
         try {
             YamlFileUpdater.updateBaseConfig(this, baConfigSerializer); /// Update our config if necessary
         } catch (Exception e) {
-            Log.printStackTrace(e);
+            Log.printStackTrace(e); 
         }
 
         baConfigSerializer.loadDefaults(); /// Load our defaults for BattleArena, has to happen before classes are loaded

@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
@@ -147,22 +146,6 @@ public class PlayerStoreController {
         if (save == null || save.getMoney()==null)
             return;
         save.restoreMoney();
-    }
-
-
-    public void storeMagic(ArenaPlayer player) {
-        getOrCreateSave(player).storeMagic();
-    }
-
-    public void restoreMagic(ArenaPlayer p) {
-       PlayerSave save = getSave(p);
-        if (save == null || save.getMagic()==null)
-            return;
-        if (restoreable(p)){
-            save.restoreMagic();
-        } else {
-            BAPlayerListener.restoreMagicOnReenter(p, save.removeMagic());
-        }
     }
 
 
@@ -303,32 +286,12 @@ public class PlayerStoreController {
         WorldGuardController.removeMember(p.getName(), region);
     }
 
-    public void storeHeroClass(ArenaPlayer player) {
-        getOrCreateSave(player).storeArenaClass();
-    }
-
-    public void restoreHeroClass(ArenaPlayer p) {
-        PlayerSave save = getSave(p);
-        if (save == null || save.getArenaClass()==null)
-            return;
-        if (restoreable(p)){
-            save.restoreArenaClass();
-        }
-    }
-
-    public void cancelExpLoss(ArenaPlayer p, boolean cancel) {
-        if (!HeroesController.enabled())
-            return;
-        HeroesController.cancelExpLoss(p.getPlayer(),cancel);
-    }
-
     public static PlayerStoreController getPlayerStoreController() {
         return INSTANCE;
     }
 
     public void deEnchant(Player p) {
         try{ EffectUtil.deEnchantAll(p);} catch (Exception e){/* do nothing */}
-        HeroesController.deEnchant(p);
         if (!p.isOnline() || p.isDead()){
             BAPlayerListener.deEnchantOnEnter(BattleArena.toArenaPlayer(p));
         }

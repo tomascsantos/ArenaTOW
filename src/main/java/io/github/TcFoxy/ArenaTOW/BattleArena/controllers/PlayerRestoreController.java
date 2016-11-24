@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.ExpUtil;
@@ -96,10 +95,6 @@ public class PlayerRestoreController {
         if (hunger != null){
             handleHunger();}
 
-        /// Magic restore
-        if (magic != null){
-            handleMagic();}
-
         /// Restore Items
         if (item != null){
             handleItems();}
@@ -115,7 +110,6 @@ public class PlayerRestoreController {
         /// DeEnchant
         if (deEnchant){
             try{ EffectUtil.deEnchantAll(p);} catch (Exception e){/* do nothing */}
-            HeroesController.deEnchant(p);
         }
 
         if (effects !=null){
@@ -182,20 +176,6 @@ public class PlayerRestoreController {
                 if (pl != null) {
                     ArenaPlayer ap = PlayerController.toArenaPlayer(pl);
                     PlayerStoreController.setInventory(ap, items);
-                }
-            }
-        });
-    }
-
-    private void handleMagic() {
-        final int val = magic;
-        magic = null;
-        Scheduler.scheduleSynchronousTask(new Runnable() {
-            @Override
-            public void run() {
-                Player pl = player.regetPlayer();
-                if (pl != null) {
-                    HeroesController.setMagicLevel(pl, val);
                 }
             }
         });
@@ -280,22 +260,6 @@ public class PlayerRestoreController {
                 /// Set a timed event to check to make sure the player actually arrived
                 /// Then do a teleport if needed
                 /// This can happen on servers where plugin conflicts prevent the respawn (somehow!!!)
-                if (HeroesController.enabled()){
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(BattleArena.getSelf(), new Runnable(){
-                        @Override
-                        public void run() {
-                            Player pl = player.regetPlayer();
-                            if (pl != null){
-                                if (pl.getLocation().getWorld().getUID()!=loc.getWorld().getUID() ||
-                                        pl.getLocation().distanceSquared(loc) > 100){
-                                    TeleportController.teleport(p, loc);
-                                }
-                            } else {
-                                Util.printStackTrace();
-                            }
-                        }
-                    },2L);
-                }
             }
         } else { /// this is bad, how did they get a null tp loc
             Log.err(player.getName() + " respawn loc =null");

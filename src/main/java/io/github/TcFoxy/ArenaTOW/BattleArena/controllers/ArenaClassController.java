@@ -17,7 +17,6 @@ import org.bukkit.potion.PotionEffect;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerClassSelectedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
@@ -61,8 +60,6 @@ public class ArenaClassController {
     }
 
     public static void giveClass(ArenaPlayer player, ArenaClass ac, Color color) {
-        if (HeroesController.enabled())
-            ac = giveHeroClass(player,ac);
         try{if (ac.getItems() != null)
             InventoryUtil.addItemsToInventory(player.getPlayer(), ac.getItems(),true, color);}
         catch (Exception e){/* do nothing, error would be reported inside InventoryUtil */}
@@ -75,22 +72,6 @@ public class ArenaClassController {
         if (player.getPreferredClass() == null){
             player.setPreferredClass(ac);}
         player.setCurrentClass(ac);
-    }
-
-    private static ArenaClass giveHeroClass(ArenaPlayer player, ArenaClass ac){
-        if (ac == ArenaClass.CHOSEN_CLASS){
-            String className = HeroesController.getHeroClassName(player.getPlayer());
-            if (className != null){
-                ArenaClass ac2 = ArenaClassController.getClass(className);
-                if (ac2 != null)
-                    return ac2;
-            }
-        }
-        /// Set them to the appropriate heroes class if one exists with this name
-        if (HeroesController.hasHeroClass(ac.getName())){
-            HeroesController.setHeroClass(player.getPlayer(), ac.getName());
-        }
-        return ac;
     }
 
     public static void giveClassEnchants(Player player, ArenaClass ac) {

@@ -34,8 +34,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.GameManager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MatchMessager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.EventManager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchCancelledEvent;
@@ -550,11 +548,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
             if (Defaults.DEBUG_TRACE) Log.trace(am.getID(), "Match::MatchVictory():" + am + "  victors=" + victors +
                     "  losers=" + losers + "  drawers=" + drawers + " " + matchResult + " secondsToLoot=" +
                     params.getSecondsToLoot());
-            if (params.isRated()){
-                TrackerController sc = new TrackerController(params);
-                sc.addRecord(victors,losers,drawers,result.getResult(), params.isTeamRating());
-            }
-
             if (result.hasVictor()){ /// We have a true winner
                 try{mc.sendOnVictoryMsg(victors, losers);}catch(Exception e){Log.printStackTrace(e);}
             } else { /// we have a draw
@@ -583,10 +576,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
                     "  losers=" + losers + "  drawers=" + drawers + " " + matchResult + " secondsToLoot=" +
                     params.getSecondsToLoot());
 
-            if (params.isRated()){
-                TrackerController sc = new TrackerController(params);
-                sc.addRecord(victors,losers,drawers,am.getResult().getResult(), params.isTeamRating());
-            }
             if (matchResult.hasVictor()){ /// We have a true winner
                 try{mc.sendOnVictoryMsg(victors, losers);}catch(Exception e){Log.printStackTrace(e);}
             } else { /// we have a draw
@@ -859,7 +848,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         if (Defaults.DEBUG_MATCH_TEAMS) Log.info(getID()+" removedTeam("+team.getName()+":"+team.getId()+")");
         scoreboard.removeTeam(team);
         teams.remove(team);
-        HeroesController.removeTeam(team);
         return true;
     }
 
@@ -977,7 +965,6 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
 
     private void privateRemovedFromTeam(ArenaTeam team,ArenaPlayer ap){
         if (Defaults.DEBUG_MATCH_TEAMS) Log.info(getID()+" removedFromTeam("+team.getName()+":"+team.getId()+")"+ap.getName());
-        HeroesController.removedFromTeam(team, ap.getPlayer());
         scoreboard.removedFromTeam(team,ap);
     }
 
@@ -1008,16 +995,10 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
             if (e!=null)
                 scoreboard.setEntryNameSuffix(e, "(" + nLivesPerPlayer + ")");
         }
-        if (!params.getUseTrackerPvP()){
-            TrackerController.stopTracking(player);
-            TrackerController.stopTrackingMessages(player);
-        }
         if (woolTeams && team !=null && team.getIndex()!=-1){
             TeamUtil.setTeamHead(team.getIndex(), player); // give wool heads
         }
 
-        if (cancelExpLoss){
-            psc.cancelExpLoss(player,true);}
         addInMatch(player);
     }
 
@@ -1083,10 +1064,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
             psc.removeMember(player, arena.getWorldGuardRegion());
         player.removeCompetition(this);
         player.reset(); /// reset the players
-        if (!params.getUseTrackerPvP()){
-            TrackerController.resumeTracking(player);
-            TrackerController.resumeTrackingMessages(player);
-        }
+
         if (t != null){
             if (this.woolTeams)
                 TeamUtil.removeTeamHead(t.getIndex(), player.getPlayer());
@@ -1101,8 +1079,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
             joinHandler.leave(player);
             inGamePlayers.remove(player);
         }
-        if (cancelExpLoss){
-            psc.cancelExpLoss(player,false);}
+
         removeInMatch(player);
         player.setTeam(null);
         if (cancelsIfGone && joinHandler.isEmpty()) {

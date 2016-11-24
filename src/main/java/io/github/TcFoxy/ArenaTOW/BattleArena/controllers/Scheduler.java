@@ -7,6 +7,7 @@ import org.bukkit.plugin.Plugin;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.ISchedulerHelper;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_7_R3.ScheduleHelper;
 
 
 
@@ -54,7 +55,7 @@ public class Scheduler {
 	static {
 		Class<?>[] args = {};
 		try{
-			 final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_6_R1.SchedulerHelper");
+			 final Class<?> clazz = ScheduleHelper.class;
 			 handler = (ISchedulerHelper) clazz.getConstructor(args).newInstance((Object[])args);
 		}catch (Exception e){
 			Log.printStackTrace(e);

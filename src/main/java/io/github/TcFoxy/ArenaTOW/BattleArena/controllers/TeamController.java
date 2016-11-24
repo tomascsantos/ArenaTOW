@@ -14,7 +14,6 @@ import java.util.UUID;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerLeaveEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
@@ -42,14 +41,11 @@ public enum TeamController implements Listener {
 	 */
 	public static ArenaTeam getTeam(ArenaPlayer player) {
 		ArenaTeam at = INSTANCE.selfFormedTeams.get(player.getID());
-        if (at == null && HeroesController.enabled())
-            return HeroesController.getTeam(player.getPlayer());
         return at;
     }
 
     public boolean inSelfFormedTeam(ArenaPlayer player){
-        return (INSTANCE.selfFormedTeams.containsKey(player.getID()) ||
-                (HeroesController.enabled() && HeroesController.getTeam(player.getPlayer() )!=null));
+        return (INSTANCE.selfFormedTeams.containsKey(player.getID()));
     }
 
 	public ArenaTeam getSelfFormedTeam(ArenaPlayer player) {

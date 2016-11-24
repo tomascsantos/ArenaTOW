@@ -13,7 +13,6 @@ import org.bukkit.potion.PotionEffect;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.InventorySerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
@@ -273,25 +272,6 @@ public class PlayerSave {
         return ret;
     }
 
-    public void storeMagic() {
-        if (!HeroesController.enabled() || magic != null)
-            return;
-        magic = HeroesController.getMagicLevel(player.getPlayer());
-    }
-
-    public void restoreMagic() {
-        if (!HeroesController.enabled() || magic ==null)
-            return;
-        HeroesController.setMagicLevel(player.getPlayer(), magic);
-        magic = null;
-    }
-
-    public Integer removeMagic() {
-        Integer ret = magic;
-        magic = null;
-        return ret;
-    }
-
     public void storeItems() {
         if (items != null)
             return;
@@ -401,17 +381,17 @@ public class PlayerSave {
         return ret;
     }
 
-    public void storeArenaClass() {
-        if (!HeroesController.enabled() || arenaClass != null)
-            return;
-        arenaClass = HeroesController.getHeroClassName(player.getPlayer());
-    }
-
-    public void restoreArenaClass() {
-        if (!HeroesController.enabled() || arenaClass==null)
-            return;
-        HeroesController.setHeroClass(player.getPlayer(), arenaClass);
-    }
+//    public void storeArenaClass() {
+//        if (!HeroesController.enabled() || arenaClass != null)
+//            return;
+//        arenaClass = HeroesController.getHeroClassName(player.getPlayer());
+//    }
+//
+//    public void restoreArenaClass() {
+//        if (!HeroesController.enabled() || arenaClass==null)
+//            return;
+//        HeroesController.setHeroClass(player.getPlayer(), arenaClass);
+//    }
 
     public void storeScoreboard() {
         if (scoreboard != null)

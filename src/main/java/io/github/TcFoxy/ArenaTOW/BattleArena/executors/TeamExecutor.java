@@ -16,7 +16,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.competition.events.Event;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.PlayerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.TeamController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.FormingTeam;
@@ -168,9 +167,6 @@ public class TeamExecutor extends CustomCommandExecutor {
 		ArenaTeam t = teamc.getSelfFormedTeam(player);
 		if (t== null){
 			return sendMessage(player,"&eYou aren't part of a team");}
-
-		if (HeroesController.enabled()){
-			HeroesController.removedFromTeam(t, player.getPlayer());}
 
 		teamc.removeSelfFormedTeam(t);
 		t.sendToOtherMembers(player,"&eYour team has been disbanded by " + player.getName());

@@ -7,7 +7,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
@@ -15,9 +14,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.competition.events.Event;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.Match;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.events.EventFinishedEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.matches.MatchFinishedEvent;
-import io.github.TcFoxy.ArenaTOW.BattleArena.executors.EventExecutor;
-import io.github.TcFoxy.ArenaTOW.BattleArena.executors.TournamentExecutor;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.EventParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
@@ -63,37 +59,24 @@ public class EventScheduler implements Runnable, ArenaListener{
 			if (stop)
 				return;
 
-			CommandSender sender = Bukkit.getConsoleSender();
 			MatchParams params = eventPair.getEventParams();
 			String args[] = eventPair.getArgs();
 			boolean success = false;
 			try {
-				EventExecutor ee = EventController.getEventExecutor(eventPair.getEventParams().getName());
-				if (ee != null && ee instanceof TournamentExecutor){
-					TournamentExecutor exe = (TournamentExecutor) ee;
-					Event event = exe.openIt(sender, (EventParams)params, args);
-					if (event != null){
-						event.addArenaListener(scheduler);
-						success = true;
-					}
-					if (Defaults.DEBUG_SCHEDULER) Log.info("[BattleArena debugging] Running event ee=" + ee  +
-                            "  event" + event +"  args=" + Arrays.toString(args));
-				} else { /// normal match
-					EventOpenOptions eoo = EventOpenOptions.parseOptions(args, null, params);
-					Arena arena = eoo.getArena(params);
-                    if (arena != null){
-                        Match m = BattleArena.getBAController().createAndAutoMatch(arena, eoo);
-                        m.addArenaListener(scheduler);
-                        success = true;
-                    } else {
-                        Log.warn("[BattleArena] scheduled command args="+Arrays.toString(args) +
-                                " can't be started. Arena is not there or in use");
-                    }
+				EventOpenOptions eoo = EventOpenOptions.parseOptions(args, null, params);
+				Arena arena = eoo.getArena(params);
+				if (arena != null){
+					Match m = BattleArena.getBAController().createAndAutoMatch(arena, eoo);
+					m.addArenaListener(scheduler);
+					success = true;
+				} else {
+					Log.warn("[BattleArena] scheduled command args="+Arrays.toString(args) +
+							" can't be started. Arena is not there or in use");
 				}
-            } catch (InvalidOptionException e){
-                Log.warn(e.getMessage());
-            } catch (InvalidEventException e) {
-                Log.warn(e.getMessage());
+			} catch (InvalidOptionException e){
+				Log.warn(e.getMessage());
+			} catch (InvalidEventException e) {
+				Log.warn(e.getMessage());
 			} catch (Exception e){
 				Log.printStackTrace(e);
 			}

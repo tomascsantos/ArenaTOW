@@ -12,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.stats.ArenaStat;
 
 public interface ArenaTeam {
 
@@ -156,12 +155,6 @@ public interface ArenaTeam {
 	public ItemStack getHeadItem();
 
 	public void setHeadItem(ItemStack item);
-
-	public void setArenaStat(ArenaStat stat);
-
-	public ArenaStat getStat();
-
-	public ArenaStat getStat(MatchParams mp);
 
 	public MatchParams getCurrentParams();
 
