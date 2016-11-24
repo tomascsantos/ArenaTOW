@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
@@ -198,6 +199,19 @@ public class TugListener implements Listener{
 	}
 	
 	/*
+	 * no placing blocks
+	 */
+	@EventHandler
+	private void noPlaceBlocks(BlockPlaceEvent event){
+		for(ArenaPlayer ap : tug.arena.getMatch().getAlivePlayers()){
+			if(event.getPlayer() == ap.getPlayer()){
+				event.setCancelled(true);
+				event.getPlayer().sendMessage(ChatColor.DARK_RED + "Spamy Spam Spam - That's what you get for placing blocks in the Arena!");
+			}
+		}
+	}
+	
+	/*
 	 * used to stop incendiary fireballs from igniting blocks
 	 */
 	@EventHandler
@@ -211,7 +225,7 @@ public class TugListener implements Listener{
 	 */
 	@EventHandler
 	private void nexusDeath(EntityDeathEvent event){
-		if(event.getEntityType() != EntityType.GUARDIAN)
+		if(event.getEntityType() != EntityType.ELDER_GUARDIAN)
 			return;
 		for(PersistInfo b : tug.activeInfo.values()){
 			if(b.hasMob() && ((EntityLiving) b.getMob()).getHealth() == 0){

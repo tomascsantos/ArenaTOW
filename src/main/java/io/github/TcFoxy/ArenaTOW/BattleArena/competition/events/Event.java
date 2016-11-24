@@ -202,7 +202,6 @@ public abstract class Event extends Competition implements CountdownCallback, Ar
         return isOpen();
     }
 
-    @SuppressWarnings("unused")
     public boolean canJoin(ArenaTeam t){
         return isOpen();
     }
@@ -219,7 +218,6 @@ public abstract class Event extends Competition implements CountdownCallback, Ar
         times.put(this.state, System.currentTimeMillis());
     }
 
-    @SuppressWarnings("SuspiciousMethodCalls")
     @Override
     public Long getTime(CompetitionState state){
         return times.get(state);

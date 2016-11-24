@@ -2,16 +2,11 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 
 
 public class ArenaDebugger {

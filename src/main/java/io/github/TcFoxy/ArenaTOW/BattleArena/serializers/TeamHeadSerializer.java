@@ -2,12 +2,9 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.serializers;
 
 
 import java.awt.Color;
-import java.util.List;
 
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.ConfigException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.TeamAppearance;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
@@ -18,32 +15,19 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.TeamUtil;
 
 public class TeamHeadSerializer extends BaseConfig{
 
+	private String[] keys = {"&cRed,wool:14,255,0,0", "&bBlue,wool:11,0,0,255"};
+	
 	public void loadAll(){
-		try {config.load(file);} catch (Exception e){Log.printStackTrace(e);}
-		loadTeams(config);
-	}
-
-	public static void loadTeams(ConfigurationSection cs) {
-		if (cs == null){
-			Log.info(BattleArena.getPluginName() +" has no teamColors");
-			return;}
-		List<String> keys = cs.getStringList("teams");
-		boolean first = true;
-		for (String teamStr : keys){
+		for (String str: keys){
 			try {
-				addTeamHead(teamStr);
+				addTeamHead(str);
 			} catch (Exception e) {
-				Log.err("Error parsing teamHead " + teamStr);
+				Log.err("Error parsing teamHead " + str);
 				Log.printStackTrace(e);
 				continue;
 			}
-			if (first) first = false;
-		}
-		if (first){
-			Log.info(BattleArena.getPluginName() +" no predefined teamColors found. inside of " + cs.getCurrentPath());
 		}
 	}
-
 
 	private static String addTeamHead(String str) throws Exception {
 		String[] split = str.split(",");

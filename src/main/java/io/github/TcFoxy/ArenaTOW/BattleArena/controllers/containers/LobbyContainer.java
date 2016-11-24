@@ -35,7 +35,7 @@ public class LobbyContainer extends RoomContainer{
 		Arena a = votedFor.remove(ap);
 		if (a != null){
 			decrementVote(a);}
-		Integer nVotes = incrementVote(arena);
+		incrementVote(arena);
 	}
 
 	private Integer incrementVote(Arena arena) {
