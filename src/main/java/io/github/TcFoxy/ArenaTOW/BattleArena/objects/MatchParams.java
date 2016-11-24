@@ -3,9 +3,7 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.objects;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.bukkit.ChatColor;
 
@@ -13,7 +11,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.RoomController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.GameManager;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 
@@ -27,7 +24,6 @@ public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
     AnnouncementOptions ao;
 
     Integer numConcurrentCompetitions;
-    Set<ArenaModule> modules;
     Boolean useBTPvP;
     Boolean useBTMessages;
     Boolean useBTTeamRating;
@@ -65,8 +61,6 @@ public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
             this.useBTPvP = mp.useBTPvP;
             this.useBTTeamRating  = mp.useBTTeamRating;
             this.signDisplayName = mp.signDisplayName;
-            if (mp.modules != null)
-                this.modules = new HashSet<ArenaModule>(mp.modules);
         }
 
     }
@@ -82,7 +76,6 @@ public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
             if (this.useBTPvP == null) this.useBTPvP = mparent.getUseTrackerPvP();
             if (this.useBTTeamRating == null) this.useBTTeamRating = mparent.isTeamRating();
             if (this.signDisplayName== null) this.signDisplayName = mparent.getSignDisplayName();
-            this.modules = getModules();
             this.mparent = null;
         }
         super.flatten();
@@ -169,21 +162,6 @@ public class MatchParams extends ArenaParams implements Comparable<MatchParams>{
 
     public JoinType getJoinType() {
         return JoinType.QUEUE;
-    }
-
-    public void addModule(ArenaModule am) {
-        if (modules == null)
-            modules = new HashSet<ArenaModule>();
-        modules.add(am);
-    }
-
-    public Set<ArenaModule> getModules() {
-        Set<ArenaModule> ms  = modules == null ? new HashSet<ArenaModule>() : new HashSet<ArenaModule>(modules);
-
-        if (mparent != null) {
-            ms.addAll(mparent.getModules());
-        }
-        return ms;
     }
 
     public void setUseTrackerPvP(Boolean enable) {

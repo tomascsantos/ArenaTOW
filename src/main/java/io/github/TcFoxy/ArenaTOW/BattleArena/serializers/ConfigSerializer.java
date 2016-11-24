@@ -13,7 +13,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
@@ -22,7 +21,6 @@ import org.bukkit.potion.PotionEffect;
 import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ArenaClassController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ModuleController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.OptionSetController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.StateController;
@@ -42,8 +40,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.ConfigException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.exceptions.InvalidOptionException;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions.AnnouncementOption;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.BrokenArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
@@ -154,9 +150,6 @@ public class ConfigSerializer extends BaseConfig{
         }
         loadAnnouncementsOptions(cs, mp); /// Load announcement options
 
-        //noinspection UnusedAssignment
-        List<String> modules = loadModules(cs, mp); /// load modules
-
         StateGraph tops = loadTransitionOptions(cs, mp); /// load transition options
         mp.setStateGraph(tops);
 
@@ -173,12 +166,6 @@ public class ConfigSerializer extends BaseConfig{
             pcs.load(mp);
         } catch (Exception e){
             Log.err("Error loading Player Containers");
-        }
-
-        //noinspection PointlessBooleanExpression,ConstantConditions
-        if (!isNonBaseConfig && Defaults.DEBUG){
-            String mods = modules.isEmpty() ? "" : " mods=" + StringUtils.join(modules,", ");
-            Log.info("[" + plugin.getName() + "] Loaded " + mp.getName() + " params" + mods);
         }
 
         return mp;
@@ -307,28 +294,6 @@ public class ConfigSerializer extends BaseConfig{
             BAConfigSerializer.parseAnnouncementOptions(an,false,cs.getConfigurationSection("eventAnnouncements"),false);
             mp.setAnnouncementOptions(an);
         }
-    }
-
-
-    private static List<String> loadModules(ConfigurationSection cs, MatchParams mp) {
-        List<String> modules = new ArrayList<String>();
-
-        if (cs.contains("modules")){
-            List<?> keys = cs.getList("modules");
-            if (keys != null){
-                for (Object key: keys){
-                    ArenaModule am = ModuleController.getModule(key.toString());
-                    if (am == null){
-                        Log.err("Module " + key +" not found!");
-                        mp.addModule(new BrokenArenaModule(key.toString()));
-                    } else {
-                        mp.addModule(am);
-                        modules.add(am.getName());
-                    }
-                }
-            }
-        }
-        return modules;
     }
 
 
@@ -783,9 +748,6 @@ public class ConfigSerializer extends BaseConfig{
 
         if (params.getForceStartTime() != null ) maincs.set("forceStartTime", params.getForceStartTime());
 
-        Collection<ArenaModule> modules = params.getModules();
-        if (modules != null && !modules.isEmpty()){ maincs.set("modules", getModuleList(modules));}
-
         /// Announcements
         AnnouncementOptions ao = params.getAnnouncementOptions();
         if (ao != null){
@@ -894,15 +856,6 @@ public class ConfigSerializer extends BaseConfig{
 
         //		main.set("options", map);
         params.setParent(parent); ///reset the parent
-    }
-
-    public static List<String> getModuleList(Collection<ArenaModule> modules) {
-        List<String> list = new ArrayList<String>();
-        if (modules != null){
-            for (ArenaModule m: modules){
-                list.add(m.getName());}
-        }
-        return list;
     }
 
     public static List<String> getEnchants(List<PotionEffect> effects) {

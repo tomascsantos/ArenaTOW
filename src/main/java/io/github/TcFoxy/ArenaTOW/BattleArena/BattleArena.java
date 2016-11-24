@@ -112,10 +112,9 @@ public class BattleArena extends JavaPlugin {
         FileUpdater.makeIfNotExists(new File(dir + "/competitions"));
         FileUpdater.makeIfNotExists(new File(dir + "/messages"));
         FileUpdater.makeIfNotExists(new File(dir + "/saves"));
-        FileUpdater.makeIfNotExists(new File(dir + "/modules"));
         FileUpdater.makeIfNotExists(new File(dir + "/otherPluginConfigs"));
 
-        for (String c : new String[]{"HeroesConfig", "McMMOConfig", "WorldGuardConfig"}){
+        for (String c : new String[]{"McMMOConfig", "WorldGuardConfig"}){
             try{
                 new BaseConfig(FileUtil.load(clazz, dir.getPath() + "/otherPluginConfigs/"+c+".yml",
                         "/default_files/otherPluginConfigs/"+c+".yml"));
@@ -191,7 +190,7 @@ public class BattleArena extends JavaPlugin {
             @Override
             public void run() {
 //                baConfigSerializer.loadVictoryConditions();
-                baConfigSerializer.loadCompetitions(); /// Load our competitions, has to happen after classes and teams
+                baConfigSerializer.loadCompetition(); /// Load our competitions, has to happen after classes and teams
                 arenaTow.startThePlugin(); //Registers entities for ArenaTOW
 
                 /// persist our disabled arena types
@@ -586,31 +585,6 @@ public class BattleArena extends JavaPlugin {
      */
     public static Arena getArena(String arenaName) {
         return BattleArena.getBAController().getArena(arenaName);
-    }
-
-    /**
-     * Register a competiton with BattleArena
-     *
-     * @param plugin:     The plugin that is registering the Arena
-     * @param name:       Name of the competition
-     * @param cmd:        The cmd you would like to use (can be an alias)
-     * @param arenaClass: The Arena Class for your competition
-     */
-    public static void registerCompetition(JavaPlugin plugin, String name, String cmd, Class<? extends Arena> arenaClass) {
-        new APIRegistrationController().registerCompetition(plugin, name, cmd, arenaClass);
-    }
-
-    /**
-     * Register a competiton with BattleArena
-     *
-     * @param plugin:     The plugin that is registering the Arena
-     * @param name:       Name of the competition
-     * @param cmd:        The cmd you would like to use (can be an alias)
-     * @param arenaClass: The Arena Class for your competition
-     * @param executor:   The executor you would like to receive commands
-     */
-    public static void registerCompetition(JavaPlugin plugin, String name, String cmd, Class<? extends Arena> arenaClass, CustomCommandExecutor executor) {
-        new APIRegistrationController().registerCompetition(plugin, name, cmd, arenaClass, executor);
     }
 
     /**

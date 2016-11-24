@@ -77,52 +77,25 @@ public class BAConfigSerializer extends BaseConfig{
 
         if (Defaults.TESTSERVER)
             return;
-        ModuleLoader ml = new ModuleLoader();
-        ml.loadModules(BattleArena.getSelf().getModuleDirectory());
     }
 
-    public void loadCompetitions(){
-        try {config.load(file);} catch (Exception e){Log.printStackTrace(e);}
-        Set<String> defaultMatchTypes = new HashSet<String>(Arrays.asList(
-                new String[] {"Arena","Skirmish","Colosseum","Battleground", "Duel"}));
-        Set<String> defaultEventTypes = new HashSet<String>(Arrays.asList(new String[] {"FreeForAll","DeathMatch"}));
-        Set<String> exclude = new HashSet<String>(Arrays.asList(new String[] {}));
-
-        Set<String> allTypes = new HashSet<String>(defaultMatchTypes);
-        allTypes.addAll(defaultEventTypes);
-        JavaPlugin plugin = BattleArena.getSelf();
-
-        APIRegistrationController api = new APIRegistrationController();
-        ArenaType.register("Tourney", Arena.class, plugin);
-
-        File dir = plugin.getDataFolder();
-        File compDir = new File(dir+"/competitions");
-
-        /// Load all default types
-        for (String comp : allTypes){
-            /// For some reason this next line is almost directly in APIRegistration and works
-            /// for extensions but not for BattleArena defaults.
-            /// ONLY doesnt work in Windows... odd...
-            FileUtil.load(BattleArena.getSelf().getClass(),dir.getPath()+"/competitions/"+comp+"Config.yml",
-                    "/default_files/competitions/"+comp+"Config.yml");
-            String capComp = StringUtils.capitalize(comp);
-            CustomCommandExecutor executor = null;
-            api.registerCompetition(plugin, capComp, capComp, Arena.class, executor,
-                    new File(compDir+"/"+capComp+"Config.yml"),
-                    new File(compDir+"/"+capComp+"Messages.yml"),
-                    new File("/default_files/competitions/"+capComp+"Config.yml"),
-                    new File(dir.getPath()+"/saves/arenas.yml"));
-            exclude.add(capComp+"Config.yml");
+    public void loadCompetition(){
+        try {
+        	config.load(file);
+        } catch (Exception e){
+        	Log.printStackTrace(e);
         }
-        /*
-         * Added for ArenaTow
-         */
-        api.registerCompetition(BattleArena.getSelf(), "ArenaTow", "tow", TugArena.class, new TugExecutor());  
 
-        /// These commands arent specified in the config, so manually add.
-        ArenaType.addAliasForType("FreeForAll","ffa");
-        ArenaType.addAliasForType("DeathMatch","dm");
-        ArenaType.addAliasForType("Colosseum","col");
+        JavaPlugin plugin = BattleArena.getSelf();
+        APIRegistrationController api = new APIRegistrationController();
+        File dir = plugin.getDataFolder();
+        File compDir = new File(dir + "/competitions");
+
+        api.registerCompetition(plugin, "ArenaTow", "tow", TugArena.class, new TugExecutor(),
+                new File(compDir + "/" + "ArenaTow" + "Config.yml"),
+                new File(compDir + "/" + "ArenaTow" + "Messages.yml"),
+                new File("/default_files/competitions/" + "ArenaTow" + "Config.yml"),
+                new File(dir.getPath() + "/saves/arenas.yml"));
     }
 
     protected static void parseDefaultOptions(ConfigurationSection cs, EventParams defaults) {
