@@ -317,7 +317,13 @@ public class TugArena extends Arena {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20*5, 1));
 			}
 		}
-
+	}
+	
+	@ArenaEventHandler
+	public void playerLeft(PlayerQuitEvent event){
+		if(this.getInsidePlayers().isEmpty()){
+			this.getMatch().cancelMatch();
+		}
 	}
 
 	//	@ArenaEventHandler
