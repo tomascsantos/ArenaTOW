@@ -7,8 +7,8 @@ import org.bukkit.Location;
 
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.Serializable.Spawner;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyEntityZombie;
-import net.minecraft.server.v1_11_R1.Entity;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyEntityZombie;
+import net.minecraft.server.v1_12_R1.Entity;
 
 public class TugTimers {
 

@@ -147,6 +147,14 @@ public class BattleArena extends JavaPlugin {
 
         /// Load our configs, then arenas
         baConfigSerializer.setConfig(FileUtil.load(clazz, dir.getPath() + "/config.yml", "/default_files/main/config.yml"));
+        
+        /*
+         * theoretically loading in my config files...
+         */
+        
+        FileUtil.load(clazz, dir.getPath() + "/competitions/ArenaTowConfig.yml", "/default_files/competitions/ArenaTowConfig.yml");
+        
+        
         try {
             YamlFileUpdater.updateBaseConfig(this, baConfigSerializer); /// Update our config if necessary
         } catch (Exception e) {

@@ -134,8 +134,21 @@ public class APIRegistrationController {
         String defaultConfigFileName = "defaultConfig.yml";
         File compDir = configFile.getParentFile().getAbsoluteFile();
 
-        File pluginFile = new File(compDir.getPath()+File.separator+configFileName);
-        File defaultFile = new File("default_files/competitions/"+File.separator+defaultConfigFileName);
+        //Shitty tomas code \/
+        defaultPluginConfigFile = new File(compDir.getPath() + File.separator + configFileName);
+        
+        
+        
+        Log.err("compDir returns the following: " + compDir);
+        Log.err("dir returns the following: " + dir);
+
+        
+        
+        //TODO once this is fixed, see if i can get plugin file adn default file to point to different places, hide the default one
+        File pluginFile = new File(compDir.getPath() + File.separator + configFileName);
+        //File defaultFile = new File(compDir.getPath() + File.separator+defaultConfigFileName);
+        File defaultFile = new File(compDir.getPath() + File.separator + configFileName);
+
 
         /// Set a delayed init on this plugin and folder to load custom types
         if (!delayedInits.contains(plugin.getName())){

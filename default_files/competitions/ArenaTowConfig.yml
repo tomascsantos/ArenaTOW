@@ -27,7 +27,7 @@ ArenaTow:
   onPreStart: #The couple seconds before the game is live
     options:
     - woolTeams
-    - pvpOff
+#    - pvpOff
   onStart: #When the game becomes live
     options:
     - teleportIn

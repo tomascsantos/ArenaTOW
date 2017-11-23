@@ -1436,7 +1436,7 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         StringBuilder sb = new StringBuilder("ArenaMatch " + this.toString() +" ");
         sb.append(params).append("\n");
         sb.append("state=&6").append(state).append("\n");
-        sb.append("pvp=&6").append(to != null ? to.getPVP() : "on").append("\n");
+        //TODO sb.append("pvp=&6").append(to != null ? to.getPVP() : "on").append("\n");
         //		sb.append("playersInMatch=&6"+inMatch.get(p)+"\n");
         sb.append("result=&e(").append(matchResult).append("&e)\n");
         List<ArenaTeam> deadTeams = new ArrayList<ArenaTeam>();

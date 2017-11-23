@@ -1,11 +1,11 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_12_R1;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSConstants;
-import net.minecraft.server.v1_11_R1.BlockPosition;
-import net.minecraft.server.v1_11_R1.EntityCreature;
-import net.minecraft.server.v1_11_R1.EntityHuman;
-import net.minecraft.server.v1_11_R1.EntityLiving;
-import net.minecraft.server.v1_11_R1.PathfinderGoalMeleeAttack;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.interfaces.NMSConstants;
+import net.minecraft.server.v1_12_R1.BlockPosition;
+import net.minecraft.server.v1_12_R1.EntityCreature;
+import net.minecraft.server.v1_12_R1.EntityHuman;
+import net.minecraft.server.v1_12_R1.EntityLiving;
+import net.minecraft.server.v1_12_R1.PathfinderGoalMeleeAttack;
 
 public class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack{
 
@@ -28,7 +28,7 @@ public class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack{
             return false;
         }
         if (!this.e) {
-            return !this.b.getNavigation().n();
+            return !this.b.getNavigation().o();
         }
         if(NMSConstants.isSameTeam(attacker, goalTarget)){
         	return false;

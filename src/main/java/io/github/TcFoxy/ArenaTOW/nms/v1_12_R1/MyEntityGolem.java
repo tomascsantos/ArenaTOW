@@ -1,15 +1,15 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_12_R1;
 
-import net.minecraft.server.v1_11_R1.EntityHuman;
-import net.minecraft.server.v1_11_R1.EntityIronGolem;
-import net.minecraft.server.v1_11_R1.EnumMoveType;
-import net.minecraft.server.v1_11_R1.GenericAttributes;
-import net.minecraft.server.v1_11_R1.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_11_R1.PathfinderGoalMeleeAttack;
-import net.minecraft.server.v1_11_R1.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_11_R1.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_11_R1.Village;
-import net.minecraft.server.v1_11_R1.World;
+import net.minecraft.server.v1_12_R1.EntityHuman;
+import net.minecraft.server.v1_12_R1.EntityIronGolem;
+import net.minecraft.server.v1_12_R1.EnumMoveType;
+import net.minecraft.server.v1_12_R1.GenericAttributes;
+import net.minecraft.server.v1_12_R1.PathfinderGoalLookAtPlayer;
+import net.minecraft.server.v1_12_R1.PathfinderGoalMeleeAttack;
+import net.minecraft.server.v1_12_R1.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_12_R1.PathfinderGoalRandomLookaround;
+import net.minecraft.server.v1_12_R1.Village;
+import net.minecraft.server.v1_12_R1.World;
 
 public class MyEntityGolem extends EntityIronGolem{
 	Village a;

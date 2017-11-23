@@ -1,12 +1,12 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_12_R1;
 
 import org.bukkit.entity.EntityType;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.CustomEntityRegistry;
-import net.minecraft.server.v1_11_R1.EntityGuardianElder;
-import net.minecraft.server.v1_11_R1.EntityInsentient;
-import net.minecraft.server.v1_11_R1.EntityIronGolem;
-import net.minecraft.server.v1_11_R1.EntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.interfaces.CustomEntityRegistry;
+import net.minecraft.server.v1_12_R1.EntityGuardianElder;
+import net.minecraft.server.v1_12_R1.EntityInsentient;
+import net.minecraft.server.v1_12_R1.EntityIronGolem;
+import net.minecraft.server.v1_12_R1.EntityZombie;
 
 public enum MyEntityType {
 	

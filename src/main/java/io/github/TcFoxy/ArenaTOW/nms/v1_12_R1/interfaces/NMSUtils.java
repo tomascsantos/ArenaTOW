@@ -1,4 +1,4 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces;
+package io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.interfaces;
 
 import java.lang.reflect.Field;
 import java.util.LinkedHashSet;
@@ -6,20 +6,20 @@ import java.util.LinkedHashSet;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_11_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyBlueGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyBlueGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyBlueZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyEntityGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyEntityGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyEntityZombie;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyRedGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyRedGuardian;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyRedZombie;
-import net.minecraft.server.v1_11_R1.PathfinderGoalSelector;
-import net.minecraft.server.v1_11_R1.WorldServer;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyBlueGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyBlueGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyBlueZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyEntityGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyEntityGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyEntityZombie;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyRedGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyRedGuardian;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyRedZombie;
+import net.minecraft.server.v1_12_R1.PathfinderGoalSelector;
+import net.minecraft.server.v1_12_R1.WorldServer;
 /**
  * author @BigTeddy98
  * Used for tutorial purposes

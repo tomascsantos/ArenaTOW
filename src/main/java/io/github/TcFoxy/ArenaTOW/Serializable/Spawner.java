@@ -11,9 +11,9 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import io.github.TcFoxy.ArenaTOW.Utils;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSUtils;
-import net.minecraft.server.v1_11_R1.Entity;
-import net.minecraft.server.v1_11_R1.EntityLiving;
+import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.interfaces.NMSUtils;
+import net.minecraft.server.v1_12_R1.Entity;
+import net.minecraft.server.v1_12_R1.EntityLiving;
 
 public class Spawner extends PersistInfo{
 

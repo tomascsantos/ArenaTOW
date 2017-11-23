@@ -88,10 +88,10 @@ public enum TransitionOption implements StateOption {
     MONEY("money",true,TRANSITION),							/// =<double>: give the player money.  PREREQ: charge a fee to enter
     EFFECT("effect",true,TRANSITION),							/// =<string>: do the effect
     POTIONDAMAGEON("potionDamageOn",false,TRANSITION),			/// force potion damage to be on
-    PVPON("pvpOn",false,STATE),							/// Turn on PvP, by default friendly fire is off
-    PVPOFF("pvpOff",false,STATE),							/// Turn off all Pvp
-    INVINCIBLE("invincible",false, STATE),					/// Players are invincible
-    INVULNERABLE("invulnerable",true,TRANSITION),				/// Players are invulnerable for the given amount of seconds: <int>
+//    PVPON("pvpOn",false,STATE),							/// Turn on PvP, by default friendly fire is off
+//    PVPOFF("pvpOff",false,STATE),							/// Turn off all Pvp
+//    INVINCIBLE("invincible",false, STATE),					/// Players are invincible
+//    INVULNERABLE("invulnerable",true,TRANSITION),				/// Players are invulnerable for the given amount of seconds: <int>
     BLOCKBREAKOFF("blockBreakOff",false,STATE),			/// Disallow Block breaks
     BLOCKBREAKON("blockBreakOn",false,STATE),				/// Allow block breaks
     BLOCKPLACEOFF("blockPlaceOff",false,STATE),			/// Disallow block place
@@ -184,8 +184,8 @@ public enum TransitionOption implements StateOption {
                 return TransitionOption.DOCOMMANDS;
             else if (str.equals("CLASS"))
                 return TransitionOption.GIVECLASS;
-            else if (str.equals("INVULNERABILITY") || str.equals("INV"))
-                return TransitionOption.INVULNERABLE;
+//            else if (str.equals("INVULNERABILITY") || str.equals("INV"))
+//                return TransitionOption.INVULNERABLE;
             else if (str.equals("STOREPOTIONEFFECTS"))
                 return TransitionOption.STOREENCHANTS;
             else if (str.equals("RESTOREPOTIONEFFECTS"))
@@ -210,8 +210,8 @@ public enum TransitionOption implements StateOption {
             case MAGIC: case MAGICP:
             case HUNGER:
             case EXPERIENCE:
-            case INVULNERABLE:
-                return Integer.valueOf(value);
+//            case INVULNERABLE:
+//                return Integer.valueOf(value);
             case FLIGHTSPEED:
                 return Float.valueOf(value);
             case ENCHANTS:
