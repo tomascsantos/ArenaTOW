@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Compiled source #
 ###################
 *.com
@@ -45,3 +46,7 @@ lib/
 #Annoying intellij shit:
 *.idea
 *.iml
+=======
+target/*
+lib/craftbukkit*
+>>>>>>> parent of 4237aeb... Remove spawns (#2)

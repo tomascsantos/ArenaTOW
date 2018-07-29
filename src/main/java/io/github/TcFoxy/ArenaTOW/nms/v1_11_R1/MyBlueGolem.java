@@ -18,6 +18,7 @@ public class MyBlueGolem extends MyEntityGolem{
 	    this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<MyRedZombie>(this, MyRedZombie.class, true));
 	}
 	
+	
 	public boolean damageEntity(DamageSource damagesource, float f){
 		if(damagesource.getEntity() != null){
 			if(damagesource.getEntity().getClass().getName() == NMSConstants.entityPlayer){

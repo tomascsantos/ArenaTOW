@@ -10,6 +10,7 @@
 		<finalName>${project.name}</finalName>
 		<resources>
 			<resource>
+				<targetPath>.</targetPath>
 				<filtering>true</filtering>
 				<directory>${basedir}</directory>
 				<includes>
@@ -17,6 +18,7 @@
 				</includes>
 			</resource>
 			<resource>
+				<targetPath>.</targetPath>
 				<filtering>true</filtering>
 				<directory>${basedir}/default_files/main</directory>
 				<includes>
@@ -25,6 +27,7 @@
 				</includes>
 			</resource>
 			<resource>
+				<targetPath>.</targetPath>
 				<filtering>true</filtering>
 				<directory>${basedir}</directory>
 				<includes>
@@ -34,10 +37,8 @@
 					<include>default_files/competitions/*</include>
 					<include>default_files/otherPluginConfigs</include>
 					<include>default_files/otherPluginConfigs/*</include>
-					<!-- 
-                    <include>default_files/victoryConditions</include>
-                    <include>default_files/victoryConditions/*</include>
-                    -->
+					<include>default_files/victoryConditions</include>
+					<include>default_files/victoryConditions/*</include>
 				</includes>
 			</resource>
 			<!-- Exclude JUnit test directory -->
