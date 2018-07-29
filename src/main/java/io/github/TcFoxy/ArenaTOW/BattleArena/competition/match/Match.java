@@ -72,6 +72,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Channels;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.MatchMessageHandler;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
@@ -172,6 +173,13 @@ public abstract class Match extends Competition implements Runnable, ArenaContro
         this.mc = new MatchMessager(this);
         arena.setMatch(this);
 
+        Collection<ArenaModule> modules = params.getModules();
+        if (modules != null){
+            for (ArenaModule am: modules){
+                if (am.isEnabled())
+                    addArenaListener(am);
+            }
+        }
         /// placed anywhere options
         boolean noEnter = tops.hasAnyOption(TransitionOption.WGNOENTER);
         if (arena.hasRegion())
