@@ -6,6 +6,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TagAPIControlle
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.PlayerHolder;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.BlockBreakListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.BlockPlaceListener;
+import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.DamageListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.HungerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.ItemDropListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.competition.ItemPickupListener;
@@ -26,13 +27,13 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ScoreboardFactor
 public class ListenerAdder {
 
     public static void addListeners(PlayerHolder holder, StateGraph tops) {
-//        boolean needsDamageEvents = tops.hasAnyOption(TransitionOption.PVPOFF,TransitionOption.PVPON,TransitionOption.INVINCIBLE);
+        boolean needsDamageEvents = tops.hasAnyOption(TransitionOption.PVPOFF,TransitionOption.PVPON,TransitionOption.INVINCIBLE);
         boolean woolTeams = tops.hasAnyOption(TransitionOption.WOOLTEAMS) && holder.getParams().getMaxTeamSize() >1 ||
                 tops.hasAnyOption(TransitionOption.ALWAYSWOOLTEAMS);
         if (woolTeams){
             holder.addArenaListener(new TeamHeadListener());}
-//        if (needsDamageEvents){
-//            holder.addArenaListener(new DamageListener(holder));}
+        if (needsDamageEvents){
+            holder.addArenaListener(new DamageListener(holder));}
         if (tops.hasAnyOption(TransitionOption.NOTELEPORT, TransitionOption.NOWORLDCHANGE, TransitionOption.WGNOENTER)){
             holder.addArenaListener(new PlayerTeleportListener(holder));}
         if (tops.hasAnyOption(TransitionOption.BLOCKBREAKON,TransitionOption.BLOCKBREAKOFF)){

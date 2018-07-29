@@ -1,8 +1,8 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_12_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1;
 
-import net.minecraft.server.v1_12_R1.EntityLiving;
-import net.minecraft.server.v1_12_R1.EntitySmallFireball;
-import net.minecraft.server.v1_12_R1.World;
+import net.minecraft.server.v1_11_R1.EntityLiving;
+import net.minecraft.server.v1_11_R1.EntitySmallFireball;
+import net.minecraft.server.v1_11_R1.World;
 
 public class MyFireball extends EntitySmallFireball{
 

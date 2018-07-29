@@ -1,9 +1,9 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_12_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.interfaces.NMSConstants;
-import net.minecraft.server.v1_12_R1.BlockPosition;
-import net.minecraft.server.v1_12_R1.EntityLiving;
-import net.minecraft.server.v1_12_R1.PathfinderGoal;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSConstants;
+import net.minecraft.server.v1_11_R1.BlockPosition;
+import net.minecraft.server.v1_11_R1.EntityLiving;
+import net.minecraft.server.v1_11_R1.PathfinderGoal;
 
 class PathfinderGoalGolemFireball extends PathfinderGoal
 {

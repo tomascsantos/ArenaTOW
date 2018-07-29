@@ -1,12 +1,12 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_12_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1;
 
 import javax.annotation.Nullable;
 
 import org.bukkit.Location;
 
-import net.minecraft.server.v1_12_R1.EntityCreature;
-import net.minecraft.server.v1_12_R1.PathfinderGoal;
-import net.minecraft.server.v1_12_R1.Vec3D;
+import net.minecraft.server.v1_11_R1.EntityCreature;
+import net.minecraft.server.v1_11_R1.PathfinderGoal;
+import net.minecraft.server.v1_11_R1.Vec3D;
 
 public class MyPathfindingGoalWalk extends PathfinderGoal
 {
@@ -44,7 +44,7 @@ public class MyPathfindingGoalWalk extends PathfinderGoal
 	 */
 	@Override
 	public boolean b() {
-		return !this.a.getNavigation().o();
+		return !this.a.getNavigation().n();
 	}
 
 	/*

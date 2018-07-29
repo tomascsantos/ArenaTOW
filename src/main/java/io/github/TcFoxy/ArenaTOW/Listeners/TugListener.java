@@ -2,11 +2,10 @@ package io.github.TcFoxy.ArenaTOW.Listeners;
 
 import java.util.Collection;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftFireball;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftFireball;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -32,11 +31,11 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
-import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyEntityGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.MyFireball;
-import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.interfaces.NMSConstants;
-import net.minecraft.server.v1_12_R1.EntityFireball;
-import net.minecraft.server.v1_12_R1.EntityLiving;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyEntityGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyFireball;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSConstants;
+import net.minecraft.server.v1_11_R1.EntityFireball;
+import net.minecraft.server.v1_11_R1.EntityLiving;
 
 public class TugListener implements Listener{
 	
@@ -55,58 +54,58 @@ public class TugListener implements Listener{
 	 * of the same team will not pathfind towards friendly targets
 	 * or targets that are invisible.
 	 */	
-//	@EventHandler
-//	private void sameTeamTarget(EntityTargetEvent event){
-//		if (event.getTarget() == null) return;		
-//		
-//		
-//		if(event.getEntity().getClass().getName() == NMSConstants.spigotZombie ||
-//				event.getEntity().getClass().getName() == NMSConstants.spigotGolem ||
-//				event.getEntity().getClass().getName() == NMSConstants.spigotGuardian ){
-//			if(event.getTarget() instanceof Player){
-//				Player p = (Player) event.getTarget();
-//				ArenaPlayer ap = BattleArena.toArenaPlayer(p);
-//				ArenaTeam team = ap.getTeam();
-//				if (team == null) return;
-//				
-//				EntityLiving el = (EntityLiving) ((CraftEntity) event.getEntity()).getHandle();
-//				String teamname = team.getDisplayName();
-//				String entityclass = el.getClass().getName();
-//				switch(entityclass){
-//				case NMSConstants.MyRedZombie:
-//					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
-//					break;
-//				case NMSConstants.MyRedGolem:
-//					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
-//					break;
-//				case NMSConstants.MyRedGuardian:
-//					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
-//					break;
-//				case NMSConstants.MyBlueZombie:
-//					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
-//					break;
-//				case NMSConstants.MyBlueGolem:
-//					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
-//					break;
-//				case NMSConstants.MyBlueGuardian:
-//					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
-//					break;
-//				default:
-//					return;
-//				}
-//
-//				//if the event isnt cancelled but the player is invisible:
-//				if(!event.isCancelled()){
-//					Collection<PotionEffect> potions = p.getActivePotionEffects();
-//					if(potions.contains(PotionEffectType.INVISIBILITY)){
-//						event.setCancelled(true);
-//					}
-//				}
-//			}
-//		}else{
-//			return;
-//		}
-//	}
+	@EventHandler
+	private void sameTeamTarget(EntityTargetEvent event){
+		if (event.getTarget() == null) return;		
+		
+		
+		if(event.getEntity().getClass().getName() == NMSConstants.spigotZombie ||
+				event.getEntity().getClass().getName() == NMSConstants.spigotGolem ||
+				event.getEntity().getClass().getName() == NMSConstants.spigotGuardian ){
+			if(event.getTarget() instanceof Player){
+				Player p = (Player) event.getTarget();
+				ArenaPlayer ap = BattleArena.toArenaPlayer(p);
+				ArenaTeam team = ap.getTeam();
+				if (team == null) return;
+				
+				EntityLiving el = (EntityLiving) ((CraftEntity) event.getEntity()).getHandle();
+				String teamname = team.getDisplayName();
+				String entityclass = el.getClass().getName();
+				switch(entityclass){
+				case NMSConstants.MyRedZombie:
+					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
+					break;
+				case NMSConstants.MyRedGolem:
+					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
+					break;
+				case NMSConstants.MyRedGuardian:
+					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
+					break;
+				case NMSConstants.MyBlueZombie:
+					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
+					break;
+				case NMSConstants.MyBlueGolem:
+					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
+					break;
+				case NMSConstants.MyBlueGuardian:
+					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
+					break;
+				default:
+					return;
+				}
+
+				//if the event isnt cancelled but the player is invisible:
+				if(!event.isCancelled()){
+					Collection<PotionEffect> potions = p.getActivePotionEffects();
+					if(potions.contains(PotionEffectType.INVISIBILITY)){
+						event.setCancelled(true);
+					}
+				}
+			}
+		}else{
+			return;
+		}
+	}
 	
 	/*
 	 * when a player kills a minion, tower, or player,
@@ -160,21 +159,21 @@ public class TugListener implements Listener{
 	 * golem's fireballs shouldnt hurt same team
 	 */
 	
-//	@EventHandler
-//	private void noFireBallDmg(EntityDamageByEntityEvent event){
-//		if (event.getDamager().getClass().getName().toString() == NMSConstants.spigotFireball){
-//			CraftFireball frball = (CraftFireball) event.getDamager();
-//			EntityFireball nmsFireball = (EntityFireball) frball.getHandle();
-//			if(nmsFireball instanceof MyFireball){
-//				MyEntityGolem golem = ((MyFireball) nmsFireball).getGolem();
-//				if(NMSConstants.isSameTeam(golem, ((CraftEntity) event.getEntity()).getHandle())){
-//					event.setCancelled(true);
-//					event.getEntity().setFireTicks(0);
-//					//Eventually make the Fireball go through!
-//				}
-//			}
-//		}
-//	}
+	@EventHandler
+	private void noFireBallDmg(EntityDamageByEntityEvent event){
+		if (event.getDamager().getClass().getName().toString() == NMSConstants.spigotFireball){
+			CraftFireball frball = (CraftFireball) event.getDamager();
+			EntityFireball nmsFireball = (EntityFireball) frball.getHandle();
+			if(nmsFireball instanceof MyFireball){
+				MyEntityGolem golem = ((MyFireball) nmsFireball).getGolem();
+				if(NMSConstants.isSameTeam(golem, ((CraftEntity) event.getEntity()).getHandle())){
+					event.setCancelled(true);
+					event.getEntity().setFireTicks(0);
+					//Eventually make the Fireball go through!
+				}
+			}
+		}
+	}
 
 	
 	/*

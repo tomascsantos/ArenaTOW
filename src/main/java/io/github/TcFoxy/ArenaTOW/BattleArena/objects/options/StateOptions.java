@@ -19,6 +19,8 @@ import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOp
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.HEALTH;
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.HEALTHP;
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.HUNGER;
+import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.INVINCIBLE;
+import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.INVULNERABLE;
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.LEVELRANGE;
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.MAGIC;
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.MAGICP;
@@ -26,6 +28,8 @@ import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOp
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.NEEDARMOR;
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.NEEDITEMS;
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.NOINVENTORY;
+import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.PVPOFF;
+import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.PVPON;
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.RANDOMRESPAWN;
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.RANDOMSPAWN;
 import static io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption.RESPAWN;
@@ -212,7 +216,7 @@ public class StateOptions {
         return d != null && d > 0;
     }
     public Float getFlightSpeed(){return getFloat(FLIGHTSPEED);}
-//    public Integer getInvulnerable(){return getInt(INVULNERABLE);}
+    public Integer getInvulnerable(){return getInt(INVULNERABLE);}
     public Integer getRespawnTime(){return getInt(RESPAWNTIME);}
     public Integer getExperience(){return getInt(EXPERIENCE);}
     public boolean hasExperience(){return options.containsKey(EXPERIENCE);}
@@ -400,16 +404,16 @@ public class StateOptions {
         return hasSomething? sb.toString() : null;
     }
 
-//    //public PVPState getPVP() {
-//        if (options.containsKey(PVPON)){
-//            return PVPState.ON;
-//        } else if (options.containsKey(PVPOFF)){
-//            return PVPState.OFF;
-//        } else if (options.containsKey(INVINCIBLE)){
-//            return PVPState.INVINCIBLE;
-//        }
-//        return null;
-//    }
+    public PVPState getPVP() {
+        if (options.containsKey(PVPON)){
+            return PVPState.ON;
+        } else if (options.containsKey(PVPOFF)){
+            return PVPState.OFF;
+        } else if (options.containsKey(INVINCIBLE)){
+            return PVPState.INVINCIBLE;
+        }
+        return null;
+    }
 
     public boolean respawn() {
         return options.containsKey(RESPAWN);

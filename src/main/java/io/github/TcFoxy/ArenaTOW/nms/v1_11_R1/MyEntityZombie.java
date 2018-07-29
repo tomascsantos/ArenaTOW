@@ -1,11 +1,11 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_12_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1;
 
 import org.bukkit.Location;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.interfaces.NMSUtils;
-import net.minecraft.server.v1_12_R1.EntityZombie;
-import net.minecraft.server.v1_12_R1.GenericAttributes;
-import net.minecraft.server.v1_12_R1.World;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSUtils;
+import net.minecraft.server.v1_11_R1.EntityZombie;
+import net.minecraft.server.v1_11_R1.GenericAttributes;
+import net.minecraft.server.v1_11_R1.World;
 
 public class MyEntityZombie extends EntityZombie {
 
@@ -16,7 +16,7 @@ public class MyEntityZombie extends EntityZombie {
 	@Override
 	protected void r(){
 		this.goalSelector.a(1, new MyPathfinderGoalMelee(this, 1.2D));
-		//this.targetSelector.a(1, new MyPathfinderGoalHurtByTarget(this, false, new Class[0]));
+		this.targetSelector.a(1, new MyPathfinderGoalHurtByTarget(this, false, new Class[0]));
 	}
 
 	public void whereTo(Location directions){

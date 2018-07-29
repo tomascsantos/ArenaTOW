@@ -35,7 +35,7 @@ import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo.BaseType;
 import io.github.TcFoxy.ArenaTOW.Serializable.Spawner;
 import io.github.TcFoxy.ArenaTOW.Serializable.Tower;
-import net.minecraft.server.v1_12_R1.EntityLiving;
+import net.minecraft.server.v1_11_R1.EntityLiving;
 
 
 public class TugArena extends Arena {

@@ -1,11 +1,9 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_12_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1;
 
-import org.bukkit.Bukkit;
-
-import io.github.TcFoxy.ArenaTOW.nms.v1_12_R1.interfaces.NMSConstants;
-import net.minecraft.server.v1_12_R1.EntityCreature;
-import net.minecraft.server.v1_12_R1.EntityLiving;
-import net.minecraft.server.v1_12_R1.PathfinderGoalHurtByTarget;
+import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSConstants;
+import net.minecraft.server.v1_11_R1.EntityCreature;
+import net.minecraft.server.v1_11_R1.EntityLiving;
+import net.minecraft.server.v1_11_R1.PathfinderGoalHurtByTarget;
 
 public class MyPathfinderGoalHurtByTarget extends PathfinderGoalHurtByTarget{
 
@@ -27,7 +25,6 @@ public class MyPathfinderGoalHurtByTarget extends PathfinderGoalHurtByTarget{
             return false;
         }
         if(NMSConstants.isSameTeam(attacker, goalTarget)){
-        	Bukkit.broadcastMessage("goal hurt by taget is stopping it!");
         	return false;
         }
         return true;

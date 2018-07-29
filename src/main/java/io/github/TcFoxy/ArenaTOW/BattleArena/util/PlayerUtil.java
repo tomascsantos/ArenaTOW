@@ -80,10 +80,10 @@ public class PlayerUtil {
         return handler.getHealth(player);
     }
 
-//    public static void setInvulnerable(Player player, Integer invulnerableTime) {
-//        player.setNoDamageTicks(invulnerableTime);
-//        player.setLastDamage(Integer.MAX_VALUE);
-//    }
+    public static void setInvulnerable(Player player, Integer invulnerableTime) {
+        player.setNoDamageTicks(invulnerableTime);
+        player.setLastDamage(Integer.MAX_VALUE);
+    }
 
     public static void setGameMode(Player p, GameMode gameMode) {
         if (p.getGameMode() != gameMode){
@@ -128,10 +128,10 @@ public class PlayerUtil {
 		/* Essentials (v2.10) fly just goes through bukkit, no need to call Essentials setFlySpeed */
     }
 
-//    public static void setGod(Player player, boolean enable) {
-//        if (EssentialsController.enabled()){
-//            EssentialsController.setGod(player, enable);}
-//    }
+    public static void setGod(Player player, boolean enable) {
+        if (EssentialsController.enabled()){
+            EssentialsController.setGod(player, enable);}
+    }
 
 
     public static Object getScoreboard(Player player) {
