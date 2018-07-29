@@ -1,8 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
 
-import org.bukkit.OfflinePlayer;
-
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import net.milkbowl.vault.economy.Economy;
@@ -15,10 +13,10 @@ public class MoneyController {
 		return initialized;
 	}
 
-	public static boolean hasAccount(OfflinePlayer op) {
+	public static boolean hasAccount(String name) {
 		if (!initialized) return true;
 		try{
-			return economy.hasAccount(op);
+			return economy.hasAccount(name);
 		} catch (Throwable e){
 			Log.printStackTrace(e);
 			return true;
@@ -28,7 +26,7 @@ public class MoneyController {
 	public static boolean hasEnough(String name, double fee) {
         return !initialized || hasEnough(name, (float) fee);
     }
-	public static boolean hasEnough(OfflinePlayer name, float amount) {
+	public static boolean hasEnough(String name, float amount) {
 		if (!initialized) return true;
 		try{
 			return economy.getBalance(name) >= amount;
@@ -39,10 +37,12 @@ public class MoneyController {
 
 	}
 
+    @SuppressWarnings({"unused"})
 	public static boolean hasEnough(String name, float amount, String world) {
 		return hasEnough(name,amount);
 	}
 
+    @SuppressWarnings({"unused"})
 	public static void subtract(String name, float amount, String world) {
 		subtract(name,amount);
 	}
@@ -51,7 +51,7 @@ public class MoneyController {
 		subtract(name,(float) amount);
 	}
 
-	public static void subtract(OfflinePlayer name, float amount) {
+	public static void subtract(String name, float amount) {
 		if (!initialized) return;
 		try{
 			economy.withdrawPlayer(name, amount);
@@ -61,6 +61,7 @@ public class MoneyController {
 	}
 
 
+    @SuppressWarnings({"unused"})
     public static void add(String name, float amount, String world) {
 		add(name,amount);
 	}
@@ -70,7 +71,7 @@ public class MoneyController {
 		add(name,(float)amount);
 	}
 
-	public static void add(OfflinePlayer name, float amount) {
+	public static void add(String name, float amount) {
 		if (!initialized) return;
 		try{
 			economy.depositPlayer(name, amount) ;
@@ -79,11 +80,12 @@ public class MoneyController {
 		}
 	}
 
-	public static Double balance(OfflinePlayer name, String world) {
+    @SuppressWarnings({"unused"})
+	public static Double balance(String name, String world) {
 		return balance(name);
 	}
 
-	public static Double balance(OfflinePlayer name) {
+	public static Double balance(String name) {
 		if (!initialized) return 0.0;
 		try{
 			return economy.getBalance(name);

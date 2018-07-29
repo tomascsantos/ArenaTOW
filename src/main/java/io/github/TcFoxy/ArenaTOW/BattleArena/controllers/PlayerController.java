@@ -27,22 +27,27 @@ public final class PlayerController {
 	 */
 	public static ArenaPlayer toArenaPlayer(Player player){
 		ArenaPlayer ap = players.get(PlayerUtil.getID(player));
+		if (Defaults.DEBUG_VIRTUAL) {
+			Player p2 = ServerUtil.findPlayer(player.getName());
+			if (p2 != null)
+				player = p2;
+		}
 		if (ap == null){
 			ap = new ArenaPlayer(player);
 			players.put(ap.getID(), ap);
 		} else{
-			if (player != null) {
-				ap.setPlayer(player);
-			}
+                    if (player != null) {
+                        ap.setPlayer(player);
+                    }
 		}
 		return ap;
 	}
-	public static ArenaPlayer toArenaPlayer(UUID id){
-		ArenaPlayer ap = players.get(id);
-		Player player = ServerUtil.findPlayer(id);
-		if (Defaults.DEBUG_VIRTUAL && player == null) {
-			Player p2 = ServerUtil.findPlayer(id);
-			if (p2 != null)
+    public static ArenaPlayer toArenaPlayer(UUID id){
+        ArenaPlayer ap = players.get(id);
+        Player player = ServerUtil.findPlayer(id);
+        if (Defaults.DEBUG_VIRTUAL && player == null) {
+            Player p2 = ServerUtil.findPlayer(id);
+            if (p2 != null)
                 player = p2;
         }
         if (ap == null){

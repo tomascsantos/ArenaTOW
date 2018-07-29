@@ -211,6 +211,7 @@ public abstract class BaseExecutor implements ArenaExecutor{
     }
 
     @Override
+    @SuppressWarnings("ConstantConditions")
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         TreeMap<Integer,MethodWrapper> methodmap = null;
 
@@ -475,6 +476,7 @@ public abstract class BaseExecutor implements ArenaExecutor{
 
 
     static final int LINES_PER_PAGE = 8;
+    @SuppressWarnings("UnnecessaryContinue")
     public void help(CommandSender sender, Command command, String[] args){
         Integer page = 1;
 
@@ -557,7 +559,7 @@ public abstract class BaseExecutor implements ArenaExecutor{
     public static String colorChat(String msg) {return msg.replace('&', (char) 167);}
 
     private OfflinePlayer findOfflinePlayer(String name) {
-        return ServerUtil.findPlayer(name);
+        return ServerUtil.findOfflinePlayer(name);
     }
 
     private Player findPlayer(String name) {

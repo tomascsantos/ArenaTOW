@@ -110,6 +110,7 @@ public class TransitionController {
 
     }
 
+    @SuppressWarnings("ConstantConditions")
     private static boolean transition(final PlayerHolder am, final CompetitionState transition,
                                       final ArenaPlayer player, final ArenaTeam team, final boolean onlyInMatch,
                                       StateGraph tops) {

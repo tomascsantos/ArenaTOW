@@ -1,8 +1,13 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.controllers;
 
 
+import java.lang.reflect.Field;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
+
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 
 
 public class CommandController {
@@ -26,21 +31,21 @@ public class CommandController {
     public static CommandMap getCommandMap() {
         return null;
     }
-//
-//    private static CommandMap getCommandMapFromServer(Class<?> serverClass) {
-//        try {
-//            if (serverClass.isAssignableFrom(Bukkit.getServer().getClass())) {
-//                final Field f = serverClass.getDeclaredField("commandMap");
-//                f.setAccessible(true);
-//                return (CommandMap) f.get(Bukkit.getServer());
-//            }
-//        } catch (final SecurityException e) {
-//            System.out.println("You will need to disable the security manager to use dynamic commands");
-//        } catch (final Exception e) {
-//            Log.printStackTrace(e);
-//        }
-//        return null;
-//    }
+
+    private static CommandMap getCommandMapFromServer(Class<?> serverClass) {
+        try {
+            if (serverClass.isAssignableFrom(Bukkit.getServer().getClass())) {
+                final Field f = serverClass.getDeclaredField("commandMap");
+                f.setAccessible(true);
+                return (CommandMap) f.get(Bukkit.getServer());
+            }
+        } catch (final SecurityException e) {
+            System.out.println("You will need to disable the security manager to use dynamic commands");
+        } catch (final Exception e) {
+            Log.printStackTrace(e);
+        }
+        return null;
+    }
 
     public static void registerCommand(final Command command) {
         CommandMap commandMap = getCommandMap();

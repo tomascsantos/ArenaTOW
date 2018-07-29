@@ -157,14 +157,14 @@ public class ArenaMatch extends Match {
             if (timer != null){
                 Bukkit.getScheduler().cancelTask(timer);
             }
-            timer = Scheduler.scheduleSynchronousTask(new Runnable(){
-                @Override
-                public void run() {
-                    am.performTransition(MatchState.ONCOMPLETE, target, t, true);
-                    checkAndHandleIfTeamDead(t);
-                }
-            }, 15*20L);
-            deathTimer.put(target.getID(), timer);
+//            timer = Scheduler.scheduleSynchronousTask(new Runnable(){
+//                @Override
+//                public void run() {
+//                    am.performTransition(MatchState.ONCOMPLETE, target, t, true);
+//                    checkAndHandleIfTeamDead(t);
+//                }
+//            }, 15*20L);
+//            deathTimer.put(target.getID(), timer);
         }
         if (exiting){
             performTransition(MatchState.ONCOMPLETE, target, t, true);
@@ -173,55 +173,55 @@ public class ArenaMatch extends Match {
     }
 
 
-//
-//    	@MatchEventHandler(suppressCastWarnings=true,priority=EventPriority.HIGHER)
-//    	public void onCheckEmulateDeath(EntityDamageEvent event) {
-//    		//		Log.debug("############## checking emulate   " + event.getEntity() +"    " + event.isCancelled() +"    " + event.getDamage());
-//    		if (event.isCancelled() || event.getDamage() <= 0 || !(event.getEntity() instanceof Player))
-//    			return;
-//    		Player target = ((Player) event.getEntity());
-//    		//		Log.debug("############## checking health   " + event.getDamage() +"    " + target.getHealth());
-//    		if (event.getDamage() < target.getHealth()){
-//    			return;}
-//    
-//    		PlayerInventory pinv = target.getInventory();
-//    		ArenaPlayer ap = BattleArena.toArenaPlayer(target);
-//    		ArenaTeam targetTeam = getTeam(ap);
-//    		if (clearsInventoryOnDeath){
-//    			pinv.clear();
-//    			if (woolTeams){
-//    				if (targetTeam != null && targetTeam.getHeadItem() != null){
-//    					TeamUtil.setTeamHead(targetTeam.getHeadItem(), target);
-//    				}
-//    			}
-//    		}
-//    
-//    		Integer nDeaths = targetTeam.getNDeaths(ap);
-//    		boolean exiting = !respawns || (nDeaths != null && nDeaths +1 >= nLivesPerPlayer);
-//    
-//    		ArenaPlayerDeathEvent apde = new ArenaPlayerDeathEvent(ap,targetTeam);
-//    		callEvent(apde);
-//    		ArenaPlayer killer = DmgDeathUtil.getPlayerCause(event);
-//    		if (killer != null){
-//    			ArenaTeam killT = getTeam(killer);
-//    			if (killT != null){ /// they must be in the same match for this to count
-//    				killT.addKill(killer);
-//    				callEvent(new ArenaPlayerKillEvent(killer,killT,ap));
-//    			}
-//    		}
-//    		TransitionController.transition(this, MatchState.ONDEATH, ap, targetTeam , false);
-//    		TransitionController.transition(this, MatchState.ONDEATH, ap, targetTeam , false);
-//    
-//    		EffectUtil.deEnchantAll(target);
-//    		target.closeInventory();
-//    		target.setFireTicks(0);
-//    		target.setHealth(target.getMaxHealth());
-//    		if (!exiting){
-//    			final int teamIndex = indexOf(targetTeam);
-//    			final Location l = TransitionController.jitter(getTeamSpawn(teamIndex,false),rand.nextInt(targetTeam.size()));
-//    			TeleportController.teleportPlayer(target, l, false, true);
-//    		}
-//    	}
+
+    //	@MatchEventHandler(suppressCastWarnings=true,priority=EventPriority.HIGHER)
+    //	public void onCheckEmulateDeath(EntityDamageEvent event) {
+    //		//		Log.debug("############## checking emulate   " + event.getEntity() +"    " + event.isCancelled() +"    " + event.getDamage());
+    //		if (event.isCancelled() || event.getDamage() <= 0 || !(event.getEntity() instanceof Player))
+    //			return;
+    //		Player target = ((Player) event.getEntity());
+    //		//		Log.debug("############## checking health   " + event.getDamage() +"    " + target.getHealth());
+    //		if (event.getDamage() < target.getHealth()){
+    //			return;}
+    //
+    //		PlayerInventory pinv = target.getInventory();
+    //		ArenaPlayer ap = BattleArena.toArenaPlayer(target);
+    //		ArenaTeam targetTeam = getTeam(ap);
+    //		if (clearsInventoryOnDeath){
+    //			pinv.clear();
+    //			if (woolTeams){
+    //				if (targetTeam != null && targetTeam.getHeadItem() != null){
+    //					TeamUtil.setTeamHead(targetTeam.getHeadItem(), target);
+    //				}
+    //			}
+    //		}
+    //
+    //		Integer nDeaths = targetTeam.getNDeaths(ap);
+    //		boolean exiting = !respawns || (nDeaths != null && nDeaths +1 >= nLivesPerPlayer);
+    //
+    //		ArenaPlayerDeathEvent apde = new ArenaPlayerDeathEvent(ap,targetTeam);
+    //		callEvent(apde);
+    //		ArenaPlayer killer = DmgDeathUtil.getPlayerCause(event);
+    //		if (killer != null){
+    //			ArenaTeam killT = getTeam(killer);
+    //			if (killT != null){ /// they must be in the same match for this to count
+    //				killT.addKill(killer);
+    //				callEvent(new ArenaPlayerKillEvent(killer,killT,ap));
+    //			}
+    //		}
+    //		TransitionController.transition(this, MatchState.ONDEATH, ap, targetTeam , false);
+    //		TransitionController.transition(this, MatchState.ONDEATH, ap, targetTeam , false);
+    //
+    //		EffectUtil.deEnchantAll(target);
+    //		target.closeInventory();
+    //		target.setFireTicks(0);
+    //		target.setHealth(target.getMaxHealth());
+    //		if (!exiting){
+    //			final int teamIndex = indexOf(targetTeam);
+    //			final Location l = TransitionController.jitter(getTeamSpawn(teamIndex,false),rand.nextInt(targetTeam.size()));
+    //			TeleportController.teleportPlayer(target, l, false, true);
+    //		}
+    //	}
 
     @ArenaEventHandler(priority=EventPriority.HIGH)
     public void onPlayerRespawn(PlayerRespawnEvent event) {
@@ -440,6 +440,8 @@ public class ArenaMatch extends Match {
     }
 
     @ArenaEventHandler
+    /// TODO
+    @SuppressWarnings("unused")
     public void onPlayerReady(ArenaPlayerReadyEvent event){
         if (!Defaults.ENABLE_PLAYER_READY_BLOCK){
             return;}

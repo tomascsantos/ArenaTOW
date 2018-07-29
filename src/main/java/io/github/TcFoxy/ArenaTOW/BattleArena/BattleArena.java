@@ -33,6 +33,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BAExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BASchedulerExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BattleArenaDebugExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.BattleArenaExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.TeamExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPlayerListener;
 import io.github.TcFoxy.ArenaTOW.BattleArena.listeners.BAPluginListener;
@@ -125,7 +126,7 @@ public class BattleArena extends JavaPlugin {
 
         /// Set up our messages first before other initialization needs messages
         MessageSerializer defaultMessages = new MessageSerializer("default", null);
-        defaultMessages.setConfig(FileUtil.load(clazz, dir.getPath() + "/messages.yml", "/default_files/messages.yml")); 
+        defaultMessages.setConfig(FileUtil.load(clazz, dir.getPath() + "/messages.yml", "/default_files/messages.yml"));
         defaultMessages.loadAll();
         MessageSerializer.setDefaultConfig(defaultMessages);
 
@@ -159,6 +160,7 @@ public class BattleArena extends JavaPlugin {
         classesSerializer.loadAll();
 
         TeamHeadSerializer ts = new TeamHeadSerializer();
+        ts.setConfig(FileUtil.load(clazz, dir.getPath() + "/teamConfig.yml", "/default_files/teamConfig.yml")); /// Load team Colors
         ts.loadAll();
 
         arenaEditorExecutor = new ArenaEditorExecutor();

@@ -2,9 +2,12 @@ package io.github.TcFoxy.ArenaTOW.BattleArena.serializers;
 
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -18,6 +21,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.ArenaMatch;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.APIRegistrationController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.OptionSetController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.EventParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
@@ -28,6 +32,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptio
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions.AnnouncementOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.FileUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.KeyValue;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MinMax;
@@ -205,8 +210,10 @@ public class BAConfigSerializer extends BaseConfig{
             StateOptions tops = new StateOptions();
             tops.addOption(TransitionOption.STOREEXPERIENCE);
             tops.addOption(TransitionOption.STOREGAMEMODE);
+            tops.addOption(TransitionOption.STOREHEROCLASS);
             tops.addOption(TransitionOption.STOREHEALTH);
             tops.addOption(TransitionOption.STOREHUNGER);
+            tops.addOption(TransitionOption.STOREMAGIC);
             tops.addOption(TransitionOption.CLEARINVENTORY);
             tops.addOption(TransitionOption.CLEAREXPERIENCE);
             tops.addOption(TransitionOption.STOREITEMS);
@@ -218,8 +225,10 @@ public class BAConfigSerializer extends BaseConfig{
             tops = new StateOptions();
             tops.addOption(TransitionOption.RESTOREEXPERIENCE);
             tops.addOption(TransitionOption.RESTOREGAMEMODE);
+            tops.addOption(TransitionOption.RESTOREHEROCLASS);
             tops.addOption(TransitionOption.RESTOREHEALTH);
             tops.addOption(TransitionOption.RESTOREHUNGER);
+            tops.addOption(TransitionOption.RESTOREMAGIC);
             tops.addOption(TransitionOption.RESTOREITEMS);
             tops.addOption(TransitionOption.CLEARINVENTORY);
             tops.addOption(TransitionOption.DEENCHANT);

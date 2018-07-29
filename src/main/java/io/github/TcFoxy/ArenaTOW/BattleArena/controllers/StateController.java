@@ -11,10 +11,9 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CompetitionState;
 /**
  * @author alkarin
  */
-@SuppressWarnings("rawtypes")
 public class StateController {
     final static AtomicInteger count = new AtomicInteger(0);
-	final static List<Class<? extends Enum>> enums = new ArrayList<Class<? extends Enum>>();
+    final static List<Class<? extends Enum>> enums = new ArrayList<Class<? extends Enum>>();
 
 
     public static CompetitionState[] values() {
