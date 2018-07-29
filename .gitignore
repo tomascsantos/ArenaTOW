@@ -41,3 +41,7 @@ Thumbs.db
 server/
 target/
 lib/
+
+#Annoying intellij shit:
+*.idea
+*.iml
