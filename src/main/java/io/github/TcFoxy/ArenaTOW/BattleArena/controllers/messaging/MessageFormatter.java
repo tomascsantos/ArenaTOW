@@ -6,10 +6,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.Message;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.MessageOptions.MessageOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.stats.ArenaStat;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.MessageSerializer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
@@ -26,6 +28,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.util.TimeUtil;
 public class MessageFormatter{
 	final String[] searchList;
 	final String[] replaceList;
+	final TrackerController sc;
 
 	final Set<MessageOption> ops;
 	final Message msg;
@@ -44,6 +47,7 @@ public class MessageFormatter{
 		tns = new HashMap<Integer,TeamNames>(nTeams);
 		this.mp = mp;
 		typeName = mp.getType().getName();
+		sc = new TrackerController(mp);
 		this.impl = impl;
 	}
 
@@ -171,6 +175,10 @@ public class MessageFormatter{
 			case TEAM: replaceList[i] = tn.name;break;
 			case TEAMSHORT: replaceList[i] = tn.shortName;break;
 			case TEAMLONG: replaceList[i] = tn.longName;break;
+			case WINS: replaceList[i] = team.getStat().getWins()+""; break;
+			case LOSSES: replaceList[i] = team.getStat().getLosses()+""; break;
+			case RANKING: replaceList[i] = team.getStat().getRanking()+"" ; break;
+			case RATING: replaceList[i] = team.getStat().getRating()+"" ; break;
 			default:
 				continue;
 			}
@@ -178,6 +186,59 @@ public class MessageFormatter{
 			i++;
 		}
 		teamIndex = i;
+		curIndex = i;
+	}
+
+	public void formatTwoTeamsOptions(ArenaTeam t, Collection<ArenaTeam> teams){
+		ArenaTeam oteam;
+		ArenaStat st1 = t.getStat();
+		int i = teamIndex;
+		for (MessageOption mop : ops){
+			if (mop == null)
+				continue;
+			String repl = null;
+			switch(mop){
+			case OTHERTEAM:
+				oteam = getOtherTeam(t,teams);
+				if (oteam != null)
+					repl = oteam.getDisplayName();
+				break;
+			case WINSAGAINST:
+				try{
+					oteam = getOtherTeam(t,teams);
+					if (oteam != null){
+						ArenaStat st2 = oteam.getStat();
+						repl = st1.getWinsVersus(st2)+"";
+					} else {
+						repl = "0";
+					}
+				} catch(Exception e){
+					Log.printStackTrace(e);
+				}
+
+				break;
+			case LOSSESAGAINST:
+				try{
+					st1 = t.getStat();
+					oteam = getOtherTeam(t,teams);
+					if (oteam != null){
+						ArenaStat st2 = oteam.getStat();
+						repl = st1.getLossesVersus(st2) +"";
+					} else {
+						repl = "0";
+					}
+				} catch(Exception e){
+					Log.printStackTrace(e);
+				}
+				break;
+			default:
+				continue;
+			}
+
+			searchList[i] = mop.getReplaceString();
+			replaceList[i] = repl;
+			i++;
+		}
 		curIndex = i;
 	}
 
@@ -280,6 +341,15 @@ public class MessageFormatter{
 	}
 
 
+	private ArenaTeam getOtherTeam(ArenaTeam t, Collection<ArenaTeam> teams) {
+		for (ArenaTeam oteam: teams){
+			if (oteam.getId() != t.getId()){
+				return oteam;
+			}
+		}
+		return null;
+	}
+
 	private String formatTeamName(Message message, ArenaTeam t) {
 		if (t== null)
 			return null;
@@ -296,6 +366,10 @@ public class MessageFormatter{
 			String repl;
 			switch(mop){
 			case NAME: repl = t.getDisplayName(); break;
+			case WINS: repl = t.getStat().getWins()+""; break;
+			case LOSSES: repl = t.getStat().getLosses()+"" ; break;
+			case RANKING: repl = t.getStat().getRanking()+""; break;
+			case RATING: repl = t.getStat().getRating()+""; break;
 			default:
 				continue;
 			}

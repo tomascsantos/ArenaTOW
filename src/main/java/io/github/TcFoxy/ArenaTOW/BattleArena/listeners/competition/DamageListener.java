@@ -20,7 +20,6 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.DmgDeathUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.IEventHelper;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_7_R3.EventHelper;
 
 
 
@@ -32,7 +31,7 @@ public class DamageListener implements ArenaListener{
 	static {
 		Class<?>[] args = {};
 		try {
-			final Class<?> clazz = EventHelper.class;
+			final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_6_R1.EventHelper");
 			handler = (IEventHelper) clazz.getConstructor(args).newInstance((Object[])args);
 		} catch (Exception e) {
 			Log.printStackTrace(e);

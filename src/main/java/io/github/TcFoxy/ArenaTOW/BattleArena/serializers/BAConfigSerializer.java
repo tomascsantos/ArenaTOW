@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -19,17 +20,23 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.match.ArenaMatch;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.APIRegistrationController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.EventController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.OptionSetController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.EventExecutor;
+import io.github.TcFoxy.ArenaTOW.BattleArena.executors.TournamentExecutor;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.EventParams;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchState;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.ArenaType;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.joining.ArenaMatchQueue;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions.AnnouncementOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.EventOpenOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.FileUtil;
@@ -100,6 +107,7 @@ public class BAConfigSerializer extends BaseConfig{
 
         /// Load all default types
         for (String comp : allTypes){
+        	Bukkit.broadcastMessage(comp + "has been initialized");
             /// For some reason this next line is almost directly in APIRegistration and works
             /// for extensions but not for BattleArena defaults.
             /// ONLY doesnt work in Windows... odd...
@@ -123,6 +131,32 @@ public class BAConfigSerializer extends BaseConfig{
         ArenaType.addAliasForType("FreeForAll","ffa");
         ArenaType.addAliasForType("DeathMatch","dm");
         ArenaType.addAliasForType("Colosseum","col");
+
+        /// And lastly.. add our tournament which is different than the rest
+        createTournament(plugin, dir);
+    }
+
+    private void createTournament(JavaPlugin plugin, File dir) {
+        File cf = FileUtil.load(BattleArena.getSelf().getClass(),dir.getPath()+"/competitions/TourneyConfig.yml",
+                "/default_files/competitions/TourneyConfig.yml");
+        ConfigSerializer cs = new ConfigSerializer(plugin,cf, "Tourney");
+        MatchParams mp;
+        try {
+            mp = cs.loadMatchParams();
+            EventParams ep = new EventParams(mp);
+            ep.setParent(ParamController.getMatchParams(Defaults.DEFAULT_CONFIG_NAME));
+            EventOpenOptions.parseOptions(new String[]{}, null, ep);
+            try{
+                EventExecutor executor = new TournamentExecutor();
+                BattleArena.getSelf().getCommand("tourney").setExecutor(executor);
+                EventController.addEventExecutor("tourney", "tourney", executor);
+                ParamController.addMatchParams(ep);
+            } catch (Exception e){
+                Log.err("Tourney could not be added");
+            }
+        } catch (Exception e) {
+            Log.printStackTrace(e);
+        }
     }
 
     protected static void parseDefaultOptions(ConfigurationSection cs, EventParams defaults) {
@@ -294,6 +328,7 @@ public class BAConfigSerializer extends BaseConfig{
     }
 
     private void loadOtherFiles() {
+        loadHeroes();
 //        loadMcMMO();
     }
 
@@ -333,6 +368,24 @@ public class BAConfigSerializer extends BaseConfig{
         }
     }
 
+    private void loadHeroes(){
+        if (HeroesController.enabled()){
+            /// Look for it in the old location first, config.yml
+            List<String> disabled = config.getStringList("disabledHeroesSkills");
+            if (disabled != null && !disabled.isEmpty()){
+                HeroesController.addDisabledCommands(disabled);
+            } else { /// look for options in the new config
+                ConfigurationSection cs = loadOtherConfigSection(BattleArena.getSelf().getDataFolder() +
+                        "/otherPluginConfigs/HeroesConfig.yml");
+                if (cs == null)
+                    return;
+                disabled = cs.getStringList("disabledSkills");
+                if (disabled != null && !disabled.isEmpty()) {
+                    HeroesController.addDisabledCommands(disabled);
+                }
+            }
+        }
+    }
 
 //    private void loadMcMMO(){
 //        if (McMMOController.enabled()){

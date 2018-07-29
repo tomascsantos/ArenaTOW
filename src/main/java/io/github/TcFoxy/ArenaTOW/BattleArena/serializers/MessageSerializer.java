@@ -169,6 +169,7 @@ public class MessageSerializer extends BaseConfig {
         if (losers !=null){
             for (ArenaTeam t: losers){
                 msgf.formatTeamOptions(t,false);
+                msgf.formatTwoTeamsOptions(t, teams);
                 msgf.formatTeams(teams);
                 msgf.formatWinnerOptions(t, false);
                 /// TODO : I now need to make this work with multiple winners
@@ -184,6 +185,7 @@ public class MessageSerializer extends BaseConfig {
 				msgf = new MessageFormatter(this, mp, size, winnermessage, ops);
 				msgf.formatCommonOptions(teams, mp.getSecondsToLoot());
 				msgf.formatTeamOptions(victor,true);
+				msgf.formatTwoTeamsOptions(victor, teams);
 				msgf.formatTeams(teams);
 				if (losers !=null && !losers.isEmpty()){
 					msgf.formatWinnerOptions(losers.iterator().next(), false);

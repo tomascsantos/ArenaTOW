@@ -12,6 +12,8 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.WorldGuardController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.messaging.AnnouncementOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
@@ -29,20 +31,24 @@ public class BAPluginListener implements Listener {
 
 	@EventHandler
 	public void onPluginEnable(PluginEnableEvent event) {
+        if (event.getPlugin().getName().equalsIgnoreCase("BattleTracker"))
+            loadBattleTracker();
 //        else if (event.getPlugin().getName().equalsIgnoreCase("CombatTag"))
 //            loadCombatTag();
 //        else if (event.getPlugin().getName().equalsIgnoreCase("DisguiseCraft"))
 //            loadDisguiseCraft();
-		if (event.getPlugin().getName().equalsIgnoreCase("Essentials"))
+		else if (event.getPlugin().getName().equalsIgnoreCase("Essentials"))
 			loadEssentials();
 //		else if (event.getPlugin().getName().equalsIgnoreCase("Factions"))
 //			loadFactions();
 //		else if (event.getPlugin().getName().equalsIgnoreCase("Herochat"))
 //			loadHeroChat();
-//      else if (event.getPlugin().getName().equalsIgnoreCase("LibsDisguises"))
-//          loadLibsDisguise();
-//      else if (event.getPlugin().getName().equalsIgnoreCase("MobArena"))
-//          loadMcMMO();
+		else if (event.getPlugin().getName().equalsIgnoreCase("Heroes"))
+			loadHeroes();
+//        else if (event.getPlugin().getName().equalsIgnoreCase("LibsDisguises"))
+//            loadLibsDisguise();
+//        else if (event.getPlugin().getName().equalsIgnoreCase("MobArena"))
+//            loadMcMMO();
 //		else if (event.getPlugin().getName().equalsIgnoreCase("MobArena"))
 //			loadMobArena();
 		else if (event.getPlugin().getName().equalsIgnoreCase("MultiInv"))
@@ -68,11 +74,13 @@ public class BAPluginListener implements Listener {
 	}
 
     public void loadAll(){
+		loadBattleTracker();
         //loadCombatTag();
 		//loadDisguiseCraft();
 		loadEssentials();
 		//loadFactions();
 		//loadHeroChat();
+		loadHeroes();
         //loadLibsDisguise();
         //loadMcMMO();
 		//loadMobArena();
@@ -89,6 +97,16 @@ public class BAPluginListener implements Listener {
     }
 
 
+	public void loadBattleTracker(){
+		if (!TrackerController.enabled()){
+			Plugin plugin = Bukkit.getPluginManager().getPlugin("BattleTracker");
+			if (plugin != null) {
+				TrackerController.setPlugin(plugin);
+			} else {
+				Log.info("[BattleArena] BattleTracker not detected, not tracking wins");
+			}
+		}
+	}
 //    public void loadCombatTag(){
 //        if (!CombatTagInterface.enabled()){
 //            Plugin plugin = Bukkit.getPluginManager().getPlugin("CombatTag");
@@ -144,6 +162,16 @@ public class BAPluginListener implements Listener {
 //			}
 //		}
 //	}
+
+	public void loadHeroes(){
+		if (!HeroesController.enabled()){
+			Plugin plugin = Bukkit.getPluginManager().getPlugin("Heroes");
+			if (plugin != null) {
+				HeroesController.setPlugin(plugin);
+				Log.info("[BattleArena] Heroes detected. Implementing heroes class options");
+			}
+		}
+	}
 
 //    public void loadLibsDisguise() {
 //        if (!DisguiseInterface.hasLibs()){

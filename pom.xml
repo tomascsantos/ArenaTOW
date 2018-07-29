@@ -108,9 +108,23 @@
 		</dependency>
 		<!-- Stuff For BattleArena that I'll probably remove -->
 		<dependency>
+			<groupId>mc.alk</groupId>
+			<artifactId>BattleTracker</artifactId>
+			<version>2.5.8.9</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/BattleTracker.jar</systemPath>
+		</dependency>
+		<dependency>
 			<groupId>net.ess3</groupId>
 			<artifactId>Essentials</artifactId>
 			<version>2.13-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>unknown.plugins</groupId>
+			<artifactId>Heroes</artifactId>
+			<version>1.5.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/Heroes.jar</systemPath>
 		</dependency>
 	</dependencies>
 </project>

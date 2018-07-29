@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -40,6 +41,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.RoomContaine
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.joining.AbstractJoinHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.messaging.MessageHandler;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.arenas.ArenaCreateEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.arenas.ArenaDeleteEvent;
 import io.github.TcFoxy.ArenaTOW.BattleArena.events.players.ArenaPlayerJoinEvent;
@@ -580,6 +582,106 @@ public class BAExecutor extends CustomCommandExecutor {
                 + " has now won the match!");
     }
 
+    @MCCommand(cmds = {"resetElo"}, op = true, usage = "resetElo")
+    public boolean resetElo(CommandSender sender, MatchParams mp) {
+        if (!TrackerController.hasInterface(mp)) {
+            return sendMessage(sender,
+                    "&eThere is no tracking for " + mp.getName());
+        }
+        TrackerController sc = new TrackerController(mp);
+        sc.resetStats();
+        return sendMessage(sender, mp.getPrefix() + " &2Elo's and stats for &6"
+                + mp.getName() + "&2 now reset");
+    }
+
+    @MCCommand(cmds = {"setRating"}, admin = true, usage = "setRating <player> <rating>")
+    public boolean setElo(CommandSender sender, MatchParams mp,
+            OfflinePlayer player, int rating) {
+        if (!TrackerController.hasInterface(mp)) {
+            return sendMessage(sender,
+                    "&eThere is no tracking for " + mp.getName());
+        }
+        TrackerController sc = new TrackerController(mp);
+        if (sc.setRating(player, rating)) {
+            return sendMessage(sender, "&6" + player.getName()
+                    + "&e now has &6" + rating + "&e rating");
+        } else {
+            return sendMessage(sender, "&6Error setting rating");
+        }
+    }
+
+    @MCCommand(cmds = {"rank"}, helpOrder = 3)
+    public boolean rank(Player sender, MatchParams mp) {
+        if (!TrackerController.hasInterface(mp)) {
+            return sendMessage(sender,
+                    "&cThere is no tracking for &6" + mp.getName());
+        }
+        TrackerController sc = new TrackerController(mp);
+        String rankMsg = sc.getRankMessage(sender);
+        return MessageUtil.sendMessage(sender, rankMsg);
+    }
+
+    @MCCommand(cmds = {"rank"}, helpOrder = 4)
+    public boolean rankOther(CommandSender sender, MatchParams mp,
+            OfflinePlayer player) {
+        if (!TrackerController.hasInterface(mp)) {
+            return sendMessage(sender,
+                    "&cThere is no tracking for " + mp.getName());
+        }
+        TrackerController sc = new TrackerController(mp);
+        String rankMsg = sc.getRankMessage(player);
+        return MessageUtil.sendMessage(sender, rankMsg);
+    }
+
+    @MCCommand(cmds = {"top"}, helpOrder = 5)
+    public boolean top(CommandSender sender, MatchParams mp, String[] args) {
+        final int length = args.length;
+        int teamSize = 1;
+        int x = 5;
+        if (length > 1) {
+            try {
+                x = Integer.valueOf(args[1]);
+            } catch (Exception e) {
+                return sendMessage(sender, "&e top length " + args[1]
+                        + " is not a number");
+            }
+        }
+        if (length > 2) {
+            try {
+                teamSize = Integer.valueOf(args[length - 1]);
+            } catch (Exception e) {
+                return sendMessage(sender, "&e team size " + args[length - 1]
+                        + " is not a number");
+            }
+        }
+        MatchParams top = new MatchParams(mp.getType());
+        top.setParent(mp);
+        top.setTeamSize(teamSize);
+        return getTop(sender, x, top);
+    }
+
+    public boolean getTop(CommandSender sender, int x, MatchParams mp) {
+        if (x < 1 || x > 100) {
+            x = 5;
+        }
+        if (!TrackerController.hasInterface(mp)) {
+            return sendMessage(sender,
+                    "&eThere is no tracking for " + mp.getName());
+        }
+
+        final String teamSizeStr = (mp.getMinTeamSize() > 1 ? "teamSize=&6"
+                + mp.getMinTeamSize() : "");
+        final String arenaString = mp.getType().toPrettyString(
+                mp.getMinTeamSize(), mp.getMaxTeamSize());
+
+        final String headerMsg = "&4Top {x} Gladiators in &6" + arenaString
+                + "&e " + teamSizeStr;
+        final String bodyMsg = "&e#{rank}&4 {name} - {wins}:{losses}&6[{ranking}]";
+
+        TrackerController sc = new TrackerController(mp);
+        sc.printTopX(sender, x, mp.getMinTeamSize(), headerMsg, bodyMsg);
+        return true;
+    }
 
     @MCCommand(cmds = {"auto"}, admin = true, perm = "arena.auto")
     public boolean arenaAuto(CommandSender sender, MatchParams params, String args[]) {

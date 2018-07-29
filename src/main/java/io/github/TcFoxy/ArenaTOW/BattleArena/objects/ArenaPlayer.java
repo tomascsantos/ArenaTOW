@@ -11,10 +11,13 @@ import org.bukkit.inventory.PlayerInventory;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.competition.Competition;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.containers.AreaContainer;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.meta.PlayerMetaData;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.FixedLocation;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.stats.ArenaStat;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PermissionsUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.PlayerUtil;
@@ -179,7 +182,7 @@ public class ArenaPlayer {
     }
 
     public int getLevel() {
-        return player.getLevel();
+        return (HeroesController.enabled()) ? HeroesController.getLevel(player) : player.getLevel();
     }
 
     public Competition getCompetition() {
@@ -236,6 +239,11 @@ public class ArenaPlayer {
 
     public PlayerMetaData getMetaData(){
         return meta;
+    }
+
+
+    public ArenaStat getStat(MatchParams type) {
+        return TrackerController.loadRecord(type, this);
     }
 
     public Player regetPlayer() {

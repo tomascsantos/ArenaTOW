@@ -1,6 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.BattleArena.util;
 
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,14 +10,13 @@ import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Scoreboard;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.EssentialsController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.HeroesController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.CommandLineString;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.IPlayerHelper;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_7_R3.PlayerHelper;
 
 public class PlayerUtil {
     static IPlayerHelper handler = null;
@@ -53,7 +53,8 @@ public class PlayerUtil {
     static {
     	Class<?>[] args = {};
     	try {
-    		final Class<?> clazz = PlayerHelper.class;
+    		Method m = Player.class.getMethod("getHealth");
+    		final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_7_R3.PlayerHelper");
     		handler = (IPlayerHelper) clazz.getConstructor(args).newInstance((Object[]) args);
     	} catch (Exception e) {
     		Log.printStackTrace(e);
@@ -61,7 +62,7 @@ public class PlayerUtil {
     }
 
 
-	public static int getHunger(final Player player) {
+    public static int getHunger(final Player player) {
         return player.getFoodLevel();
     }
 
@@ -70,15 +71,33 @@ public class PlayerUtil {
     }
 
     public static void setHealthP(final Player player, final Double health) {
-        setHealthP(player,health);
+        setHealthP(player,health, false);
+    }
+
+    public static void setHealthP(final Player player, final Double health, boolean skipHeroes) {
+        if (!skipHeroes && HeroesController.enabled()){
+            HeroesController.setHealthP(player,health);
+            return;
+        }
+        double val = (player.getMaxHealth() * health/100.0);
+        setHealth(player,val);
     }
 
     public static void setHealth(final Player player, final Double health) {
-        handler.setHealth(player,health);
+        setHealth(player,health,false);
+    }
+
+    public static void setHealth(final Player player, final Double health, boolean skipHeroes) {
+        handler.setHealth(player,health,skipHeroes);
     }
 
     public static Double getHealth(Player player) {
-        return handler.getHealth(player);
+        return getHealth(player,false);
+    }
+
+    public static Double getHealth(Player player, boolean skipHeroes) {
+        return !skipHeroes && HeroesController.enabled() ?
+                HeroesController.getHealth(player) : handler.getHealth(player);
     }
 
     public static void setInvulnerable(Player player, Integer invulnerableTime) {

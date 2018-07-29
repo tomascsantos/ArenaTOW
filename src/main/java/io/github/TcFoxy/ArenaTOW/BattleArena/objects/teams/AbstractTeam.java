@@ -14,9 +14,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.MatchParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaObjective;
+import io.github.TcFoxy.ArenaTOW.BattleArena.objects.stats.ArenaStat;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.MessageUtil;
 
 abstract class AbstractTeam implements ArenaTeam{
@@ -43,6 +45,7 @@ abstract class AbstractTeam implements ArenaTeam{
     ArenaObjective objective;
 	protected ChatColor color = null;
 	protected ItemStack headItem = null;
+	ArenaStat stat;
 	MatchParams params;
 
     int index = -1;
@@ -306,7 +309,8 @@ abstract class AbstractTeam implements ArenaTeam{
         this.nameManuallySet = true;
     }
 
-	@Override
+	@SuppressWarnings("SimplifiableIfStatement")
+    @Override
 	public boolean equals(Object other) {
 		if (this == other) return true;
 		if (!(other instanceof AbstractTeam)) return false;
@@ -510,6 +514,23 @@ abstract class AbstractTeam implements ArenaTeam{
 	@Override
 	public void setCurrentParams(MatchParams params) {
 		this.params = params;
+	}
+
+	@Override
+	public void setArenaStat(ArenaStat stat){
+		this.stat = stat;
+	}
+
+	@Override
+	public ArenaStat getStat(){
+		return TrackerController.loadRecord(getCurrentParams(), this);
+//		return stat;
+	}
+
+	@Override
+	public ArenaStat getStat(MatchParams params){
+		return TrackerController.loadRecord(params, this);
+//		return stat;
 	}
 
     @Override

@@ -29,13 +29,12 @@ import org.bukkit.inventory.PlayerInventory;
 
 import io.github.TcFoxy.ArenaTOW.BattleArena.Defaults;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.IInventoryHelper;
-import io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_7_R3.InventoryHelper;
 
 @SuppressWarnings("deprecation")
 public class InventoryUtil {
 	static final String version = "BA InventoryUtil 2.1.7";
 	static final boolean DEBUG = false;
-	static IInventoryHelper handler;
+	static IInventoryHelper handler = null;
 
 //	static {
 //		Class<?>[] args = {};
@@ -62,12 +61,12 @@ public class InventoryUtil {
 //            if (!Defaults.TESTSERVER && !Defaults.TESTSERVER_DEBUG) Log.printStackTrace(e);
 //		}
 //	}
-//	
+	
 	static {
 		Class<?>[] args = {};
 		Class<?> clazz;
 		try {
-			clazz = InventoryHelper.class;
+			clazz = Class.forName("io.github.TcFoxy.ArenaTOW.BattleArena.util.compat.v1_4_5.InventoryHelper");
 			handler = (IInventoryHelper) clazz.getConstructor(args).newInstance((Object[])args);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -321,8 +320,10 @@ public class InventoryUtil {
 		return null;
 	}
 
-	public static boolean isInt(String i) {try {Integer.parseInt(i);return true;} catch (Exception e) {return false;}}
-    public static boolean isFloat(String i){try{Float.parseFloat(i);return true;} catch (Exception e){return false;}}
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+    public static boolean isInt(String i) {try {Integer.parseInt(i);return true;} catch (Exception e) {return false;}}
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+	public static boolean isFloat(String i){try{Float.parseFloat(i);return true;} catch (Exception e){return false;}}
 
 	/// Get the Material
 	public static Material getMat(String name) {
@@ -401,6 +402,7 @@ public class InventoryUtil {
 		addItemsToInventory(p,items, ignoreCustomHelmet,null);
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void addItemsToInventory(Player p, List<ItemStack> items, boolean ignoreCustomHelmet, Color color) {
 		if (items == null)
 			return;
@@ -418,6 +420,7 @@ public class InventoryUtil {
 		addItemToInventory(player,itemStack,stockAmount,update,ignoreCustomHelmet,null);
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void addItemToInventory(Player player, ItemStack itemStack, int stockAmount,
 			boolean update, boolean ignoreCustomHelmet, Color color) {
 		PlayerInventory inv = player.getInventory();
@@ -628,6 +631,7 @@ public class InventoryUtil {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void clearInventory(Player p) {
 		if(Defaults.DEBUG_STORAGE) Log.info("Clearing inventory of " + p.getName() +" o=" +
 				p.isOnline() +", d="+ p.isDead() +"   inv=" + p.getInventory());
@@ -645,6 +649,7 @@ public class InventoryUtil {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void clearInventory(Player p, boolean skipHead) {
 		if (!skipHead){
 			clearInventory(p);
@@ -1127,6 +1132,7 @@ public class InventoryUtil {
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void addToInventory(Player p, PInv pinv) {
 		try{
 			PlayerInventory inv = p.getPlayer().getInventory();

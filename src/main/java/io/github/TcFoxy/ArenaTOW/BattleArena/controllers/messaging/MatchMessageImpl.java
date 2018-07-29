@@ -68,6 +68,7 @@ public class MatchMessageImpl extends MessageSerializer implements MatchMessageH
 		msgf.formatCommonOptions(teams,seconds);
 		for (ArenaTeam t: teams){
 			msgf.formatTeamOptions(t,false);
+			msgf.formatTwoTeamsOptions(t, teams);
 			msgf.formatTeams(teams);
 			String newmsg = msgf.getFormattedMessage(message);
 			t.sendMessage(newmsg);

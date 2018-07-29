@@ -26,6 +26,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ModuleController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.OptionSetController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.ParamController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.StateController;
+import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.plugins.TrackerController;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaClass;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaParams;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaSize;
@@ -46,6 +47,7 @@ import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.ArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.modules.BrokenArenaModule;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.StateOptions;
 import io.github.TcFoxy.ArenaTOW.BattleArena.objects.options.TransitionOption;
+import io.github.TcFoxy.ArenaTOW.BattleArena.util.BTInterface;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.EffectUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.InventoryUtil;
 import io.github.TcFoxy.ArenaTOW.BattleArena.util.Log;
@@ -341,6 +343,14 @@ public class ConfigSerializer extends BaseConfig{
         if (dbName == null) dbName = cs.getString("dbTableName", null);
         if (dbName != null){
             mp.setTableName(dbName);
+            if (TrackerController.enabled()){
+                try{
+                    if (!BTInterface.addBTI(mp)){
+                        Log.err("Couldn't add tracker interface");}
+                } catch (Exception e){
+                    Log.err("Couldn't add tracker interface");
+                }
+            }
         }
         if (cs.contains("overrideBattleTracker")){
             mp.setUseTrackerPvP(cs.getBoolean("overrideBattleTracker", true));
