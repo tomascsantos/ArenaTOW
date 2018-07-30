@@ -1,9 +1,9 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_13_R1;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSConstants;
-import net.minecraft.server.v1_11_R1.EntityCreature;
-import net.minecraft.server.v1_11_R1.EntityLiving;
-import net.minecraft.server.v1_11_R1.PathfinderGoalHurtByTarget;
+import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.interfaces.NMSConstants;
+import net.minecraft.server.v1_13_R1.EntityCreature;
+import net.minecraft.server.v1_13_R1.EntityLiving;
+import net.minecraft.server.v1_13_R1.PathfinderGoalHurtByTarget;
 
 public class MyPathfinderGoalHurtByTarget extends PathfinderGoalHurtByTarget{
 

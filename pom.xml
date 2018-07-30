@@ -1,13 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
 	<groupId>io.github.TcFoxy</groupId>
 	<artifactId>ArenaTOW</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.3.1-SNAPSHOT</version>
 	<name>ArenaTugOfWar</name>
 	<description>Battle Arena Tug of War Plugin</description>
 	<build>
-		<finalName>${project.name}</finalName>
+		<finalName>${project.name}-${version}</finalName>
 		<resources>
 			<resource>
 				<targetPath>.</targetPath>
@@ -26,106 +32,41 @@
 					<include>config.yml</include>
 				</includes>
 			</resource>
-			<resource>
-				<targetPath>.</targetPath>
-				<filtering>true</filtering>
-				<directory>${basedir}</directory>
-				<includes>
-					<include>default_files/*</include>
-					<include>default_files/main/*</include>
-					<include>default_files/competitions</include>
-					<include>default_files/competitions/*</include>
-					<include>default_files/otherPluginConfigs</include>
-					<include>default_files/otherPluginConfigs/*</include>
-					<include>default_files/victoryConditions</include>
-					<include>default_files/victoryConditions/*</include>
-				</includes>
-			</resource>
-			<!-- Exclude JUnit test directory -->
-			<resource>
-				<directory>src/tests</directory>
-				<excludes>
-					<exclude>**/*</exclude>
-				</excludes>
-			</resource>
 		</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
+
 	<repositories>
 		<repository>
-			<id>vault-repo</id>
-			<url>http://nexus.hc.to/content/repositories/pub_releases</url>
+			<id>dmulloy2-repo</id>
+			<url>http://repo.dmulloy2.net/nexus/repository/public/</url>
 		</repository>
 		<repository>
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
-		<repository>
-			<id>sk89q-repo</id>
-			<url>http://maven.sk89q.com/repo/</url>
-		</repository>
-		<!-- Stuff for the BattleArena That I will probably get rid of -->
-		<repository>
-			<id>ess-repo</id>
-			<url>http://repo.ess3.net/content/groups/essentials</url>
-		</repository>
 	</repositories>
+
 	<dependencies>
-		<!-- Spigot API -->
+		<!--Spigot API-->
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.11-R0.1-SNAPSHOT</version>
+			<version>1.13-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- Craftbukkit -->
+		<!--NMS stuff -->
 		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>craftbukkit</artifactId>
-			<version>1.11-R0.1-SNAPSHOT</version>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot</artifactId>
+			<version>1.13-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- World Guard -->
-		<dependency>
-			<groupId>com.sk89q</groupId>
-			<artifactId>worldguard</artifactId>
-			<version>6.1</version>
-		</dependency>
-		<!-- Vault -->
-		<dependency>
-			<groupId>net.milkbowl.vault</groupId>
-			<artifactId>VaultAPI</artifactId>
-			<version>1.6</version>
-			<scope>provided</scope>
-		</dependency>
-		<!-- Stuff For BattleArena that I'll probably remove -->
 		<dependency>
 			<groupId>mc.alk</groupId>
-			<artifactId>BattleTracker</artifactId>
-			<version>2.5.8.9</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/BattleTracker.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>net.ess3</groupId>
-			<artifactId>Essentials</artifactId>
-			<version>2.13-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>unknown.plugins</groupId>
-			<artifactId>Heroes</artifactId>
-			<version>1.5.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/Heroes.jar</systemPath>
+			<artifactId>BattleArena</artifactId>
+			<version>3.9.10.15</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+
 </project>

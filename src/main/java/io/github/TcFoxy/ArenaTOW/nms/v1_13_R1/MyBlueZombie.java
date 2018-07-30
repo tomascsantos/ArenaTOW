@@ -1,17 +1,17 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1;
+package io.github.TcFoxy.ArenaTOW.nms.v1_13_R1;
 
 
+import mc.alk.arena.BattleArena;
+import mc.alk.arena.objects.ArenaPlayer;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import io.github.TcFoxy.ArenaTOW.Utils;
-import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSConstants;
-import net.minecraft.server.v1_11_R1.DamageSource;
-import net.minecraft.server.v1_11_R1.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_11_R1.World;
+import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.interfaces.NMSConstants;
+import net.minecraft.server.v1_13_R1.DamageSource;
+import net.minecraft.server.v1_13_R1.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_13_R1.World;
 
 public class MyBlueZombie extends MyEntityZombie {
 	

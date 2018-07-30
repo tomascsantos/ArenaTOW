@@ -1,4 +1,4 @@
-package io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces;
+package io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.interfaces;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -8,10 +8,10 @@ import java.util.Map;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import net.minecraft.server.v1_11_R1.Entity;
-import net.minecraft.server.v1_11_R1.EntityTypes;
-import net.minecraft.server.v1_11_R1.MinecraftKey;
-import net.minecraft.server.v1_11_R1.RegistryMaterials;
+import net.minecraft.server.v1_13_R1.Entity;
+import net.minecraft.server.v1_13_R1.EntityTypes;
+import net.minecraft.server.v1_13_R1.MinecraftKey;
+import net.minecraft.server.v1_13_R1.RegistryMaterials;
 
 @SuppressWarnings("rawtypes")
 public class CustomEntityRegistry extends RegistryMaterials {

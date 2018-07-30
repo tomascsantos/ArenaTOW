@@ -1,32 +1,31 @@
 package io.github.TcFoxy.ArenaTOW;
 
 
+import mc.alk.arena.BattleArena;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyEntityType;
+import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyEntityType;
 
-public class ArenaTOW{
+public class ArenaTOW extends JavaPlugin{
 	
 	//public TugArena tug;
 	
-//	@Override
-//	public void onDisable(){
-//		MyEntityType.unregisterEntities();
-//	}
+	@Override
+	public void onDisable(){
+		MyEntityType.unregisterEntities();
+	}
 	
-//	@Override
-//	public void onEnable(){
-//		pluginArenaTOW = this;
-//		//Messages msgConfig = new Messages();
-//		//register with battlearena
-//		BattleArena.registerCompetition(this, "ArenaTow", "tow", TugArena.class, new TugExecutor());    
-//		MyEntityType.registerEntities();
-//	}
-//	
+	@Override
+	public void onEnable(){
+		pluginArenaTOW = this;
+		//Messages msgConfig = new Messages();
+		//register with battlearena
+		BattleArena.registerCompetition(this, "ArenaTow", "tow", TugArena.class, new TugExecutor());
+		MyEntityType.registerEntities();
+	}
+
 
 	public void startThePlugin(){   
 		MyEntityType.registerEntities();

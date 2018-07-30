@@ -3,8 +3,8 @@ package io.github.TcFoxy.ArenaTOW.Serializable;
 import org.bukkit.Color;
 import org.bukkit.Location;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSUtils;
-import net.minecraft.server.v1_11_R1.Entity;
+import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.interfaces.NMSUtils;
+import net.minecraft.server.v1_13_R1.Entity;
 
 public class Tower extends PersistInfo {
 

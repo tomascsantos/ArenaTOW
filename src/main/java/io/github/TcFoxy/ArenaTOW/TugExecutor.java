@@ -2,17 +2,17 @@ package io.github.TcFoxy.ArenaTOW;
 
 import java.util.HashMap;
 
+import mc.alk.arena.executors.CustomCommandExecutor;
+import mc.alk.arena.executors.MCCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.executors.CustomCommandExecutor;
-import io.github.TcFoxy.ArenaTOW.BattleArena.executors.MCCommand;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo.BaseType;
 
-public class TugExecutor extends CustomCommandExecutor{
+public class TugExecutor extends CustomCommandExecutor {
 
 	static ArenaTOW atInstance;
 

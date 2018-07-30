@@ -2,10 +2,13 @@ package io.github.TcFoxy.ArenaTOW.Listeners;
 
 import java.util.Collection;
 
+import mc.alk.arena.BattleArena;
+import mc.alk.arena.objects.ArenaPlayer;
+import mc.alk.arena.objects.teams.ArenaTeam;
+import net.minecraft.server.v1_13_R1.EntityLiving;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
-import org.bukkit.craftbukkit.v1_11_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_11_R1.entity.CraftFireball;
+import org.bukkit.craftbukkit.v1_13_R1.entity.CraftEntity;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -26,15 +29,10 @@ import org.bukkit.potion.PotionEffectType;
 
 import io.github.TcFoxy.ArenaTOW.TugArena;
 import io.github.TcFoxy.ArenaTOW.Utils;
-import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyEntityGolem;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.MyFireball;
-import io.github.TcFoxy.ArenaTOW.nms.v1_11_R1.interfaces.NMSConstants;
-import net.minecraft.server.v1_11_R1.EntityFireball;
-import net.minecraft.server.v1_11_R1.EntityLiving;
+import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyEntityGolem;
+import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyFireball;
+import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.interfaces.NMSConstants;
 
 public class TugListener implements Listener{
 	

@@ -5,6 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import mc.alk.arena.BattleArena;
+import mc.alk.arena.controllers.MoneyController;
+import mc.alk.arena.objects.ArenaPlayer;
+import mc.alk.arena.objects.arenas.Arena;
+import mc.alk.arena.objects.events.ArenaEventHandler;
+import mc.alk.arena.objects.spawns.SpawnLocation;
+import mc.alk.arena.objects.teams.ArenaTeam;
+import mc.alk.arena.serializers.Persist;
+import net.minecraft.server.v1_13_R1.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -20,14 +29,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.BattleArena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.controllers.MoneyController;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.arenas.Arena;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.events.ArenaEventHandler;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.spawns.SpawnLocation;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.teams.ArenaTeam;
-import io.github.TcFoxy.ArenaTOW.BattleArena.serializers.Persist;
 import io.github.TcFoxy.ArenaTOW.Listeners.TugListener;
 import io.github.TcFoxy.ArenaTOW.Serializable.Deathroom;
 import io.github.TcFoxy.ArenaTOW.Serializable.Nexus;
@@ -35,7 +36,6 @@ import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.Serializable.PersistInfo.BaseType;
 import io.github.TcFoxy.ArenaTOW.Serializable.Spawner;
 import io.github.TcFoxy.ArenaTOW.Serializable.Tower;
-import net.minecraft.server.v1_11_R1.EntityLiving;
 
 
 public class TugArena extends Arena {
@@ -59,7 +59,7 @@ public class TugArena extends Arena {
 	 */
 //	@Persist 
 //	public HashMap<String, Location> deathrooms;
-	@Persist 
+	@Persist
 	public HashMap<String, String> savedInfo;
 
 
@@ -310,7 +310,7 @@ public class TugArena extends Arena {
 	public void waterDamage(PlayerMoveEvent event){
 		if(event.getTo().getBlock() != event.getFrom().getBlock()){
 			Player p = event.getPlayer();
-			if(p.getLocation().getBlock().getType() == Material.STATIONARY_WATER || p.getLocation().getBlock().getType() == Material.WATER ){
+			if(p.getLocation().getBlock().getType() == Material.WATER || p.getLocation().getBlock().getType() == Material.WATER ){
 				p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20*5, 1));
 			}
 		}
