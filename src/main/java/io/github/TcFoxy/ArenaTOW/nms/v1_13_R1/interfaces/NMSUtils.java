@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_11_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_13_R1.CraftWorld;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyBlueGolem;
@@ -18,8 +18,8 @@ import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyEntityZombie;
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyRedGolem;
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyRedGuardian;
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyRedZombie;
-import net.minecraft.server.v1_11_R1.PathfinderGoalSelector;
-import net.minecraft.server.v1_11_R1.WorldServer;
+import net.minecraft.server.v1_13_R1.PathfinderGoalSelector;
+import net.minecraft.server.v1_13_R1.WorldServer;
 /**
  * author @BigTeddy98
  * Used for tutorial purposes

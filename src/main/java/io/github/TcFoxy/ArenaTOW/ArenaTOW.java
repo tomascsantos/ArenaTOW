@@ -9,9 +9,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyEntityType;
 
 public class ArenaTOW extends JavaPlugin{
-	
-	//public TugArena tug;
-	
+
+    Plugin pluginArenaTOW;
+
 	@Override
 	public void onDisable(){
 		MyEntityType.unregisterEntities();
@@ -26,29 +26,19 @@ public class ArenaTOW extends JavaPlugin{
 		MyEntityType.registerEntities();
 	}
 
-
-	public void startThePlugin(){   
-		MyEntityType.registerEntities();
-	}
 	
-	public void stopThePlugin(){
-		//MyEntityType.unregisterEntities();
-
-	}
-
-	
-	public WorldGuardPlugin getWorldGuard() {
-	    Plugin Wgplugin = getSelf().getServer().getPluginManager().getPlugin("WorldGuard");
-	 
-	    // WorldGuard may not be loaded
-	    if (Wgplugin == null || !(Wgplugin instanceof WorldGuardPlugin)) {
-	        return null; // Maybe you want throw an exception instead
-	    }
-	 
-	    return (WorldGuardPlugin) Wgplugin;
-	}
+//	public WorldGuardPlugin getWorldGuard() {
+//	    Plugin Wgplugin = getSelf().getServer().getPluginManager().getPlugin("WorldGuard");
+//
+//	    // WorldGuard may not be loaded
+//	    if (Wgplugin == null || !(Wgplugin instanceof WorldGuardPlugin)) {
+//	        return null; // Maybe you want throw an exception instead
+//	    }
+//
+//	    return (WorldGuardPlugin) Wgplugin;
+//	}
 	
 	public static JavaPlugin getSelf() {
-		return BattleArena.getSelf();
+		return ;
 	}
 }

@@ -20,7 +20,7 @@ public class MyEntityGolem extends EntityIronGolem{
 	}
 
 	@Override
-	protected void r(){
+	protected void n(){
 		//put pathfinders here.
 		this.goalSelector.a(4, new PathfinderGoalGolemFireball(this));
 		this.goalSelector.a(5, new PathfinderGoalMeleeAttack(this, 1.3D, false));

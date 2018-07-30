@@ -22,8 +22,8 @@ public class MyBlueZombie extends MyEntityZombie {
 	}
 	
 	@Override
-	protected void r(){
-		super.r();
+	protected void n(){
+		super.n();
 		this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<MyRedZombie>(this, MyRedZombie.class, true));
 		this.targetSelector.a(3, new PathfinderGoalNearestAttackableTarget<MyRedGolem>(this, MyRedGolem.class, true));
 		this.targetSelector.a(4, new PathfinderGoalNearestAttackableTarget<MyRedGuardian>(this, MyRedGuardian.class, true));

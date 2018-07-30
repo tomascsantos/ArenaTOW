@@ -448,7 +448,8 @@ public class TugArena extends Arena {
 			@Override
 			public void run() {
 
-				Utils.sendTitle(p, 0, 21, 0, "&5You Have FALLEN!", (respawntime-time) + " seconds left!");
+				//Utils.sendTitle(p, 0, 21, 0, "&5You Have FALLEN!", (respawntime-time) + " seconds left!");
+				//TODO send message to player
 				time++;
 			}		
 		}, 0*Utils.TPS, 1*Utils.TPS);

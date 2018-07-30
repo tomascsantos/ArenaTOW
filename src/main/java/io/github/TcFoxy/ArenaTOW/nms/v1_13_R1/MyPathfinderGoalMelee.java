@@ -1,7 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.nms.v1_13_R1;
 
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.interfaces.NMSConstants;
-import net.minecraft.server.v1_13_R1.BlockPosition;
 import net.minecraft.server.v1_13_R1.EntityCreature;
 import net.minecraft.server.v1_13_R1.EntityHuman;
 import net.minecraft.server.v1_13_R1.EntityLiving;
@@ -20,7 +19,7 @@ public class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack{
 	
 	@Override
     public boolean b() {
-        final EntityLiving goalTarget = this.b.getGoalTarget();
+        final EntityLiving goalTarget = this.a.getGoalTarget();
         if (goalTarget == null) {
             return false;
         }
@@ -28,12 +27,15 @@ public class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack{
             return false;
         }
         if (!this.e) {
-            return !this.b.getNavigation().n();
+            return !this.a.getNavigation().p();
         }
         if(NMSConstants.isSameTeam(attacker, goalTarget)){
         	return false;
         }
-        return this.b.f(new BlockPosition(goalTarget)) && (!(goalTarget instanceof EntityHuman) || (!((EntityHuman)goalTarget).isSpectator() && !((EntityHuman)goalTarget).z()));
+        return /*this.b.f(new BlockPosition(goalTarget)) &&*/
+                        (!(goalTarget instanceof EntityHuman) ||
+                        (!((EntityHuman)goalTarget).isSpectator() &&
+                        !((EntityHuman)goalTarget).u()));
     }
 	
 

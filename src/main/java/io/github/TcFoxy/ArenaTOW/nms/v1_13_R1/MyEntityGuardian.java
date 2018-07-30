@@ -27,7 +27,7 @@ public class MyEntityGuardian extends EntityGuardianElder{
 	}
 
 	@Override
-	protected void r(){
+	protected void n(){
 		NMSUtils.clearBehavior(goalSelector, targetSelector);
 
 		this.targetSelector.a(5, new PathfinderGoalNearestAttackableTarget<EntityHuman>(this, EntityHuman.class, true));
@@ -53,28 +53,24 @@ public class MyEntityGuardian extends EntityGuardianElder{
 	public void move(EnumMoveType type, double d0, double d1, double d2){
 	}
 
-	@Override
-	protected void M() {//no effects. Eventually make team-specific effects?
-	}
-
 
 	/*
-	 * This gets the DataWatcherObject<Integer> called bA 
+	 * This gets the DataWatcherObject<Integer> called bG
 	 * in the entityguardian class which is private
 	 */
 	@SuppressWarnings("unchecked")
 	public DataWatcherObject<Integer> getFieldB() throws Exception{
-		Field f=EntityGuardian.class.getDeclaredField("bA");
+		Field f=EntityGuardian.class.getDeclaredField("bG");
 		f.setAccessible(true);
 		DataWatcherObject<Integer> temp = (DataWatcherObject<Integer>) f.get((EntityGuardian)this);
 		return temp;
 	}
 
 	private void a(final int n) {
-		DataWatcherObject<Integer> bA;
+		DataWatcherObject<Integer> bG;
 		try {
-			bA = getFieldB();
-			this.datawatcher.set(bA, n);
+			bG = getFieldB();
+			this.datawatcher.set(bG, n);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,7 +109,7 @@ public class MyEntityGuardian extends EntityGuardianElder{
 		@Override
 		public void c() {
 			this.b = -10;
-			this.a.getNavigation().o();
+			this.a.getNavigation().q();
 			this.a.getControllerLook().a(this.a.getGoalTarget(), 90.0f, 90.0f);
 			this.a.impulse = true;
 		}
@@ -128,7 +124,7 @@ public class MyEntityGuardian extends EntityGuardianElder{
 		@Override
 		public void e() {
 			final EntityLiving goalTarget = this.a.getGoalTarget();
-			this.a.getNavigation().o();
+			this.a.getNavigation().q();
 			this.a.getControllerLook().a(goalTarget, 90.0f, 90.0f);
 			if (!this.a.hasLineOfSight(goalTarget)) {
 				this.a.setGoalTarget(null);
@@ -141,7 +137,7 @@ public class MyEntityGuardian extends EntityGuardianElder{
 			}
 			else if (this.b >= this.a.cooldown()) {
 				float f = damage;
-				goalTarget.damageEntity(DamageSource.b(this.a, this.a), f);
+				goalTarget.damageEntity(DamageSource.c(this.a, this.a), f);
 				goalTarget.damageEntity(DamageSource.mobAttack(this.a), (float)this.a.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).getValue());
 				this.a.setGoalTarget(null);
 			}

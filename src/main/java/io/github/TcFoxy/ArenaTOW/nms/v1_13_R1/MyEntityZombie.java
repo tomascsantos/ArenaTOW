@@ -14,14 +14,14 @@ public class MyEntityZombie extends EntityZombie {
 	}
 
 	@Override
-	protected void r(){
+	protected void n(){
 		this.goalSelector.a(1, new MyPathfinderGoalMelee(this, 1.2D));
 		this.targetSelector.a(1, new MyPathfinderGoalHurtByTarget(this, false, new Class[0]));
 	}
 
 	public void whereTo(Location directions){
 		NMSUtils.clearBehavior(goalSelector, targetSelector);
-		r();
+		n();
 		this.goalSelector.a(6, new MyPathfindingGoalWalk(this, 1.2D, directions));
 	}
 	

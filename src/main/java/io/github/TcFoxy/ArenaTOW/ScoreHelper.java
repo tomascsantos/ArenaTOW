@@ -3,15 +3,15 @@ package io.github.TcFoxy.ArenaTOW;
 import java.util.HashMap;
 import java.util.UUID;
 
+import mc.alk.arena.objects.ArenaPlayer;
+import mc.alk.arena.objects.scoreboard.ArenaScoreboard;
+import mc.alk.scoreboardapi.api.SEntry;
+import mc.alk.scoreboardapi.api.SObjective;
+import mc.alk.scoreboardapi.scoreboard.SAPIDisplaySlot;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.ArenaPlayer;
-import io.github.TcFoxy.ArenaTOW.BattleArena.objects.scoreboard.ArenaScoreboard;
-import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.SAPIDisplaySlot;
-import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SEntry;
-import io.github.TcFoxy.ArenaTOW.scoreboard.scoreboard.api.SObjective;
 
 public class ScoreHelper {
 	
