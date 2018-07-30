@@ -29,7 +29,7 @@ public class MyPathfindingGoalWalk extends PathfinderGoal
 	 */
 	@Override
 	public boolean a() {
-		final Vec3D f = this.f();
+		final Vec3D f = this.g();
 		if (f == null) {
 			return false;
 		}
@@ -44,7 +44,7 @@ public class MyPathfindingGoalWalk extends PathfinderGoal
 	 */
 	@Override
 	public boolean b() {
-		return !this.a.getNavigation().n();
+		return !this.a.getNavigation().p();
 	}
 
 	/*
@@ -59,7 +59,7 @@ public class MyPathfindingGoalWalk extends PathfinderGoal
 	 * get the location
 	 */
 	@Nullable
-	private Vec3D f() {
+	private Vec3D g() {
 		if(loc == null){
 			return null;
 		}
