@@ -15,7 +15,7 @@ import java.io.FilenameFilter;
 
 import static io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.EntityRegistrar.getCustomEntityID;
 
-public class v13_Listener implements org.bukkit.event.Listener {
+class v13_Listener implements org.bukkit.event.Listener {
 
     @EventHandler
     public void onChunkLoad(ChunkLoadEvent evt) {

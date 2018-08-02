@@ -6,7 +6,7 @@ import net.minecraft.server.v1_13_R1.EntityZombie;
 import net.minecraft.server.v1_13_R1.GenericAttributes;
 import net.minecraft.server.v1_13_R1.World;
 
-public class MyEntityZombie extends EntityZombie {
+class MyEntityZombie extends EntityZombie {
 
 	public MyEntityZombie(World world) {
 		super(world);

@@ -11,7 +11,7 @@ import net.minecraft.server.v1_13_R1.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.server.v1_13_R1.World;
 import net.minecraft.server.v1_13_R1.DamageSource;
 
-public class MyBlueGuardian extends MyEntityGuardian{
+class MyBlueGuardian extends MyEntityGuardian{
 
 
 	public MyBlueGuardian(World paramWorld)

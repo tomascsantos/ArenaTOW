@@ -11,7 +11,7 @@ import net.minecraft.server.v1_13_R1.PathfinderGoalRandomLookaround;
 import net.minecraft.server.v1_13_R1.Village;
 import net.minecraft.server.v1_13_R1.World;
 
-public class MyEntityGolem extends EntityIronGolem{
+class MyEntityGolem extends EntityIronGolem{
 	Village a;
 	public MyEntityGolem(World world){
 		super(world);

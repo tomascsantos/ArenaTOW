@@ -11,7 +11,7 @@ import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyRedGuardian;
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyRedZombie;
 import net.minecraft.server.v1_13_R1.Entity;
 
-public class NMSConstants {
+class NMSConstants {
 
 
 	public static final String 

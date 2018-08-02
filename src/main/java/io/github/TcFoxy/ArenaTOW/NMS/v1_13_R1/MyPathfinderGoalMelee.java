@@ -5,7 +5,7 @@ import net.minecraft.server.v1_13_R1.EntityHuman;
 import net.minecraft.server.v1_13_R1.EntityLiving;
 import net.minecraft.server.v1_13_R1.PathfinderGoalMeleeAttack;
 
-public class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack{
+class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack{
 
     boolean e;
     EntityCreature attacker;

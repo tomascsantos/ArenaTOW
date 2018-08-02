@@ -17,7 +17,7 @@ import java.util.function.Function;
  * This class holds the register function which is called by the EntityRegistrar class.
  * It also contains helpers for chunk loading the custom entities handled by v13_Listener.
  */
-public class EntityRegistrar {
+class EntityRegistrar {
 
     /**
      * Add custom entities to REGISTRY so they can all be registered or unregistered.

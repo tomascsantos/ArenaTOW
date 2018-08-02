@@ -17,7 +17,7 @@ import net.minecraft.server.v1_13_R1.WorldServer;
  * https://forums.bukkit.org/threads/tutorial-register-your-custom-entities-nms-reflection.258542/
  */
 
-public class NMSUtils {
+class NMSUtils {
 
 	public static MyEntityZombie spawnZombie(World world, double x, double y, double z) {
 		WorldServer nms = ((CraftWorld) world).getHandle();

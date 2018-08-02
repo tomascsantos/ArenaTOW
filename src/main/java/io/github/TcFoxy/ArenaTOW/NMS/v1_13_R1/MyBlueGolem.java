@@ -11,7 +11,7 @@ import net.minecraft.server.v1_13_R1.DamageSource;
 import net.minecraft.server.v1_13_R1.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.server.v1_13_R1.World;
 
-public class MyBlueGolem extends MyEntityGolem {
+class MyBlueGolem extends MyEntityGolem {
 	public MyBlueGolem(World world) {
 		super(world);
 	    this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<MyRedZombie>(this, MyRedZombie.class, true));

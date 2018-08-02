@@ -4,7 +4,7 @@ import net.minecraft.server.v1_13_R1.EntityCreature;
 import net.minecraft.server.v1_13_R1.EntityLiving;
 import net.minecraft.server.v1_13_R1.PathfinderGoalHurtByTarget;
 
-public class MyPathfinderGoalHurtByTarget extends PathfinderGoalHurtByTarget{
+class MyPathfinderGoalHurtByTarget extends PathfinderGoalHurtByTarget{
 
 	EntityCreature attacker;
 	

@@ -10,7 +10,7 @@ import io.github.TcFoxy.ArenaTOW.Plugin.Utils;
 import net.minecraft.server.v1_13_R1.DamageSource;
 import net.minecraft.server.v1_13_R1.World;
 
-public class MyRedGuardian extends MyEntityGuardian{
+class MyRedGuardian extends MyEntityGuardian{
 		
 	public MyRedGuardian(World paramWorld)
 	{

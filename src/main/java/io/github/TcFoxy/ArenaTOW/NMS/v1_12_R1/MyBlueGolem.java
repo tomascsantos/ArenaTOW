@@ -1,15 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.NMS.v1_12_R1;
 
 
-import io.github.TcFoxy.ArenaTOW.Plugin.Utils;
-import mc.alk.arena.BattleArena;
-import mc.alk.arena.objects.ArenaPlayer;
-import net.minecraft.server.v1_12_R1.DamageSource;
-import net.minecraft.server.v1_12_R1.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_12_R1.World;
-import org.bukkit.Color;
-import org.bukkit.entity.Player;
-
 class MyBlueGolem extends MyEntityGolem {
 	public MyBlueGolem(World world) {
 		super(world);

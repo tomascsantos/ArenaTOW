@@ -4,7 +4,7 @@ import net.minecraft.server.v1_13_R1.EntityLiving;
 import net.minecraft.server.v1_13_R1.EntitySmallFireball;
 import net.minecraft.server.v1_13_R1.World;
 
-public class MyFireball extends EntitySmallFireball{
+class MyFireball extends EntitySmallFireball{
 
 	private MyEntityGolem golem;
 	

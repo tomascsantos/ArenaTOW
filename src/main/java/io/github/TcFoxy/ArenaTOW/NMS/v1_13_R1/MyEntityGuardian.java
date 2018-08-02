@@ -17,7 +17,7 @@ import net.minecraft.server.v1_13_R1.PathfinderGoalRandomLookaround;
 import net.minecraft.server.v1_13_R1.PathfinderGoalRandomStroll;
 import net.minecraft.server.v1_13_R1.World;
 
-public class MyEntityGuardian extends EntityGuardianElder{
+class MyEntityGuardian extends EntityGuardianElder{
 
 
 	public MyEntityGuardian(World world) {

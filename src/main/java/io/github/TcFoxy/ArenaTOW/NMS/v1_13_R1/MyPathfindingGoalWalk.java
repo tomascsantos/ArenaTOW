@@ -8,7 +8,7 @@ import net.minecraft.server.v1_13_R1.EntityCreature;
 import net.minecraft.server.v1_13_R1.PathfinderGoal;
 import net.minecraft.server.v1_13_R1.Vec3D;
 
-public class MyPathfindingGoalWalk extends PathfinderGoal
+class MyPathfindingGoalWalk extends PathfinderGoal
 {
 	private final EntityCreature a;
 	private double b;

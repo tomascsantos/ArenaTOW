@@ -12,7 +12,7 @@ import net.minecraft.server.v1_13_R1.DamageSource;
 import net.minecraft.server.v1_13_R1.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.server.v1_13_R1.World;
 
-public class MyRedZombie extends MyEntityZombie {
+class MyRedZombie extends MyEntityZombie {
 	
 	private String zombieteam = "Red";
 	
