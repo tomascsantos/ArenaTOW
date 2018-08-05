@@ -14,7 +14,7 @@
     <description>Battle Arena Tug of War Plugin</description>
 
     <dependencies>
-        <!--Spigot NMS-->
+        <!--Spigot-->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>

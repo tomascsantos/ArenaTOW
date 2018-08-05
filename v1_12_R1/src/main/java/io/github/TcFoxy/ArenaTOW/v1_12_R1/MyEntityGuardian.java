@@ -1,10 +1,12 @@
 package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 
-import net.minecraft.server.v1_13_R1.*;
+
+import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import net.minecraft.server.v1_12_R1.*;
 
 import java.lang.reflect.Field;
 
-class MyEntityGuardian extends EntityGuardianElder{
+abstract class MyEntityGuardian extends EntityGuardianElder implements TOWEntity{
 
 
 	public MyEntityGuardian(World world) {
@@ -13,8 +15,19 @@ class MyEntityGuardian extends EntityGuardianElder{
 	}
 
 	@Override
-	protected void n(){
-		NMSUtils.clearBehavior(goalSelector, targetSelector);
+	public boolean damageEntity(DamageSource d, float f) {
+		if (d.getEntity() != null && (d.getEntity() instanceof TOWEntity)) {
+			TOWEntity e = (TOWEntity) d.getEntity();
+			if (e.isSameTeam(this)) {
+				return false;
+			}
+		}
+		return super.damageEntity(d, f);
+	}
+
+	@Override
+	public void n(){
+		v1_12_R1_MobHandler.clearBehavior(goalSelector, targetSelector);
 
 		this.targetSelector.a(5, new PathfinderGoalNearestAttackableTarget<EntityHuman>(this, EntityHuman.class, true));
 		this.goalSelector.a(8, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0F));

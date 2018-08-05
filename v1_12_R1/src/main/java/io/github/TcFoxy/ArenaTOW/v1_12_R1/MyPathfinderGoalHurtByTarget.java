@@ -1,8 +1,8 @@
 package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 
-import net.minecraft.server.v1_13_R1.EntityCreature;
-import net.minecraft.server.v1_13_R1.EntityLiving;
-import net.minecraft.server.v1_13_R1.PathfinderGoalHurtByTarget;
+import net.minecraft.server.v1_12_R1.EntityCreature;
+import net.minecraft.server.v1_12_R1.EntityLiving;
+import net.minecraft.server.v1_12_R1.PathfinderGoalHurtByTarget;
 
 class MyPathfinderGoalHurtByTarget extends PathfinderGoalHurtByTarget{
 

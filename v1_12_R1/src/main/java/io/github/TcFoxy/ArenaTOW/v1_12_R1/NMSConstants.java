@@ -1,8 +1,8 @@
 package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 
-import net.minecraft.server.v1_13_R1.Entity;
+import net.minecraft.server.v1_12_R1.Entity;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_13_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 
 class NMSConstants {
 
