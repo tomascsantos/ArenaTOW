@@ -1,5 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.v1_13_R1;
 
+import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import net.minecraft.server.v1_13_R1.EntityCreature;
 import net.minecraft.server.v1_13_R1.EntityHuman;
 import net.minecraft.server.v1_13_R1.EntityLiving;
@@ -28,13 +29,12 @@ class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack{
         if (!this.e) {
             return !this.a.getNavigation().p();
         }
-        if(NMSConstants.isSameTeam(attacker, goalTarget)){
-        	return false;
+        if(goalTarget instanceof TOWEntity && ((TOWEntity) this).isSameTeam((TOWEntity) goalTarget)) {
+            return  false;
         }
-        return /*this.b.f(new BlockPosition(goalTarget)) &&*/
-                        (!(goalTarget instanceof EntityHuman) ||
-                        (!((EntityHuman)goalTarget).isSpectator() &&
-                        !((EntityHuman)goalTarget).u()));
+        return ((goalTarget instanceof EntityHuman)) &&
+                ((((EntityHuman)goalTarget).isSpectator()) ||
+                        (((EntityHuman)goalTarget).u()));
     }
 	
 

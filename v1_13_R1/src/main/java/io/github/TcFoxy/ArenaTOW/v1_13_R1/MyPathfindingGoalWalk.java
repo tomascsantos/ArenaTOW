@@ -1,26 +1,27 @@
 package io.github.TcFoxy.ArenaTOW.v1_13_R1;
 
-import javax.annotation.Nullable;
-
-import org.bukkit.Location;
-
 import net.minecraft.server.v1_13_R1.EntityCreature;
 import net.minecraft.server.v1_13_R1.PathfinderGoal;
 import net.minecraft.server.v1_13_R1.Vec3D;
+import org.bukkit.Location;
+
+import javax.annotation.Nullable;
 
 class MyPathfindingGoalWalk extends PathfinderGoal
 {
 	private final EntityCreature a;
-	private double b;
-	private double c;
-	private double d;
-	private final double e;
+	private boolean hasTarget;
+	private double x;
+	private double y;
+	private double z;
+	private final double speed;
 	private Location loc;
 
 	public MyPathfindingGoalWalk(final EntityCreature a, final double speed, Location loc) {
 		this.a = a;
-		this.e = speed;
+		this.speed = speed;
 		this.loc = loc;
+		this.hasTarget = true;
 		this.a(1);
 	}
 
@@ -29,18 +30,21 @@ class MyPathfindingGoalWalk extends PathfinderGoal
 	 */
 	@Override
 	public boolean a() {
-		final Vec3D f = this.g();
+		if (!this.hasTarget) {
+			return false;
+		}
+		final Vec3D f = this.getTarget();
 		if (f == null) {
 			return false;
 		}
-		this.b = f.x;
-		this.c = f.y;
-		this.d = f.z;
+		this.x = f.x;
+		this.y = f.y;
+		this.z = f.z;
 		return true;
 	}
 
 	/*
-	 * idk
+	 * idk what this is doing.
 	 */
 	@Override
 	public boolean b() {
@@ -52,14 +56,31 @@ class MyPathfindingGoalWalk extends PathfinderGoal
 	 */
 	@Override
 	public void c() {
-		this.a.getNavigation().a(this.b, this.c, this.d, this.e);
+		this.a.getNavigation().a(this.x, this.y, this.z, this.speed);
+	}
+
+
+	/**
+	 * Deletes the target I believe.
+	 * called internally somewhere.
+	 */
+	@Override
+	public void d() {
+		this.hasTarget = false; //TODO delete if this breaks things
+	}
+
+	/**
+	 * deobfuscated version of d();
+	 */
+	public void clearTarget() {
+		this.d();
 	}
 
 	/*
 	 * get the location
 	 */
 	@Nullable
-	private Vec3D g() {
+	private Vec3D getTarget() {
 		if(loc == null){
 			return null;
 		}

@@ -1,17 +1,9 @@
 package io.github.TcFoxy.ArenaTOW.v1_13_R1;
 
-import net.minecraft.server.v1_13_R1.EntityHuman;
-import net.minecraft.server.v1_13_R1.EntityIronGolem;
-import net.minecraft.server.v1_13_R1.EnumMoveType;
-import net.minecraft.server.v1_13_R1.GenericAttributes;
-import net.minecraft.server.v1_13_R1.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_13_R1.PathfinderGoalMeleeAttack;
-import net.minecraft.server.v1_13_R1.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_13_R1.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_13_R1.Village;
-import net.minecraft.server.v1_13_R1.World;
+import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import net.minecraft.server.v1_13_R1.*;
 
-class MyEntityGolem extends EntityIronGolem{
+abstract class MyEntityGolem extends EntityIronGolem implements TOWEntity{
 	Village a;
 	public MyEntityGolem(World world){
 		super(world);
@@ -20,7 +12,7 @@ class MyEntityGolem extends EntityIronGolem{
 	}
 
 	@Override
-	protected void n(){
+	public void n(){
 		//put pathfinders here.
 		this.goalSelector.a(4, new PathfinderGoalGolemFireball(this));
 		this.goalSelector.a(5, new PathfinderGoalMeleeAttack(this, 1.3D, false));
@@ -38,6 +30,17 @@ class MyEntityGolem extends EntityIronGolem{
 		super.initAttributes();
 		getAttributeInstance(GenericAttributes.maxHealth).setValue(300.0D);
 		getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(7.0D);//sight
-	}
+    }
+
+    @Override
+    public boolean damageEntity(DamageSource d, float f) {
+	    if (d.getEntity() != null && (d.getEntity() instanceof TOWEntity)) {
+	        TOWEntity e = (TOWEntity) d.getEntity();
+            if (e.isSameTeam(this)) {
+                return false;
+            }
+        }
+        return super.damageEntity(d, f);
+    }
 
 }

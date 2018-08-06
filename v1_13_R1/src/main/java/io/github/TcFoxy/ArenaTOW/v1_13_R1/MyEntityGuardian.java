@@ -1,23 +1,13 @@
 package io.github.TcFoxy.ArenaTOW.v1_13_R1;
 
+
+import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import net.minecraft.server.v1_13_R1.*;
+
+
 import java.lang.reflect.Field;
 
-import net.minecraft.server.v1_13_R1.DamageSource;
-import net.minecraft.server.v1_13_R1.DataWatcherObject;
-import net.minecraft.server.v1_13_R1.EntityGuardian;
-import net.minecraft.server.v1_13_R1.EntityGuardianElder;
-import net.minecraft.server.v1_13_R1.EntityHuman;
-import net.minecraft.server.v1_13_R1.EntityLiving;
-import net.minecraft.server.v1_13_R1.EnumMoveType;
-import net.minecraft.server.v1_13_R1.GenericAttributes;
-import net.minecraft.server.v1_13_R1.PathfinderGoal;
-import net.minecraft.server.v1_13_R1.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_13_R1.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_13_R1.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_13_R1.PathfinderGoalRandomStroll;
-import net.minecraft.server.v1_13_R1.World;
-
-class MyEntityGuardian extends EntityGuardianElder{
+abstract class MyEntityGuardian extends EntityGuardianElder implements TOWEntity{
 
 
 	public MyEntityGuardian(World world) {
@@ -26,8 +16,19 @@ class MyEntityGuardian extends EntityGuardianElder{
 	}
 
 	@Override
-	protected void n(){
-		NMSUtils.clearBehavior(goalSelector, targetSelector);
+	public boolean damageEntity(DamageSource d, float f) {
+		if (d.getEntity() != null && (d.getEntity() instanceof TOWEntity)) {
+			TOWEntity e = (TOWEntity) d.getEntity();
+			if (e.isSameTeam(this)) {
+				return false;
+			}
+		}
+		return super.damageEntity(d, f);
+	}
+
+	@Override
+	public void n(){
+		v1_13_R1_MobHandler.clearBehavior(goalSelector, targetSelector);
 
 		this.targetSelector.a(5, new PathfinderGoalNearestAttackableTarget<EntityHuman>(this, EntityHuman.class, true));
 		this.goalSelector.a(8, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0F));
@@ -108,7 +109,7 @@ class MyEntityGuardian extends EntityGuardianElder{
 		@Override
 		public void c() {
 			this.b = -10;
-			this.a.getNavigation().q();
+			this.a.getNavigation().p();
 			this.a.getControllerLook().a(this.a.getGoalTarget(), 90.0f, 90.0f);
 			this.a.impulse = true;
 		}
@@ -123,7 +124,7 @@ class MyEntityGuardian extends EntityGuardianElder{
 		@Override
 		public void e() {
 			final EntityLiving goalTarget = this.a.getGoalTarget();
-			this.a.getNavigation().q();
+			this.a.getNavigation().p();
 			this.a.getControllerLook().a(goalTarget, 90.0f, 90.0f);
 			if (!this.a.hasLineOfSight(goalTarget)) {
 				this.a.setGoalTarget(null);
