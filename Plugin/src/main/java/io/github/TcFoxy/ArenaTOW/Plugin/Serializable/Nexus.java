@@ -1,13 +1,12 @@
 package io.github.TcFoxy.ArenaTOW.Plugin.Serializable;
 
-import org.bukkit.Color;
+import io.github.TcFoxy.ArenaTOW.API.*;
+import io.github.TcFoxy.ArenaTOW.Plugin.ArenaTOW;
 import org.bukkit.Location;
 
-import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.NMSUtils;
-import net.minecraft.server.v1_13_R1.Entity;
-import net.minecraft.server.v1_13_R1.EntityLiving;
+import java.awt.*;
 
-public class Nexus extends PersistInfo{
+public class Nexus extends AbstractStructure {
 		
 	public Nexus(String key, Color teamColor, Location loc, String info) {
 		super(key, teamColor, loc, info);
@@ -15,16 +14,15 @@ public class Nexus extends PersistInfo{
 	
 	
 	@Override
-	public Entity spawnMob(){
-		setMob(NMSUtils.spawnTeamGuardian(getSpawnLoc().getWorld(), getSpawnLoc().getX(), getSpawnLoc().getY(), getSpawnLoc().getZ(), getTeamColor()));
+	public TOWEntity spawnMob(){
+		Location spawn = getSpawnLoc();
+		TOWEntityHandler handler = ArenaTOW.getEntityHandler();
+		setMob(handler.spawnMob(MobType.NEXUS, getTeamColor(), spawn.getWorld(),
+								spawn.getX(), spawn.getY(), spawn.getZ()));
 		return getMob();
 	}
 	
 	public Integer getHealth(){
-		return Math.round(((EntityLiving) getMob()).getHealth());
-	}
-	
-	public Integer getMaxHealth(){
-		return Math.round(((EntityLiving) getMob()).getMaxHealth());
+		return getMob().getIntHealth();
 	}
 }

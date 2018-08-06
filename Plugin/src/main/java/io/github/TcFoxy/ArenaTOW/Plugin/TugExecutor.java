@@ -9,8 +9,8 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo;
-import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo.BaseType;
+import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.AbstractStructure;
+import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.AbstractStructure.BaseType;
 
 public class TugExecutor extends CustomCommandExecutor {
 
@@ -40,10 +40,10 @@ public class TugExecutor extends CustomCommandExecutor {
 	
 	public static void initSaves(TugArena arena){
 		if(arena.savedInfo != null){
-			arena.activeInfo = PersistInfo.getObject(arena.savedInfo);
+			arena.activeInfo = AbstractStructure.getObject(arena.savedInfo);
 		}else{
 			arena.savedInfo = new HashMap<String, String>();
-			arena.activeInfo = PersistInfo.getObject(arena.savedInfo);
+			arena.activeInfo = AbstractStructure.getObject(arena.savedInfo);
 		}
 	}
 	
