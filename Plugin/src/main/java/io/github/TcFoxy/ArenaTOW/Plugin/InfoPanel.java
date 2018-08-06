@@ -12,15 +12,15 @@ import org.bukkit.Color;
 import org.bukkit.entity.Player;
 
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.Nexus;
-import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.AbstractStructure;
+import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.Tower;
 
 public class InfoPanel {
 
 	TugArena tug;
-	HashMap<String, AbstractStructure> activeInfo;
+	HashMap<String, PersistInfo> activeInfo;
 
-	public void onStart(TugArena tug, HashMap<String, AbstractStructure> activeInfo) {
+	public void onStart(TugArena tug, HashMap<String, PersistInfo> activeInfo) {
 
 		this.tug = tug;
 		this.activeInfo = activeInfo;
@@ -59,7 +59,7 @@ public class InfoPanel {
 	
 	
 	private void setupObjective(SObjective obj){
-		for(AbstractStructure info : activeInfo.values()){
+		for(PersistInfo info : activeInfo.values()){
 			if(info instanceof Tower || info instanceof Nexus){
 				
 			}
@@ -67,7 +67,7 @@ public class InfoPanel {
 	}
 	
 	
-	private String getScoreName(AbstractStructure info){
+	private String getScoreName(PersistInfo info){
 		String[] rawparts = info.getKey().split("_");
 		String scoreName = "";
 		if(info.getTeamColor().equals(Color.RED)){
@@ -75,7 +75,7 @@ public class InfoPanel {
 		}else{
 			scoreName += ChatColor.BLUE;
 		}
-		scoreName+= AbstractStructure.getTeamColorStringReadable(info.getKey()) + rawparts[2];
+		scoreName+= PersistInfo.getTeamColorStringReadable(info.getKey()) + rawparts[2];
 		if(!(info instanceof Nexus)){
 			return scoreName += rawparts[4];
 		}

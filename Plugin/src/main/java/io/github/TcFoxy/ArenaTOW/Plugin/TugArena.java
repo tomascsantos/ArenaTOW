@@ -1,6 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.Plugin;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +13,10 @@ import mc.alk.arena.objects.events.ArenaEventHandler;
 import mc.alk.arena.objects.spawns.SpawnLocation;
 import mc.alk.arena.objects.teams.ArenaTeam;
 import mc.alk.arena.serializers.Persist;
+import net.minecraft.server.v1_13_R1.EntityLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -30,8 +31,8 @@ import org.bukkit.util.Vector;
 
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.Deathroom;
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.Nexus;
-import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.AbstractStructure;
-import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.AbstractStructure.BaseType;
+import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo;
+import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo.BaseType;
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.Spawner;
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.Tower;
 
@@ -66,7 +67,7 @@ public class TugArena extends Arena {
 	 * most of these values are not actually used
 	 * in this class, should I move them?
 	 */
-	public HashMap<String, AbstractStructure> activeInfo = new HashMap<String, AbstractStructure>();
+	public HashMap<String, PersistInfo> activeInfo = new HashMap<String, PersistInfo>();
 
 
 	/*
@@ -208,7 +209,7 @@ public class TugArena extends Arena {
 		 * 
 		 */
 
-		for(AbstractStructure base : activeInfo.values()){
+		for(PersistInfo base : activeInfo.values()){
 			if(base instanceof Tower || base instanceof Nexus){
 				base.spawnMob();
 			}
@@ -278,9 +279,9 @@ public class TugArena extends Arena {
 	private void resetTowers() {
 		if(activeInfo.isEmpty())
 			return;
-		for(AbstractStructure base: activeInfo.values()){
+		for(PersistInfo base: activeInfo.values()){
 			if(base.getMob() != null)
-			    base.getMob().setHealth(0);
+				((EntityLiving) base.getMob()).setHealth(0);
 		}
 	}
 
@@ -423,7 +424,7 @@ public class TugArena extends Arena {
 		 * teleport to the correct deathroom
 		 */
 
-		Deathroom dr = AbstractStructure.getDeathroom(ap.getTeam().getDisplayName(), activeInfo);
+		Deathroom dr = PersistInfo.getDeathroom(ap.getTeam().getDisplayName(), activeInfo);		
 		p.teleport(dr.getSpawnLoc());
 
 		/*
@@ -499,13 +500,13 @@ public class TugArena extends Arena {
 	private boolean saveBase(String key, Location loc, String info, Player sender, Color color, TugArena arena){
 		if(activeInfo.containsKey(key)){
 			sender.sendMessage(ChatColor.DARK_RED+"You have already created "+
-					AbstractStructure.getSimpleKey(key)+ChatColor.DARK_RED+", its position is being updated");
+					PersistInfo.getSimpleKey(key)+ChatColor.DARK_RED+", its position is being updated");
 		}else{
-			sender.sendMessage(AbstractStructure.getSimpleKey(key) + " added!");
+			sender.sendMessage(PersistInfo.getSimpleKey(key) + " added!");
 		}
 
-		activeInfo.put(key, new AbstractStructure(key, color, loc, info));
-		savedInfo = AbstractStructure.saveObject(activeInfo);
+		activeInfo.put(key, new PersistInfo(key, color, loc, info));
+		savedInfo = PersistInfo.saveObject(activeInfo);
 		BattleArena.saveArenas();
 		return true;
 	}
@@ -538,7 +539,7 @@ public class TugArena extends Arena {
 	public boolean addPathPoints(Location loc, Player sender, Color col, Integer i){
 		String key = "ba_" + this.name + "_" + BaseType.SPAWNER.toString() + "_" + String.valueOf(col.asRGB()) + "_" + i;
 		if(!activeInfo.containsKey(key)){
-			sender.sendMessage("There is no spawner with corrosponding data! Make a spawner whos key matches: " + AbstractStructure.getSimpleKey(key));
+			sender.sendMessage("There is no spawner with corrosponding data! Make a spawner whos key matches: " + PersistInfo.getSimpleKey(key));
 			return true;
 		}
 		Spawner spawnr = (Spawner) activeInfo.get(key);
@@ -547,7 +548,7 @@ public class TugArena extends Arena {
 			return true;
 		}
 		spawnr.addPp(loc, sender);	
-		savedInfo = AbstractStructure.saveObject(activeInfo);
+		savedInfo = PersistInfo.saveObject(activeInfo);
 		BattleArena.saveArenas();
 		return true;
 	}
@@ -558,13 +559,13 @@ public class TugArena extends Arena {
 	public boolean removePersistInfo(String key, Player sender){
 		if(!activeInfo.containsKey(key)){
 			sender.sendMessage("There is no spawner with corrosponding data! Make a spawner whos key matches: "
-								+ AbstractStructure.getSimpleKey(key));
+								+ PersistInfo.getSimpleKey(key));
 			return true;
 		}else{
 			activeInfo.remove(key);
-			savedInfo = AbstractStructure.saveObject(activeInfo);
+			savedInfo = PersistInfo.saveObject(activeInfo);
 			BattleArena.saveArenas();
-			sender.sendMessage(AbstractStructure.getSimpleKey(key) + " has been removed");
+			sender.sendMessage(PersistInfo.getSimpleKey(key) + " has been removed");
 			return true;
 		}
 	}
@@ -597,11 +598,11 @@ public class TugArena extends Arena {
 	}
 	
 	public boolean clearInfo(BaseType type, Player sender) {
-		ArrayList<String> keys = AbstractStructure.getTypeObject(type, activeInfo);
+		ArrayList<String> keys = PersistInfo.getTypeObject(type, activeInfo);
 		for(int i=0; i<keys.size();i++){
 			activeInfo.remove(keys.get(i));
 		}
-		savedInfo = AbstractStructure.saveObject(activeInfo);
+		savedInfo = PersistInfo.saveObject(activeInfo);
 		sender.sendMessage("All <" + type + "> type have been cleared");
 		BattleArena.saveArenas();
 		return true;
@@ -628,7 +629,7 @@ public class TugArena extends Arena {
 		 * and add checked valud to list
 		 */
 
-		for(AbstractStructure base : activeInfo.values()){
+		for(PersistInfo base : activeInfo.values()){
 			if(base instanceof Nexus){
 				nexuses.setColor(base.getTeamColor(), true);
 			}else if( base instanceof Tower){

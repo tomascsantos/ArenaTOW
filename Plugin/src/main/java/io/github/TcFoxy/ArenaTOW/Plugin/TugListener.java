@@ -29,7 +29,9 @@ import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.AbstractStructure;
+import io.github.TcFoxy.ArenaTOW.Plugin.TugArena;
+import io.github.TcFoxy.ArenaTOW.Plugin.Utils;
+import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyEntityGolem;
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyFireball;
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.NMSConstants;
@@ -211,7 +213,7 @@ public class TugListener implements Listener{
 	private void nexusDeath(EntityDeathEvent event){
 		if(event.getEntityType() != EntityType.GUARDIAN)
 			return;
-		for(AbstractStructure b : tug.activeInfo.values()){
+		for(PersistInfo b : tug.activeInfo.values()){
 			if(b.hasMob() && ((EntityLiving) b.getMob()).getHealth() == 0){
 				if(b.getMob().getClass().getName() == NMSConstants.MyBlueGuardian){
 					tug.arena.getMatch().setVictor(tug.redTeam);

@@ -11,34 +11,22 @@ import java.io.File;
 public class ArenaTOW extends JavaPlugin{
 
     private static ArenaTOW pluginArenaTOW;
-    private static NMSHandler nmsHandler;
     private File saveDirectory;
+
+    private NMSHandler nmsHandler;
+    private TOWEntityHandler entityHandler;
 
 	@Override
 	public void onDisable(){
-		unregisterEntities();
+		//MyEntityType.unregisterEntities();
 	}
+
+
 
 	@Override
 	public void onEnable(){
-        pluginArenaTOW = this;
-        initializeNMS(); //creates nms Singleton and dir for nms.
-
-        registerEntities(); //register custom entities
-		BattleArena.registerCompetition(this, "ArenaTow", "tow", TugArena.class, new TugExecutor());
-	}
 
 
-	private void registerEntities() {
-	    nmsHandler.getEntityRegistry().registerEntities();
-	    getServer().getPluginManager().registerEvents(nmsHandler.getListener(), this);
-    }
-
-    private void unregisterEntities() {
-	    nmsHandler.getEntityRegistry().unregisterEntities();
-    }
-
-    private void initializeNMS() {
         //Get full name of server
         String packageName = Bukkit.getServer().getClass().getPackage().getName();
         //org.bukkit.craftbukkit.version
@@ -58,7 +46,23 @@ public class ArenaTOW extends JavaPlugin{
 
         saveDirectory = new File(this.getDataFolder(), "entityNBT");
         saveDirectory.mkdirs();
+
+        registerEntities();
+
+		pluginArenaTOW = this;
+		BattleArena.registerCompetition(this, "ArenaTow", "tow", TugArena.class, new TugExecutor());
+	}
+
+
+	private void registerEntities() {
+	    nmsHandler.getEntityRegistry().registerEntities(saveDirectory);
+	    getServer().getPluginManager().registerEvents(nmsHandler.getEntityListener(), this);
     }
+
+    private void unregisterEntities() {
+	    nmsHandler.getEntityRegistry().unregisterEntities();
+    }
+
 
 //	public WorldGuardPlugin getWorldGuard() {
 //	    Plugin Wgplugin = getSelf().getServer().getPluginManager().getPlugin("WorldGuard");
@@ -70,11 +74,7 @@ public class ArenaTOW extends JavaPlugin{
 //
 //	    return (WorldGuardPlugin) Wgplugin;
 //	}
-
-    public static TOWEntityHandler getEntityHandler() {
-	    return nmsHandler.getEntityHandler();
-    }
-
+	
 	public static ArenaTOW getSelf() {
 		return pluginArenaTOW;
 	}

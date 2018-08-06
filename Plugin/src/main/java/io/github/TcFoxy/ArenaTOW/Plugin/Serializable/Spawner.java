@@ -1,37 +1,37 @@
 package io.github.TcFoxy.ArenaTOW.Plugin.Serializable;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import io.github.TcFoxy.ArenaTOW.API.*;
-import io.github.TcFoxy.ArenaTOW.Plugin.ArenaTOW;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
+import io.github.TcFoxy.ArenaTOW.Plugin.Utils;
+import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.NMSUtils;
+import net.minecraft.server.v1_13_R1.Entity;
+import net.minecraft.server.v1_13_R1.EntityLiving;
 
-public class Spawner extends AbstractStructure {
+public class Spawner extends PersistInfo{
 
 	private HashMap<Integer, Location> paths = new HashMap<Integer, Location>();
-	private HashMap<TOWEntity, Integer> zombies;
+	private HashMap<Entity, Integer> zombies;
 
 
 	public Spawner(String key, Color teamColor, Location loc, String info) {
 		super(key, teamColor, loc, info);
 		getSpawnerInfo();
-		zombies  = new HashMap<TOWEntity, Integer>();
+		zombies  = new HashMap<Entity, Integer>();
 	}
 
 	@Override
-	public TOWEntity spawnMob(){
-		Location spawn = getSpawnLoc();
-		TOWEntityHandler handler = ArenaTOW.getEntityHandler();
-		setMob(handler.spawnMob(MobType.ZOMBIE, getTeamColor(), spawn.getWorld(),
-				spawn.getX(), spawn.getY(), spawn.getZ()));
-
-		//TODO en.getEquipment().setHelmet(Utils.makeMobHelm(getTeamColor()));
+	public Entity spawnMob(){
+		setMob(NMSUtils.spawnTeamZombie(getSpawnLoc().getWorld(), getSpawnLoc().getX(), getSpawnLoc().getY(), getSpawnLoc().getZ(), getTeamColor()));
+		LivingEntity en = (LivingEntity) getMob().getBukkitEntity();
+		en.getEquipment().setHelmet(Utils.makeMobHelm(getTeamColor()));
 		return getMob();
 	}
 
@@ -47,8 +47,8 @@ public class Spawner extends AbstractStructure {
 		paths.put(paths.size(), loc);
 		this.saveSpawnerInfo();
 		p.sendMessage("Pathpoint #" + paths.size() + " created for " +
-						AbstractStructure.getTeamColorStringReadable(this.getKey()) +" Spawner #" +
-						AbstractStructure.getObjectId(this));
+						PersistInfo.getTeamColorStringReadable(this.getKey()) +" Spawner #" +
+						PersistInfo.getObjectId(this));
 	}
 
 	private boolean ppIsTooFar(Location loc) {
@@ -80,7 +80,7 @@ public class Spawner extends AbstractStructure {
 	}
 	
 	
-	public Location newPathDest(TOWEntity ent){
+	public Location newPathDest(Entity ent){
 		if(zombies.containsKey(ent)){
 			Integer buf = zombies.get(ent);
 			zombies.put(ent, buf+1);
@@ -89,7 +89,7 @@ public class Spawner extends AbstractStructure {
 		return null;
 	}
 	
-	public Location getPathDest(TOWEntity ent){
+	public Location getPathDest(Entity ent){
 		if(zombies.containsKey(ent)){
 			Integer buf = zombies.get(ent);
 			if(paths.containsKey(buf)){
@@ -104,29 +104,30 @@ public class Spawner extends AbstractStructure {
 	}
 
 
-	public void addMob(TOWEntity ent){
+	public void addMob(Entity ent){
 		zombies.put(ent, 0);
 	}
 
 	public void killMobs(){
-		for(TOWEntity zombie : zombies.keySet()){
+		for(Entity zombie : zombies.keySet()){
 			if(zombie.isAlive()){
-				zombie.setHealth(0);
+				((EntityLiving) zombie).setHealth(0);
+
 			}
 		}
 	}
 
-	public void removeMob(TOWEntity ent){
+	public void removeMob(Entity ent){
 		zombies.remove(ent);
 	}
 
-	public HashMap<TOWEntity, Integer> getZombies(){
+	public HashMap<Entity, Integer> getZombies(){
 		return zombies;
 	}
 
-	public Location getcurrentLocation(TOWEntity e){
+	public Location getcurrentLocation(Entity e){
 		if(e.isAlive()){
-			return e.getLocation();
+			return e.getBukkitEntity().getLocation();
 		}else{
 			return null;
 		}

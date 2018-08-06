@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.AbstractStructure;
+import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo;
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.Spawner;
 import io.github.TcFoxy.ArenaTOW.nms.v1_13_R1.MyEntityZombie;
 import net.minecraft.server.v1_13_R1.Entity;
@@ -89,7 +89,7 @@ public class TugTimers {
 	}
 	//spawnMobFromFactory() is used with above timer.
 	public void spawnMobFromFactory(){
-		for(AbstractStructure info : tug.activeInfo.values()){
+		for(PersistInfo info : tug.activeInfo.values()){
 			if(info instanceof Spawner){
 				Spawner spawn = (Spawner) info;
 				MyEntityZombie zombie = (MyEntityZombie) info.spawnMob();
@@ -100,7 +100,7 @@ public class TugTimers {
 	}
 	
 	public void killminions(){
-		for(AbstractStructure info : tug.activeInfo.values()){
+		for(PersistInfo info : tug.activeInfo.values()){
 			if(info instanceof Spawner){
 				((Spawner) info).killMobs();
 			}
@@ -117,7 +117,7 @@ public class TugTimers {
 		checkerId = Bukkit.getScheduler().scheduleSyncRepeatingTask(ArenaTOW.getSelf(), new Runnable() {
 			@Override
 			public void run() {
-				for(AbstractStructure info : tug.activeInfo.values()){
+				for(PersistInfo info : tug.activeInfo.values()){
 					if(info instanceof Spawner){
 						Spawner spawn = (Spawner) info;
 						HashMap<Entity, Integer> zombies = spawn.getZombies();
