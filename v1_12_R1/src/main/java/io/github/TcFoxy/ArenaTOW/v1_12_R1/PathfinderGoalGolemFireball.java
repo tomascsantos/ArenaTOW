@@ -1,5 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 
+import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import net.minecraft.server.v1_12_R1.BlockPosition;
 import net.minecraft.server.v1_12_R1.EntityLiving;
 import net.minecraft.server.v1_12_R1.PathfinderGoal;
@@ -33,11 +34,11 @@ class PathfinderGoalGolemFireball extends PathfinderGoal
 	public void e()
 	{
 		EntityLiving localEntityLiving = this.a.getGoalTarget();
-		if((this.a.getClass().getName() == NMSConstants.MyBlueGolem &&
-				localEntityLiving.getClass().getName() == NMSConstants.MyBlueZombie) ||
-				(this.a.getClass().getName() == NMSConstants.MyRedGolem &&
-				localEntityLiving.getClass().getName() == NMSConstants.MyRedZombie)){
-			return;
+
+		if(localEntityLiving instanceof TOWEntity) {
+			if (((TOWEntity) this).isSameTeam((TOWEntity) localEntityLiving)) {
+			    return;
+            }
 		}
 		this.c -= 1;
 

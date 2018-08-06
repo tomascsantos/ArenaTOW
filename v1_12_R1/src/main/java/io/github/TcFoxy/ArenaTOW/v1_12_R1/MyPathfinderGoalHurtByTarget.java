@@ -1,5 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 
+import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import net.minecraft.server.v1_12_R1.EntityCreature;
 import net.minecraft.server.v1_12_R1.EntityLiving;
 import net.minecraft.server.v1_12_R1.PathfinderGoalHurtByTarget;
@@ -23,8 +24,8 @@ class MyPathfinderGoalHurtByTarget extends PathfinderGoalHurtByTarget{
         if (!goalTarget.isAlive()) {
             return false;
         }
-        if(NMSConstants.isSameTeam(attacker, goalTarget)){
-        	return false;
+        if(goalTarget instanceof TOWEntity && ((TOWEntity) this).isSameTeam((TOWEntity) goalTarget)) {
+            return  false;
         }
         return true;
     }

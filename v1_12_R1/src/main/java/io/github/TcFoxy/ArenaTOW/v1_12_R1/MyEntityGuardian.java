@@ -108,7 +108,7 @@ abstract class MyEntityGuardian extends EntityGuardianElder implements TOWEntity
 		@Override
 		public void c() {
 			this.b = -10;
-			this.a.getNavigation().q();
+			this.a.getNavigation().p();
 			this.a.getControllerLook().a(this.a.getGoalTarget(), 90.0f, 90.0f);
 			this.a.impulse = true;
 		}
@@ -123,7 +123,7 @@ abstract class MyEntityGuardian extends EntityGuardianElder implements TOWEntity
 		@Override
 		public void e() {
 			final EntityLiving goalTarget = this.a.getGoalTarget();
-			this.a.getNavigation().q();
+			this.a.getNavigation().p();
 			this.a.getControllerLook().a(goalTarget, 90.0f, 90.0f);
 			if (!this.a.hasLineOfSight(goalTarget)) {
 				this.a.setGoalTarget(null);
@@ -136,7 +136,7 @@ abstract class MyEntityGuardian extends EntityGuardianElder implements TOWEntity
 			}
 			else if (this.b >= this.a.cooldown()) {
 				float f = damage;
-				goalTarget.damageEntity(DamageSource.c(this.a, this.a), f);
+				goalTarget.damageEntity(DamageSource.b(this.a, this.a), f);
 				goalTarget.damageEntity(DamageSource.mobAttack(this.a), (float)this.a.getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).getValue());
 				this.a.setGoalTarget(null);
 			}

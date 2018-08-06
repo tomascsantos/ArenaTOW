@@ -1,5 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 
+import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import net.minecraft.server.v1_12_R1.EntityCreature;
 import net.minecraft.server.v1_12_R1.EntityHuman;
 import net.minecraft.server.v1_12_R1.EntityLiving;
@@ -18,7 +19,7 @@ class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack{
 	
 	@Override
     public boolean b() {
-        final EntityLiving goalTarget = this.a.getGoalTarget();
+        final EntityLiving goalTarget = this.b.getGoalTarget();
         if (goalTarget == null) {
             return false;
         }
@@ -26,15 +27,14 @@ class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack{
             return false;
         }
         if (!this.e) {
-            return !this.a.getNavigation().p();
+            return !this.b.getNavigation().o();
         }
-        if(NMSConstants.isSameTeam(attacker, goalTarget)){
-        	return false;
+        if(goalTarget instanceof TOWEntity && ((TOWEntity) this).isSameTeam((TOWEntity) goalTarget)) {
+            return  false;
         }
-        return /*this.b.f(new BlockPosition(goalTarget)) &&*/
-                        (!(goalTarget instanceof EntityHuman) ||
-                        (!((EntityHuman)goalTarget).isSpectator() &&
-                        !((EntityHuman)goalTarget).u()));
+        return ((goalTarget instanceof EntityHuman)) &&
+                ((((EntityHuman)goalTarget).isSpectator()) ||
+                        (((EntityHuman)goalTarget).z()));
     }
 	
 

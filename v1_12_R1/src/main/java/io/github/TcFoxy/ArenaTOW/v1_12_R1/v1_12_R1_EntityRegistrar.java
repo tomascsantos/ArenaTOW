@@ -125,7 +125,7 @@ public class v1_12_R1_EntityRegistrar implements CustomEntityRegistrar{
             cDir.mkdirs();
 
             final NBTTagCompound nbt = new NBTTagCompound();
-            e.e(nbt);
+            e.save(nbt);
             nbt.setString("cid", EntityTypes.b(e));
             e.getBukkitEntity().remove();
 
@@ -143,7 +143,7 @@ public class v1_12_R1_EntityRegistrar implements CustomEntityRegistrar{
             NBTTagList pos = nbt.getList("Pos", 6);
             NBTTagList rot = nbt.getList("Rotation", 5);
 
-            e.setPositionRotation(pos.e(0), pos.e(1), pos.e(2), rot.f(0), rot.f(1));
+            e.setPositionRotation(pos.f(0), pos.f(1), pos.f(2), rot.g(0), rot.g(1));
             nmsW.addEntity(e, CreatureSpawnEvent.SpawnReason.NATURAL);
 
             e.f(nbt);
