@@ -7,7 +7,7 @@ import org.bukkit.Location;
 import java.awt.*;
 
 
-public class Tower extends AbstractStructure {
+public class Tower extends AbstractStructure implements Structure{
 
 	public Tower(String key, Color teamColor, Location loc, String info) {
 		super(key, teamColor, loc, info);

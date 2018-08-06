@@ -51,6 +51,8 @@ public class StructureHandler {
 
 
 
+
+
     public static String locationToString(Location loc){
         double xloc = loc.getX();
         double yloc = loc.getY();

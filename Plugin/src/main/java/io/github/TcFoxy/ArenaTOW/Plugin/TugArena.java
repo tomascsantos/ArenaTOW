@@ -511,11 +511,11 @@ public class TugArena extends Arena {
 	}
 
 	public boolean addNexus(Location loc, Player sender, Color color){
-		String key = "ba_" + this.name + "_" + BaseType.NEXUS.toString() + "_" + String.valueOf(color.asRGB()); 
+		String key = "ba_" + this.name + "_" + BaseType.NEXUS.toString() + "_" + String.valueOf(color.asRGB());
 		String info = "null";
 		return saveBase(key, loc, info, sender, color, this);
 	}
-	
+
 	public boolean addDeathroom(Location loc, Player sender,  Color color) {
 		String key = "ba_" + this.name + "_" + BaseType.DEATHROOM.toString() + "_" + String.valueOf(color.asRGB());
 		String info = "null";
@@ -525,7 +525,7 @@ public class TugArena extends Arena {
 	public boolean addTower(Location loc, Player sender, Color color, Integer i) {
 		String key = "ba_" + this.name + "_" + BaseType.TOWER.toString() + "_" + String.valueOf(color.asRGB()) + "_" + i;
 		String info = "null";
-		return saveBase(key, loc, info, sender, color, this);	
+		return saveBase(key, loc, info, sender, color, this);
 	}
 
 	public boolean addSpawner(Location location, Player sender, Color color, Integer i) {
@@ -546,7 +546,7 @@ public class TugArena extends Arena {
 			sender.sendMessage("There was already a pp from this spawner in this location. No duplicate was created");
 			return true;
 		}
-		spawnr.addPp(loc, sender);	
+		spawnr.addPp(loc, sender);
 		savedInfo = AbstractStructure.saveObject(activeInfo);
 		BattleArena.saveArenas();
 		return true;

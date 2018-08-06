@@ -5,7 +5,7 @@ import org.bukkit.Location;
 
 import java.awt.*;
 
-public class Deathroom extends AbstractStructure {
+public class Deathroom extends AbstractStructure implements Structure{
 
 	public Deathroom(String key, Color teamColor, Location loc, String info) {
 		super(key, teamColor, loc, info);

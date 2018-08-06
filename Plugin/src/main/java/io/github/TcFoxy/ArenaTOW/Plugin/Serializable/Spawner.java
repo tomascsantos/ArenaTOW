@@ -12,7 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 
-public class Spawner extends AbstractStructure {
+public class Spawner extends AbstractStructure implements Structure{
 
 	private HashMap<Integer, Location> paths = new HashMap<Integer, Location>();
 	private HashMap<TOWEntity, Integer> zombies;
@@ -116,10 +116,6 @@ public class Spawner extends AbstractStructure {
 		}
 	}
 
-	public void removeMob(TOWEntity ent){
-		zombies.remove(ent);
-	}
-
 	public HashMap<TOWEntity, Integer> getZombies(){
 		return zombies;
 	}
@@ -132,13 +128,6 @@ public class Spawner extends AbstractStructure {
 		}
 	}
 
-	public void printLocations() {
-		String buf = "";
-		for (Location l: paths.values()) {
-			buf += l.toString() + "\n";
-		}
-		Bukkit.broadcastMessage("Path locations of Spawner " + getKey() + ":\n" + buf);
-	}
 
 	public void getSpawnerInfo() {
 		if(getInfo().equalsIgnoreCase("nopaths")){
