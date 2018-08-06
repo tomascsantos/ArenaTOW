@@ -6,7 +6,7 @@ import org.bukkit.Location;
 
 import java.awt.*;
 
-public class Nexus extends AbstractStructure implements Structure{
+public class Nexus extends AbstractStructure {
 		
 	public Nexus(String key, Color teamColor, Location loc, String info) {
 		super(key, teamColor, loc, info);

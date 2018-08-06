@@ -1,16 +1,19 @@
 package io.github.TcFoxy.ArenaTOW.Plugin.Serializable;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 
 
-public abstract class AbstractStructure implements Structure{
+public abstract class AbstractStructure {
 
 	private String key;
 	private Color teamColor;
