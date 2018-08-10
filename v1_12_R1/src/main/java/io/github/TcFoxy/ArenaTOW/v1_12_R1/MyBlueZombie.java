@@ -4,9 +4,9 @@ package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import net.minecraft.server.v1_12_R1.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.server.v1_12_R1.World;
+import org.bukkit.Color;
 import org.bukkit.Location;
 
-import java.awt.*;
 
 class MyBlueZombie extends MyEntityZombie implements TOWEntity {
 	
@@ -29,7 +29,7 @@ class MyBlueZombie extends MyEntityZombie implements TOWEntity {
 
 	@Override
 	public Color getTeam() {
-	    return Color.blue;
+	    return Color.BLUE;
 	}
 
 }

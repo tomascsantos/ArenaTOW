@@ -1,13 +1,14 @@
 package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 
-import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import io.github.TcFoxy.ArenaTOW.API.*;
 import net.minecraft.server.v1_12_R1.DamageSource;
 import net.minecraft.server.v1_12_R1.EntityZombie;
 import net.minecraft.server.v1_12_R1.GenericAttributes;
 import net.minecraft.server.v1_12_R1.World;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-abstract class MyEntityZombie extends EntityZombie implements TOWEntity{
+abstract class MyEntityZombie extends EntityZombie implements TOWEntity, CustomZombie{
 
 	public MyEntityZombie(World world) {
 		super(world);
@@ -19,6 +20,7 @@ abstract class MyEntityZombie extends EntityZombie implements TOWEntity{
 		this.targetSelector.a(1, new MyPathfinderGoalHurtByTarget(this, false, new Class[0]));
 	}
 
+	@Override
 	public void whereTo(Location directions){
 		v1_12_R1_MobHandler.clearBehavior(goalSelector, targetSelector);
 		n();
@@ -33,6 +35,16 @@ abstract class MyEntityZombie extends EntityZombie implements TOWEntity{
 		getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(16.0D);
 		getAttributeInstance(GenericAttributes.maxHealth).setValue(30.0D);
 	}
+
+	@Override
+	public Location getLocation() {
+		return new Location(world.getWorld(), this.locX, this.locY, this.locZ);
+	}
+
+	@Override
+    public MobType getMobType() {
+	    return MobType.ZOMBIE;
+    }
 
 	@Override
 	public boolean damageEntity(DamageSource d, float f) {

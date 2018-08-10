@@ -1,0 +1,11 @@
+name: ArenaTOW
+
+version: 1.0
+author: TcFoxy
+
+description: Awesome Tug of War Plugin!
+depend: [BattleArena]  ### <--- the important line
+main: io.github.TcFoxy.ArenaTOW.Plugin.ArenaTOW
+commands:
+    tow:
+        aliases: [TugOfWar]

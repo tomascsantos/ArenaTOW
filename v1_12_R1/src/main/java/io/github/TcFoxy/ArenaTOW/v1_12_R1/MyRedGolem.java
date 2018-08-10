@@ -4,8 +4,8 @@ package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import net.minecraft.server.v1_12_R1.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.server.v1_12_R1.World;
+import org.bukkit.Color;
 
-import java.awt.*;
 
 class MyRedGolem extends MyEntityGolem implements TOWEntity {
 	public MyRedGolem(World world) {
@@ -15,7 +15,7 @@ class MyRedGolem extends MyEntityGolem implements TOWEntity {
 
 	@Override
 	public Color getTeam() {
-	    return Color.red;
+	    return Color.RED;
 	}
 
 //	public boolean damageEntity(DamageSource damagesource, float f){

@@ -1,7 +1,10 @@
 package io.github.TcFoxy.ArenaTOW.API;
 
 
-import java.awt.Color;
+import org.bukkit.Color;
+import org.bukkit.Location;
+
+import java.util.Objects;
 
 public interface TOWEntity {
 
@@ -38,10 +41,22 @@ public interface TOWEntity {
      * The type of the mob
      * //TODO implement
      */
-    //Mobtype getType();
+    MobType getMobType();
 
-    default boolean isSameTeam(TOWEntity other) {
-        return this.getTeam().equals(other.getTeam());
+    /**
+     * Returns false if the other object is not on the same team
+     * can handle any object
+     * @param o
+     * @return
+     */
+    default boolean isSameTeam(Object o) {
+        if (!(o instanceof TOWEntity)) return false;
+        return this.getTeam().equals(((TOWEntity)o).getTeam());
     }
+
+    /**
+     * returns the location of the entity
+     */
+    Location getLocation();
 
 }

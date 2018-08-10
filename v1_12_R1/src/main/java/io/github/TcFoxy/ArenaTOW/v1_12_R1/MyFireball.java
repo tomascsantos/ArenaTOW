@@ -1,11 +1,12 @@
 package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 
+import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import net.minecraft.server.v1_12_R1.EntityLiving;
 import net.minecraft.server.v1_12_R1.EntitySmallFireball;
 import net.minecraft.server.v1_12_R1.World;
+import org.bukkit.*;
 
-import java.awt.*;
 
 class MyFireball extends EntitySmallFireball implements TOWEntity {
 
@@ -33,5 +34,15 @@ class MyFireball extends EntitySmallFireball implements TOWEntity {
 	@Override
 	public void setHealth(float f) {
 	    //dummy method from inheritance
+	}
+
+	@Override
+	public MobType getMobType() {
+		return MobType.FIREBALL;
+	}
+
+	@Override
+	public Location getLocation() {
+		return new Location(this.world.getWorld(), this.locX, this.locY, this.locZ);
 	}
 }

@@ -1,13 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 
+import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
-import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
 import net.minecraft.server.v1_12_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
-import java.awt.*;
 
 abstract class MyEntityGolem extends EntityIronGolem implements TOWEntity{
 	Village a;
@@ -40,10 +38,13 @@ abstract class MyEntityGolem extends EntityIronGolem implements TOWEntity{
 
     @Override
     public Location getLocation() {
-        org.bukkit.World world = Bukkit.getWorld(this.world.toString());
-	    Location loc = new Location(world, this.locX, this.locY, this.locZ)
-	    return loc;
+	    return new Location(world.getWorld(), this.locX, this.locY, this.locZ);
     }
+
+    @Override
+	public MobType getMobType() {
+		return MobType.TOWER;
+	}
 
     @Override
     public boolean damageEntity(DamageSource d, float f) {

@@ -8,59 +8,59 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
-public class ArenaTOW extends JavaPlugin{
+public class ArenaTOW extends JavaPlugin {
 
     private static ArenaTOW pluginArenaTOW;
+    private static NMSHandler nmsHandler;
     private File saveDirectory;
 
-    private NMSHandler nmsHandler;
-    private TOWEntityHandler entityHandler;
+    public static TOWEntityHandler getEntityHandler() {
+        return nmsHandler.getEntityHandler();
+    }
 
-	@Override
-	public void onDisable(){
-		//MyEntityType.unregisterEntities();
-	}
+    public static ArenaTOW getSelf() {
+        return pluginArenaTOW;
+    }
 
+    @Override
+    public void onDisable() {
+        unregisterEntities();
+    }
 
+    @Override
+    public void onEnable() {
 
-	@Override
-	public void onEnable(){
-
+        saveDirectory = new File(this.getDataFolder(), "entityNBT");
+        saveDirectory.mkdirs();
 
         //Get full name of server
         String packageName = Bukkit.getServer().getClass().getPackage().getName();
         //org.bukkit.craftbukkit.version
         String version = packageName.substring(packageName.lastIndexOf(".") + 1);
         try {
-            final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW." + version + "NMSHandler");
+            final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW." + version + ".v1_12_R1_NMSHandler");
 
             if (NMSHandler.class.isAssignableFrom(clazz)) {
-                this.nmsHandler = (NMSHandler) clazz.getConstructor().newInstance();
+                this.nmsHandler = (NMSHandler) clazz.getConstructor(File.class).newInstance(saveDirectory);
             }
         } catch (final Exception e) {
             e.printStackTrace();
-            this.getLogger().severe("Version" + version + "of NSM is not supported");
+            this.getLogger().severe("Version " + version + " of NSM is not supported");
             this.setEnabled(false);
             return;
         }
 
-        saveDirectory = new File(this.getDataFolder(), "entityNBT");
-        saveDirectory.mkdirs();
+
 
         registerEntities();
 
-		pluginArenaTOW = this;
-		BattleArena.registerCompetition(this, "ArenaTow", "tow", TugArena.class, new TugExecutor());
-	}
-
-
-	private void registerEntities() {
-	    nmsHandler.getEntityRegistry().registerEntities(saveDirectory);
-	    getServer().getPluginManager().registerEvents(nmsHandler.getEntityListener(), this);
+        pluginArenaTOW = this;
+        BattleArena.registerCompetition(this, "ArenaTow", "tow", TugArena.class, new TugExecutor());
     }
 
-    private void unregisterEntities() {
-	    nmsHandler.getEntityRegistry().unregisterEntities();
+    private void registerEntities() {
+        nmsHandler.getEntityRegistry().registerEntities();
+        getServer().getPluginManager().registerEvents(nmsHandler.getListener(), this);
     }
 
 
@@ -74,15 +74,14 @@ public class ArenaTOW extends JavaPlugin{
 //
 //	    return (WorldGuardPlugin) Wgplugin;
 //	}
-	
-	public static ArenaTOW getSelf() {
-		return pluginArenaTOW;
-	}
 
-	public File getSaveDir() {
-		return this.saveDirectory;
-	}
+    private void unregisterEntities() {
+        nmsHandler.getEntityRegistry().unregisterEntities();
+    }
 
+    public File getSaveDir() {
+        return this.saveDirectory;
+    }
 
 
 }

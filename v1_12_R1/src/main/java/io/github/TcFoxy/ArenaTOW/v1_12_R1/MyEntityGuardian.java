@@ -1,8 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.v1_12_R1;
 
 
+import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import net.minecraft.server.v1_12_R1.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 import java.lang.reflect.Field;
 
@@ -50,6 +53,16 @@ abstract class MyEntityGuardian extends EntityGuardianElder implements TOWEntity
 
 	@Override
 	public void move(EnumMoveType type, double d0, double d1, double d2){
+	}
+
+	@Override
+	public Location getLocation() {
+		return new Location(world.getWorld(), this.locX, this.locY, this.locZ);
+	}
+
+	@Override
+	public MobType getMobType() {
+		return MobType.NEXUS;
 	}
 
 

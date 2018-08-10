@@ -2,9 +2,8 @@ package io.github.TcFoxy.ArenaTOW.API;
 
 import org.bukkit.World;
 
-import java.awt.*;
+import org.bukkit.Color;
 import java.util.HashSet;
-import java.util.TreeSet;
 
 public interface TOWEntityHandler {
 

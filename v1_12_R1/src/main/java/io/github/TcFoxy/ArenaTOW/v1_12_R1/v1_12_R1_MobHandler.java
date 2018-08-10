@@ -7,10 +7,10 @@ import net.minecraft.server.v1_12_R1.PathfinderGoalSelector;
 import net.minecraft.server.v1_12_R1.WorldServer;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.Color;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
-import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.LinkedHashSet;

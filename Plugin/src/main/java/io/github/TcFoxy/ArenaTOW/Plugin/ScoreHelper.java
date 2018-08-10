@@ -1,8 +1,5 @@
 package io.github.TcFoxy.ArenaTOW.Plugin;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 import mc.alk.arena.objects.ArenaPlayer;
 import mc.alk.arena.objects.scoreboard.ArenaScoreboard;
 import mc.alk.scoreboardapi.api.SEntry;
@@ -12,44 +9,46 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 
 public class ScoreHelper {
-	
-	static TugArena tug;
-	private static HashMap<UUID, ArenaScoreboard> boards;
+
+    static TugArena tug;
+    private static HashMap<UUID, ArenaScoreboard> boards;
 //	private HashMap<UUID, Integer> cash;
 
-	ScoreHelper(TugArena Tug){
-		ScoreHelper.tug = Tug;
+    ScoreHelper(TugArena Tug) {
+        ScoreHelper.tug = Tug;
 
-		boards = new HashMap<UUID, ArenaScoreboard>();
+        boards = new HashMap<UUID, ArenaScoreboard>();
 //		cash = new HashMap<UUID, Integer>();
-	}
-	
-	public void onStart() {
-		
-		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(ArenaTOW.getSelf(), new Runnable(){
-			@Override
-			public void run(){
-				for(ArenaPlayer ap: tug.arena.getMatch().getPlayers()){
-					setupScoreboard(ap.getPlayer());
-				}
-			}
-		});
-		
-	}
-	
+    }
+
+    public void onStart() {
 
 
-	public static void setupScoreboard(Player p){
-		ArenaScoreboard newsb = new ArenaScoreboard(p.getName()); ///making a new scoreboard with player name as the scoreboard name;
-		SObjective anobj = newsb.registerNewObjective("ArenaTOW", "dummy", ChatColor.WHITE.toString() + ChatColor.BOLD + "LeagueOfCrafter", SAPIDisplaySlot.SIDEBAR);
-		makeSidebar(anobj, p);
-		newsb.setScoreboard(p);
-		boards.put(p.getUniqueId(), newsb);
-	}
-	
+        Bukkit.getScheduler().scheduleSyncDelayedTask(ArenaTOW.getSelf(), new Runnable() {
+            @Override
+            public void run() {
+                for (ArenaPlayer ap : tug.arena.getMatch().getPlayers()) {
+                    setupScoreboard(ap.getPlayer());
+                }
+            }
+        });
+
+    }
+
+
+    public static void setupScoreboard(Player p) {
+        ArenaScoreboard newsb = new ArenaScoreboard(p.getName()); ///making a new scoreboard with player name as the scoreboard name;
+        SObjective anobj = newsb.registerNewObjective("ArenaTOW", "dummy", ChatColor.WHITE.toString() + ChatColor.BOLD + "LeagueOfCrafter", SAPIDisplaySlot.SIDEBAR);
+        makeSidebar(anobj, p);
+        newsb.setScoreboard(p);
+        boards.put(p.getUniqueId(), newsb);
+    }
+
 //	public static Integer getTowHealth(Tower t){
 //		EntityCreature creature = t.getMob();
 //		float health = Math.round(creature.getHealth());
@@ -59,19 +58,19 @@ public class ScoreHelper {
 //		return  (int) Math.round(percentHealth); 
 //	}
 
-	
-	SEntry redhealth, bluehealth, playermoney;
 
-	private static void makeSidebar(SObjective obj, Player p) {
-		
-		//obj.addEntry(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Cash", ArenaEcon.getCash(p));
+    SEntry redhealth, bluehealth, playermoney;
 
-		//addTowerHealths(obj, p);
-		
+    private static void makeSidebar(SObjective obj, Player p) {
+
+        //obj.addEntry(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Cash", ArenaEcon.getCash(p));
+
+        //addTowerHealths(obj, p);
+
 //		ArenaTeam team = BattleArena.toArenaPlayer(p).getTeam();
 //		obj.addEntry(ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "TeamLevel", tug.teamLevel.getTeamLev(team.getDisplayName()));
-	}
-	
+    }
+
 //	private static void addTowerHealths(SObjective obj, Player p){
 //		for(Tower tow: tug.towerteams.values()){
 //			if (tow.getTeamColor() == Color.RED){
@@ -89,13 +88,13 @@ public class ScoreHelper {
 //			}
 //		}
 //	}
-	
-	public void refreshScore(Player p){
-		ArenaScoreboard sb = boards.get(p.getUniqueId());
-		SObjective obj = sb.getObjective("ArenaTOW");
-		makeSidebar(obj, p);
-		sb.setScoreboard(p);
-		}
+
+    public void refreshScore(Player p) {
+        ArenaScoreboard sb = boards.get(p.getUniqueId());
+        SObjective obj = sb.getObjective("ArenaTOW");
+        makeSidebar(obj, p);
+        sb.setScoreboard(p);
+    }
 }
 
 
