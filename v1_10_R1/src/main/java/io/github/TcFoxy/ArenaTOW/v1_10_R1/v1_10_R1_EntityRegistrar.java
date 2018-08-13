@@ -49,37 +49,19 @@ public class v1_10_R1_EntityRegistrar implements CustomEntityRegistrar {
      */
     @SuppressWarnings("unchecked")
     public void register(final v1_10_R1_Entities cre) {
-        if (registryEntries.containsKey(cre.getName())) return;
+        if (registryEntries.containsKey(cre.getCustomClass().toString())) return;
             final Class<? extends EntityInsentient> paramClass = (Class<? extends EntityInsentient>) cre.getCustomClass();
             final String paramString = cre.getName();
+            final String key = paramClass.toString();
             final int paramInt = cre.getID();
             try {
                 ((Map<String, Class<? extends Entity>>) getPrivateStatic(EntityTypes.class, "c")).put(paramString, paramClass);
                 ((Map<Class<? extends Entity>, String>) getPrivateStatic(EntityTypes.class, "d")).put(paramClass, paramString);
                 ((Map<Class<? extends Entity>, Integer>) getPrivateStatic(EntityTypes.class, "f")).put(paramClass, Integer.valueOf(paramInt));
                 ((Map<String, Integer>) getPrivateStatic(EntityTypes.class, "g")).put(paramString, Integer.valueOf(paramInt));
-                registryEntries.put(paramString, cre);
+                registryEntries.put(key, cre);
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-
-            for (World w : Bukkit.getWorlds()) {
-                final File wFile = new File(dir, w.getName());
-                if (wFile.exists()) {
-                    for (Chunk c : w.getLoadedChunks()) {
-                        if (new File(wFile, "" + c.getX()).exists() && new File(wFile, c.getX() + System.getProperty("file.separator") + c.getZ()).exists()) {
-                            final File cFile = new File(wFile, c.getX() + System.getProperty("file.separator") + c.getZ());
-
-                            for (File data : cFile.listFiles(new FilenameFilter() {
-                                public boolean accept(File dir, String name) {
-                                    return name.toLowerCase().endsWith(".tbp");
-                                }
-                            }))
-                                if (data.getName().contains(cre.getName())) loadEntity(data);
-
-                        }
-                    }
-                }
             }
     }
 
@@ -104,17 +86,6 @@ public class v1_10_R1_EntityRegistrar implements CustomEntityRegistrar {
             registryEntries.remove(cre);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-        for (World w : Bukkit.getWorlds()) {
-            for (org.bukkit.entity.Entity e : w.getEntities()) {
-                Entity nmsEntity = ((CraftEntity) e).getHandle();
-                if (nmsEntity instanceof EntityInsentient)
-                    if (registryEntries.containsKey(EntityTypes.b(nmsEntity))) {
-                        saveEntity((EntityInsentient) nmsEntity);
-                        e.remove();
-                    }
-            }
         }
     }
 

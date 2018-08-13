@@ -9,13 +9,9 @@ public enum v1_10_R1_Entities {
 
     REDIRON_GOLEM("VillagerGolem", 99, EntityType.IRON_GOLEM, EntityIronGolem.class, MyRedGolem.class),
     BLUEIRON_GOLEM("VillagerGolem", 99, EntityType.IRON_GOLEM, EntityIronGolem.class, MyBlueGolem.class),
-
-    BLUEGUARDIAN("elder_guardian",4,EntityType.GUARDIAN, EntityGuardian.class, MyBlueGuardian.class),
-
-    REDGUARDIAN("elder_guardian",4,EntityType.GUARDIAN, EntityGuardian.class, MyRedGuardian.class),
-
+    BLUEGUARDIAN("Guardian",68,EntityType.GUARDIAN, EntityGuardian.class, MyBlueGuardian.class),
+    REDGUARDIAN("Guardian",68,EntityType.GUARDIAN, EntityGuardian.class, MyRedGuardian.class),
     BLUEMINION("Zombie",54,EntityType.ZOMBIE, EntityZombie.class, MyBlueZombie.class),
-
     REDMINION("Zombie",54,EntityType.ZOMBIE, EntityZombie.class, MyRedZombie.class);
 
 

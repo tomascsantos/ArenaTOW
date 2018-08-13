@@ -3,8 +3,7 @@ package io.github.TcFoxy.ArenaTOW.Plugin.Serializable;
 import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import io.github.TcFoxy.ArenaTOW.Plugin.ArenaTOW;
-import org.bukkit.Color;
-import org.bukkit.Location;
+import org.bukkit.*;
 
 public class Tower extends PersistInfo {
 
@@ -17,6 +16,7 @@ public class Tower extends PersistInfo {
         Location spawn = getSpawnLoc();
         setMob(ArenaTOW.getEntityHandler().spawnMob(MobType.TOWER, getTeamColor(),
                 spawn.getWorld(), spawn.getX(), spawn.getY(), spawn.getZ()));
+        Bukkit.broadcastMessage("entity from " + this.getKey() + "was spawned");
         return getMob();
     }
 

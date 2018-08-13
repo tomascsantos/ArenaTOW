@@ -1,14 +1,13 @@
 package io.github.TcFoxy.ArenaTOW.v1_10_R1;
 
-import io.github.TcFoxy.ArenaTOW.API.MobType;
-import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import io.github.TcFoxy.ArenaTOW.API.*;
 import net.minecraft.server.v1_10_R1.*;
 import org.bukkit.Location;
 
 import java.lang.reflect.Field;
 import java.util.LinkedHashSet;
 
-public abstract class MyEntityZombie extends EntityZombie implements TOWEntity {
+public abstract class MyEntityZombie extends EntityZombie implements TOWEntity, CustomZombie{
 
     public MyEntityZombie(World world) {
         super(world);

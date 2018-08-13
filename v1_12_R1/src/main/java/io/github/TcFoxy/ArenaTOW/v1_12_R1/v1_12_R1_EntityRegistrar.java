@@ -56,31 +56,12 @@ public class v1_12_R1_EntityRegistrar implements CustomEntityRegistrar{
         try {
             MinecraftKey key = new MinecraftKey(paramString);
             ((Set<MinecraftKey>) getPrivateStatic(EntityTypes.class, "d")).add(key);
-            ((RegistryMaterials<MinecraftKey,Class<?>>) getPrivateStatic(EntityTypes.class, "b")).a(cre.getID(), key, cre.getCustomClass());
+            ((RegistryMaterials<MinecraftKey, Class<?>>) getPrivateStatic(EntityTypes.class, "b")).a(cre.getID(), key, cre.getCustomClass());
             registryEntries.put(paramString, cre);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        for (World w : Bukkit.getWorlds()) {
-            final File wFile = new File(dir, w.getName());
-            if (wFile.exists()) {
-                for (Chunk c : w.getLoadedChunks()) {
-                    if (new File(wFile, ""+c.getX()).exists() && new File(wFile, c.getX()+System.getProperty("file.separator")+c.getZ()).exists()) {
-                        final File cFile = new File(wFile, c.getX()+System.getProperty("file.separator")+c.getZ());
-
-                        for (File data : cFile.listFiles(new FilenameFilter() {
-                            public boolean accept(File dir, String name) {
-                                return name.toLowerCase().endsWith(".tbp");
-                            }
-                        })) if (data.getName().contains(cre.getName())) loadEntity(data);
-
-                    }
-                }
-            }
-        }
     }
-
     /**
      * Unregister a custom entity, using its registry entry.<br>
      * <b>Will not work if you create a new instance of v1_12_R1_Entities, even if it has the same parameters.</b><br><br>
@@ -99,16 +80,6 @@ public class v1_12_R1_EntityRegistrar implements CustomEntityRegistrar{
             registryEntries.remove(cre);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-        for (World w : Bukkit.getWorlds()) {
-            for (org.bukkit.entity.Entity e : w.getEntities()) {
-                Entity nmsEntity = ((CraftEntity)e).getHandle();
-                if (nmsEntity instanceof EntityInsentient) if (registryEntries.containsKey(EntityTypes.b(nmsEntity))) {
-                    saveEntity((EntityInsentient) nmsEntity);
-                    e.remove();
-                }
-            }
         }
     }
 
@@ -129,7 +100,7 @@ public class v1_12_R1_EntityRegistrar implements CustomEntityRegistrar{
             nbt.setString("cid", EntityTypes.b(e));
             e.getBukkitEntity().remove();
 
-            NBTCompressedStreamTools.a(nbt, (OutputStream)(new FileOutputStream(new File(cDir, (cDir.list().length+1)+" - "+nbt.getString("cid")+".tbp"))));
+            NBTCompressedStreamTools.a(nbt, (new FileOutputStream(new File(cDir, (cDir.list().length+1)+" - "+nbt.getString("cid")+".tbp"))));
         } catch (Exception e1) { e1.printStackTrace(); }
     }
 

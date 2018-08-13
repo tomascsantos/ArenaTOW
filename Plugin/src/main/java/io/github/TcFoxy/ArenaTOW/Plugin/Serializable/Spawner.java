@@ -26,6 +26,7 @@ public class Spawner extends PersistInfo {
         Location spawn = getSpawnLoc();
         setMob(ArenaTOW.getEntityHandler().spawnMob(MobType.ZOMBIE, getTeamColor(),
                 spawn.getWorld(), spawn.getX(), spawn.getY(), spawn.getZ()));
+        Bukkit.broadcastMessage("entity from " + this.getKey() + "was spawned");
         return getMob();
     }
 

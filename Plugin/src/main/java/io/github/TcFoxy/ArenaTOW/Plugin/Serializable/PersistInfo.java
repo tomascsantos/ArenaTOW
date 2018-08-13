@@ -14,7 +14,7 @@ public class PersistInfo {
     private TOWEntity mob;
     private String info;
 
-    public static enum BaseType {
+    public enum BaseType {
         TOWER, NEXUS, SPAWNER, DEATHROOM, PATHP;
     }
 

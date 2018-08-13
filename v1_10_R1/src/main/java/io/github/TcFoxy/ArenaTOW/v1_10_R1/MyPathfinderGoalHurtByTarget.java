@@ -5,12 +5,12 @@ import net.minecraft.server.v1_10_R1.*;
 
 public class MyPathfinderGoalHurtByTarget extends PathfinderGoalHurtByTarget {
 
-    EntityCreature attacker;
+    TOWEntity attacker;
 
     public MyPathfinderGoalHurtByTarget(EntityCreature entitycreature, boolean flag, Class<?>[] aclass) {
         super(entitycreature, flag, aclass);
 
-        this.attacker = entitycreature;
+        this.attacker = (TOWEntity) entitycreature;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class MyPathfinderGoalHurtByTarget extends PathfinderGoalHurtByTarget {
         if (!goalTarget.isAlive()) {
             return false;
         }
-        if(goalTarget instanceof TOWEntity && ((TOWEntity) this).isSameTeam(goalTarget)) {
+        if(goalTarget instanceof TOWEntity && this.attacker.isSameTeam(goalTarget)) {
             return  false;
         }
         return true;

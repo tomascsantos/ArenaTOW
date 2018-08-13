@@ -5,13 +5,13 @@ import net.minecraft.server.v1_10_R1.*;
 
 public class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack {
 
-    boolean e;
-    EntityCreature attacker;
+    private boolean e;
+    private TOWEntity attacker;
 
     public MyPathfinderGoalMelee(EntityCreature arg0, double speed) {
         super(arg0, speed, false);
         this.e = false;
-        this.attacker = arg0;
+        this.attacker = (TOWEntity) arg0;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack {
         if (!this.e) {
             return !this.b.getNavigation().n();
         }
-        if(goalTarget instanceof TOWEntity && ((TOWEntity) this).isSameTeam(goalTarget)) {
+        if (goalTarget instanceof TOWEntity && attacker.isSameTeam(goalTarget)) {
             return  false;
         }
         return this.b.f(new BlockPosition(goalTarget)) && (!(goalTarget instanceof EntityHuman) || (!((EntityHuman) goalTarget).isSpectator() && !((EntityHuman) goalTarget).z()));

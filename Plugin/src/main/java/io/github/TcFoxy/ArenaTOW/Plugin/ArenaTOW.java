@@ -7,11 +7,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 public class ArenaTOW extends JavaPlugin {
 
     private static ArenaTOW pluginArenaTOW;
     private static NMSHandler nmsHandler;
+    private static Logger logger;
     private File saveDirectory;
 
     public static TOWEntityHandler getEntityHandler() {
@@ -38,7 +40,7 @@ public class ArenaTOW extends JavaPlugin {
         //org.bukkit.craftbukkit.version
         String version = packageName.substring(packageName.lastIndexOf(".") + 1);
         try {
-            final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW." + version + ".v1_12_R1_NMSHandler");
+            final Class<?> clazz = Class.forName("io.github.TcFoxy.ArenaTOW." + version + "." + version + "_NMSHandler");
 
             if (NMSHandler.class.isAssignableFrom(clazz)) {
                 this.nmsHandler = (NMSHandler) clazz.getConstructor(File.class).newInstance(saveDirectory);
@@ -51,10 +53,10 @@ public class ArenaTOW extends JavaPlugin {
         }
 
 
+        pluginArenaTOW = this;
+        logger = getLogger();
 
         registerEntities();
-
-        pluginArenaTOW = this;
         BattleArena.registerCompetition(this, "ArenaTow", "tow", TugArena.class, new TugExecutor());
     }
 
@@ -83,5 +85,8 @@ public class ArenaTOW extends JavaPlugin {
         return this.saveDirectory;
     }
 
+    public static Logger log() {
+        return logger;
+    }
 
 }

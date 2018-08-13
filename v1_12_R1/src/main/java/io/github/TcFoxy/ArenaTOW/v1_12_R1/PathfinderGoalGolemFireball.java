@@ -36,7 +36,7 @@ class PathfinderGoalGolemFireball extends PathfinderGoal
 		EntityLiving localEntityLiving = this.a.getGoalTarget();
 
 		if(localEntityLiving instanceof TOWEntity) {
-			if (((TOWEntity) this).isSameTeam((TOWEntity) localEntityLiving)) {
+			if (this.a.isSameTeam(localEntityLiving)) {
 			    return;
             }
 		}
