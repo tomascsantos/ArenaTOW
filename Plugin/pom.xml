@@ -25,7 +25,7 @@
         <dependency>
             <groupId>mc.alk</groupId>
             <artifactId>BattleArena</artifactId>
-            <version>3.9.10.15</version>
+            <version>3.9.10.21</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -37,15 +37,15 @@
             <optional>true
             </optional> <!-- Set all of these to optional, to ensure plugins building against yours don't look for them -->
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>io.github.TcFoxy</groupId>
             <artifactId>ArenaTOW-v1_10_R1</artifactId>
             <version>v1_10_R1</version>
             <type>jar</type>
-            <scope>compile</scope> <!-- The 'compile' scope will get shaded in -->
+            <scope>compile</scope>  The 'compile' scope will get shaded in
             <optional>true
-            </optional> <!-- Set all of these to optional, to ensure plugins building against yours don't look for them -->
-        </dependency>
+            </optional>  Set all of these to optional, to ensure plugins building against yours don't look for them
+        </dependency> -->
         <dependency>
             <groupId>io.github.TcFoxy</groupId>
             <artifactId>ArenaTOW-api</artifactId>
@@ -55,6 +55,12 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>battleplugins</id>
+            <url>http://rainbowcraft.sytes.net/maven/repository/</url>
+        </repository>
+    </repositories>
 
 
     <build>
@@ -64,16 +70,9 @@
             <resource>
                 <targetPath>.</targetPath>
                 <filtering>true</filtering>
-                <directory>${basedir}</directory>
-                <includes>
-                    <include>ArenaTowConfig.yml</include>
-                </includes>
-            </resource>
-            <resource>
-                <targetPath>.</targetPath>
-                <filtering>true</filtering>
                 <directory>src/main/resources</directory>
                 <includes>
+                    <include>ArenaTowConfig.yml</include>
                     <include>plugin.yml</include>
                 </includes>
             </resource>
