@@ -28,11 +28,11 @@ class PathfinderGoalGolemFireball extends PathfinderGoal {
     public void e() {
         EntityLiving localEntityLiving = this.a.getGoalTarget();
 
-        if(localEntityLiving instanceof TOWEntity) {
-            if (this.a.isSameTeam(localEntityLiving)) {
-                return;
-            }
+        System.out.println("GolemFireball: sameteam: " + ((TOWEntity) this).isSameTeam(localEntityLiving));
+        if (((TOWEntity) this).isSameTeam(localEntityLiving)) {
+            return;
         }
+
         this.c -= 1;
 
         // Check for line of sight

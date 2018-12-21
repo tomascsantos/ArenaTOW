@@ -2,18 +2,27 @@ package io.github.TcFoxy.ArenaTOW.v1_10_R1;
 
 import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
 import net.minecraft.server.v1_10_R1.*;
 import org.bukkit.Location;
 
+import java.util.UUID;
+
 public abstract class MyEntityGolem extends EntityIronGolem implements TOWEntity {
     Village a;
+    protected TOWEntityHandler handler;
 
-    public MyEntityGolem(World world) {
+    public MyEntityGolem(World world, TOWEntityHandler handler) {
         super(world);
 
         this.fireProof = true;
+        this.handler = handler;
     }
 
+    @Override
+    public TOWEntityHandler getHandler() {
+        return this.handler;
+    }
 
     @Override
     protected void r() {
@@ -46,4 +55,8 @@ public abstract class MyEntityGolem extends EntityIronGolem implements TOWEntity
         return MobType.TOWER;
     }
 
+    @Override
+    public UUID getUID() {
+        return this.getUniqueID();
+    }
 }

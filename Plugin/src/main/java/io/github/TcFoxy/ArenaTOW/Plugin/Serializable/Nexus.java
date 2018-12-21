@@ -15,7 +15,7 @@ public class Nexus extends PersistInfo {
     @Override
     public TOWEntity spawnMob() {
         Location spawn = getSpawnLoc();
-        setMob(ArenaTOW.getEntityHandler().spawnMob(MobType.NEXUS, getTeamColor(),
+        setMob(ArenaTOW.getEntityHandler().spawnMob(ArenaTOW.getEntityHandler(), MobType.NEXUS, getTeamColor(),
                 spawn.getWorld(), spawn.getX(), spawn.getY(), spawn.getZ()));
         Bukkit.broadcastMessage("entity from " + this.getKey() + "was spawned");
         return getMob();

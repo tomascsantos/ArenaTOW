@@ -3,7 +3,11 @@ package io.github.TcFoxy.ArenaTOW.API;
 import org.bukkit.World;
 
 import org.bukkit.Color;
+
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.UUID;
 
 public interface TOWEntityHandler {
 
@@ -11,30 +15,38 @@ public interface TOWEntityHandler {
      * retrieve the set of mobs in the arena
      * @return mobs
      */
-    HashSet<TOWEntity> getMobs();
-
-    /**
-     * retrieve the set of arenaplayers
-     */
-    HashSet<TOWEntity> getPlayers();
+    Collection<TOWEntity> getMobs();
 
     default void killMobs() {
-        HashSet<TOWEntity> entities = getMobs();
+        Collection<TOWEntity> entities = getMobs();
         for (TOWEntity e : entities) {
             e.setHealth(0);
             entities.remove(e);
         }
     }
 
+    /**
+     * Takes in an object and returns a tow entity if possible
+     * otherwise returns null
+     * @param o
+     * @return
+     */
+    TOWEntity getTowEntity(Object o);
+
+    TOWEntity spawnMob(TOWEntityHandler handler, MobType mobType, Color teamColor, World world, double x, double y, double z);
+
     default boolean areSameTeam(TOWEntity e1, TOWEntity e2) {
         return e1.getTeam().equals(e2.getTeam());
     }
 
-    TOWEntity spawnMob(MobType mobType, Color teamColor, World world, double x, double y, double z);
+    default boolean areSameTeam(Object o1, Object o2) {
+        if (getTowEntity(o1) == null || getTowEntity(o2) == null) return false;
+        return areSameTeam(getTowEntity(o1), getTowEntity(o2));
+    }
 
-    /**
-     * add arena players to the set of players
-     */
-    void addPlayer(TOWEntity e);
+    default boolean areSameTeam(TOWEntity t1, Object o1) {
+        if (getTowEntity(o1) == null) return false;
+        return areSameTeam(t1, getTowEntity(o1));
+    }
 
 }

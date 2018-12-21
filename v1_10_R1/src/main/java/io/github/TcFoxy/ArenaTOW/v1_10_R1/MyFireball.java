@@ -2,9 +2,12 @@ package io.github.TcFoxy.ArenaTOW.v1_10_R1;
 
 import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
 import net.minecraft.server.v1_10_R1.*;
 import org.bukkit.Color;
 import org.bukkit.Location;
+
+import java.util.UUID;
 
 public class MyFireball extends EntitySmallFireball implements TOWEntity {
 
@@ -22,6 +25,16 @@ public class MyFireball extends EntitySmallFireball implements TOWEntity {
     @Override
     public Location getLocation() {
         return new Location(this.world.getWorld(), this.locX, this.locY, this.locZ);
+    }
+
+    @Override
+    public UUID getUID() {
+        return null;
+    }
+
+    @Override
+    public TOWEntityHandler getHandler() {
+        return golem.getHandler();
     }
 
     @Override

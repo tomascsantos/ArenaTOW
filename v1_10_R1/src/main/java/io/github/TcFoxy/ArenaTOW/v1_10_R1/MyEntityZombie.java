@@ -2,23 +2,38 @@ package io.github.TcFoxy.ArenaTOW.v1_10_R1;
 
 import io.github.TcFoxy.ArenaTOW.API.*;
 import net.minecraft.server.v1_10_R1.*;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.lang.reflect.Field;
 import java.util.LinkedHashSet;
+import java.util.UUID;
 
 public abstract class MyEntityZombie extends EntityZombie implements TOWEntity, CustomZombie{
 
-    public MyEntityZombie(World world) {
+    protected TOWEntityHandler handler;
+
+    public MyEntityZombie(World world, TOWEntityHandler handler) {
         super(world);
 
         getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(10.0D);//foloow range
         fireProof = true;
+        this.handler = handler;
+    }
+
+    @Override
+    public TOWEntityHandler getHandler() {
+        return handler;
     }
 
     @Override
     public Location getLocation() {
         return new Location(this.world.getWorld(), this.locX, this.locY, this.locZ);
+    }
+
+    @Override
+    public UUID getUID() {
+        return this.getUniqueID();
     }
 
     @Override

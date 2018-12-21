@@ -53,6 +53,8 @@ public class TugArena extends Arena {
      * in this class, should I move them?
      */
     public HashMap<String, PersistInfo> activeInfo = new HashMap<String, PersistInfo>();
+    HashMap<ArenaPlayer, Color> playerTeamLookup = new HashMap<>();
+    HashSet<TowPlayer> towPlayers = new HashSet<>();
 
 
     /*
@@ -169,18 +171,18 @@ public class TugArena extends Arena {
          * set the teams so they can be
          * referenced in the future
          */
-
-        List<ArenaTeam> t = getTeams();
-        for (int i = 0; i < t.size(); i++) {
-            if (i == 0) {
-                redTeam = t.get(i);
-                redTeam.setName(Utils.toSimpleColor(Color.RED));
-            } else if (i == 1) {
-                blueTeam = t.get(i);
-                blueTeam.setName(Utils.toSimpleColor(Color.BLUE));
+        List<ArenaTeam> teams = getTeams();
+        String teamname = "";
+        ArenaTeam team;
+        for (int i = 0; i < teams.size(); i++) {
+            teamname = Utils.getTeamName(i);
+            team = teams.get(i);
+            team.setName(teamname);
+            for (ArenaPlayer p : team.getPlayers()) {
+                playerTeamLookup.put(p, Utils.getTeamColor(teamname));    //Add Players to team lookup.
+                towPlayers.add(new TowPlayer(p, this));         //Add players to registry to lookup for events.
             }
         }
-
         /*
          * set the team level
          */

@@ -5,8 +5,11 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public interface TOWEntity {
+
+    TOWEntityHandler getHandler();
 
     /**
      * @return returns the health of the mob
@@ -50,13 +53,14 @@ public interface TOWEntity {
      * @return
      */
     default boolean isSameTeam(Object o) {
-        if (!(o instanceof TOWEntity)) return false;
-        return this.getTeam().equals(((TOWEntity)o).getTeam());
+        return getHandler().areSameTeam(this, o);
     }
 
     /**
      * returns the location of the entity
      */
     Location getLocation();
+
+    UUID getUID();
 
 }

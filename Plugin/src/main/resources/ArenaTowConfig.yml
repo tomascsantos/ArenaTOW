@@ -46,7 +46,7 @@
         
 ArenaTow:
   name: ArenaTow
-  command: ArenaTow
+  command: tow
   prefix: '&8[Tug Of War]'
   signDisplayName: 8[TugofWar]
   gameSize:
@@ -55,7 +55,7 @@ ArenaTow:
   nLives: 'infinite'
   victoryCondition: Custom
   tracking:
-    database: col
+    database: tow
     rated: true
     useTrackerMessages: false
   arenaType: ArenaTow

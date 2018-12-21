@@ -1,6 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.v1_10_R1;
 
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
 import net.minecraft.server.v1_10_R1.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.server.v1_10_R1.World;
 import org.bukkit.Color;
@@ -10,8 +11,9 @@ public class MyRedZombie extends MyEntityZombie implements TOWEntity {
 
     private String zombieteam = "Red";
 
-    public MyRedZombie(World world) {
-        super(world);
+    public MyRedZombie(World world, TOWEntityHandler handler) {
+        super(world, handler);
+        this.handler = handler;
     }
 
     @Override

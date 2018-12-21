@@ -4,6 +4,7 @@ import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo;
 import mc.alk.arena.objects.ArenaPlayer;
+import mc.alk.arena.util.Log;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -16,7 +17,7 @@ import org.bukkit.event.entity.*;
 public class TugListener implements Listener {
 
 
-    TugArena tug;
+    private TugArena tug;
 
 
     public TugListener(TugArena tug) {
@@ -30,60 +31,12 @@ public class TugListener implements Listener {
      * of the same team will not pathfind towards friendly targets
      * or targets that are invisible.
      */
-//	@EventHandler
-//	private void sameTeamTarget(EntityTargetEvent event){
-//		if (event.getTarget() == null) return;
-//
-//
-//
-//
-//		if(event.getEntity().getClass().getName() == NMSConstants.spigotZombie ||
-//				event.getEntity().getClass().getName() == NMSConstants.spigotGolem ||
-//				event.getEntity().getClass().getName() == NMSConstants.spigotGuardian ){
-//			if(event.getTarget() instanceof Player){
-//				Player p = (Player) event.getTarget();
-//				ArenaPlayer ap = BattleArena.toArenaPlayer(p);
-//				ArenaTeam team = ap.getTeam();
-//				if (team == null) return;
-//
-//				EntityLiving el = (EntityLiving) ((CraftEntity) event.getEntity()).getHandle();
-//				String teamname = team.getDisplayName();
-//				String entityclass = el.getClass().getName();
-//				switch(entityclass){
-//				case NMSConstants.MyRedZombie:
-//					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
-//					break;
-//				case NMSConstants.MyRedGolem:
-//					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
-//					break;
-//				case NMSConstants.MyRedGuardian:
-//					if(teamname.equals(Utils.toSimpleColor(Color.RED))) event.setCancelled(true);
-//					break;
-//				case NMSConstants.MyBlueZombie:
-//					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
-//					break;
-//				case NMSConstants.MyBlueGolem:
-//					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
-//					break;
-//				case NMSConstants.MyBlueGuardian:
-//					if(teamname.equals(Utils.toSimpleColor(Color.BLUE))) event.setCancelled(true);
-//					break;
-//				default:
-//					return;
-//				}
-//
-//				//if the event isnt cancelled but the player is invisible:
-//				if(!event.isCancelled()){
-//					Collection<PotionEffect> potions = p.getActivePotionEffects();
-//					if(potions.contains(PotionEffectType.INVISIBILITY)){
-//						event.setCancelled(true);
-//					}
-//				}
-//			}
-//		}else{
-//			return;
-//		}
-//	}
+	@EventHandler
+	private void sameTeamTarget(EntityTargetEvent event){
+		if (event.getTarget() == null) return;
+
+
+	}
 
     /*
      * when a player kills a minion, tower, or player,

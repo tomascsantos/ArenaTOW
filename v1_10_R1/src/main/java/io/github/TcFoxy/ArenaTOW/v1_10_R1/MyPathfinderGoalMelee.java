@@ -26,6 +26,7 @@ public class MyPathfinderGoalMelee extends PathfinderGoalMeleeAttack {
         if (!this.e) {
             return !this.b.getNavigation().n();
         }
+        System.out.println("Melee Attack!");
         if (goalTarget instanceof TOWEntity && attacker.isSameTeam(goalTarget)) {
             return  false;
         }

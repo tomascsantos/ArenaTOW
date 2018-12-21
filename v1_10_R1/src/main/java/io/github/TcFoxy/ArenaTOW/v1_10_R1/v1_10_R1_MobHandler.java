@@ -1,6 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.v1_10_R1;
 
 import io.github.TcFoxy.ArenaTOW.API.*;
+import net.minecraft.server.v1_10_R1.EntityLiving;
 import net.minecraft.server.v1_10_R1.PathfinderGoalSelector;
 import net.minecraft.server.v1_10_R1.WorldServer;
 import org.bukkit.*;
@@ -8,8 +9,7 @@ import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 import java.lang.reflect.Field;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 /**
  * author @BigTeddy98
@@ -19,56 +19,55 @@ import java.util.LinkedHashSet;
 
 class v1_10_R1_MobHandler implements TOWEntityHandler {
 
-    private HashSet<TOWEntity> entities;
-    private HashSet<TOWEntity> players;
+    private HashMap<UUID, TOWEntity> towEntities;
 
     public v1_10_R1_MobHandler() {
-        entities = new HashSet<>();
+        towEntities = new HashMap<>();
     }
 
     @Override
-    public HashSet<TOWEntity> getMobs() {
-        return entities;
+    public Collection<TOWEntity> getMobs() {
+        return towEntities.values();
+    }
+
+
+    @Override
+    public TOWEntity getTowEntity(Object o) {
+        if (o instanceof EntityLiving) {
+            return towEntities.get(((EntityLiving) o).getUniqueID());
+        }
+        return null;
     }
 
     @Override
-    public HashSet<TOWEntity> getPlayers() {
-        return players;
-    }
-
-    @Override
-    public void addPlayer(TOWEntity e) {
-        players.add(e);
-    }
-
-    @Override
-    public TOWEntity spawnMob(MobType mobType, Color teamColor, World world, double x, double y, double z) {
+    public TOWEntity spawnMob(TOWEntityHandler handler, MobType mobType, Color teamColor, World world, double x, double y, double z) {
+        Bukkit.broadcastMessage("DO WE SPAWN THE FUKKING MOB?");
         TOWEntity entity = null;
         switch (mobType) {
             case ZOMBIE:
-                entity = spawnTeamZombie(world, x, y, z, teamColor);
+                entity = spawnTeamZombie(handler, world, x, y, z, teamColor);
                 break;
             case NEXUS:
-                entity = spawnTeamGuardian(world, x, y, z, teamColor);
+                entity = spawnTeamGuardian(handler, world, x, y, z, teamColor);
                 break;
             case TOWER:
-                entity = spawnTeamGolem(world, x, y, z, teamColor);
+                entity = spawnTeamGolem(handler, world, x, y, z, teamColor);
         }
         if (entity != null) {
-            entities.add(entity);
+            towEntities.put(entity.getUID(), entity);
         }
         return entity;
     }
 
-    private static MyEntityZombie spawnTeamZombie(World world, double x, double y, double z, Color col) {
+    private static MyEntityZombie spawnTeamZombie(TOWEntityHandler handler, World world, double x, double y, double z, Color col) {
         WorldServer nms = ((CraftWorld) world).getHandle();
         if (col.equals(Color.RED)) {
-            MyRedZombie g = new MyRedZombie(nms);
+            MyRedZombie g = new MyRedZombie(nms, handler);
             g.setPosition(x, y, z);
             nms.addEntity(g, SpawnReason.CUSTOM);
             return g;
         } else if (col.equals(Color.BLUE)) {
-            MyBlueZombie g = new MyBlueZombie(nms);
+            MyBlueZombie g = new MyBlueZombie(nms, handler);
             g.setPosition(x, y, z);
             nms.addEntity(g, SpawnReason.CUSTOM);
             return g;
@@ -78,15 +77,15 @@ class v1_10_R1_MobHandler implements TOWEntityHandler {
         }
     }
 
-    private static MyEntityGolem spawnTeamGolem(World world, double x, double y, double z, Color col) {
+    private static MyEntityGolem spawnTeamGolem(TOWEntityHandler handler, World world, double x, double y, double z, Color col) {
         WorldServer nms = ((CraftWorld) world).getHandle();
         if (col.equals(Color.BLUE)) {
-            MyBlueGolem g = new MyBlueGolem(nms);
+            MyBlueGolem g = new MyBlueGolem(nms, handler);
             g.setPosition(x, y, z);
             nms.addEntity(g, SpawnReason.CUSTOM);
             return g;
         } else if (col.equals(Color.RED)) {
-            MyRedGolem g = new MyRedGolem(nms);
+            MyRedGolem g = new MyRedGolem(nms, handler);
             g.setPosition(x, y, z);
             nms.addEntity(g, SpawnReason.CUSTOM);
             return g;
@@ -97,15 +96,15 @@ class v1_10_R1_MobHandler implements TOWEntityHandler {
 
     }
 
-    private static MyEntityGuardian spawnTeamGuardian(World world, double x, double y, double z, Color col) {
+    private static MyEntityGuardian spawnTeamGuardian(TOWEntityHandler handler, World world, double x, double y, double z, Color col) {
         WorldServer nms = ((CraftWorld) world).getHandle();
         if (col.equals(Color.RED)) {
-            MyRedGuardian g = new MyRedGuardian(nms);
+            MyRedGuardian g = new MyRedGuardian(nms, handler);
             g.setPosition(x, y, z);
             nms.addEntity(g, SpawnReason.CUSTOM);
             return g;
         } else if (col.equals(Color.BLUE)) {
-            MyBlueGuardian g = new MyBlueGuardian(nms);
+            MyBlueGuardian g = new MyBlueGuardian(nms, handler);
             g.setPosition(x, y, z);
             nms.addEntity(g, SpawnReason.CUSTOM);
             return g;
