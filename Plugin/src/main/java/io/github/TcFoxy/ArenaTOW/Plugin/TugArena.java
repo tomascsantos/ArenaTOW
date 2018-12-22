@@ -67,7 +67,9 @@ public class TugArena extends Arena {
     //public ScoreHelper sh;
     TugTimers timers;
     TugListener tuglistener;
-    TOWEntityHandler towEntityHandler;
+    private TOWEntityHandler towEntityHandler;
+    public TOWEntityHandler getEntityHandler() {return towEntityHandler;}
+
 
     //MinionFactory minionFactory = new MinionFactory(minionFactorySpawners);
     //PlayerEnhancements PlayerE = new PlayerEnhancements(arena);

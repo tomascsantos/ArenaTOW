@@ -3,6 +3,7 @@ package io.github.TcFoxy.ArenaTOW.Plugin.Serializable;
 import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import io.github.TcFoxy.ArenaTOW.Plugin.ArenaTOW;
+import io.github.TcFoxy.ArenaTOW.Plugin.TugArena;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 
@@ -22,9 +23,9 @@ public class Spawner extends PersistInfo {
     }
 
     @Override
-    public TOWEntity spawnMob() {
+    public TOWEntity spawnMob(TugArena arena) {
         Location spawn = getSpawnLoc();
-        setMob(ArenaTOW.getEntityHandler().spawnMob(ArenaTOW.getEntityHandler(), MobType.ZOMBIE, getTeamColor(),
+        setMob(arena.getEntityHandler().spawnMob(arena.getEntityHandler(), MobType.ZOMBIE, getTeamColor(),
                 spawn.getWorld(), spawn.getX(), spawn.getY(), spawn.getZ()));
         return getMob();
     }
