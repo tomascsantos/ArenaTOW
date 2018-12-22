@@ -53,6 +53,7 @@ public interface TOWEntity {
      * @return
      */
     default boolean isSameTeam(Object o) {
+        //this is a test.
         return getHandler().areSameTeam(this, o);
     }
 

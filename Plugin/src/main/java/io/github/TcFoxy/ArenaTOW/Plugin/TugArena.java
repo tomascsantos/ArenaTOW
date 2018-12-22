@@ -1,5 +1,6 @@
 package io.github.TcFoxy.ArenaTOW.Plugin;
 
+import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.*;
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo.BaseType;
 import mc.alk.arena.BattleArena;
@@ -54,7 +55,6 @@ public class TugArena extends Arena {
      */
     public HashMap<String, PersistInfo> activeInfo = new HashMap<String, PersistInfo>();
     HashMap<ArenaPlayer, Color> playerTeamLookup = new HashMap<>();
-    HashSet<TowPlayer> towPlayers = new HashSet<>();
 
 
     /*
@@ -67,6 +67,7 @@ public class TugArena extends Arena {
     //public ScoreHelper sh;
     TugTimers timers;
     TugListener tuglistener;
+    TOWEntityHandler towEntityHandler;
 
     //MinionFactory minionFactory = new MinionFactory(minionFactorySpawners);
     //PlayerEnhancements PlayerE = new PlayerEnhancements(arena);
@@ -167,6 +168,12 @@ public class TugArena extends Arena {
         timers.startEntitySpawn();
         timers.startEntityChecker();
 
+        /**
+         * Create the TowEntityHandler for this arena.
+         */
+        towEntityHandler = ArenaTOW.getEntityHandler();
+
+
         /*
          * set the teams so they can be
          * referenced in the future
@@ -180,7 +187,7 @@ public class TugArena extends Arena {
             team.setName(teamname);
             for (ArenaPlayer p : team.getPlayers()) {
                 playerTeamLookup.put(p, Utils.getTeamColor(teamname));    //Add Players to team lookup.
-                towPlayers.add(new TowPlayer(p, this));         //Add players to registry to lookup for events.
+                this.towEntityHandler.addEntity(new TowPlayer(p, this, this.towEntityHandler));
             }
         }
         /*
@@ -197,7 +204,7 @@ public class TugArena extends Arena {
 
         for (PersistInfo base : activeInfo.values()) {
             if (base instanceof Tower || base instanceof Nexus) {
-                base.spawnMob();
+                base.spawnMob(this);
             }
         }
 

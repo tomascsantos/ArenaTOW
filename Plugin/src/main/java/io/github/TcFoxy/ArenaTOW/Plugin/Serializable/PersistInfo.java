@@ -1,6 +1,7 @@
 package io.github.TcFoxy.ArenaTOW.Plugin.Serializable;
 
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import io.github.TcFoxy.ArenaTOW.Plugin.TugArena;
 import org.bukkit.*;
 
 import java.util.*;
@@ -158,7 +159,7 @@ public class PersistInfo {
     }
 
 
-    public TOWEntity spawnMob() {
+    public TOWEntity spawnMob(TugArena arena) {
         return null;
     }
 

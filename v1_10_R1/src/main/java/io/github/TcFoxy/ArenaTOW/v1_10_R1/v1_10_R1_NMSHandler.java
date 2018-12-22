@@ -5,14 +5,13 @@ import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
 
 import java.io.File;
 
+@SuppressWarnings("unused") //used through reflection.
 public class v1_10_R1_NMSHandler implements NMSHandler {
 
-    private v1_10_R1_MobHandler mobHandler;
     private v1_10_R1_EntityRegistrar entityRegistrar;
     private v1_10_R1_Listener listener;
 
     public v1_10_R1_NMSHandler(File saveDirectory) {
-        this.mobHandler = new v1_10_R1_MobHandler();
         this.entityRegistrar = new v1_10_R1_EntityRegistrar(saveDirectory);
         this.listener = new v1_10_R1_Listener(entityRegistrar, saveDirectory);
     }
@@ -24,7 +23,7 @@ public class v1_10_R1_NMSHandler implements NMSHandler {
 
     @Override
     public TOWEntityHandler getEntityHandler() {
-        return mobHandler;
+        return new v1_10_R1_MobHandler();
     }
 
     @Override

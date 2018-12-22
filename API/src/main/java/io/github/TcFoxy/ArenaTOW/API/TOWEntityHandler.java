@@ -20,7 +20,9 @@ public interface TOWEntityHandler {
     default void killMobs() {
         Collection<TOWEntity> entities = getMobs();
         for (TOWEntity e : entities) {
-            e.setHealth(0);
+            if (e.getMobType() != MobType.PLAYER) {
+                e.setHealth(0);
+            }
             entities.remove(e);
         }
     }
@@ -33,9 +35,15 @@ public interface TOWEntityHandler {
      */
     TOWEntity getTowEntity(Object o);
 
+    void addEntity(TOWEntity e);
+
     TOWEntity spawnMob(TOWEntityHandler handler, MobType mobType, Color teamColor, World world, double x, double y, double z);
 
     default boolean areSameTeam(TOWEntity e1, TOWEntity e2) {
+        if (!e1.getTeam().equals(e2.getTeam())) {
+            System.out.printf("Team1: %-20s | Team2: %-20s\n", e1.getTeam(), e2.getTeam());
+            System.out.printf("Class1: %s | Class2: %s | %s", e1.getClass(), e2.getClass(), e1.getTeam().equals(e2.getTeam()));
+        }
         return e1.getTeam().equals(e2.getTeam());
     }
 

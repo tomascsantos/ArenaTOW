@@ -28,10 +28,7 @@ class PathfinderGoalGolemFireball extends PathfinderGoal {
     public void e() {
         EntityLiving localEntityLiving = this.a.getGoalTarget();
 
-        System.out.println("GolemFireball: sameteam: " + ((TOWEntity) this).isSameTeam(localEntityLiving));
-        if (((TOWEntity) this).isSameTeam(localEntityLiving)) {
-            return;
-        }
+
 
         this.c -= 1;
 
@@ -41,6 +38,12 @@ class PathfinderGoalGolemFireball extends PathfinderGoal {
             return;
         }
 
+        //If same team then cancel.
+        if (a.isSameTeam(localEntityLiving)) {
+            return;
+        }
+
+        //If we get this far then we are proceeding with the fireball.
         double d2 = localEntityLiving.locX - this.a.locX;
         double d3 = localEntityLiving.getBoundingBox().b + localEntityLiving.length / 2.0F - (this.a.locY + this.a.length / 2.0F);
         double d4 = localEntityLiving.locZ - this.a.locZ;

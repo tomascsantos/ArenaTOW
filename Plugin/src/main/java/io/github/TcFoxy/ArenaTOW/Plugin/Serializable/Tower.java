@@ -16,7 +16,6 @@ public class Tower extends PersistInfo {
         Location spawn = getSpawnLoc();
         setMob(ArenaTOW.getEntityHandler().spawnMob(ArenaTOW.getEntityHandler(), MobType.TOWER, getTeamColor(),
                 spawn.getWorld(), spawn.getX(), spawn.getY(), spawn.getZ()));
-        Bukkit.broadcastMessage("entity from " + this.getKey() + "was spawned");
         return getMob();
     }
 

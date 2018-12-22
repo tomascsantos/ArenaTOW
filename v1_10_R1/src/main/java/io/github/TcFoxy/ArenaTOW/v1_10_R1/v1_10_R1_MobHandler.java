@@ -30,6 +30,11 @@ class v1_10_R1_MobHandler implements TOWEntityHandler {
         return towEntities.values();
     }
 
+    @Override
+    public void addEntity(TOWEntity e) {
+        towEntities.put(e.getUID(), e);
+    }
+
 
     @Override
     public TOWEntity getTowEntity(Object o) {
@@ -41,7 +46,6 @@ class v1_10_R1_MobHandler implements TOWEntityHandler {
 
     @Override
     public TOWEntity spawnMob(TOWEntityHandler handler, MobType mobType, Color teamColor, World world, double x, double y, double z) {
-        Bukkit.broadcastMessage("DO WE SPAWN THE FUKKING MOB?");
         TOWEntity entity = null;
         switch (mobType) {
             case ZOMBIE:
@@ -54,7 +58,7 @@ class v1_10_R1_MobHandler implements TOWEntityHandler {
                 entity = spawnTeamGolem(handler, world, x, y, z, teamColor);
         }
         if (entity != null) {
-            towEntities.put(entity.getUID(), entity);
+            addEntity(entity);
         }
         return entity;
     }

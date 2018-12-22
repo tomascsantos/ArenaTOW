@@ -2,10 +2,13 @@ package io.github.TcFoxy.ArenaTOW.Plugin;
 
 import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
+import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
 import mc.alk.arena.objects.ArenaPlayer;
 import mc.alk.arena.objects.arenas.Arena;
 import org.bukkit.Color;
 import org.bukkit.Location;
+
+import java.util.UUID;
 
 /**
  * Created by Tomas Santos on 12/19/2018.
@@ -14,10 +17,17 @@ public class TowPlayer implements TOWEntity{
 
     ArenaPlayer player;
     TugArena tugArena;
+    TOWEntityHandler handler;
 
-    public TowPlayer(ArenaPlayer player, TugArena tugArena) {
+    public TowPlayer(ArenaPlayer player, TugArena tugArena, TOWEntityHandler handler) {
         this.player = player;
         this.tugArena = tugArena;
+        this.handler = handler;
+    }
+
+    @Override
+    public TOWEntityHandler getHandler() {
+        return handler;
     }
 
     @Override
@@ -48,5 +58,10 @@ public class TowPlayer implements TOWEntity{
     @Override
     public Location getLocation() {
         return player.getLocation();
+    }
+
+    @Override
+    public UUID getUID() {
+        return player.getID();
     }
 }
