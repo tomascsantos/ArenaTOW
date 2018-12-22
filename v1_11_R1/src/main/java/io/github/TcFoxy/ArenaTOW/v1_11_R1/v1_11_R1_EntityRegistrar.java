@@ -1,11 +1,11 @@
-package io.github.TcFoxy.ArenaTOW.v1_10_R1;
+package io.github.TcFoxy.ArenaTOW.v1_11_R1;
 
 import io.github.TcFoxy.ArenaTOW.API.CustomEntityRegistrar;
-import net.minecraft.server.v1_10_R1.*;
+import net.minecraft.server.v1_11_R1.*;
 import org.bukkit.*;
 import org.bukkit.Chunk;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_11_R1.CraftWorld;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import java.io.*;
@@ -13,17 +13,17 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-public class v1_10_R1_EntityRegistrar implements CustomEntityRegistrar {
+public class v1_11_R1_EntityRegistrar implements CustomEntityRegistrar {
 
-    public final Map<String, v1_10_R1_Entities> registryEntries = new HashMap<String, v1_10_R1_Entities>();
+    public final Map<String, v1_11_R1_Entities> registryEntries = new HashMap<String, v1_11_R1_Entities>();
     File dir;
 
-    v1_10_R1_EntityRegistrar(File dir) {
+    v1_11_R1_EntityRegistrar(File dir) {
         this.dir = dir;
     }
 
     public void registerEntities() {
-        for (v1_10_R1_Entities entity : v1_10_R1_Entities.values()) {
+        for (v1_11_R1_Entities entity : v1_11_R1_Entities.values()) {
             register(entity);
         }
     }
@@ -33,7 +33,7 @@ public class v1_10_R1_EntityRegistrar implements CustomEntityRegistrar {
      */
     public void unregisterEntities() {
         if (registryEntries.isEmpty()) return;
-        for (v1_10_R1_Entities cre : registryEntries.values()) unregister(cre);
+        for (v1_11_R1_Entities cre : registryEntries.values()) unregister(cre);
 
         registryEntries.clear();
     }
@@ -47,7 +47,7 @@ public class v1_10_R1_EntityRegistrar implements CustomEntityRegistrar {
      * @param cre The registry entry to register.
      */
     @SuppressWarnings("unchecked")
-    public void register(final v1_10_R1_Entities cre) {
+    public void register(final v1_11_R1_Entities cre) {
         if (registryEntries.containsKey(cre.getCustomClass().toString())) return;
             final Class<? extends EntityInsentient> paramClass = (Class<? extends EntityInsentient>) cre.getCustomClass();
             final String paramString = cre.getName();
@@ -66,14 +66,14 @@ public class v1_10_R1_EntityRegistrar implements CustomEntityRegistrar {
 
     /**
      * Unregister a custom entity, using its registry entry.<br>
-     * <b>Will not work if you create a new instance of v1_10_R1_Entities, even if it has the same parameters.</b><br><br>
+     * <b>Will not work if you create a new instance of v1_11_R1_Entities, even if it has the same parameters.</b><br><br>
      * <p>
      * Unregistering an entity will save and remove it, and may cause lag spikes - bigger than if you registered one.
      *
      * @param cre The registry entry to unregister.
      */
     @SuppressWarnings("unchecked")
-    public void unregister(final v1_10_R1_Entities cre) {
+    public void unregister(final v1_11_R1_Entities cre) {
         if (!registryEntries.containsValue(cre)) return;
         final Class<? extends EntityInsentient> paramClass = (Class<? extends EntityInsentient>) cre.getCustomClass();
         final String paramString = cre.getName();
@@ -116,8 +116,8 @@ public class v1_10_R1_EntityRegistrar implements CustomEntityRegistrar {
         if (!registryEntries.containsKey(nbt.getString("cid"))) return false;
         try {
             final Class<? extends EntityInsentient> clazz = (Class<? extends EntityInsentient>) registryEntries.get(nbt.getString("cid")).getCustomClass();
-            final net.minecraft.server.v1_10_R1.World nmsW = ((CraftWorld) w).getHandle();
-            EntityInsentient e = clazz.getConstructor(net.minecraft.server.v1_10_R1.World.class).newInstance(nmsW);
+            final net.minecraft.server.v1_11_R1.World nmsW = ((CraftWorld) w).getHandle();
+            EntityInsentient e = clazz.getConstructor(net.minecraft.server.v1_11_R1.World.class).newInstance(nmsW);
             NBTTagList pos = nbt.getList("Pos", 6);
             NBTTagList rot = nbt.getList("Rotation", 5);
 

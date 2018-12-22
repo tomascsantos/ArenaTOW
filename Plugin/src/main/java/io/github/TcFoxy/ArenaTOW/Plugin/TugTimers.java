@@ -92,10 +92,9 @@ public class TugTimers {
         for (PersistInfo info : tug.activeInfo.values()) {
             if (info instanceof Spawner) {
                 Spawner spawn = (Spawner) info;
-
                 CustomZombie zombie = (CustomZombie) info.spawnMob(arena);
                 spawn.addMob(zombie);
-                zombie.whereTo(spawn.getPathDest(zombie));
+                zombie.whereTo();
             }
         }
     }
@@ -106,42 +105,5 @@ public class TugTimers {
                 ((Spawner) info).killMobs();
             }
         }
-    }
-
-
-    /*
-     * This method checks the pathfinding target of the zombie
-     * every 5 seconds and if it has reached its current pathfining
-     * goal it removes the current goal and adds a new one
-     */
-    public void startEntityChecker() {
-        checkerId = Bukkit.getScheduler().scheduleSyncRepeatingTask(ArenaTOW.getSelf(), new Runnable() {
-            @Override
-            public void run() {
-                for (PersistInfo info : tug.activeInfo.values()) {
-                    if (info instanceof Spawner) {
-                        Spawner spawn = (Spawner) info;
-                        HashMap<TOWEntity, Integer> zombies = spawn.getZombies();
-                        for (TOWEntity zombie : zombies.keySet()) {
-                            if (isWithinRange(spawn, zombie)) {
-                                ((CustomZombie) zombie).whereTo(spawn.newPathDest(zombie));
-                            }
-                        }
-                    }
-                }
-            }
-        }, 5 * Utils.TPS, 5 * Utils.TPS);
-    }
-
-    private boolean isWithinRange(Spawner s, TOWEntity e) {
-        if (s.getPathDest(e) != null) {
-            Location cLoc = s.getPathDest(e);
-            Location entityloc = s.getcurrentLocation(e);
-            if (entityloc == null) {
-                return false;
-            }
-            return entityloc.distance(cLoc) < 3;
-        }
-        return false;
     }
 }

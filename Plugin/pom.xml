@@ -48,6 +48,15 @@
         </dependency>
         <dependency>
             <groupId>io.github.TcFoxy</groupId>
+            <artifactId>ArenaTOW-v1_11_R1</artifactId>
+            <version>v1_11_R1</version>
+            <type>jar</type>
+            <scope>compile</scope>   <!-- The 'compile' scope will get shaded in -->
+            <optional>true
+            </optional>  <!-- Set all of these to optional, to ensure plugins building against yours don't look for them -->
+        </dependency>
+        <dependency>
+            <groupId>io.github.TcFoxy</groupId>
             <artifactId>ArenaTOW-api</artifactId>
             <version>API</version>
             <type>jar</type>
@@ -98,6 +107,7 @@
                 <configuration>
                     <tasks>
                         <copy file="../target/ArenaTugOfWar.jar" tofile="../../server_1_10/plugins/ArenaTOW.jar"/>
+                        <copy file="../target/ArenaTugOfWar.jar" tofile="../../server_1_11/plugins/ArenaTOW.jar"/>
                         <copy file="../target/ArenaTugOfWar.jar" tofile="../../server_1_12/plugins/ArenaTOW.jar"/>
                     </tasks>
                 </configuration>

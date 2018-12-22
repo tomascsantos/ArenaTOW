@@ -56,24 +56,36 @@ public class TugArena extends Arena {
     public HashMap<String, PersistInfo> activeInfo = new HashMap<String, PersistInfo>();
     HashMap<ArenaPlayer, Color> playerTeamLookup = new HashMap<>();
 
+    ArenaTeam getTeam(Color col) throws IllegalArgumentException{
+        if (col.equals(Color.RED)) {
+            return redTeam;
+        }
+        if (col.equals(Color.BLUE)) {
+            return blueTeam;
+        }
+        throw new IllegalArgumentException();
+    }
+
+    ArenaTeam getOppisiteTeam(Color col) throws IllegalArgumentException{
+        if (col.equals(Color.RED)) {
+            return blueTeam;
+        }
+        if (col.equals(Color.BLUE)) {
+            return redTeam;
+        }
+        throw new IllegalArgumentException();
+    }
+
 
     /*
      * setup refrences to objects used throughout the class
      * Is this the best way to do it?
      */
 
-    //public UpgradeGUI uGUI;
-    //ArenaClassExecutor ACexecutor;
-    //public ScoreHelper sh;
     TugTimers timers;
     TugListener tuglistener;
     private TOWEntityHandler towEntityHandler;
     public TOWEntityHandler getEntityHandler() {return towEntityHandler;}
-
-
-    //MinionFactory minionFactory = new MinionFactory(minionFactorySpawners);
-    //PlayerEnhancements PlayerE = new PlayerEnhancements(arena);
-    //public TeamLevel teamLevel = new TeamLevel();
 
 
     /*
@@ -86,11 +98,6 @@ public class TugArena extends Arena {
      */
     public TugArena() {
         super();
-        /*
-         * No Idea what's happening here...
-         * Nothing seems to work though
-         */
-
     }
 
 
@@ -126,11 +133,7 @@ public class TugArena extends Arena {
         //minionFactory = new MinionFactory(minionFactorySpawners);
         //PlayerE.resetdefaultStats();
         timers = new TugTimers(tug);
-        //PlayerE = new PlayerEnhancements(arena);
         tuglistener = new TugListener(tug);
-        //this.sh = new ScoreHelper(tug);
-
-
     }
 
 
@@ -140,8 +143,6 @@ public class TugArena extends Arena {
          * if they are enabled in the main class they cant
          * be passed in an instance of this arena.
          */
-        //Bukkit.getServer().getPluginManager().registerEvents(PlayerE, ArenaTOW.getSelf());
-        //Bukkit.getServer().getPluginManager().registerEvents(uGUI, ArenaTOW.getSelf());
         Bukkit.getServer().getPluginManager().registerEvents(tuglistener, ArenaTOW.getSelf());
     }
 
@@ -168,7 +169,6 @@ public class TugArena extends Arena {
 
         timers.gameTime();
         timers.startEntitySpawn(this);
-        timers.startEntityChecker();
 
         /**
          * Create the TowEntityHandler for this arena.
@@ -180,24 +180,22 @@ public class TugArena extends Arena {
          * set the teams so they can be
          * referenced in the future
          */
-        List<ArenaTeam> teams = getTeams();
+        List<ArenaTeam> t = getTeams();
         String teamname = "";
-        ArenaTeam team;
-        for (int i = 0; i < teams.size(); i++) {
+        for (int i = 0; i < t.size(); i++) {
             teamname = Utils.getTeamName(i);
-            team = teams.get(i);
-            team.setName(teamname);
-            for (ArenaPlayer p : team.getPlayers()) {
-                playerTeamLookup.put(p, Utils.getTeamColor(teamname));    //Add Players to team lookup.
+            if (i == 0) {
+                redTeam = t.get(i);
+                redTeam.setName(teamname);
+            } else if (i == 1) {
+                blueTeam = t.get(i);
+                blueTeam.setName(teamname);
+            }
+            for (ArenaPlayer p : t.get(i).getPlayers()) {
+                this.playerTeamLookup.put(p, Utils.getTeamColor(teamname));
                 this.towEntityHandler.addEntity(new TowPlayer(p, this, this.towEntityHandler));
             }
         }
-        /*
-         * set the team level
-         */
-
-        //teamLevel.setTeamLev(blueTeam);
-        //teamLevel.setTeamLev(redTeam);
 
         /*
          * spawn the towers and the golems.
@@ -211,30 +209,9 @@ public class TugArena extends Arena {
         }
 
         /*
-         * set up the arena economy
-         */
-
-        //ArenaEcon.onStart(arena);
-
-        /*
-         * initialize some classes
-         */
-
-        //this initializes the "ArenaClass powers ex: lightning"
-        //ACexecutor = new ArenaClassExecutor(this, plugin, match);
-
-        //this initializes the shop
-        //uGUI = new UpgradeGUI(match);
-
-        //setup the scoreboard for everyone
-        //this.sh.onStart();
-
-        /*
          * turn on the listeners
          */
         enableListeners();
-
-
     }
 
     @Override
@@ -244,8 +221,6 @@ public class TugArena extends Arena {
             return;
         timers.cancelTimers();
         timers.killminions();
-        //Necromancer.instakillnecros(Necromancer.necro);
-        //PlayerE.resetdefaultStats();
     }
 
     public void onComplete() {
@@ -310,43 +285,6 @@ public class TugArena extends Arena {
 
     }
 
-    //	@ArenaEventHandler
-    //	public void extradamage(EntityDamageByEntityEvent event){
-    //		if(event.getDamager().getClass().getName() == NMSConstants.entityPlayer){
-    //			Player p = (Player) event.getDamager();
-    //			ArenaTeam team = getTeam((Player) event.getDamager());
-    //			Double multiplier = 1.0;
-    //			if(PlayerEnhancements.damageMulti.containsKey(p.getUniqueId())){
-    //				multiplier = PlayerEnhancements.damageMulti.get(p.getUniqueId());
-    //			}
-    //			Double damage = event.getDamage()*multiplier;
-    //			damage += teamLevel.getTeamLev(team.getDisplayName());
-    //			//event.setDamage((Double)damage);
-    //		}
-    //	}
-
-    //	@ArenaEventHandler
-    //	public void coolEffects(PlayerInteractEvent event){
-    //		if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK){
-    //			if(event.getItem() == null){
-    //				return; //no item in hand
-    //			}
-    //			if(event.getItem().getType() == Material.DIAMOND_AXE ||
-    //					event.getItem().getType() == Material.GOLD_AXE ||
-    //					event.getItem().getType() == Material.IRON_AXE ||
-    //					event.getItem().getType() == Material.STONE_AXE ||
-    //					event.getItem().getType() == Material.WOOD_AXE ||
-    //					event.getItem().getType() == Material.NETHER_STAR){
-    //				ACexecutor.determineEffect(event);
-    //			}
-    //
-    //		}else{
-    //			return;
-    //		}
-    //
-    //	}
-
-
     public void keepInventory(final Player player) {
         if (player.getInventory().contains(Material.NETHER_STAR)) {
             player.getInventory().remove(Material.NETHER_STAR);
@@ -399,16 +337,6 @@ public class TugArena extends Arena {
          * give out money for the death of the player
          */
         final ArenaPlayer ap = BattleArena.toArenaPlayer(p);
-
-        //		if(ap.getTeam()==blueTeam){
-        //			for(Player player:redTeam.getBukkitPlayers()){
-        //				ArenaEcon.addCash(player, 25);
-        //			}
-        //		}else{
-        //			for(Player player:blueTeam.getBukkitPlayers()){
-        //				ArenaEcon.addCash(player, 25);
-        //			}
-        //		}
 
         /*
          * teleport to the correct deathroom

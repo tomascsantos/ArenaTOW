@@ -1,9 +1,9 @@
-package io.github.TcFoxy.ArenaTOW.v1_10_R1;
+package io.github.TcFoxy.ArenaTOW.v1_11_R1;
 
 import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
-import net.minecraft.server.v1_10_R1.*;
+import net.minecraft.server.v1_11_R1.*;
 import org.bukkit.Location;
 
 import java.util.UUID;
@@ -40,7 +40,7 @@ public abstract class MyEntityGolem extends EntityIronGolem implements TOWEntity
     }
 
     @Override
-    public void move(double d0, double d1, double d2) {
+    public void move(EnumMoveType type, double d0, double d1, double d2) {
     }
 
     @Override

@@ -1,7 +1,7 @@
-package io.github.TcFoxy.ArenaTOW.v1_10_R1;
+package io.github.TcFoxy.ArenaTOW.v1_11_R1;
 
 import io.github.TcFoxy.ArenaTOW.API.*;
-import net.minecraft.server.v1_10_R1.*;
+import net.minecraft.server.v1_11_R1.*;
 import org.bukkit.Location;
 
 import java.lang.reflect.Field;

@@ -1,10 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.Plugin;
 
+import io.github.TcFoxy.ArenaTOW.API.Events.CustomZombieReachTargetEvent;
 import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo;
 import mc.alk.arena.objects.ArenaPlayer;
-import mc.alk.arena.util.Log;
+import mc.alk.arena.objects.teams.ArenaTeam;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -37,6 +38,11 @@ public class TugListener implements Listener {
 
 
 	}
+
+	@EventHandler
+    private void reachedDestination(CustomZombieReachTargetEvent event) {
+	    event.getEntityZombie().whereTo();
+    }
 
     /*
      * when a player kills a minion, tower, or player,
@@ -142,17 +148,11 @@ public class TugListener implements Listener {
     private void nexusDeath(EntityDeathEvent event) {
         if (event.getEntityType() != EntityType.GUARDIAN)
             return;
-        for (PersistInfo b : tug.activeInfo.values()) {
-            if (b.hasMob() && b.getMob().isAlive()) {
-                if (b.getMob().getMobType() == MobType.NEXUS) {
-                    tug.arena.getMatch().setVictor(tug.redTeam);
-                    return;
-                } else if (b.getMob().getMobType() == MobType.NEXUS) {
-                    tug.arena.getMatch().setVictor(tug.blueTeam);
-                    return;
-                }
-            }
-        }
+        TOWEntity towEntity = tug.getEntityHandler().getTowEntity(event.getEntity());
+        System.out.println("tow entity = " + towEntity);
+        System.out.println("Towentity team: " + towEntity.getTeam());
+        ArenaTeam team = tug.getOppisiteTeam(towEntity.getTeam());
+        tug.arena.getMatch().setVictor(team);
     }
 
     /*

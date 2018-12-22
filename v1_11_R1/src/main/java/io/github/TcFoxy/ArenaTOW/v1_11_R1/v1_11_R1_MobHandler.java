@@ -1,11 +1,11 @@
-package io.github.TcFoxy.ArenaTOW.v1_10_R1;
+package io.github.TcFoxy.ArenaTOW.v1_11_R1;
 
 import io.github.TcFoxy.ArenaTOW.API.*;
-import net.minecraft.server.v1_10_R1.EntityLiving;
-import net.minecraft.server.v1_10_R1.PathfinderGoalSelector;
-import net.minecraft.server.v1_10_R1.WorldServer;
+import net.minecraft.server.v1_11_R1.EntityLiving;
+import net.minecraft.server.v1_11_R1.PathfinderGoalSelector;
+import net.minecraft.server.v1_11_R1.WorldServer;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_11_R1.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
@@ -18,11 +18,11 @@ import java.util.*;
  * https://forums.bukkit.org/threads/tutorial-register-your-custom-entities-nms-reflection.258542/
  */
 
-class v1_10_R1_MobHandler implements TOWEntityHandler {
+class v1_11_R1_MobHandler implements TOWEntityHandler {
 
     private HashMap<UUID, TOWEntity> towEntities;
 
-    public v1_10_R1_MobHandler() {
+    public v1_11_R1_MobHandler() {
         towEntities = new HashMap<>();
     }
 
@@ -80,7 +80,7 @@ class v1_10_R1_MobHandler implements TOWEntityHandler {
             nms.addEntity(g, SpawnReason.CUSTOM);
             return g;
         } else {
-            Bukkit.broadcastMessage("ERROR, v1_10_R1_MobHandler spawnTeamZombie() invalid color");
+            Bukkit.broadcastMessage("ERROR, v1_11_R1_MobHandler spawnTeamZombie() invalid color");
             return null;
         }
     }
@@ -98,7 +98,7 @@ class v1_10_R1_MobHandler implements TOWEntityHandler {
             nms.addEntity(g, SpawnReason.CUSTOM);
             return g;
         } else {
-            Bukkit.broadcastMessage("ERROR, v1_10_R1_MobHandler spawnTeamGolem() invalid color");
+            Bukkit.broadcastMessage("ERROR, v1_11_R1_MobHandler spawnTeamGolem() invalid color");
             return null;
         }
 
@@ -117,7 +117,7 @@ class v1_10_R1_MobHandler implements TOWEntityHandler {
             nms.addEntity(g, SpawnReason.CUSTOM);
             return g;
         } else {
-            Bukkit.broadcastMessage("ERROR, v1_10_R1_MobHandler spawnTeamGuardian() invalid color");
+            Bukkit.broadcastMessage("ERROR, v1_11_R1_MobHandler spawnTeamGuardian() invalid color");
             return null;
         }
 
@@ -125,13 +125,13 @@ class v1_10_R1_MobHandler implements TOWEntityHandler {
 
     @SuppressWarnings("rawtypes")
     static void clearBehavior(PathfinderGoalSelector goalSelector, PathfinderGoalSelector targetSelector) {
-        LinkedHashSet goalB = (LinkedHashSet) v1_10_R1_MobHandler.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);
+        LinkedHashSet goalB = (LinkedHashSet) v1_11_R1_MobHandler.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);
         goalB.clear();
-        LinkedHashSet goalC = (LinkedHashSet) v1_10_R1_MobHandler.getPrivateField("c", PathfinderGoalSelector.class, goalSelector);
+        LinkedHashSet goalC = (LinkedHashSet) v1_11_R1_MobHandler.getPrivateField("c", PathfinderGoalSelector.class, goalSelector);
         goalC.clear();
-        LinkedHashSet targetB = (LinkedHashSet) v1_10_R1_MobHandler.getPrivateField("b", PathfinderGoalSelector.class, targetSelector);
+        LinkedHashSet targetB = (LinkedHashSet) v1_11_R1_MobHandler.getPrivateField("b", PathfinderGoalSelector.class, targetSelector);
         targetB.clear();
-        LinkedHashSet targetC = (LinkedHashSet) v1_10_R1_MobHandler.getPrivateField("c", PathfinderGoalSelector.class, targetSelector);
+        LinkedHashSet targetC = (LinkedHashSet) v1_11_R1_MobHandler.getPrivateField("c", PathfinderGoalSelector.class, targetSelector);
         targetC.clear();
     }
 

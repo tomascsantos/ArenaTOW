@@ -1,6 +1,6 @@
-package io.github.TcFoxy.ArenaTOW.v1_10_R1;
+package io.github.TcFoxy.ArenaTOW.v1_11_R1;
 
-import net.minecraft.server.v1_10_R1.*;
+import net.minecraft.server.v1_11_R1.*;
 
 class PathfinderGoalGolemFireball extends PathfinderGoal {
     private MyEntityGolem a;
