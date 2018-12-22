@@ -167,7 +167,7 @@ public class TugArena extends Arena {
          */
 
         timers.gameTime();
-        timers.startEntitySpawn();
+        timers.startEntitySpawn(this);
         timers.startEntityChecker();
 
         /**

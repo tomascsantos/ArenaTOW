@@ -74,12 +74,12 @@ public class TugTimers {
      * and adds them to the hashmap that contains all the living
      * entities so that they can be killed by the end of the game
      */
-    public void startEntitySpawn() {
+    public void startEntitySpawn(TugArena arena) {
         spawnerId = Bukkit.getScheduler().scheduleSyncRepeatingTask(ArenaTOW.getSelf(), new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < 4; i++) {
-                    spawnMobFromFactory();
+                    spawnMobFromFactory(arena);
                 }
 
             }
@@ -88,12 +88,12 @@ public class TugTimers {
     }
 
     //spawnMobFromFactory() is used with above timer.
-    public void spawnMobFromFactory() {
+    public void spawnMobFromFactory(TugArena arena) {
         for (PersistInfo info : tug.activeInfo.values()) {
             if (info instanceof Spawner) {
                 Spawner spawn = (Spawner) info;
 
-                CustomZombie zombie = (CustomZombie) info.spawnMob();
+                CustomZombie zombie = (CustomZombie) info.spawnMob(arena);
                 spawn.addMob(zombie);
                 zombie.whereTo(spawn.getPathDest(zombie));
             }
