@@ -255,7 +255,6 @@ public class TugArena extends Arena {
         }
     }
 
-
     @ArenaEventHandler
     public void endGame(PlayerQuitEvent e) {
         if (this.getMatch().getAlivePlayers() == null) {

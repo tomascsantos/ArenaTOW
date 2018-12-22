@@ -1,10 +1,13 @@
 package io.github.TcFoxy.ArenaTOW.v1_10_R1;
 
+import io.github.TcFoxy.ArenaTOW.API.Events.CustomEntityTakeDamageEvent;
 import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
 import net.minecraft.server.v1_10_R1.*;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.event.Event;
 
 import java.util.UUID;
 
@@ -27,6 +30,16 @@ public abstract class MyEntityGolem extends EntityIronGolem implements TOWEntity
     @Override
     public org.bukkit.entity.Entity getMob() {
         return this.getBukkitEntity();
+    }
+
+    @Override
+    public boolean damageEntity(DamageSource damageSource, float f) {
+        CustomEntityTakeDamageEvent e = new CustomEntityTakeDamageEvent(this, damageSource.getEntity().getBukkitEntity());
+        Bukkit.getPluginManager().callEvent(e);
+        if (e.isCancelled()) {
+            return false;
+        }
+        return super.damageEntity(damageSource, f);
     }
 
     @Override

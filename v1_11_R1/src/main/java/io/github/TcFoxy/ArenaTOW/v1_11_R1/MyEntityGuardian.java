@@ -4,6 +4,7 @@ package io.github.TcFoxy.ArenaTOW.v1_11_R1;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
+import io.github.TcFoxy.ArenaTOW.API.Events.CustomEntityTakeDamageEvent;
 import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
@@ -21,6 +22,7 @@ import net.minecraft.server.v1_11_R1.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.server.v1_11_R1.PathfinderGoalRandomLookaround;
 import net.minecraft.server.v1_11_R1.PathfinderGoalRandomStroll;
 import net.minecraft.server.v1_11_R1.World;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
@@ -57,6 +59,13 @@ public abstract class MyEntityGuardian extends EntityGuardianElder implements TO
 
     @Override
     public void move(EnumMoveType type, double d0, double d1, double d2){
+    }
+
+    @Override
+    public boolean damageEntity(DamageSource damageSource, float f) {
+        CustomEntityTakeDamageEvent e = new CustomEntityTakeDamageEvent(this, damageSource.getEntity().getBukkitEntity());
+        Bukkit.getPluginManager().callEvent(e);
+        return !e.isCancelled() && super.damageEntity(damageSource, f);
     }
 
     @Override
@@ -112,7 +121,7 @@ public abstract class MyEntityGuardian extends EntityGuardianElder implements TO
 
     @Override
     public UUID getUID() {
-        return null;
+        return this.getUniqueID();
     }
 
 
@@ -161,7 +170,7 @@ public abstract class MyEntityGuardian extends EntityGuardianElder implements TO
             final EntityLiving goalTarget = this.a.getGoalTarget();
             this.a.getNavigation().o();
             this.a.getControllerLook().a(goalTarget, 90.0f, 90.0f);
-            if (!this.a.hasLineOfSight(goalTarget)) {
+            if (!this.a.hasLineOfSight(goalTarget) || this.a.isSameTeam(goalTarget)) {
                 this.a.setGoalTarget(null);
                 return;
             }

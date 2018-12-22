@@ -1,9 +1,11 @@
 package io.github.TcFoxy.ArenaTOW.Plugin;
 
+import io.github.TcFoxy.ArenaTOW.API.Events.CustomEntityTakeDamageEvent;
 import io.github.TcFoxy.ArenaTOW.API.Events.CustomZombieReachTargetEvent;
 import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import io.github.TcFoxy.ArenaTOW.Plugin.Serializable.PersistInfo;
+import mc.alk.arena.BattleArena;
 import mc.alk.arena.objects.ArenaPlayer;
 import mc.alk.arena.objects.teams.ArenaTeam;
 import org.bukkit.ChatColor;
@@ -26,22 +28,18 @@ public class TugListener implements Listener {
     }
 
 
-
-    /*
-     * used to make sure that entities
-     * of the same team will not pathfind towards friendly targets
-     * or targets that are invisible.
-     */
-	@EventHandler
-	private void sameTeamTarget(EntityTargetEvent event){
-		if (event.getTarget() == null) return;
-
-
-	}
-
+    @SuppressWarnings("unused")
 	@EventHandler
     private void reachedDestination(CustomZombieReachTargetEvent event) {
 	    event.getEntityZombie().whereTo();
+    }
+
+    @SuppressWarnings("unused")
+    @EventHandler
+    private void friendlyFire(CustomEntityTakeDamageEvent event) {
+        if (event.getDamaged().isSameTeam(event.getAttacker())) {
+            event.setCancelled(true);
+        }
     }
 
     /*
@@ -96,6 +94,7 @@ public class TugListener implements Listener {
      * golem's fireballs shouldnt hurt same team
      */
 
+    @SuppressWarnings("unused")
     @EventHandler
     private void noFireBallDmg(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof TOWEntity &&
@@ -113,6 +112,7 @@ public class TugListener implements Listener {
     /*
      * used to prevent any annoying loot drop by entities.
      */
+    @SuppressWarnings("unused")
     @EventHandler
     private void noLootDrop(EntityDeathEvent event) {
         event.setDroppedExp(0);
@@ -122,19 +122,18 @@ public class TugListener implements Listener {
     /*
      * no breaking blocks
      */
+    @SuppressWarnings("unused")
     @EventHandler
     private void noBreakBlocks(BlockBreakEvent event) {
-        for (ArenaPlayer ap : tug.arena.getMatch().getAlivePlayers()) {
-            if (event.getPlayer() == ap.getPlayer()) {
-                event.setCancelled(true);
-                event.getPlayer().sendMessage(ChatColor.DARK_RED + "Spamy Spam Spam - That's what you get for breaking blocks in the Arena!");
-            }
+        if (tug.arena.getAlivePlayers().contains(BattleArena.toArenaPlayer(event.getPlayer()))) {
+            event.setCancelled(true);
         }
     }
 
     /*
      * used to stop incendiary fireballs from igniting blocks
      */
+    @SuppressWarnings("unused")
     @EventHandler
     private void noFireballFire(BlockIgniteEvent event) {
         if (event.getCause().equals(IgniteCause.FIREBALL)) event.setCancelled(true);
@@ -146,13 +145,14 @@ public class TugListener implements Listener {
      */
     @EventHandler
     private void nexusDeath(EntityDeathEvent event) {
-        if (event.getEntityType() != EntityType.GUARDIAN)
+        if (event.getEntityType().equals(EntityType.GUARDIAN) || event.getEntityType().equals(EntityType.ELDER_GUARDIAN)) {
+            TOWEntity towEntity = tug.getEntityHandler().getTowEntity(event.getEntity());
+            System.out.println("tow entity = " + towEntity);
+            System.out.println("Towentity team: " + towEntity.getTeam());
+            ArenaTeam team = tug.getOppisiteTeam(towEntity.getTeam());
+            tug.arena.getMatch().setVictor(team);
+        }
             return;
-        TOWEntity towEntity = tug.getEntityHandler().getTowEntity(event.getEntity());
-        System.out.println("tow entity = " + towEntity);
-        System.out.println("Towentity team: " + towEntity.getTeam());
-        ArenaTeam team = tug.getOppisiteTeam(towEntity.getTeam());
-        tug.arena.getMatch().setVictor(team);
     }
 
     /*

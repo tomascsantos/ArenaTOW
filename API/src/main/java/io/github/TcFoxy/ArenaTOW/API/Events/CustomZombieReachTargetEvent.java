@@ -26,7 +26,7 @@ public class CustomZombieReachTargetEvent extends Event{
         return HANDLERS;
     }
 
-    //Spigot said we needed this?
+    @SuppressWarnings("unused")
     public static HandlerList getHandlerList() {
         return HANDLERS;
     }

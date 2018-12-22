@@ -1,7 +1,9 @@
 package io.github.TcFoxy.ArenaTOW.v1_11_R1;
 
 import io.github.TcFoxy.ArenaTOW.API.*;
+import io.github.TcFoxy.ArenaTOW.API.Events.CustomEntityTakeDamageEvent;
 import net.minecraft.server.v1_11_R1.*;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.lang.reflect.Field;
@@ -70,6 +72,13 @@ public abstract class MyEntityZombie extends EntityZombie implements TOWEntity, 
         if (path.peek() != null) {
             this.goalSelector.a(6, new MyPathfindingGoalWalk(this, 1.2D, getNextLoc(), targetDistance));
         }
+    }
+
+    @Override
+    public boolean damageEntity(DamageSource damageSource, float f) {
+        CustomEntityTakeDamageEvent e = new CustomEntityTakeDamageEvent(this, damageSource.getEntity().getBukkitEntity());
+        Bukkit.getPluginManager().callEvent(e);
+        return !e.isCancelled() && super.damageEntity(damageSource, f);
     }
 
     @SuppressWarnings("rawtypes")

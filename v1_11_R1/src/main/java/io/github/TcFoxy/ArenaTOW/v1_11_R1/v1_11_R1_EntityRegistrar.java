@@ -6,12 +6,14 @@ import org.bukkit.*;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_11_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class v1_11_R1_EntityRegistrar implements CustomEntityRegistrar {
 
@@ -49,19 +51,15 @@ public class v1_11_R1_EntityRegistrar implements CustomEntityRegistrar {
     @SuppressWarnings("unchecked")
     public void register(final v1_11_R1_Entities cre) {
         if (registryEntries.containsKey(cre.getCustomClass().toString())) return;
-            final Class<? extends EntityInsentient> paramClass = (Class<? extends EntityInsentient>) cre.getCustomClass();
-            final String paramString = cre.getName();
-            final String key = paramClass.toString();
-            final int paramInt = cre.getID();
-            try {
-                ((Map<String, Class<? extends Entity>>) getPrivateStatic(EntityTypes.class, "c")).put(paramString, paramClass);
-                ((Map<Class<? extends Entity>, String>) getPrivateStatic(EntityTypes.class, "d")).put(paramClass, paramString);
-                ((Map<Class<? extends Entity>, Integer>) getPrivateStatic(EntityTypes.class, "f")).put(paramClass, Integer.valueOf(paramInt));
-                ((Map<String, Integer>) getPrivateStatic(EntityTypes.class, "g")).put(paramString, Integer.valueOf(paramInt));
-                registryEntries.put(key, cre);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        final String paramString = cre.getName();
+        try {
+            MinecraftKey key = new MinecraftKey(paramString);
+            ((Set<MinecraftKey>) getPrivateStatic(EntityTypes.class, "d")).add(key);
+            ((RegistryMaterials<MinecraftKey, Class<?>>) getPrivateStatic(EntityTypes.class, "b")).a(cre.getID(), key, cre.getCustomClass());
+            registryEntries.put(paramString, cre);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -74,17 +72,23 @@ public class v1_11_R1_EntityRegistrar implements CustomEntityRegistrar {
      */
     @SuppressWarnings("unchecked")
     public void unregister(final v1_11_R1_Entities cre) {
-        if (!registryEntries.containsValue(cre)) return;
-        final Class<? extends EntityInsentient> paramClass = (Class<? extends EntityInsentient>) cre.getCustomClass();
+        if (!registryEntries.containsKey(cre)) return;
         final String paramString = cre.getName();
         try {
-            ((Map<String, Class<? extends Entity>>) getPrivateStatic(EntityTypes.class, "c")).remove(paramString);
-            ((Map<Class<? extends Entity>, String>) getPrivateStatic(EntityTypes.class, "d")).remove(paramClass);
-            ((Map<Class<? extends Entity>, Integer>) getPrivateStatic(EntityTypes.class, "f")).remove(paramClass);
-            ((Map<String, Integer>) getPrivateStatic(EntityTypes.class, "g")).remove(paramString);
+            ((Set<MinecraftKey>) getPrivateStatic(EntityTypes.class, "d")).remove(new MinecraftKey(paramString));
             registryEntries.remove(cre);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        for (World w : Bukkit.getWorlds()) {
+            for (org.bukkit.entity.Entity e : w.getEntities()) {
+                Entity nmsEntity = ((CraftEntity)e).getHandle();
+                if (nmsEntity instanceof EntityInsentient) if (registryEntries.containsKey(EntityTypes.b(nmsEntity))) {
+                    saveEntity((EntityInsentient) nmsEntity);
+                    e.remove();
+                }
+            }
         }
     }
 
