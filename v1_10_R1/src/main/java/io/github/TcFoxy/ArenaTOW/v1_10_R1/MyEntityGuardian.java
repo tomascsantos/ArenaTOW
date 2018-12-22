@@ -20,6 +20,11 @@ public abstract class MyEntityGuardian extends EntityGuardian implements TOWEnti
     }
 
     @Override
+    public org.bukkit.entity.Entity getMob() {
+        return this.getBukkitEntity();
+    }
+
+    @Override
     public TOWEntityHandler getHandler() {
         return handler;
     }
@@ -148,7 +153,7 @@ public abstract class MyEntityGuardian extends EntityGuardian implements TOWEnti
             final EntityLiving goalTarget = this.a.getGoalTarget();
             this.a.getNavigation().o();
             this.a.getControllerLook().a(goalTarget, 90.0f, 90.0f);
-            if (!this.a.hasLineOfSight(goalTarget)) {
+            if (!this.a.hasLineOfSight(goalTarget) || this.a.isSameTeam(goalTarget)) {
                 this.a.setGoalTarget(null);
                 return;
             }

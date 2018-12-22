@@ -6,6 +6,8 @@ import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
 import net.minecraft.server.v1_10_R1.*;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
 
 import java.util.UUID;
 
@@ -35,6 +37,11 @@ public class MyFireball extends EntitySmallFireball implements TOWEntity {
     @Override
     public TOWEntityHandler getHandler() {
         return golem.getHandler();
+    }
+
+    @Override
+    public Entity getMob() {
+        return this.getBukkitEntity();
     }
 
     @Override

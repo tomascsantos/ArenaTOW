@@ -7,6 +7,7 @@ import mc.alk.arena.objects.ArenaPlayer;
 import mc.alk.arena.objects.arenas.Arena;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 
 import java.util.UUID;
 
@@ -28,6 +29,11 @@ public class TowPlayer implements TOWEntity{
     @Override
     public TOWEntityHandler getHandler() {
         return handler;
+    }
+
+    @Override
+    public Entity getMob() {
+        return this.player.getPlayer();
     }
 
     @Override

@@ -5,6 +5,7 @@ import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntityHandler;
 import net.minecraft.server.v1_10_R1.*;
 import org.bukkit.Location;
+import org.bukkit.entity.*;
 
 import java.util.UUID;
 
@@ -22,6 +23,11 @@ public abstract class MyEntityGolem extends EntityIronGolem implements TOWEntity
     @Override
     public TOWEntityHandler getHandler() {
         return this.handler;
+    }
+
+    @Override
+    public org.bukkit.entity.Entity getMob() {
+        return this.getBukkitEntity();
     }
 
     @Override

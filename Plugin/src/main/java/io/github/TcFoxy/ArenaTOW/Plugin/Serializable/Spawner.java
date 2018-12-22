@@ -4,7 +4,9 @@ import io.github.TcFoxy.ArenaTOW.API.MobType;
 import io.github.TcFoxy.ArenaTOW.API.TOWEntity;
 import io.github.TcFoxy.ArenaTOW.Plugin.ArenaTOW;
 import io.github.TcFoxy.ArenaTOW.Plugin.TugArena;
+import io.github.TcFoxy.ArenaTOW.Plugin.Utils;
 import org.bukkit.*;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -25,9 +27,13 @@ public class Spawner extends PersistInfo {
     @Override
     public TOWEntity spawnMob(TugArena arena) {
         Location spawn = getSpawnLoc();
-        setMob(arena.getEntityHandler().spawnMob(arena.getEntityHandler(), MobType.ZOMBIE, getTeamColor(),
-                spawn.getWorld(), spawn.getX(), spawn.getY(), spawn.getZ()));
-        return getMob();
+
+        TOWEntity mob = arena.getEntityHandler().spawnMob(arena.getEntityHandler(), MobType.ZOMBIE, getTeamColor(),
+                spawn.getWorld(), spawn.getX(), spawn.getY(), spawn.getZ());
+        setMob(mob);
+        LivingEntity en = (LivingEntity) mob.getMob();
+        en.getEquipment().setHelmet(Utils.makeMobHelm(getTeamColor()));
+        return mob;
     }
 
     public void addPp(Location loc, Player p) {

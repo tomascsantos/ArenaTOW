@@ -22,10 +22,7 @@ public class MyPathfinderGoalHurtByTarget extends PathfinderGoalHurtByTarget {
         if (!goalTarget.isAlive()) {
             return false;
         }
-        if(goalTarget instanceof TOWEntity && this.attacker.isSameTeam(goalTarget)) {
-            return  false;
-        }
-        return true;
+        return !attacker.isSameTeam(goalTarget);
     }
 
 }

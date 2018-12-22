@@ -27,6 +27,11 @@ public abstract class MyEntityZombie extends EntityZombie implements TOWEntity, 
     }
 
     @Override
+    public org.bukkit.entity.Entity getMob() {
+        return this.getBukkitEntity();
+    }
+
+    @Override
     public Location getLocation() {
         return new Location(this.world.getWorld(), this.locX, this.locY, this.locZ);
     }

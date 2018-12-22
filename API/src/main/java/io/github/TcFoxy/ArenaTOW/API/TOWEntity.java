@@ -3,6 +3,7 @@ package io.github.TcFoxy.ArenaTOW.API;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -10,6 +11,8 @@ import java.util.UUID;
 public interface TOWEntity {
 
     TOWEntityHandler getHandler();
+
+    Entity getMob();
 
     /**
      * @return returns the health of the mob
