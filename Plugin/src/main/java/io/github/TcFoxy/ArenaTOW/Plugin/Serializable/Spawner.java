@@ -11,6 +11,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 
@@ -48,11 +49,12 @@ public class Spawner extends PersistInfo {
             p.sendMessage(ChatColor.DARK_RED + "PathPoint is too far from previous point. Get closer and try again");
             return;
         }
-        paths.add(loc);
+        paths.addLast(loc);
         this.saveSpawnerInfo();
         p.sendMessage("Pathpoint #" + paths.size() + " created for " +
                 PersistInfo.getTeamColorStringReadable(this.getKey()) + " Spawner #" +
                 PersistInfo.getObjectId(this));
+
     }
 
     private boolean ppIsTooFar(Location loc) {
@@ -100,8 +102,9 @@ public class Spawner extends PersistInfo {
         String buf = "nopaths";
         if (paths != null) {
             buf = "";
-            while(paths.peek() != null) {
-                buf += locationToString(paths.removeFirst());
+            Iterator iter = paths.iterator();
+            while (iter.hasNext()) {
+                buf += locationToString((Location) iter.next());
                 buf += ";";
             }
         }

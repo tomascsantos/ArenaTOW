@@ -53,7 +53,7 @@ public class TugArena extends Arena {
      * most of these values are not actually used
      * in this class, should I move them?
      */
-    public HashMap<String, PersistInfo> activeInfo = new HashMap<String, PersistInfo>();
+    public HashMap<String, PersistInfo> activeInfo = new HashMap<>();
     HashMap<ArenaPlayer, Color> playerTeamLookup = new HashMap<>();
 
     ArenaTeam getTeam(Color col) throws IllegalArgumentException{
@@ -405,7 +405,7 @@ public class TugArena extends Arena {
      * Everything after this point is for arena Creation ONLY!
      *
      * Battle arena seems to link the creation of arenas really tightly
-     * with this class, Im not sure how to sepperete them to make this
+     * with this class, Im not sure how to separate them to make this
      * a cleaner class...
      *
      *
@@ -413,6 +413,10 @@ public class TugArena extends Arena {
      *
      *
      */
+
+    private boolean saveBase1(String key, Location loc, String info, Player sender, Color color) {
+        return true;
+    }
 
     private boolean saveBase(String key, Location loc, String info, Player sender, Color color, TugArena arena) {
         if (activeInfo.containsKey(key)) {
@@ -459,12 +463,12 @@ public class TugArena extends Arena {
             sender.sendMessage("There is no spawner with corrosponding data! Make a spawner whos key matches: " + PersistInfo.getSimpleKey(key));
             return true;
         }
-        Spawner spawnr = (Spawner) activeInfo.get(key);
-        if (spawnr.containsPps(loc)) {
+        Spawner spawner = (Spawner) activeInfo.get(key);
+        if (spawner.containsPps(loc)) {
             sender.sendMessage("There was already a pp from this spawner in this location. No duplicate was created");
             return true;
         }
-        spawnr.addPp(loc, sender);
+        spawner.addPp(loc, sender);
         savedInfo = PersistInfo.saveObject(activeInfo);
         BattleArena.saveArenas();
         return true;
