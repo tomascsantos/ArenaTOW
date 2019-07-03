@@ -1,6 +1,4 @@
 # Arena Tug of War
-
-## Summary:
 This is the League of Crafters official plugin. This plugin uses BattleArena to setup a MOBA style arena that spawns towers, minions and nexus. The two teams battle to destroy the opposite nexus. Setup tutorial [here](https://www.youtube.com/watch?v=dDaS4_0cbno&t=49s).
 
 
