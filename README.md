@@ -1,15 +1,10 @@
-TcFoxy.github.io
-================
+# Arena Tug of War
 
-##Summary:
-This is the League of Crafters official plugin. This plugin uses BattleArena to setup a MOBA style arena that spawns towers, minions and nexus. The two teams battle to destroy the opposite nexus. Should be Fun!
-
-Credit to: BattleArena at https://github.com/BattlePlugins/BattleArena
-
-Find a youtube setup tutorial here: https://www.youtube.com/watch?v=dDaS4_0cbno&t=49s
+## Summary:
+This is the League of Crafters official plugin. This plugin uses BattleArena to setup a MOBA style arena that spawns towers, minions and nexus. The two teams battle to destroy the opposite nexus. Setup tutorial [here](https://www.youtube.com/watch?v=dDaS4_0cbno&t=49s).
 
 
-Features Include
+### Features Include
 - Nexus (Elder Guardian):
 Each Arena must have two Nexi, (Red and Blue for the respective teams). When either nexus is destroyed the game is finished. The nexus has a powerful, long-range attack that targets enemy minions and enemy players.
 
@@ -26,3 +21,4 @@ Entities on the same team don't hurt each other, including players.
 All Nexus, Tower, Minion Spawning and Player spawning locations are up to you! Minions take a path that is marked by you!
 
 
+##### Credit to: BattleArena at https://github.com/BattlePlugins/BattleArena
