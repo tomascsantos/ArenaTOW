@@ -6,6 +6,7 @@ Minecraft was my first exposure to programming. This (now 5000+ lines of code) p
 ArenaTOW is a plugin that runs on Spigot minecraft servers. It is compatible with minecraft versions 1.10, 1.11, 1.12
 Spigot Server Installation tutorial [here.](https://www.spigotmc.org/wiki/spigot-installation/) 
 Setup tutorial [here](https://www.youtube.com/watch?v=dDaS4_0cbno&t=49s).
+Written wiki setup [here](https://github.com/TcsFox/ArenaTOW/wiki/Example-Arena-Creation).
 
 ### Features Include
 - Nexus (Elder Guardian):
