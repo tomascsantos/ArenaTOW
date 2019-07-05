@@ -1,6 +1,11 @@
 # Arena Tug of War
-This is the League of Crafters official plugin. This plugin uses BattleArena to setup a MOBA style arena that spawns towers, minions and nexus. The two teams battle to destroy the opposite nexus. Setup tutorial [here](https://www.youtube.com/watch?v=dDaS4_0cbno&t=49s).
+Minecraft was my first exposure to programming. This (now 5000+ lines of code) plugin is the culmination of several summers worth of learning and experimentation. It uses BattleArena to setup a MOBA style arena, and then spawns towers, minions and nexus. The two teams battle to destroy the opposite nexus similarly to the popular League of Legends video game.
+##### Credit to: [BattleArena](https://github.com/BattlePlugins/BattleArena)
 
+### Installation
+ArenaTOW is a plugin that runs on Spigot minecraft servers. It is compatible with minecraft versions 1.10, 1.11, 1.12
+Spigot Server Installation tutorial [here](https://www.spigotmc.org/wiki/spigot-installation/)
+Setup tutorial [here](https://www.youtube.com/watch?v=dDaS4_0cbno&t=49s).
 
 ### Features Include
 - Nexus (Elder Guardian):
@@ -18,5 +23,22 @@ Entities on the same team don't hurt each other, including players.
 - Extremely Configurable:
 All Nexus, Tower, Minion Spawning and Player spawning locations are up to you! Minions take a path that is marked by you!
 
+### Personal take away:
+  Sophisticated maven project outline in order to enable backwards compatibility across different Net Minecraft Server (NMS) versions. (NMS is the "hidden" api that is obfuscated and thus painful to develop with becuase each new version has new obfuscations.) 
+  In order to support multiple minecraft versions and expidite development time, the plugin adapts the proper implementation of the interface to use on startup. 
+  It also serializes and deserializes complex objects between server restarts. The plugin is limitlessly configurable becuase all of the tower and minion spawner locations are completely up to the user. 
+  Since it was developed over several years it had to be redesigned for different versions of Spigot and was reliant on BattleArena which went dormant for about a year further complicating matters. 
 
-##### Credit to: BattleArena at https://github.com/BattlePlugins/BattleArena
+##### Project Scope
+I used [cloc](https://github.com/AlDanial/cloc#quick-start-) to see how large the project is
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Java                            77           1200           1039           4012
+XML                             28              1              0           1373
+Maven                            6             17             11            266
+YAML                             2              4             71             52
+Markdown                         1              2              0              5
+-------------------------------------------------------------------------------
+SUM:                           114           1224           1121           5708
+-------------------------------------------------------------------------------
